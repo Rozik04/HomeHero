@@ -1,11 +1,22 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { multerCon } from 'src/utils/multer';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
+@Post('upload-image')
+@UseInterceptors(FileInterceptor("image", multerCon))
+uploadIm(@UploadedFile()image:Express.Multer.File){
+  if(!image){
+    return "Not image uploaded";
+  }
+  return {image:image.filename}
+}
 
 @Post("send-otp")
   sendOtp(@Body() data:{email:string}){
@@ -35,16 +46,16 @@ export class UserController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+    return this.userService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+    return this.userService.update(id, updateUserDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+    return this.userService.remove(id);
   }
 }
