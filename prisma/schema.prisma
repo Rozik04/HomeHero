@@ -46,16 +46,16 @@ model User {
   nameRu    String
   nameUz    String
   nameEn    String
-  email     String
+  email     String @unique
   password  String
   phone     String
   image     String
   role      UserRole
   status    UserStatus
-  regionID  String
+  regionID  String?
   location  String
 
-  region    Region @relation(fields: [regionID], references: [id])
+  region    Region? @relation(fields: [regionID], references: [id])
   baskets   Basket[]
   orders    Order[]
 }

@@ -22,7 +22,7 @@ CREATE TABLE "User" (
     "image" TEXT NOT NULL,
     "role" "UserRole" NOT NULL,
     "status" "UserStatus" NOT NULL,
-    "regionID" TEXT NOT NULL,
+    "regionID" TEXT,
     "location" TEXT NOT NULL,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
@@ -252,7 +252,7 @@ CREATE TABLE "Partner" (
 );
 
 -- AddForeignKey
-ALTER TABLE "User" ADD CONSTRAINT "User_regionID_fkey" FOREIGN KEY ("regionID") REFERENCES "Region"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "User" ADD CONSTRAINT "User_regionID_fkey" FOREIGN KEY ("regionID") REFERENCES "Region"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Basket" ADD CONSTRAINT "Basket_productID_fkey" FOREIGN KEY ("productID") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
