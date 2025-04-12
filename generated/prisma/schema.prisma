@@ -1,0 +1,273 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  admin
+  superadmin
+  vieweradmin
+  legaluser
+  individualuser
+}
+
+enum UserStatus {
+  active
+  passive
+}
+
+enum PaymentType {
+  cash
+  card
+}
+
+enum OrderStatus {
+  pending
+  accepted
+  rejected
+  canceled
+  delivered
+}
+
+model User {
+  id       String     @id @default(uuid())
+  nameRu   String
+  nameUz   String
+  nameEn   String
+  email    String
+  password String
+  phone    String
+  image    String
+  role     UserRole
+  status   UserStatus
+  regionID String
+  location String
+
+  region  Region   @relation(fields: [regionID], references: [id])
+  baskets Basket[]
+  orders  Order[]
+}
+
+model Region {
+  id     String @id @default(uuid())
+  nameRu String
+  nameUz String
+  nameEn String
+
+  users User[]
+}
+
+model Basket {
+  id        String @id @default(uuid())
+  productID String
+  userID    String
+  quantity  Int
+
+  product Product @relation(fields: [productID], references: [id])
+  user    User    @relation(fields: [userID], references: [id])
+}
+
+model Product {
+  id           String @id @default(uuid())
+  nameRu       String
+  nameUz       String
+  nameEn       String
+  image        String
+  workingHours Int
+  levelID      String
+  priceHourly  Int
+  priceDaily   Int
+  tools        String
+
+  baskets Basket[]
+  orders  Order[]
+}
+
+model Order {
+  id                String      @id @default(uuid())
+  userID            String
+  productID         String
+  toolID            String
+  levelID           String
+  quantity          Int
+  toolCount         Int
+  measure           String
+  totalPrice        Int
+  locationLat       String
+  locationLong      String
+  address           String
+  orderDate         DateTime    @default(now())
+  deliveryDate      DateTime
+  paymentType       PaymentType
+  withDelivery      Boolean
+  status            OrderStatus
+  commentToDelivery String
+
+  user     User      @relation(fields: [userID], references: [id])
+  product  Product   @relation(fields: [productID], references: [id])
+  tool     Tool      @relation(fields: [toolID], references: [id])
+  level    Level     @relation(fields: [levelID], references: [id])
+  comments Comment[]
+}
+
+model Tool {
+  id            String  @id @default(uuid())
+  nameRu        String
+  nameUz        String
+  nameEn        String
+  descriptionRu String
+  descriptionUz String
+  descriptionEn String
+  price         Int
+  quantity      Int
+  code          String
+  brandID       String
+  capacityID    String
+  sizeID        String
+  image         String
+  isActive      Boolean
+  levelID       String
+
+  brand      Brand        @relation(fields: [brandID], references: [id])
+  capacity   Capacity     @relation(fields: [capacityID], references: [id])
+  size       Size         @relation(fields: [sizeID], references: [id])
+  level      Level        @relation(fields: [levelID], references: [id])
+  orders     Order[]
+  masterJobs MasterJobs[]
+}
+
+model Brand {
+  id     String @id @default(uuid())
+  nameRu String
+  nameUz String
+  nameEn String
+
+  tools Tool[]
+}
+
+model Capacity {
+  id     String @id @default(uuid())
+  nameRu String
+  nameUz String
+  nameEn String
+
+  tools Tool[]
+}
+
+model Size {
+  id     String @id @default(uuid())
+  nameRu String
+  nameUz String
+  nameEn String
+
+  tools Tool[]
+}
+
+model Level {
+  id     String @id @default(uuid())
+  nameRu String
+  nameUz String
+  nameEn String
+
+  tools      Tool[]
+  orders     Order[]
+  masterJobs MasterJobs[]
+}
+
+model Comment {
+  id       String @id @default(uuid())
+  message  String
+  star     Int
+  masterID String
+  orderID  String
+
+  master Master @relation(fields: [masterID], references: [id])
+  order  Order  @relation(fields: [orderID], references: [id])
+}
+
+model Master {
+  id            String  @id @default(uuid())
+  nameRu        String
+  nameUz        String
+  nameEn        String
+  isActive      Boolean
+  phone         String
+  year          String
+  image         String
+  passportImage String
+  star          Int
+  masterJobsID  String
+
+  masterJobs MasterJobs @relation(fields: [masterJobsID], references: [id])
+  comments   Comment[]
+}
+
+model MasterJobs {
+  id             String @id @default(uuid())
+  toolID         String
+  minWorkingHour Int
+  levelID        String
+  priceHourly    Int
+  priceDaily     Int
+  experience     String
+
+  tool    Tool     @relation(fields: [toolID], references: [id])
+  level   Level    @relation(fields: [levelID], references: [id])
+  masters Master[]
+}
+
+model GeneralInfo {
+  id       String @id @default(uuid())
+  email    String
+  link     String
+  location String
+  phone    String
+}
+
+model ShowCase {
+  id            String @id @default(uuid())
+  nameRu        String
+  nameUz        String
+  nameEn        String
+  descriptionRu String
+  descriptionUz String
+  descriptionEn String
+  image         String
+  link          String
+}
+
+model FAQ {
+  id       String @id @default(uuid())
+  question String
+  answer   String
+}
+
+model Contact {
+  id      String @id @default(uuid())
+  nameRu  String
+  nameUz  String
+  nameEn  String
+  phone   String
+  address String
+  message String
+  email   String
+}
+
+model Partner {
+  id     String @id @default(uuid())
+  nameRu String
+  nameUz String
+  nameEn String
+  image  String
+}
