@@ -1,48 +1,48 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
-import { RegionService } from './region.service';
-import { CreateRegionDto } from './dto/create-region.dto';
-import { UpdateRegionDto } from './dto/update-region.dto';
+import { LevelService } from './level.service';
+import { CreateLevelDto } from './dto/create-level.dto';
+import { UpdateLevelDto } from './dto/update-level.dto';
 import { JwtAuthGuard } from 'src/utils/token.guard';
 import { JwtRoleGuard } from 'src/utils/role.guard';
-import { UserRole } from 'src/utils/enums';
 import { Roles } from 'src/utils/role.decorator';
+import { UserRole } from 'src/utils/enums';
 
-@Controller('region')
-export class RegionController {
-  constructor(private readonly regionService: RegionService) {}
+@Controller('level')
+export class LevelController {
+  constructor(private readonly levelService: LevelService) {}
 
   // @UseGuards(JwtAuthGuard, JwtRoleGuard)
   // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
   @Post()
-  create(@Body() createRegionDto: CreateRegionDto) {
-    return this.regionService.create(createRegionDto);
+  create(@Body() createLevelDto: CreateLevelDto) {
+    return this.levelService.create(createLevelDto);
   }
 
   // @UseGuards(JwtAuthGuard, JwtRoleGuard)
   // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
   @Get()
   findAll() {
-    return this.regionService.findAll();
+    return this.levelService.findAll();
   }
 
   // @UseGuards(JwtAuthGuard, JwtRoleGuard)
   // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.regionService.findOne(id);
+    return this.levelService.findOne(id);
   }
 
   // @UseGuards(JwtAuthGuard, JwtRoleGuard)
   // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRegionDto: UpdateRegionDto) {
-    return this.regionService.update(id, updateRegionDto);
+  update(@Param('id') id: string, @Body() updateLevelDto: UpdateLevelDto) {
+    return this.levelService.update(id, updateLevelDto);
   }
 
   // @UseGuards(JwtAuthGuard, JwtRoleGuard)
   // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.regionService.remove(id);
+    return this.levelService.remove(id);
   }
 }

@@ -9029,7 +9029,7 @@ export namespace Prisma {
     descriptionEn: string
     price: number
     quantity: number
-    code: string
+    code: string | null
     brandID: string
     capacityID: string
     sizeID: string
@@ -9191,7 +9191,7 @@ export namespace Prisma {
       descriptionEn: string
       price: number
       quantity: number
-      code: string
+      code: string | null
       brandID: string
       capacityID: string
       sizeID: string
@@ -23744,7 +23744,7 @@ export namespace Prisma {
     descriptionEn?: StringFilter<"Tool"> | string
     price?: IntFilter<"Tool"> | number
     quantity?: IntFilter<"Tool"> | number
-    code?: StringFilter<"Tool"> | string
+    code?: StringNullableFilter<"Tool"> | string | null
     brandID?: StringFilter<"Tool"> | string
     capacityID?: StringFilter<"Tool"> | string
     sizeID?: StringFilter<"Tool"> | string
@@ -23769,7 +23769,7 @@ export namespace Prisma {
     descriptionEn?: SortOrder
     price?: SortOrder
     quantity?: SortOrder
-    code?: SortOrder
+    code?: SortOrderInput | SortOrder
     brandID?: SortOrder
     capacityID?: SortOrder
     sizeID?: SortOrder
@@ -23786,6 +23786,7 @@ export namespace Prisma {
 
   export type ToolWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    code?: string
     AND?: ToolWhereInput | ToolWhereInput[]
     OR?: ToolWhereInput[]
     NOT?: ToolWhereInput | ToolWhereInput[]
@@ -23797,7 +23798,6 @@ export namespace Prisma {
     descriptionEn?: StringFilter<"Tool"> | string
     price?: IntFilter<"Tool"> | number
     quantity?: IntFilter<"Tool"> | number
-    code?: StringFilter<"Tool"> | string
     brandID?: StringFilter<"Tool"> | string
     capacityID?: StringFilter<"Tool"> | string
     sizeID?: StringFilter<"Tool"> | string
@@ -23810,7 +23810,7 @@ export namespace Prisma {
     level?: XOR<LevelScalarRelationFilter, LevelWhereInput>
     orders?: OrderListRelationFilter
     masterJobs?: MasterJobsListRelationFilter
-  }, "id">
+  }, "id" | "code">
 
   export type ToolOrderByWithAggregationInput = {
     id?: SortOrder
@@ -23822,7 +23822,7 @@ export namespace Prisma {
     descriptionEn?: SortOrder
     price?: SortOrder
     quantity?: SortOrder
-    code?: SortOrder
+    code?: SortOrderInput | SortOrder
     brandID?: SortOrder
     capacityID?: SortOrder
     sizeID?: SortOrder
@@ -23849,7 +23849,7 @@ export namespace Prisma {
     descriptionEn?: StringWithAggregatesFilter<"Tool"> | string
     price?: IntWithAggregatesFilter<"Tool"> | number
     quantity?: IntWithAggregatesFilter<"Tool"> | number
-    code?: StringWithAggregatesFilter<"Tool"> | string
+    code?: StringNullableWithAggregatesFilter<"Tool"> | string | null
     brandID?: StringWithAggregatesFilter<"Tool"> | string
     capacityID?: StringWithAggregatesFilter<"Tool"> | string
     sizeID?: StringWithAggregatesFilter<"Tool"> | string
@@ -25054,7 +25054,7 @@ export namespace Prisma {
     descriptionEn: string
     price: number
     quantity: number
-    code: string
+    code?: string | null
     image: string
     isActive: boolean
     brand: BrandCreateNestedOneWithoutToolsInput
@@ -25075,7 +25075,7 @@ export namespace Prisma {
     descriptionEn: string
     price: number
     quantity: number
-    code: string
+    code?: string | null
     brandID: string
     capacityID: string
     sizeID: string
@@ -25096,7 +25096,7 @@ export namespace Prisma {
     descriptionEn?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     brand?: BrandUpdateOneRequiredWithoutToolsNestedInput
@@ -25117,7 +25117,7 @@ export namespace Prisma {
     descriptionEn?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     brandID?: StringFieldUpdateOperationsInput | string
     capacityID?: StringFieldUpdateOperationsInput | string
     sizeID?: StringFieldUpdateOperationsInput | string
@@ -25138,7 +25138,7 @@ export namespace Prisma {
     descriptionEn: string
     price: number
     quantity: number
-    code: string
+    code?: string | null
     brandID: string
     capacityID: string
     sizeID: string
@@ -25157,7 +25157,7 @@ export namespace Prisma {
     descriptionEn?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
   }
@@ -25172,7 +25172,7 @@ export namespace Prisma {
     descriptionEn?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     brandID?: StringFieldUpdateOperationsInput | string
     capacityID?: StringFieldUpdateOperationsInput | string
     sizeID?: StringFieldUpdateOperationsInput | string
@@ -28680,7 +28680,7 @@ export namespace Prisma {
     descriptionEn: string
     price: number
     quantity: number
-    code: string
+    code?: string | null
     image: string
     isActive: boolean
     brand: BrandCreateNestedOneWithoutToolsInput
@@ -28700,7 +28700,7 @@ export namespace Prisma {
     descriptionEn: string
     price: number
     quantity: number
-    code: string
+    code?: string | null
     brandID: string
     capacityID: string
     sizeID: string
@@ -28869,7 +28869,7 @@ export namespace Prisma {
     descriptionEn?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     brand?: BrandUpdateOneRequiredWithoutToolsNestedInput
@@ -28889,7 +28889,7 @@ export namespace Prisma {
     descriptionEn?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     brandID?: StringFieldUpdateOperationsInput | string
     capacityID?: StringFieldUpdateOperationsInput | string
     sizeID?: StringFieldUpdateOperationsInput | string
@@ -29276,7 +29276,7 @@ export namespace Prisma {
     descriptionEn: string
     price: number
     quantity: number
-    code: string
+    code?: string | null
     image: string
     isActive: boolean
     capacity: CapacityCreateNestedOneWithoutToolsInput
@@ -29296,7 +29296,7 @@ export namespace Prisma {
     descriptionEn: string
     price: number
     quantity: number
-    code: string
+    code?: string | null
     capacityID: string
     sizeID: string
     image: string
@@ -29345,7 +29345,7 @@ export namespace Prisma {
     descriptionEn?: StringFilter<"Tool"> | string
     price?: IntFilter<"Tool"> | number
     quantity?: IntFilter<"Tool"> | number
-    code?: StringFilter<"Tool"> | string
+    code?: StringNullableFilter<"Tool"> | string | null
     brandID?: StringFilter<"Tool"> | string
     capacityID?: StringFilter<"Tool"> | string
     sizeID?: StringFilter<"Tool"> | string
@@ -29364,7 +29364,7 @@ export namespace Prisma {
     descriptionEn: string
     price: number
     quantity: number
-    code: string
+    code?: string | null
     image: string
     isActive: boolean
     brand: BrandCreateNestedOneWithoutToolsInput
@@ -29384,7 +29384,7 @@ export namespace Prisma {
     descriptionEn: string
     price: number
     quantity: number
-    code: string
+    code?: string | null
     brandID: string
     sizeID: string
     image: string
@@ -29430,7 +29430,7 @@ export namespace Prisma {
     descriptionEn: string
     price: number
     quantity: number
-    code: string
+    code?: string | null
     image: string
     isActive: boolean
     brand: BrandCreateNestedOneWithoutToolsInput
@@ -29450,7 +29450,7 @@ export namespace Prisma {
     descriptionEn: string
     price: number
     quantity: number
-    code: string
+    code?: string | null
     brandID: string
     capacityID: string
     image: string
@@ -29496,7 +29496,7 @@ export namespace Prisma {
     descriptionEn: string
     price: number
     quantity: number
-    code: string
+    code?: string | null
     image: string
     isActive: boolean
     brand: BrandCreateNestedOneWithoutToolsInput
@@ -29516,7 +29516,7 @@ export namespace Prisma {
     descriptionEn: string
     price: number
     quantity: number
-    code: string
+    code?: string | null
     brandID: string
     capacityID: string
     sizeID: string
@@ -29944,7 +29944,7 @@ export namespace Prisma {
     descriptionEn: string
     price: number
     quantity: number
-    code: string
+    code?: string | null
     image: string
     isActive: boolean
     brand: BrandCreateNestedOneWithoutToolsInput
@@ -29964,7 +29964,7 @@ export namespace Prisma {
     descriptionEn: string
     price: number
     quantity: number
-    code: string
+    code?: string | null
     brandID: string
     capacityID: string
     sizeID: string
@@ -30061,7 +30061,7 @@ export namespace Prisma {
     descriptionEn?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     brand?: BrandUpdateOneRequiredWithoutToolsNestedInput
@@ -30081,7 +30081,7 @@ export namespace Prisma {
     descriptionEn?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     brandID?: StringFieldUpdateOperationsInput | string
     capacityID?: StringFieldUpdateOperationsInput | string
     sizeID?: StringFieldUpdateOperationsInput | string
@@ -30591,7 +30591,7 @@ export namespace Prisma {
     descriptionEn: string
     price: number
     quantity: number
-    code: string
+    code?: string | null
     capacityID: string
     sizeID: string
     image: string
@@ -30609,7 +30609,7 @@ export namespace Prisma {
     descriptionEn?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     capacity?: CapacityUpdateOneRequiredWithoutToolsNestedInput
@@ -30629,7 +30629,7 @@ export namespace Prisma {
     descriptionEn?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     capacityID?: StringFieldUpdateOperationsInput | string
     sizeID?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
@@ -30649,7 +30649,7 @@ export namespace Prisma {
     descriptionEn?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     capacityID?: StringFieldUpdateOperationsInput | string
     sizeID?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
@@ -30667,7 +30667,7 @@ export namespace Prisma {
     descriptionEn: string
     price: number
     quantity: number
-    code: string
+    code?: string | null
     brandID: string
     sizeID: string
     image: string
@@ -30685,7 +30685,7 @@ export namespace Prisma {
     descriptionEn?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     brand?: BrandUpdateOneRequiredWithoutToolsNestedInput
@@ -30705,7 +30705,7 @@ export namespace Prisma {
     descriptionEn?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     brandID?: StringFieldUpdateOperationsInput | string
     sizeID?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
@@ -30725,7 +30725,7 @@ export namespace Prisma {
     descriptionEn?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     brandID?: StringFieldUpdateOperationsInput | string
     sizeID?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
@@ -30743,7 +30743,7 @@ export namespace Prisma {
     descriptionEn: string
     price: number
     quantity: number
-    code: string
+    code?: string | null
     brandID: string
     capacityID: string
     image: string
@@ -30761,7 +30761,7 @@ export namespace Prisma {
     descriptionEn?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     brand?: BrandUpdateOneRequiredWithoutToolsNestedInput
@@ -30781,7 +30781,7 @@ export namespace Prisma {
     descriptionEn?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     brandID?: StringFieldUpdateOperationsInput | string
     capacityID?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
@@ -30801,7 +30801,7 @@ export namespace Prisma {
     descriptionEn?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     brandID?: StringFieldUpdateOperationsInput | string
     capacityID?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
@@ -30819,7 +30819,7 @@ export namespace Prisma {
     descriptionEn: string
     price: number
     quantity: number
-    code: string
+    code?: string | null
     brandID: string
     capacityID: string
     sizeID: string
@@ -30866,7 +30866,7 @@ export namespace Prisma {
     descriptionEn?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     brand?: BrandUpdateOneRequiredWithoutToolsNestedInput
@@ -30886,7 +30886,7 @@ export namespace Prisma {
     descriptionEn?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     brandID?: StringFieldUpdateOperationsInput | string
     capacityID?: StringFieldUpdateOperationsInput | string
     sizeID?: StringFieldUpdateOperationsInput | string
@@ -30906,7 +30906,7 @@ export namespace Prisma {
     descriptionEn?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
-    code?: StringFieldUpdateOperationsInput | string
+    code?: NullableStringFieldUpdateOperationsInput | string | null
     brandID?: StringFieldUpdateOperationsInput | string
     capacityID?: StringFieldUpdateOperationsInput | string
     sizeID?: StringFieldUpdateOperationsInput | string

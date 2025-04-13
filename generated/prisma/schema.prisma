@@ -134,7 +134,7 @@ model Tool {
   descriptionEn String
   price         Int
   quantity      Int
-  code          String
+  code          String?
   brandID       String
   capacityID    String
   sizeID        String

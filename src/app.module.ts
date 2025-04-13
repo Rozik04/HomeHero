@@ -4,9 +4,14 @@ import { AppService } from './app.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { RegionModule } from './region/region.module';
 import { UserModule } from './user/user.module';
+import { BrandModule } from './brand/brand.module';
+import { SizeModule } from './size/size.module';
+import { CapacityModule } from './capacity/capacity.module';
+import { ToolModule } from './tool/tool.module';
+import { LevelModule } from './level/level.module';
 
 @Module({
-  imports: [PrismaModule, RegionModule, UserModule],
+  imports: [PrismaModule, RegionModule, UserModule, BrandModule, SizeModule, CapacityModule, ToolModule, LevelModule],
   controllers: [AppController],
   providers: [AppService],
 })

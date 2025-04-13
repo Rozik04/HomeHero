@@ -9,3 +9,13 @@ export let multerCon = ({
         }
     })
 })
+
+
+export let multerUp = ({
+    storage: diskStorage({
+        destination:'./uploadTools',
+        filename:(req,file,cb)=>{
+            cb(null, `${Date.now()}${extname(file.originalname)}`)
+        }
+    })
+})

@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
-import { RegionService } from './region.service';
-import { RegionController } from './region.controller';
+import { SizeService } from './size.service';
+import { SizeController } from './size.controller';
+import { JwtModule } from '@nestjs/jwt';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import * as dotenv from 'dotenv';
-import { JwtModule } from '@nestjs/jwt';
 dotenv.config()
 
 @Module({
   imports:[JwtModule.register({secret:process.env.JWTSECRET, global:true, signOptions:{expiresIn:"1h"}}), PrismaModule],
-  controllers: [RegionController],
-  providers: [RegionService],
+  controllers: [SizeController],
+  providers: [SizeService],
 })
-export class RegionModule {}
+export class SizeModule {}
