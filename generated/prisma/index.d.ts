@@ -2883,6 +2883,8 @@ export namespace Prisma {
     status: $Enums.UserStatus | null
     regionID: string | null
     location: string | null
+    passportSeries: string | null
+    inn: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -2898,6 +2900,8 @@ export namespace Prisma {
     status: $Enums.UserStatus | null
     regionID: string | null
     location: string | null
+    passportSeries: string | null
+    inn: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -2913,6 +2917,8 @@ export namespace Prisma {
     status: number
     regionID: number
     location: number
+    passportSeries: number
+    inn: number
     _all: number
   }
 
@@ -2930,6 +2936,8 @@ export namespace Prisma {
     status?: true
     regionID?: true
     location?: true
+    passportSeries?: true
+    inn?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -2945,6 +2953,8 @@ export namespace Prisma {
     status?: true
     regionID?: true
     location?: true
+    passportSeries?: true
+    inn?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -2960,6 +2970,8 @@ export namespace Prisma {
     status?: true
     regionID?: true
     location?: true
+    passportSeries?: true
+    inn?: true
     _all?: true
   }
 
@@ -3048,6 +3060,8 @@ export namespace Prisma {
     status: $Enums.UserStatus
     regionID: string | null
     location: string
+    passportSeries: string | null
+    inn: string | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -3080,6 +3094,8 @@ export namespace Prisma {
     status?: boolean
     regionID?: boolean
     location?: boolean
+    passportSeries?: boolean
+    inn?: boolean
     region?: boolean | User$regionArgs<ExtArgs>
     baskets?: boolean | User$basketsArgs<ExtArgs>
     orders?: boolean | User$ordersArgs<ExtArgs>
@@ -3099,6 +3115,8 @@ export namespace Prisma {
     status?: boolean
     regionID?: boolean
     location?: boolean
+    passportSeries?: boolean
+    inn?: boolean
     region?: boolean | User$regionArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -3115,6 +3133,8 @@ export namespace Prisma {
     status?: boolean
     regionID?: boolean
     location?: boolean
+    passportSeries?: boolean
+    inn?: boolean
     region?: boolean | User$regionArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -3131,9 +3151,11 @@ export namespace Prisma {
     status?: boolean
     regionID?: boolean
     location?: boolean
+    passportSeries?: boolean
+    inn?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nameRu" | "nameUz" | "nameEn" | "email" | "password" | "phone" | "image" | "role" | "status" | "regionID" | "location", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nameRu" | "nameUz" | "nameEn" | "email" | "password" | "phone" | "image" | "role" | "status" | "regionID" | "location" | "passportSeries" | "inn", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     region?: boolean | User$regionArgs<ExtArgs>
     baskets?: boolean | User$basketsArgs<ExtArgs>
@@ -3167,6 +3189,8 @@ export namespace Prisma {
       status: $Enums.UserStatus
       regionID: string | null
       location: string
+      passportSeries: string | null
+      inn: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -3605,6 +3629,8 @@ export namespace Prisma {
     readonly status: FieldRef<"User", 'UserStatus'>
     readonly regionID: FieldRef<"User", 'String'>
     readonly location: FieldRef<"User", 'String'>
+    readonly passportSeries: FieldRef<"User", 'String'>
+    readonly inn: FieldRef<"User", 'String'>
   }
     
 
@@ -22893,7 +22919,9 @@ export namespace Prisma {
     role: 'role',
     status: 'status',
     regionID: 'regionID',
-    location: 'location'
+    location: 'location',
+    passportSeries: 'passportSeries',
+    inn: 'inn'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -23289,6 +23317,8 @@ export namespace Prisma {
     status?: EnumUserStatusFilter<"User"> | $Enums.UserStatus
     regionID?: StringNullableFilter<"User"> | string | null
     location?: StringFilter<"User"> | string
+    passportSeries?: StringNullableFilter<"User"> | string | null
+    inn?: StringNullableFilter<"User"> | string | null
     region?: XOR<RegionNullableScalarRelationFilter, RegionWhereInput> | null
     baskets?: BasketListRelationFilter
     orders?: OrderListRelationFilter
@@ -23307,6 +23337,8 @@ export namespace Prisma {
     status?: SortOrder
     regionID?: SortOrderInput | SortOrder
     location?: SortOrder
+    passportSeries?: SortOrderInput | SortOrder
+    inn?: SortOrderInput | SortOrder
     region?: RegionOrderByWithRelationInput
     baskets?: BasketOrderByRelationAggregateInput
     orders?: OrderOrderByRelationAggregateInput
@@ -23328,6 +23360,8 @@ export namespace Prisma {
     status?: EnumUserStatusFilter<"User"> | $Enums.UserStatus
     regionID?: StringNullableFilter<"User"> | string | null
     location?: StringFilter<"User"> | string
+    passportSeries?: StringNullableFilter<"User"> | string | null
+    inn?: StringNullableFilter<"User"> | string | null
     region?: XOR<RegionNullableScalarRelationFilter, RegionWhereInput> | null
     baskets?: BasketListRelationFilter
     orders?: OrderListRelationFilter
@@ -23346,6 +23380,8 @@ export namespace Prisma {
     status?: SortOrder
     regionID?: SortOrderInput | SortOrder
     location?: SortOrder
+    passportSeries?: SortOrderInput | SortOrder
+    inn?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -23367,6 +23403,8 @@ export namespace Prisma {
     status?: EnumUserStatusWithAggregatesFilter<"User"> | $Enums.UserStatus
     regionID?: StringNullableWithAggregatesFilter<"User"> | string | null
     location?: StringWithAggregatesFilter<"User"> | string
+    passportSeries?: StringNullableWithAggregatesFilter<"User"> | string | null
+    inn?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type RegionWhereInput = {
@@ -24546,6 +24584,8 @@ export namespace Prisma {
     role: $Enums.UserRole
     status: $Enums.UserStatus
     location: string
+    passportSeries?: string | null
+    inn?: string | null
     region?: RegionCreateNestedOneWithoutUsersInput
     baskets?: BasketCreateNestedManyWithoutUserInput
     orders?: OrderCreateNestedManyWithoutUserInput
@@ -24564,6 +24604,8 @@ export namespace Prisma {
     status: $Enums.UserStatus
     regionID?: string | null
     location: string
+    passportSeries?: string | null
+    inn?: string | null
     baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
   }
@@ -24580,6 +24622,8 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     location?: StringFieldUpdateOperationsInput | string
+    passportSeries?: NullableStringFieldUpdateOperationsInput | string | null
+    inn?: NullableStringFieldUpdateOperationsInput | string | null
     region?: RegionUpdateOneWithoutUsersNestedInput
     baskets?: BasketUpdateManyWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutUserNestedInput
@@ -24598,6 +24642,8 @@ export namespace Prisma {
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     regionID?: NullableStringFieldUpdateOperationsInput | string | null
     location?: StringFieldUpdateOperationsInput | string
+    passportSeries?: NullableStringFieldUpdateOperationsInput | string | null
+    inn?: NullableStringFieldUpdateOperationsInput | string | null
     baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -24615,6 +24661,8 @@ export namespace Prisma {
     status: $Enums.UserStatus
     regionID?: string | null
     location: string
+    passportSeries?: string | null
+    inn?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -24629,6 +24677,8 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     location?: StringFieldUpdateOperationsInput | string
+    passportSeries?: NullableStringFieldUpdateOperationsInput | string | null
+    inn?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -24644,6 +24694,8 @@ export namespace Prisma {
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     regionID?: NullableStringFieldUpdateOperationsInput | string | null
     location?: StringFieldUpdateOperationsInput | string
+    passportSeries?: NullableStringFieldUpdateOperationsInput | string | null
+    inn?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type RegionCreateInput = {
@@ -25978,6 +26030,8 @@ export namespace Prisma {
     status?: SortOrder
     regionID?: SortOrder
     location?: SortOrder
+    passportSeries?: SortOrder
+    inn?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -25993,6 +26047,8 @@ export namespace Prisma {
     status?: SortOrder
     regionID?: SortOrder
     location?: SortOrder
+    passportSeries?: SortOrder
+    inn?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -26008,6 +26064,8 @@ export namespace Prisma {
     status?: SortOrder
     regionID?: SortOrder
     location?: SortOrder
+    passportSeries?: SortOrder
+    inn?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -26897,6 +26955,10 @@ export namespace Prisma {
     set?: $Enums.UserStatus
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type RegionUpdateOneWithoutUsersNestedInput = {
     create?: XOR<RegionCreateWithoutUsersInput, RegionUncheckedCreateWithoutUsersInput>
     connectOrCreate?: RegionCreateOrConnectWithoutUsersInput
@@ -26933,10 +26995,6 @@ export namespace Prisma {
     update?: OrderUpdateWithWhereUniqueWithoutUserInput | OrderUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: OrderUpdateManyWithWhereWithoutUserInput | OrderUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type BasketUncheckedUpdateManyWithoutUserNestedInput = {
@@ -28202,6 +28260,8 @@ export namespace Prisma {
     role: $Enums.UserRole
     status: $Enums.UserStatus
     location: string
+    passportSeries?: string | null
+    inn?: string | null
     baskets?: BasketCreateNestedManyWithoutUserInput
     orders?: OrderCreateNestedManyWithoutUserInput
   }
@@ -28218,6 +28278,8 @@ export namespace Prisma {
     role: $Enums.UserRole
     status: $Enums.UserStatus
     location: string
+    passportSeries?: string | null
+    inn?: string | null
     baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
   }
@@ -28264,6 +28326,8 @@ export namespace Prisma {
     status?: EnumUserStatusFilter<"User"> | $Enums.UserStatus
     regionID?: StringNullableFilter<"User"> | string | null
     location?: StringFilter<"User"> | string
+    passportSeries?: StringNullableFilter<"User"> | string | null
+    inn?: StringNullableFilter<"User"> | string | null
   }
 
   export type ProductCreateWithoutBasketsInput = {
@@ -28311,6 +28375,8 @@ export namespace Prisma {
     role: $Enums.UserRole
     status: $Enums.UserStatus
     location: string
+    passportSeries?: string | null
+    inn?: string | null
     region?: RegionCreateNestedOneWithoutUsersInput
     orders?: OrderCreateNestedManyWithoutUserInput
   }
@@ -28328,6 +28394,8 @@ export namespace Prisma {
     status: $Enums.UserStatus
     regionID?: string | null
     location: string
+    passportSeries?: string | null
+    inn?: string | null
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -28398,6 +28466,8 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     location?: StringFieldUpdateOperationsInput | string
+    passportSeries?: NullableStringFieldUpdateOperationsInput | string | null
+    inn?: NullableStringFieldUpdateOperationsInput | string | null
     region?: RegionUpdateOneWithoutUsersNestedInput
     orders?: OrderUpdateManyWithoutUserNestedInput
   }
@@ -28415,6 +28485,8 @@ export namespace Prisma {
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     regionID?: NullableStringFieldUpdateOperationsInput | string | null
     location?: StringFieldUpdateOperationsInput | string
+    passportSeries?: NullableStringFieldUpdateOperationsInput | string | null
+    inn?: NullableStringFieldUpdateOperationsInput | string | null
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -28536,6 +28608,8 @@ export namespace Prisma {
     role: $Enums.UserRole
     status: $Enums.UserStatus
     location: string
+    passportSeries?: string | null
+    inn?: string | null
     region?: RegionCreateNestedOneWithoutUsersInput
     baskets?: BasketCreateNestedManyWithoutUserInput
   }
@@ -28553,6 +28627,8 @@ export namespace Prisma {
     status: $Enums.UserStatus
     regionID?: string | null
     location: string
+    passportSeries?: string | null
+    inn?: string | null
     baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -28709,6 +28785,8 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     location?: StringFieldUpdateOperationsInput | string
+    passportSeries?: NullableStringFieldUpdateOperationsInput | string | null
+    inn?: NullableStringFieldUpdateOperationsInput | string | null
     region?: RegionUpdateOneWithoutUsersNestedInput
     baskets?: BasketUpdateManyWithoutUserNestedInput
   }
@@ -28726,6 +28804,8 @@ export namespace Prisma {
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     regionID?: NullableStringFieldUpdateOperationsInput | string | null
     location?: StringFieldUpdateOperationsInput | string
+    passportSeries?: NullableStringFieldUpdateOperationsInput | string | null
+    inn?: NullableStringFieldUpdateOperationsInput | string | null
     baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -30191,6 +30271,8 @@ export namespace Prisma {
     role: $Enums.UserRole
     status: $Enums.UserStatus
     location: string
+    passportSeries?: string | null
+    inn?: string | null
   }
 
   export type UserUpdateWithoutRegionInput = {
@@ -30205,6 +30287,8 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     location?: StringFieldUpdateOperationsInput | string
+    passportSeries?: NullableStringFieldUpdateOperationsInput | string | null
+    inn?: NullableStringFieldUpdateOperationsInput | string | null
     baskets?: BasketUpdateManyWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutUserNestedInput
   }
@@ -30221,6 +30305,8 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     location?: StringFieldUpdateOperationsInput | string
+    passportSeries?: NullableStringFieldUpdateOperationsInput | string | null
+    inn?: NullableStringFieldUpdateOperationsInput | string | null
     baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -30237,6 +30323,8 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     location?: StringFieldUpdateOperationsInput | string
+    passportSeries?: NullableStringFieldUpdateOperationsInput | string | null
+    inn?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BasketCreateManyProductInput = {

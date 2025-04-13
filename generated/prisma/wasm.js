@@ -129,7 +129,9 @@ exports.Prisma.UserScalarFieldEnum = {
   role: 'role',
   status: 'status',
   regionID: 'regionID',
-  location: 'location'
+  location: 'location',
+  passportSeries: 'passportSeries',
+  inn: 'inn'
 };
 
 exports.Prisma.RegionScalarFieldEnum = {

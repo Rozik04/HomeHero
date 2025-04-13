@@ -1,9 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, UseGuards, Request } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { multerCon } from 'src/utils/multer';
+import { JwtAuthGuard } from 'src/utils/token.guard';
+import { JwtRoleGuard } from 'src/utils/role.guard';
+import { Roles } from 'src/utils/role.decorator';
+import { UserRole } from 'src/utils/enums';
 
 @Controller('user')
 export class UserController {
@@ -18,7 +22,7 @@ uploadIm(@UploadedFile()image:Express.Multer.File){
   return {image:image.filename}
 }
 
-@Post("send-otp")
+  @Post("send-otp")
   sendOtp(@Body() data:{email:string}){
     return this.userService.sendOtp(data)
   }
@@ -27,7 +31,6 @@ uploadIm(@UploadedFile()image:Express.Multer.File){
   verifyOtp(@Body() data:{email:string, otp:string}){
     return this.userService.verifyOtp(data)
   }
-
 
   @Post('register')
   register(@Body() createUserDto: CreateUserDto) {
@@ -39,23 +42,69 @@ uploadIm(@UploadedFile()image:Express.Multer.File){
     return this.userService.login(data)
   }
 
+  
+  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
   @Get()
   findAll() {
     return this.userService.findAll();
   }
 
+  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.userService.findOne(id);
   }
 
+  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(id, updateUserDto);
   }
 
+  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @Patch('update-image/:id')
+  @UseInterceptors(FileInterceptor('image',multerCon))
+  updateImage(@Param('id') id:string, @UploadedFile() image: Express.Multer.File){
+    if(!image){
+      return {error:"File not uploaded!"}
+    }
+    return this.userService.updateImage(id, image);
+  }
+
+  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.userService.remove(id);
   }
+
+
+  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @Post("send-otp-reset")
+  sendOtpToReset(@Request() req){
+    let userId = req.user.id;
+    return this.userService.sendOtpToReset(userId)
+  }
+
+  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @Post("verify-otp-reset")
+  verifyOtpToReset(@Body() data:{otp:string}, @Request() req){
+    let userId = req.user.id
+    return this.userService.verifyOtpToReset(data, userId)
+  }
+
+  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @Post('reset-password')
+  resetPassword(@Request() req, @Body() data:{newPassword:string}){
+    let userId = req.user.id;
+    return this.userService.resetPassword(data, userId)
+  }
+  
 }

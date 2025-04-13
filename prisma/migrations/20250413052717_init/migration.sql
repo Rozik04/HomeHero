@@ -24,6 +24,8 @@ CREATE TABLE "User" (
     "status" "UserStatus" NOT NULL,
     "regionID" TEXT,
     "location" TEXT NOT NULL,
+    "passportSeries" TEXT,
+    "inn" TEXT,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -250,6 +252,9 @@ CREATE TABLE "Partner" (
 
     CONSTRAINT "Partner_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- AddForeignKey
 ALTER TABLE "User" ADD CONSTRAINT "User_regionID_fkey" FOREIGN KEY ("regionID") REFERENCES "Region"("id") ON DELETE SET NULL ON UPDATE CASCADE;
