@@ -53,30 +53,38 @@ CREATE TABLE "Basket" (
 -- CreateTable
 CREATE TABLE "Product" (
     "id" TEXT NOT NULL,
+    "isActive" BOOLEAN NOT NULL,
     "nameRu" TEXT NOT NULL,
     "nameUz" TEXT NOT NULL,
     "nameEn" TEXT NOT NULL,
     "image" TEXT NOT NULL,
-    "workingHours" INTEGER NOT NULL,
-    "levelID" TEXT NOT NULL,
-    "priceHourly" INTEGER NOT NULL,
-    "priceDaily" INTEGER NOT NULL,
-    "tools" TEXT NOT NULL,
 
     CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
+CREATE TABLE "ProfessionType" (
+    "id" TEXT NOT NULL,
+    "nameRu" TEXT NOT NULL,
+    "nameUz" TEXT NOT NULL,
+    "nameEn" TEXT NOT NULL,
+    "productId" TEXT NOT NULL,
+
+    CONSTRAINT "ProfessionType_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Order" (
     "id" TEXT NOT NULL,
-    "userID" TEXT NOT NULL,
     "productID" TEXT NOT NULL,
     "toolID" TEXT NOT NULL,
     "levelID" TEXT NOT NULL,
     "quantity" INTEGER NOT NULL,
     "toolCount" INTEGER NOT NULL,
+    "workingHours" INTEGER NOT NULL,
+    "minWorkingHours" INTEGER NOT NULL,
     "measure" TEXT NOT NULL,
-    "totalPrice" INTEGER NOT NULL,
+    "totalPrice" INTEGER,
     "locationLat" TEXT NOT NULL,
     "locationLong" TEXT NOT NULL,
     "address" TEXT NOT NULL,
@@ -107,7 +115,6 @@ CREATE TABLE "Tool" (
     "sizeID" TEXT NOT NULL,
     "image" TEXT NOT NULL,
     "isActive" BOOLEAN NOT NULL,
-    "levelID" TEXT NOT NULL,
 
     CONSTRAINT "Tool_pkey" PRIMARY KEY ("id")
 );
@@ -184,7 +191,9 @@ CREATE TABLE "Master" (
 CREATE TABLE "MasterJobs" (
     "id" TEXT NOT NULL,
     "toolID" TEXT NOT NULL,
+    "productID" TEXT NOT NULL,
     "minWorkingHour" INTEGER NOT NULL,
+    "workingHours" INTEGER NOT NULL,
     "levelID" TEXT NOT NULL,
     "priceHourly" INTEGER NOT NULL,
     "priceDaily" INTEGER NOT NULL,
@@ -256,6 +265,9 @@ CREATE TABLE "Partner" (
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "Tool_code_key" ON "Tool"("code");
+
 -- AddForeignKey
 ALTER TABLE "User" ADD CONSTRAINT "User_regionID_fkey" FOREIGN KEY ("regionID") REFERENCES "Region"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
@@ -266,7 +278,7 @@ ALTER TABLE "Basket" ADD CONSTRAINT "Basket_productID_fkey" FOREIGN KEY ("produc
 ALTER TABLE "Basket" ADD CONSTRAINT "Basket_userID_fkey" FOREIGN KEY ("userID") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Order" ADD CONSTRAINT "Order_userID_fkey" FOREIGN KEY ("userID") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "ProfessionType" ADD CONSTRAINT "ProfessionType_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Order" ADD CONSTRAINT "Order_productID_fkey" FOREIGN KEY ("productID") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -287,9 +299,6 @@ ALTER TABLE "Tool" ADD CONSTRAINT "Tool_capacityID_fkey" FOREIGN KEY ("capacityI
 ALTER TABLE "Tool" ADD CONSTRAINT "Tool_sizeID_fkey" FOREIGN KEY ("sizeID") REFERENCES "Size"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Tool" ADD CONSTRAINT "Tool_levelID_fkey" FOREIGN KEY ("levelID") REFERENCES "Level"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "Comment" ADD CONSTRAINT "Comment_masterID_fkey" FOREIGN KEY ("masterID") REFERENCES "Master"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -300,6 +309,9 @@ ALTER TABLE "Master" ADD CONSTRAINT "Master_masterJobsID_fkey" FOREIGN KEY ("mas
 
 -- AddForeignKey
 ALTER TABLE "MasterJobs" ADD CONSTRAINT "MasterJobs_toolID_fkey" FOREIGN KEY ("toolID") REFERENCES "Tool"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "MasterJobs" ADD CONSTRAINT "MasterJobs_productID_fkey" FOREIGN KEY ("productID") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "MasterJobs" ADD CONSTRAINT "MasterJobs_levelID_fkey" FOREIGN KEY ("levelID") REFERENCES "Level"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

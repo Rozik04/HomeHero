@@ -34,6 +34,11 @@ export type Basket = $Result.DefaultSelection<Prisma.$BasketPayload>
  */
 export type Product = $Result.DefaultSelection<Prisma.$ProductPayload>
 /**
+ * Model ProfessionType
+ * 
+ */
+export type ProfessionType = $Result.DefaultSelection<Prisma.$ProfessionTypePayload>
+/**
  * Model Order
  * 
  */
@@ -327,6 +332,16 @@ export class PrismaClient<
     * ```
     */
   get product(): Prisma.ProductDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.professionType`: Exposes CRUD operations for the **ProfessionType** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ProfessionTypes
+    * const professionTypes = await prisma.professionType.findMany()
+    * ```
+    */
+  get professionType(): Prisma.ProfessionTypeDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.order`: Exposes CRUD operations for the **Order** model.
@@ -911,6 +926,7 @@ export namespace Prisma {
     Region: 'Region',
     Basket: 'Basket',
     Product: 'Product',
+    ProfessionType: 'ProfessionType',
     Order: 'Order',
     Tool: 'Tool',
     Brand: 'Brand',
@@ -943,7 +959,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "region" | "basket" | "product" | "order" | "tool" | "brand" | "capacity" | "size" | "level" | "comment" | "master" | "masterJobs" | "generalInfo" | "showCase" | "fAQ" | "contact" | "partner"
+      modelProps: "user" | "region" | "basket" | "product" | "professionType" | "order" | "tool" | "brand" | "capacity" | "size" | "level" | "comment" | "master" | "masterJobs" | "generalInfo" | "showCase" | "fAQ" | "contact" | "partner"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1240,6 +1256,80 @@ export namespace Prisma {
           count: {
             args: Prisma.ProductCountArgs<ExtArgs>
             result: $Utils.Optional<ProductCountAggregateOutputType> | number
+          }
+        }
+      }
+      ProfessionType: {
+        payload: Prisma.$ProfessionTypePayload<ExtArgs>
+        fields: Prisma.ProfessionTypeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ProfessionTypeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProfessionTypePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ProfessionTypeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProfessionTypePayload>
+          }
+          findFirst: {
+            args: Prisma.ProfessionTypeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProfessionTypePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ProfessionTypeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProfessionTypePayload>
+          }
+          findMany: {
+            args: Prisma.ProfessionTypeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProfessionTypePayload>[]
+          }
+          create: {
+            args: Prisma.ProfessionTypeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProfessionTypePayload>
+          }
+          createMany: {
+            args: Prisma.ProfessionTypeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ProfessionTypeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProfessionTypePayload>[]
+          }
+          delete: {
+            args: Prisma.ProfessionTypeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProfessionTypePayload>
+          }
+          update: {
+            args: Prisma.ProfessionTypeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProfessionTypePayload>
+          }
+          deleteMany: {
+            args: Prisma.ProfessionTypeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ProfessionTypeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ProfessionTypeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProfessionTypePayload>[]
+          }
+          upsert: {
+            args: Prisma.ProfessionTypeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProfessionTypePayload>
+          }
+          aggregate: {
+            args: Prisma.ProfessionTypeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateProfessionType>
+          }
+          groupBy: {
+            args: Prisma.ProfessionTypeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ProfessionTypeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ProfessionTypeCountArgs<ExtArgs>
+            result: $Utils.Optional<ProfessionTypeCountAggregateOutputType> | number
           }
         }
       }
@@ -2367,6 +2457,7 @@ export namespace Prisma {
     region?: RegionOmit
     basket?: BasketOmit
     product?: ProductOmit
+    professionType?: ProfessionTypeOmit
     order?: OrderOmit
     tool?: ToolOmit
     brand?: BrandOmit
@@ -2476,12 +2567,10 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     baskets: number
-    orders: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     baskets?: boolean | UserCountOutputTypeCountBasketsArgs
-    orders?: boolean | UserCountOutputTypeCountOrdersArgs
   }
 
   // Custom InputTypes
@@ -2500,13 +2589,6 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountBasketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BasketWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountOrdersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: OrderWhereInput
   }
 
 
@@ -2548,11 +2630,15 @@ export namespace Prisma {
   export type ProductCountOutputType = {
     baskets: number
     orders: number
+    masterJobs: number
+    intimateCategory: number
   }
 
   export type ProductCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     baskets?: boolean | ProductCountOutputTypeCountBasketsArgs
     orders?: boolean | ProductCountOutputTypeCountOrdersArgs
+    masterJobs?: boolean | ProductCountOutputTypeCountMasterJobsArgs
+    intimateCategory?: boolean | ProductCountOutputTypeCountIntimateCategoryArgs
   }
 
   // Custom InputTypes
@@ -2578,6 +2664,20 @@ export namespace Prisma {
    */
   export type ProductCountOutputTypeCountOrdersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: OrderWhereInput
+  }
+
+  /**
+   * ProductCountOutputType without action
+   */
+  export type ProductCountOutputTypeCountMasterJobsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MasterJobsWhereInput
+  }
+
+  /**
+   * ProductCountOutputType without action
+   */
+  export type ProductCountOutputTypeCountIntimateCategoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProfessionTypeWhereInput
   }
 
 
@@ -2750,13 +2850,11 @@ export namespace Prisma {
    */
 
   export type LevelCountOutputType = {
-    tools: number
     orders: number
     masterJobs: number
   }
 
   export type LevelCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    tools?: boolean | LevelCountOutputTypeCountToolsArgs
     orders?: boolean | LevelCountOutputTypeCountOrdersArgs
     masterJobs?: boolean | LevelCountOutputTypeCountMasterJobsArgs
   }
@@ -2770,13 +2868,6 @@ export namespace Prisma {
      * Select specific fields to fetch from the LevelCountOutputType
      */
     select?: LevelCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * LevelCountOutputType without action
-   */
-  export type LevelCountOutputTypeCountToolsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ToolWhereInput
   }
 
   /**
@@ -3098,7 +3189,6 @@ export namespace Prisma {
     inn?: boolean
     region?: boolean | User$regionArgs<ExtArgs>
     baskets?: boolean | User$basketsArgs<ExtArgs>
-    orders?: boolean | User$ordersArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -3159,7 +3249,6 @@ export namespace Prisma {
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     region?: boolean | User$regionArgs<ExtArgs>
     baskets?: boolean | User$basketsArgs<ExtArgs>
-    orders?: boolean | User$ordersArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3174,7 +3263,6 @@ export namespace Prisma {
     objects: {
       region: Prisma.$RegionPayload<ExtArgs> | null
       baskets: Prisma.$BasketPayload<ExtArgs>[]
-      orders: Prisma.$OrderPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3587,7 +3675,6 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     region<T extends User$regionArgs<ExtArgs> = {}>(args?: Subset<T, User$regionArgs<ExtArgs>>): Prisma__RegionClient<$Result.GetResult<Prisma.$RegionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     baskets<T extends User$basketsArgs<ExtArgs> = {}>(args?: Subset<T, User$basketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BasketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    orders<T extends User$ordersArgs<ExtArgs> = {}>(args?: Subset<T, User$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4067,30 +4154,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: BasketScalarFieldEnum | BasketScalarFieldEnum[]
-  }
-
-  /**
-   * User.orders
-   */
-  export type User$ordersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Order
-     */
-    select?: OrderSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Order
-     */
-    omit?: OrderOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: OrderInclude<ExtArgs> | null
-    where?: OrderWhereInput
-    orderBy?: OrderOrderByWithRelationInput | OrderOrderByWithRelationInput[]
-    cursor?: OrderWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: OrderScalarFieldEnum | OrderScalarFieldEnum[]
   }
 
   /**
@@ -6262,114 +6325,64 @@ export namespace Prisma {
 
   export type AggregateProduct = {
     _count: ProductCountAggregateOutputType | null
-    _avg: ProductAvgAggregateOutputType | null
-    _sum: ProductSumAggregateOutputType | null
     _min: ProductMinAggregateOutputType | null
     _max: ProductMaxAggregateOutputType | null
   }
 
-  export type ProductAvgAggregateOutputType = {
-    workingHours: number | null
-    priceHourly: number | null
-    priceDaily: number | null
-  }
-
-  export type ProductSumAggregateOutputType = {
-    workingHours: number | null
-    priceHourly: number | null
-    priceDaily: number | null
-  }
-
   export type ProductMinAggregateOutputType = {
     id: string | null
+    isActive: boolean | null
     nameRu: string | null
     nameUz: string | null
     nameEn: string | null
     image: string | null
-    workingHours: number | null
-    levelID: string | null
-    priceHourly: number | null
-    priceDaily: number | null
-    tools: string | null
   }
 
   export type ProductMaxAggregateOutputType = {
     id: string | null
+    isActive: boolean | null
     nameRu: string | null
     nameUz: string | null
     nameEn: string | null
     image: string | null
-    workingHours: number | null
-    levelID: string | null
-    priceHourly: number | null
-    priceDaily: number | null
-    tools: string | null
   }
 
   export type ProductCountAggregateOutputType = {
     id: number
+    isActive: number
     nameRu: number
     nameUz: number
     nameEn: number
     image: number
-    workingHours: number
-    levelID: number
-    priceHourly: number
-    priceDaily: number
-    tools: number
     _all: number
   }
 
 
-  export type ProductAvgAggregateInputType = {
-    workingHours?: true
-    priceHourly?: true
-    priceDaily?: true
-  }
-
-  export type ProductSumAggregateInputType = {
-    workingHours?: true
-    priceHourly?: true
-    priceDaily?: true
-  }
-
   export type ProductMinAggregateInputType = {
     id?: true
+    isActive?: true
     nameRu?: true
     nameUz?: true
     nameEn?: true
     image?: true
-    workingHours?: true
-    levelID?: true
-    priceHourly?: true
-    priceDaily?: true
-    tools?: true
   }
 
   export type ProductMaxAggregateInputType = {
     id?: true
+    isActive?: true
     nameRu?: true
     nameUz?: true
     nameEn?: true
     image?: true
-    workingHours?: true
-    levelID?: true
-    priceHourly?: true
-    priceDaily?: true
-    tools?: true
   }
 
   export type ProductCountAggregateInputType = {
     id?: true
+    isActive?: true
     nameRu?: true
     nameUz?: true
     nameEn?: true
     image?: true
-    workingHours?: true
-    levelID?: true
-    priceHourly?: true
-    priceDaily?: true
-    tools?: true
     _all?: true
   }
 
@@ -6411,18 +6424,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: ProductAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: ProductSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: ProductMinAggregateInputType
@@ -6453,26 +6454,18 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ProductCountAggregateInputType | true
-    _avg?: ProductAvgAggregateInputType
-    _sum?: ProductSumAggregateInputType
     _min?: ProductMinAggregateInputType
     _max?: ProductMaxAggregateInputType
   }
 
   export type ProductGroupByOutputType = {
     id: string
+    isActive: boolean
     nameRu: string
     nameUz: string
     nameEn: string
     image: string
-    workingHours: number
-    levelID: string
-    priceHourly: number
-    priceDaily: number
-    tools: string
     _count: ProductCountAggregateOutputType | null
-    _avg: ProductAvgAggregateOutputType | null
-    _sum: ProductSumAggregateOutputType | null
     _min: ProductMinAggregateOutputType | null
     _max: ProductMaxAggregateOutputType | null
   }
@@ -6493,63 +6486,51 @@ export namespace Prisma {
 
   export type ProductSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    isActive?: boolean
     nameRu?: boolean
     nameUz?: boolean
     nameEn?: boolean
     image?: boolean
-    workingHours?: boolean
-    levelID?: boolean
-    priceHourly?: boolean
-    priceDaily?: boolean
-    tools?: boolean
     baskets?: boolean | Product$basketsArgs<ExtArgs>
     orders?: boolean | Product$ordersArgs<ExtArgs>
+    masterJobs?: boolean | Product$masterJobsArgs<ExtArgs>
+    intimateCategory?: boolean | Product$intimateCategoryArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
 
   export type ProductSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    isActive?: boolean
     nameRu?: boolean
     nameUz?: boolean
     nameEn?: boolean
     image?: boolean
-    workingHours?: boolean
-    levelID?: boolean
-    priceHourly?: boolean
-    priceDaily?: boolean
-    tools?: boolean
   }, ExtArgs["result"]["product"]>
 
   export type ProductSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    isActive?: boolean
     nameRu?: boolean
     nameUz?: boolean
     nameEn?: boolean
     image?: boolean
-    workingHours?: boolean
-    levelID?: boolean
-    priceHourly?: boolean
-    priceDaily?: boolean
-    tools?: boolean
   }, ExtArgs["result"]["product"]>
 
   export type ProductSelectScalar = {
     id?: boolean
+    isActive?: boolean
     nameRu?: boolean
     nameUz?: boolean
     nameEn?: boolean
     image?: boolean
-    workingHours?: boolean
-    levelID?: boolean
-    priceHourly?: boolean
-    priceDaily?: boolean
-    tools?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nameRu" | "nameUz" | "nameEn" | "image" | "workingHours" | "levelID" | "priceHourly" | "priceDaily" | "tools", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "isActive" | "nameRu" | "nameUz" | "nameEn" | "image", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     baskets?: boolean | Product$basketsArgs<ExtArgs>
     orders?: boolean | Product$ordersArgs<ExtArgs>
+    masterJobs?: boolean | Product$masterJobsArgs<ExtArgs>
+    intimateCategory?: boolean | Product$intimateCategoryArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProductIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -6560,18 +6541,16 @@ export namespace Prisma {
     objects: {
       baskets: Prisma.$BasketPayload<ExtArgs>[]
       orders: Prisma.$OrderPayload<ExtArgs>[]
+      masterJobs: Prisma.$MasterJobsPayload<ExtArgs>[]
+      intimateCategory: Prisma.$ProfessionTypePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      isActive: boolean
       nameRu: string
       nameUz: string
       nameEn: string
       image: string
-      workingHours: number
-      levelID: string
-      priceHourly: number
-      priceDaily: number
-      tools: string
     }, ExtArgs["result"]["product"]>
     composites: {}
   }
@@ -6968,6 +6947,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     baskets<T extends Product$basketsArgs<ExtArgs> = {}>(args?: Subset<T, Product$basketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BasketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     orders<T extends Product$ordersArgs<ExtArgs> = {}>(args?: Subset<T, Product$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    masterJobs<T extends Product$masterJobsArgs<ExtArgs> = {}>(args?: Subset<T, Product$masterJobsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterJobsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    intimateCategory<T extends Product$intimateCategoryArgs<ExtArgs> = {}>(args?: Subset<T, Product$intimateCategoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfessionTypePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6998,15 +6979,11 @@ export namespace Prisma {
    */
   interface ProductFieldRefs {
     readonly id: FieldRef<"Product", 'String'>
+    readonly isActive: FieldRef<"Product", 'Boolean'>
     readonly nameRu: FieldRef<"Product", 'String'>
     readonly nameUz: FieldRef<"Product", 'String'>
     readonly nameEn: FieldRef<"Product", 'String'>
     readonly image: FieldRef<"Product", 'String'>
-    readonly workingHours: FieldRef<"Product", 'Int'>
-    readonly levelID: FieldRef<"Product", 'String'>
-    readonly priceHourly: FieldRef<"Product", 'Int'>
-    readonly priceDaily: FieldRef<"Product", 'Int'>
-    readonly tools: FieldRef<"Product", 'String'>
   }
     
 
@@ -7443,6 +7420,54 @@ export namespace Prisma {
   }
 
   /**
+   * Product.masterJobs
+   */
+  export type Product$masterJobsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterJobs
+     */
+    select?: MasterJobsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterJobs
+     */
+    omit?: MasterJobsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MasterJobsInclude<ExtArgs> | null
+    where?: MasterJobsWhereInput
+    orderBy?: MasterJobsOrderByWithRelationInput | MasterJobsOrderByWithRelationInput[]
+    cursor?: MasterJobsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MasterJobsScalarFieldEnum | MasterJobsScalarFieldEnum[]
+  }
+
+  /**
+   * Product.intimateCategory
+   */
+  export type Product$intimateCategoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfessionType
+     */
+    select?: ProfessionTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProfessionType
+     */
+    omit?: ProfessionTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfessionTypeInclude<ExtArgs> | null
+    where?: ProfessionTypeWhereInput
+    orderBy?: ProfessionTypeOrderByWithRelationInput | ProfessionTypeOrderByWithRelationInput[]
+    cursor?: ProfessionTypeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProfessionTypeScalarFieldEnum | ProfessionTypeScalarFieldEnum[]
+  }
+
+  /**
    * Product without action
    */
   export type ProductDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7462,6 +7487,1064 @@ export namespace Prisma {
 
 
   /**
+   * Model ProfessionType
+   */
+
+  export type AggregateProfessionType = {
+    _count: ProfessionTypeCountAggregateOutputType | null
+    _min: ProfessionTypeMinAggregateOutputType | null
+    _max: ProfessionTypeMaxAggregateOutputType | null
+  }
+
+  export type ProfessionTypeMinAggregateOutputType = {
+    id: string | null
+    nameRu: string | null
+    nameUz: string | null
+    nameEn: string | null
+    productId: string | null
+  }
+
+  export type ProfessionTypeMaxAggregateOutputType = {
+    id: string | null
+    nameRu: string | null
+    nameUz: string | null
+    nameEn: string | null
+    productId: string | null
+  }
+
+  export type ProfessionTypeCountAggregateOutputType = {
+    id: number
+    nameRu: number
+    nameUz: number
+    nameEn: number
+    productId: number
+    _all: number
+  }
+
+
+  export type ProfessionTypeMinAggregateInputType = {
+    id?: true
+    nameRu?: true
+    nameUz?: true
+    nameEn?: true
+    productId?: true
+  }
+
+  export type ProfessionTypeMaxAggregateInputType = {
+    id?: true
+    nameRu?: true
+    nameUz?: true
+    nameEn?: true
+    productId?: true
+  }
+
+  export type ProfessionTypeCountAggregateInputType = {
+    id?: true
+    nameRu?: true
+    nameUz?: true
+    nameEn?: true
+    productId?: true
+    _all?: true
+  }
+
+  export type ProfessionTypeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ProfessionType to aggregate.
+     */
+    where?: ProfessionTypeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProfessionTypes to fetch.
+     */
+    orderBy?: ProfessionTypeOrderByWithRelationInput | ProfessionTypeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ProfessionTypeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProfessionTypes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProfessionTypes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ProfessionTypes
+    **/
+    _count?: true | ProfessionTypeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ProfessionTypeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ProfessionTypeMaxAggregateInputType
+  }
+
+  export type GetProfessionTypeAggregateType<T extends ProfessionTypeAggregateArgs> = {
+        [P in keyof T & keyof AggregateProfessionType]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateProfessionType[P]>
+      : GetScalarType<T[P], AggregateProfessionType[P]>
+  }
+
+
+
+
+  export type ProfessionTypeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProfessionTypeWhereInput
+    orderBy?: ProfessionTypeOrderByWithAggregationInput | ProfessionTypeOrderByWithAggregationInput[]
+    by: ProfessionTypeScalarFieldEnum[] | ProfessionTypeScalarFieldEnum
+    having?: ProfessionTypeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ProfessionTypeCountAggregateInputType | true
+    _min?: ProfessionTypeMinAggregateInputType
+    _max?: ProfessionTypeMaxAggregateInputType
+  }
+
+  export type ProfessionTypeGroupByOutputType = {
+    id: string
+    nameRu: string
+    nameUz: string
+    nameEn: string
+    productId: string
+    _count: ProfessionTypeCountAggregateOutputType | null
+    _min: ProfessionTypeMinAggregateOutputType | null
+    _max: ProfessionTypeMaxAggregateOutputType | null
+  }
+
+  type GetProfessionTypeGroupByPayload<T extends ProfessionTypeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ProfessionTypeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ProfessionTypeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ProfessionTypeGroupByOutputType[P]>
+            : GetScalarType<T[P], ProfessionTypeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ProfessionTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nameRu?: boolean
+    nameUz?: boolean
+    nameEn?: boolean
+    productId?: boolean
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["professionType"]>
+
+  export type ProfessionTypeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nameRu?: boolean
+    nameUz?: boolean
+    nameEn?: boolean
+    productId?: boolean
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["professionType"]>
+
+  export type ProfessionTypeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nameRu?: boolean
+    nameUz?: boolean
+    nameEn?: boolean
+    productId?: boolean
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["professionType"]>
+
+  export type ProfessionTypeSelectScalar = {
+    id?: boolean
+    nameRu?: boolean
+    nameUz?: boolean
+    nameEn?: boolean
+    productId?: boolean
+  }
+
+  export type ProfessionTypeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nameRu" | "nameUz" | "nameEn" | "productId", ExtArgs["result"]["professionType"]>
+  export type ProfessionTypeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }
+  export type ProfessionTypeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }
+  export type ProfessionTypeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }
+
+  export type $ProfessionTypePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ProfessionType"
+    objects: {
+      product: Prisma.$ProductPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      nameRu: string
+      nameUz: string
+      nameEn: string
+      productId: string
+    }, ExtArgs["result"]["professionType"]>
+    composites: {}
+  }
+
+  type ProfessionTypeGetPayload<S extends boolean | null | undefined | ProfessionTypeDefaultArgs> = $Result.GetResult<Prisma.$ProfessionTypePayload, S>
+
+  type ProfessionTypeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ProfessionTypeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ProfessionTypeCountAggregateInputType | true
+    }
+
+  export interface ProfessionTypeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ProfessionType'], meta: { name: 'ProfessionType' } }
+    /**
+     * Find zero or one ProfessionType that matches the filter.
+     * @param {ProfessionTypeFindUniqueArgs} args - Arguments to find a ProfessionType
+     * @example
+     * // Get one ProfessionType
+     * const professionType = await prisma.professionType.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ProfessionTypeFindUniqueArgs>(args: SelectSubset<T, ProfessionTypeFindUniqueArgs<ExtArgs>>): Prisma__ProfessionTypeClient<$Result.GetResult<Prisma.$ProfessionTypePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ProfessionType that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ProfessionTypeFindUniqueOrThrowArgs} args - Arguments to find a ProfessionType
+     * @example
+     * // Get one ProfessionType
+     * const professionType = await prisma.professionType.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ProfessionTypeFindUniqueOrThrowArgs>(args: SelectSubset<T, ProfessionTypeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ProfessionTypeClient<$Result.GetResult<Prisma.$ProfessionTypePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ProfessionType that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProfessionTypeFindFirstArgs} args - Arguments to find a ProfessionType
+     * @example
+     * // Get one ProfessionType
+     * const professionType = await prisma.professionType.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ProfessionTypeFindFirstArgs>(args?: SelectSubset<T, ProfessionTypeFindFirstArgs<ExtArgs>>): Prisma__ProfessionTypeClient<$Result.GetResult<Prisma.$ProfessionTypePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ProfessionType that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProfessionTypeFindFirstOrThrowArgs} args - Arguments to find a ProfessionType
+     * @example
+     * // Get one ProfessionType
+     * const professionType = await prisma.professionType.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ProfessionTypeFindFirstOrThrowArgs>(args?: SelectSubset<T, ProfessionTypeFindFirstOrThrowArgs<ExtArgs>>): Prisma__ProfessionTypeClient<$Result.GetResult<Prisma.$ProfessionTypePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ProfessionTypes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProfessionTypeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ProfessionTypes
+     * const professionTypes = await prisma.professionType.findMany()
+     * 
+     * // Get first 10 ProfessionTypes
+     * const professionTypes = await prisma.professionType.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const professionTypeWithIdOnly = await prisma.professionType.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ProfessionTypeFindManyArgs>(args?: SelectSubset<T, ProfessionTypeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfessionTypePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ProfessionType.
+     * @param {ProfessionTypeCreateArgs} args - Arguments to create a ProfessionType.
+     * @example
+     * // Create one ProfessionType
+     * const ProfessionType = await prisma.professionType.create({
+     *   data: {
+     *     // ... data to create a ProfessionType
+     *   }
+     * })
+     * 
+     */
+    create<T extends ProfessionTypeCreateArgs>(args: SelectSubset<T, ProfessionTypeCreateArgs<ExtArgs>>): Prisma__ProfessionTypeClient<$Result.GetResult<Prisma.$ProfessionTypePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ProfessionTypes.
+     * @param {ProfessionTypeCreateManyArgs} args - Arguments to create many ProfessionTypes.
+     * @example
+     * // Create many ProfessionTypes
+     * const professionType = await prisma.professionType.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ProfessionTypeCreateManyArgs>(args?: SelectSubset<T, ProfessionTypeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ProfessionTypes and returns the data saved in the database.
+     * @param {ProfessionTypeCreateManyAndReturnArgs} args - Arguments to create many ProfessionTypes.
+     * @example
+     * // Create many ProfessionTypes
+     * const professionType = await prisma.professionType.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ProfessionTypes and only return the `id`
+     * const professionTypeWithIdOnly = await prisma.professionType.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ProfessionTypeCreateManyAndReturnArgs>(args?: SelectSubset<T, ProfessionTypeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfessionTypePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ProfessionType.
+     * @param {ProfessionTypeDeleteArgs} args - Arguments to delete one ProfessionType.
+     * @example
+     * // Delete one ProfessionType
+     * const ProfessionType = await prisma.professionType.delete({
+     *   where: {
+     *     // ... filter to delete one ProfessionType
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ProfessionTypeDeleteArgs>(args: SelectSubset<T, ProfessionTypeDeleteArgs<ExtArgs>>): Prisma__ProfessionTypeClient<$Result.GetResult<Prisma.$ProfessionTypePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ProfessionType.
+     * @param {ProfessionTypeUpdateArgs} args - Arguments to update one ProfessionType.
+     * @example
+     * // Update one ProfessionType
+     * const professionType = await prisma.professionType.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ProfessionTypeUpdateArgs>(args: SelectSubset<T, ProfessionTypeUpdateArgs<ExtArgs>>): Prisma__ProfessionTypeClient<$Result.GetResult<Prisma.$ProfessionTypePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ProfessionTypes.
+     * @param {ProfessionTypeDeleteManyArgs} args - Arguments to filter ProfessionTypes to delete.
+     * @example
+     * // Delete a few ProfessionTypes
+     * const { count } = await prisma.professionType.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ProfessionTypeDeleteManyArgs>(args?: SelectSubset<T, ProfessionTypeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ProfessionTypes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProfessionTypeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ProfessionTypes
+     * const professionType = await prisma.professionType.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ProfessionTypeUpdateManyArgs>(args: SelectSubset<T, ProfessionTypeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ProfessionTypes and returns the data updated in the database.
+     * @param {ProfessionTypeUpdateManyAndReturnArgs} args - Arguments to update many ProfessionTypes.
+     * @example
+     * // Update many ProfessionTypes
+     * const professionType = await prisma.professionType.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ProfessionTypes and only return the `id`
+     * const professionTypeWithIdOnly = await prisma.professionType.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ProfessionTypeUpdateManyAndReturnArgs>(args: SelectSubset<T, ProfessionTypeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfessionTypePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ProfessionType.
+     * @param {ProfessionTypeUpsertArgs} args - Arguments to update or create a ProfessionType.
+     * @example
+     * // Update or create a ProfessionType
+     * const professionType = await prisma.professionType.upsert({
+     *   create: {
+     *     // ... data to create a ProfessionType
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ProfessionType we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ProfessionTypeUpsertArgs>(args: SelectSubset<T, ProfessionTypeUpsertArgs<ExtArgs>>): Prisma__ProfessionTypeClient<$Result.GetResult<Prisma.$ProfessionTypePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ProfessionTypes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProfessionTypeCountArgs} args - Arguments to filter ProfessionTypes to count.
+     * @example
+     * // Count the number of ProfessionTypes
+     * const count = await prisma.professionType.count({
+     *   where: {
+     *     // ... the filter for the ProfessionTypes we want to count
+     *   }
+     * })
+    **/
+    count<T extends ProfessionTypeCountArgs>(
+      args?: Subset<T, ProfessionTypeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ProfessionTypeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ProfessionType.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProfessionTypeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ProfessionTypeAggregateArgs>(args: Subset<T, ProfessionTypeAggregateArgs>): Prisma.PrismaPromise<GetProfessionTypeAggregateType<T>>
+
+    /**
+     * Group by ProfessionType.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProfessionTypeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ProfessionTypeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ProfessionTypeGroupByArgs['orderBy'] }
+        : { orderBy?: ProfessionTypeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ProfessionTypeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProfessionTypeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ProfessionType model
+   */
+  readonly fields: ProfessionTypeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ProfessionType.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ProfessionTypeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ProfessionType model
+   */
+  interface ProfessionTypeFieldRefs {
+    readonly id: FieldRef<"ProfessionType", 'String'>
+    readonly nameRu: FieldRef<"ProfessionType", 'String'>
+    readonly nameUz: FieldRef<"ProfessionType", 'String'>
+    readonly nameEn: FieldRef<"ProfessionType", 'String'>
+    readonly productId: FieldRef<"ProfessionType", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ProfessionType findUnique
+   */
+  export type ProfessionTypeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfessionType
+     */
+    select?: ProfessionTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProfessionType
+     */
+    omit?: ProfessionTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfessionTypeInclude<ExtArgs> | null
+    /**
+     * Filter, which ProfessionType to fetch.
+     */
+    where: ProfessionTypeWhereUniqueInput
+  }
+
+  /**
+   * ProfessionType findUniqueOrThrow
+   */
+  export type ProfessionTypeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfessionType
+     */
+    select?: ProfessionTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProfessionType
+     */
+    omit?: ProfessionTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfessionTypeInclude<ExtArgs> | null
+    /**
+     * Filter, which ProfessionType to fetch.
+     */
+    where: ProfessionTypeWhereUniqueInput
+  }
+
+  /**
+   * ProfessionType findFirst
+   */
+  export type ProfessionTypeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfessionType
+     */
+    select?: ProfessionTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProfessionType
+     */
+    omit?: ProfessionTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfessionTypeInclude<ExtArgs> | null
+    /**
+     * Filter, which ProfessionType to fetch.
+     */
+    where?: ProfessionTypeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProfessionTypes to fetch.
+     */
+    orderBy?: ProfessionTypeOrderByWithRelationInput | ProfessionTypeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ProfessionTypes.
+     */
+    cursor?: ProfessionTypeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProfessionTypes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProfessionTypes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ProfessionTypes.
+     */
+    distinct?: ProfessionTypeScalarFieldEnum | ProfessionTypeScalarFieldEnum[]
+  }
+
+  /**
+   * ProfessionType findFirstOrThrow
+   */
+  export type ProfessionTypeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfessionType
+     */
+    select?: ProfessionTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProfessionType
+     */
+    omit?: ProfessionTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfessionTypeInclude<ExtArgs> | null
+    /**
+     * Filter, which ProfessionType to fetch.
+     */
+    where?: ProfessionTypeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProfessionTypes to fetch.
+     */
+    orderBy?: ProfessionTypeOrderByWithRelationInput | ProfessionTypeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ProfessionTypes.
+     */
+    cursor?: ProfessionTypeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProfessionTypes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProfessionTypes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ProfessionTypes.
+     */
+    distinct?: ProfessionTypeScalarFieldEnum | ProfessionTypeScalarFieldEnum[]
+  }
+
+  /**
+   * ProfessionType findMany
+   */
+  export type ProfessionTypeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfessionType
+     */
+    select?: ProfessionTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProfessionType
+     */
+    omit?: ProfessionTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfessionTypeInclude<ExtArgs> | null
+    /**
+     * Filter, which ProfessionTypes to fetch.
+     */
+    where?: ProfessionTypeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProfessionTypes to fetch.
+     */
+    orderBy?: ProfessionTypeOrderByWithRelationInput | ProfessionTypeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ProfessionTypes.
+     */
+    cursor?: ProfessionTypeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProfessionTypes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProfessionTypes.
+     */
+    skip?: number
+    distinct?: ProfessionTypeScalarFieldEnum | ProfessionTypeScalarFieldEnum[]
+  }
+
+  /**
+   * ProfessionType create
+   */
+  export type ProfessionTypeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfessionType
+     */
+    select?: ProfessionTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProfessionType
+     */
+    omit?: ProfessionTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfessionTypeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ProfessionType.
+     */
+    data: XOR<ProfessionTypeCreateInput, ProfessionTypeUncheckedCreateInput>
+  }
+
+  /**
+   * ProfessionType createMany
+   */
+  export type ProfessionTypeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ProfessionTypes.
+     */
+    data: ProfessionTypeCreateManyInput | ProfessionTypeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ProfessionType createManyAndReturn
+   */
+  export type ProfessionTypeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfessionType
+     */
+    select?: ProfessionTypeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProfessionType
+     */
+    omit?: ProfessionTypeOmit<ExtArgs> | null
+    /**
+     * The data used to create many ProfessionTypes.
+     */
+    data: ProfessionTypeCreateManyInput | ProfessionTypeCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfessionTypeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ProfessionType update
+   */
+  export type ProfessionTypeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfessionType
+     */
+    select?: ProfessionTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProfessionType
+     */
+    omit?: ProfessionTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfessionTypeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ProfessionType.
+     */
+    data: XOR<ProfessionTypeUpdateInput, ProfessionTypeUncheckedUpdateInput>
+    /**
+     * Choose, which ProfessionType to update.
+     */
+    where: ProfessionTypeWhereUniqueInput
+  }
+
+  /**
+   * ProfessionType updateMany
+   */
+  export type ProfessionTypeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ProfessionTypes.
+     */
+    data: XOR<ProfessionTypeUpdateManyMutationInput, ProfessionTypeUncheckedUpdateManyInput>
+    /**
+     * Filter which ProfessionTypes to update
+     */
+    where?: ProfessionTypeWhereInput
+    /**
+     * Limit how many ProfessionTypes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ProfessionType updateManyAndReturn
+   */
+  export type ProfessionTypeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfessionType
+     */
+    select?: ProfessionTypeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProfessionType
+     */
+    omit?: ProfessionTypeOmit<ExtArgs> | null
+    /**
+     * The data used to update ProfessionTypes.
+     */
+    data: XOR<ProfessionTypeUpdateManyMutationInput, ProfessionTypeUncheckedUpdateManyInput>
+    /**
+     * Filter which ProfessionTypes to update
+     */
+    where?: ProfessionTypeWhereInput
+    /**
+     * Limit how many ProfessionTypes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfessionTypeIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ProfessionType upsert
+   */
+  export type ProfessionTypeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfessionType
+     */
+    select?: ProfessionTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProfessionType
+     */
+    omit?: ProfessionTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfessionTypeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ProfessionType to update in case it exists.
+     */
+    where: ProfessionTypeWhereUniqueInput
+    /**
+     * In case the ProfessionType found by the `where` argument doesn't exist, create a new ProfessionType with this data.
+     */
+    create: XOR<ProfessionTypeCreateInput, ProfessionTypeUncheckedCreateInput>
+    /**
+     * In case the ProfessionType was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ProfessionTypeUpdateInput, ProfessionTypeUncheckedUpdateInput>
+  }
+
+  /**
+   * ProfessionType delete
+   */
+  export type ProfessionTypeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfessionType
+     */
+    select?: ProfessionTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProfessionType
+     */
+    omit?: ProfessionTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfessionTypeInclude<ExtArgs> | null
+    /**
+     * Filter which ProfessionType to delete.
+     */
+    where: ProfessionTypeWhereUniqueInput
+  }
+
+  /**
+   * ProfessionType deleteMany
+   */
+  export type ProfessionTypeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ProfessionTypes to delete
+     */
+    where?: ProfessionTypeWhereInput
+    /**
+     * Limit how many ProfessionTypes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ProfessionType without action
+   */
+  export type ProfessionTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfessionType
+     */
+    select?: ProfessionTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProfessionType
+     */
+    omit?: ProfessionTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfessionTypeInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Order
    */
 
@@ -7476,23 +8559,28 @@ export namespace Prisma {
   export type OrderAvgAggregateOutputType = {
     quantity: number | null
     toolCount: number | null
+    workingHours: number | null
+    minWorkingHours: number | null
     totalPrice: number | null
   }
 
   export type OrderSumAggregateOutputType = {
     quantity: number | null
     toolCount: number | null
+    workingHours: number | null
+    minWorkingHours: number | null
     totalPrice: number | null
   }
 
   export type OrderMinAggregateOutputType = {
     id: string | null
-    userID: string | null
     productID: string | null
     toolID: string | null
     levelID: string | null
     quantity: number | null
     toolCount: number | null
+    workingHours: number | null
+    minWorkingHours: number | null
     measure: string | null
     totalPrice: number | null
     locationLat: string | null
@@ -7508,12 +8596,13 @@ export namespace Prisma {
 
   export type OrderMaxAggregateOutputType = {
     id: string | null
-    userID: string | null
     productID: string | null
     toolID: string | null
     levelID: string | null
     quantity: number | null
     toolCount: number | null
+    workingHours: number | null
+    minWorkingHours: number | null
     measure: string | null
     totalPrice: number | null
     locationLat: string | null
@@ -7529,12 +8618,13 @@ export namespace Prisma {
 
   export type OrderCountAggregateOutputType = {
     id: number
-    userID: number
     productID: number
     toolID: number
     levelID: number
     quantity: number
     toolCount: number
+    workingHours: number
+    minWorkingHours: number
     measure: number
     totalPrice: number
     locationLat: number
@@ -7553,23 +8643,28 @@ export namespace Prisma {
   export type OrderAvgAggregateInputType = {
     quantity?: true
     toolCount?: true
+    workingHours?: true
+    minWorkingHours?: true
     totalPrice?: true
   }
 
   export type OrderSumAggregateInputType = {
     quantity?: true
     toolCount?: true
+    workingHours?: true
+    minWorkingHours?: true
     totalPrice?: true
   }
 
   export type OrderMinAggregateInputType = {
     id?: true
-    userID?: true
     productID?: true
     toolID?: true
     levelID?: true
     quantity?: true
     toolCount?: true
+    workingHours?: true
+    minWorkingHours?: true
     measure?: true
     totalPrice?: true
     locationLat?: true
@@ -7585,12 +8680,13 @@ export namespace Prisma {
 
   export type OrderMaxAggregateInputType = {
     id?: true
-    userID?: true
     productID?: true
     toolID?: true
     levelID?: true
     quantity?: true
     toolCount?: true
+    workingHours?: true
+    minWorkingHours?: true
     measure?: true
     totalPrice?: true
     locationLat?: true
@@ -7606,12 +8702,13 @@ export namespace Prisma {
 
   export type OrderCountAggregateInputType = {
     id?: true
-    userID?: true
     productID?: true
     toolID?: true
     levelID?: true
     quantity?: true
     toolCount?: true
+    workingHours?: true
+    minWorkingHours?: true
     measure?: true
     totalPrice?: true
     locationLat?: true
@@ -7714,14 +8811,15 @@ export namespace Prisma {
 
   export type OrderGroupByOutputType = {
     id: string
-    userID: string
     productID: string
     toolID: string
     levelID: string
     quantity: number
     toolCount: number
+    workingHours: number
+    minWorkingHours: number
     measure: string
-    totalPrice: number
+    totalPrice: number | null
     locationLat: string
     locationLong: string
     address: string
@@ -7754,12 +8852,13 @@ export namespace Prisma {
 
   export type OrderSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    userID?: boolean
     productID?: boolean
     toolID?: boolean
     levelID?: boolean
     quantity?: boolean
     toolCount?: boolean
+    workingHours?: boolean
+    minWorkingHours?: boolean
     measure?: boolean
     totalPrice?: boolean
     locationLat?: boolean
@@ -7771,7 +8870,6 @@ export namespace Prisma {
     withDelivery?: boolean
     status?: boolean
     commentToDelivery?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     tool?: boolean | ToolDefaultArgs<ExtArgs>
     level?: boolean | LevelDefaultArgs<ExtArgs>
@@ -7781,12 +8879,13 @@ export namespace Prisma {
 
   export type OrderSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    userID?: boolean
     productID?: boolean
     toolID?: boolean
     levelID?: boolean
     quantity?: boolean
     toolCount?: boolean
+    workingHours?: boolean
+    minWorkingHours?: boolean
     measure?: boolean
     totalPrice?: boolean
     locationLat?: boolean
@@ -7798,7 +8897,6 @@ export namespace Prisma {
     withDelivery?: boolean
     status?: boolean
     commentToDelivery?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     tool?: boolean | ToolDefaultArgs<ExtArgs>
     level?: boolean | LevelDefaultArgs<ExtArgs>
@@ -7806,12 +8904,13 @@ export namespace Prisma {
 
   export type OrderSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    userID?: boolean
     productID?: boolean
     toolID?: boolean
     levelID?: boolean
     quantity?: boolean
     toolCount?: boolean
+    workingHours?: boolean
+    minWorkingHours?: boolean
     measure?: boolean
     totalPrice?: boolean
     locationLat?: boolean
@@ -7823,7 +8922,6 @@ export namespace Prisma {
     withDelivery?: boolean
     status?: boolean
     commentToDelivery?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     tool?: boolean | ToolDefaultArgs<ExtArgs>
     level?: boolean | LevelDefaultArgs<ExtArgs>
@@ -7831,12 +8929,13 @@ export namespace Prisma {
 
   export type OrderSelectScalar = {
     id?: boolean
-    userID?: boolean
     productID?: boolean
     toolID?: boolean
     levelID?: boolean
     quantity?: boolean
     toolCount?: boolean
+    workingHours?: boolean
+    minWorkingHours?: boolean
     measure?: boolean
     totalPrice?: boolean
     locationLat?: boolean
@@ -7850,9 +8949,8 @@ export namespace Prisma {
     commentToDelivery?: boolean
   }
 
-  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userID" | "productID" | "toolID" | "levelID" | "quantity" | "toolCount" | "measure" | "totalPrice" | "locationLat" | "locationLong" | "address" | "orderDate" | "deliveryDate" | "paymentType" | "withDelivery" | "status" | "commentToDelivery", ExtArgs["result"]["order"]>
+  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "productID" | "toolID" | "levelID" | "quantity" | "toolCount" | "workingHours" | "minWorkingHours" | "measure" | "totalPrice" | "locationLat" | "locationLong" | "address" | "orderDate" | "deliveryDate" | "paymentType" | "withDelivery" | "status" | "commentToDelivery", ExtArgs["result"]["order"]>
   export type OrderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     tool?: boolean | ToolDefaultArgs<ExtArgs>
     level?: boolean | LevelDefaultArgs<ExtArgs>
@@ -7860,13 +8958,11 @@ export namespace Prisma {
     _count?: boolean | OrderCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OrderIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     tool?: boolean | ToolDefaultArgs<ExtArgs>
     level?: boolean | LevelDefaultArgs<ExtArgs>
   }
   export type OrderIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     tool?: boolean | ToolDefaultArgs<ExtArgs>
     level?: boolean | LevelDefaultArgs<ExtArgs>
@@ -7875,7 +8971,6 @@ export namespace Prisma {
   export type $OrderPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Order"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       product: Prisma.$ProductPayload<ExtArgs>
       tool: Prisma.$ToolPayload<ExtArgs>
       level: Prisma.$LevelPayload<ExtArgs>
@@ -7883,14 +8978,15 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      userID: string
       productID: string
       toolID: string
       levelID: string
       quantity: number
       toolCount: number
+      workingHours: number
+      minWorkingHours: number
       measure: string
-      totalPrice: number
+      totalPrice: number | null
       locationLat: string
       locationLong: string
       address: string
@@ -8294,7 +9390,6 @@ export namespace Prisma {
    */
   export interface Prisma__OrderClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     tool<T extends ToolDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ToolDefaultArgs<ExtArgs>>): Prisma__ToolClient<$Result.GetResult<Prisma.$ToolPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     level<T extends LevelDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LevelDefaultArgs<ExtArgs>>): Prisma__LevelClient<$Result.GetResult<Prisma.$LevelPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
@@ -8329,12 +9424,13 @@ export namespace Prisma {
    */
   interface OrderFieldRefs {
     readonly id: FieldRef<"Order", 'String'>
-    readonly userID: FieldRef<"Order", 'String'>
     readonly productID: FieldRef<"Order", 'String'>
     readonly toolID: FieldRef<"Order", 'String'>
     readonly levelID: FieldRef<"Order", 'String'>
     readonly quantity: FieldRef<"Order", 'Int'>
     readonly toolCount: FieldRef<"Order", 'Int'>
+    readonly workingHours: FieldRef<"Order", 'Int'>
+    readonly minWorkingHours: FieldRef<"Order", 'Int'>
     readonly measure: FieldRef<"Order", 'String'>
     readonly totalPrice: FieldRef<"Order", 'Int'>
     readonly locationLat: FieldRef<"Order", 'String'>
@@ -8822,7 +9918,6 @@ export namespace Prisma {
     sizeID: string | null
     image: string | null
     isActive: boolean | null
-    levelID: string | null
   }
 
   export type ToolMaxAggregateOutputType = {
@@ -8841,7 +9936,6 @@ export namespace Prisma {
     sizeID: string | null
     image: string | null
     isActive: boolean | null
-    levelID: string | null
   }
 
   export type ToolCountAggregateOutputType = {
@@ -8860,7 +9954,6 @@ export namespace Prisma {
     sizeID: number
     image: number
     isActive: number
-    levelID: number
     _all: number
   }
 
@@ -8891,7 +9984,6 @@ export namespace Prisma {
     sizeID?: true
     image?: true
     isActive?: true
-    levelID?: true
   }
 
   export type ToolMaxAggregateInputType = {
@@ -8910,7 +10002,6 @@ export namespace Prisma {
     sizeID?: true
     image?: true
     isActive?: true
-    levelID?: true
   }
 
   export type ToolCountAggregateInputType = {
@@ -8929,7 +10020,6 @@ export namespace Prisma {
     sizeID?: true
     image?: true
     isActive?: true
-    levelID?: true
     _all?: true
   }
 
@@ -9035,7 +10125,6 @@ export namespace Prisma {
     sizeID: string
     image: string
     isActive: boolean
-    levelID: string
     _count: ToolCountAggregateOutputType | null
     _avg: ToolAvgAggregateOutputType | null
     _sum: ToolSumAggregateOutputType | null
@@ -9073,11 +10162,9 @@ export namespace Prisma {
     sizeID?: boolean
     image?: boolean
     isActive?: boolean
-    levelID?: boolean
     brand?: boolean | BrandDefaultArgs<ExtArgs>
     capacity?: boolean | CapacityDefaultArgs<ExtArgs>
     size?: boolean | SizeDefaultArgs<ExtArgs>
-    level?: boolean | LevelDefaultArgs<ExtArgs>
     orders?: boolean | Tool$ordersArgs<ExtArgs>
     masterJobs?: boolean | Tool$masterJobsArgs<ExtArgs>
     _count?: boolean | ToolCountOutputTypeDefaultArgs<ExtArgs>
@@ -9099,11 +10186,9 @@ export namespace Prisma {
     sizeID?: boolean
     image?: boolean
     isActive?: boolean
-    levelID?: boolean
     brand?: boolean | BrandDefaultArgs<ExtArgs>
     capacity?: boolean | CapacityDefaultArgs<ExtArgs>
     size?: boolean | SizeDefaultArgs<ExtArgs>
-    level?: boolean | LevelDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tool"]>
 
   export type ToolSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -9122,11 +10207,9 @@ export namespace Prisma {
     sizeID?: boolean
     image?: boolean
     isActive?: boolean
-    levelID?: boolean
     brand?: boolean | BrandDefaultArgs<ExtArgs>
     capacity?: boolean | CapacityDefaultArgs<ExtArgs>
     size?: boolean | SizeDefaultArgs<ExtArgs>
-    level?: boolean | LevelDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tool"]>
 
   export type ToolSelectScalar = {
@@ -9145,15 +10228,13 @@ export namespace Prisma {
     sizeID?: boolean
     image?: boolean
     isActive?: boolean
-    levelID?: boolean
   }
 
-  export type ToolOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nameRu" | "nameUz" | "nameEn" | "descriptionRu" | "descriptionUz" | "descriptionEn" | "price" | "quantity" | "code" | "brandID" | "capacityID" | "sizeID" | "image" | "isActive" | "levelID", ExtArgs["result"]["tool"]>
+  export type ToolOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nameRu" | "nameUz" | "nameEn" | "descriptionRu" | "descriptionUz" | "descriptionEn" | "price" | "quantity" | "code" | "brandID" | "capacityID" | "sizeID" | "image" | "isActive", ExtArgs["result"]["tool"]>
   export type ToolInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brand?: boolean | BrandDefaultArgs<ExtArgs>
     capacity?: boolean | CapacityDefaultArgs<ExtArgs>
     size?: boolean | SizeDefaultArgs<ExtArgs>
-    level?: boolean | LevelDefaultArgs<ExtArgs>
     orders?: boolean | Tool$ordersArgs<ExtArgs>
     masterJobs?: boolean | Tool$masterJobsArgs<ExtArgs>
     _count?: boolean | ToolCountOutputTypeDefaultArgs<ExtArgs>
@@ -9162,13 +10243,11 @@ export namespace Prisma {
     brand?: boolean | BrandDefaultArgs<ExtArgs>
     capacity?: boolean | CapacityDefaultArgs<ExtArgs>
     size?: boolean | SizeDefaultArgs<ExtArgs>
-    level?: boolean | LevelDefaultArgs<ExtArgs>
   }
   export type ToolIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brand?: boolean | BrandDefaultArgs<ExtArgs>
     capacity?: boolean | CapacityDefaultArgs<ExtArgs>
     size?: boolean | SizeDefaultArgs<ExtArgs>
-    level?: boolean | LevelDefaultArgs<ExtArgs>
   }
 
   export type $ToolPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9177,7 +10256,6 @@ export namespace Prisma {
       brand: Prisma.$BrandPayload<ExtArgs>
       capacity: Prisma.$CapacityPayload<ExtArgs>
       size: Prisma.$SizePayload<ExtArgs>
-      level: Prisma.$LevelPayload<ExtArgs>
       orders: Prisma.$OrderPayload<ExtArgs>[]
       masterJobs: Prisma.$MasterJobsPayload<ExtArgs>[]
     }
@@ -9197,7 +10275,6 @@ export namespace Prisma {
       sizeID: string
       image: string
       isActive: boolean
-      levelID: string
     }, ExtArgs["result"]["tool"]>
     composites: {}
   }
@@ -9595,7 +10672,6 @@ export namespace Prisma {
     brand<T extends BrandDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BrandDefaultArgs<ExtArgs>>): Prisma__BrandClient<$Result.GetResult<Prisma.$BrandPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     capacity<T extends CapacityDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CapacityDefaultArgs<ExtArgs>>): Prisma__CapacityClient<$Result.GetResult<Prisma.$CapacityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     size<T extends SizeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SizeDefaultArgs<ExtArgs>>): Prisma__SizeClient<$Result.GetResult<Prisma.$SizePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    level<T extends LevelDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LevelDefaultArgs<ExtArgs>>): Prisma__LevelClient<$Result.GetResult<Prisma.$LevelPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     orders<T extends Tool$ordersArgs<ExtArgs> = {}>(args?: Subset<T, Tool$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     masterJobs<T extends Tool$masterJobsArgs<ExtArgs> = {}>(args?: Subset<T, Tool$masterJobsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterJobsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -9642,7 +10718,6 @@ export namespace Prisma {
     readonly sizeID: FieldRef<"Tool", 'String'>
     readonly image: FieldRef<"Tool", 'String'>
     readonly isActive: FieldRef<"Tool", 'Boolean'>
-    readonly levelID: FieldRef<"Tool", 'String'>
   }
     
 
@@ -13432,7 +14507,6 @@ export namespace Prisma {
     nameRu?: boolean
     nameUz?: boolean
     nameEn?: boolean
-    tools?: boolean | Level$toolsArgs<ExtArgs>
     orders?: boolean | Level$ordersArgs<ExtArgs>
     masterJobs?: boolean | Level$masterJobsArgs<ExtArgs>
     _count?: boolean | LevelCountOutputTypeDefaultArgs<ExtArgs>
@@ -13461,7 +14535,6 @@ export namespace Prisma {
 
   export type LevelOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nameRu" | "nameUz" | "nameEn", ExtArgs["result"]["level"]>
   export type LevelInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    tools?: boolean | Level$toolsArgs<ExtArgs>
     orders?: boolean | Level$ordersArgs<ExtArgs>
     masterJobs?: boolean | Level$masterJobsArgs<ExtArgs>
     _count?: boolean | LevelCountOutputTypeDefaultArgs<ExtArgs>
@@ -13472,7 +14545,6 @@ export namespace Prisma {
   export type $LevelPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Level"
     objects: {
-      tools: Prisma.$ToolPayload<ExtArgs>[]
       orders: Prisma.$OrderPayload<ExtArgs>[]
       masterJobs: Prisma.$MasterJobsPayload<ExtArgs>[]
     }
@@ -13875,7 +14947,6 @@ export namespace Prisma {
    */
   export interface Prisma__LevelClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    tools<T extends Level$toolsArgs<ExtArgs> = {}>(args?: Subset<T, Level$toolsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ToolPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     orders<T extends Level$ordersArgs<ExtArgs> = {}>(args?: Subset<T, Level$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     masterJobs<T extends Level$masterJobsArgs<ExtArgs> = {}>(args?: Subset<T, Level$masterJobsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterJobsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -14296,30 +15367,6 @@ export namespace Prisma {
      * Limit how many Levels to delete.
      */
     limit?: number
-  }
-
-  /**
-   * Level.tools
-   */
-  export type Level$toolsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Tool
-     */
-    select?: ToolSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Tool
-     */
-    omit?: ToolOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ToolInclude<ExtArgs> | null
-    where?: ToolWhereInput
-    orderBy?: ToolOrderByWithRelationInput | ToolOrderByWithRelationInput[]
-    cursor?: ToolWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ToolScalarFieldEnum | ToolScalarFieldEnum[]
   }
 
   /**
@@ -16703,12 +17750,14 @@ export namespace Prisma {
 
   export type MasterJobsAvgAggregateOutputType = {
     minWorkingHour: number | null
+    workingHours: number | null
     priceHourly: number | null
     priceDaily: number | null
   }
 
   export type MasterJobsSumAggregateOutputType = {
     minWorkingHour: number | null
+    workingHours: number | null
     priceHourly: number | null
     priceDaily: number | null
   }
@@ -16716,7 +17765,9 @@ export namespace Prisma {
   export type MasterJobsMinAggregateOutputType = {
     id: string | null
     toolID: string | null
+    productID: string | null
     minWorkingHour: number | null
+    workingHours: number | null
     levelID: string | null
     priceHourly: number | null
     priceDaily: number | null
@@ -16726,7 +17777,9 @@ export namespace Prisma {
   export type MasterJobsMaxAggregateOutputType = {
     id: string | null
     toolID: string | null
+    productID: string | null
     minWorkingHour: number | null
+    workingHours: number | null
     levelID: string | null
     priceHourly: number | null
     priceDaily: number | null
@@ -16736,7 +17789,9 @@ export namespace Prisma {
   export type MasterJobsCountAggregateOutputType = {
     id: number
     toolID: number
+    productID: number
     minWorkingHour: number
+    workingHours: number
     levelID: number
     priceHourly: number
     priceDaily: number
@@ -16747,12 +17802,14 @@ export namespace Prisma {
 
   export type MasterJobsAvgAggregateInputType = {
     minWorkingHour?: true
+    workingHours?: true
     priceHourly?: true
     priceDaily?: true
   }
 
   export type MasterJobsSumAggregateInputType = {
     minWorkingHour?: true
+    workingHours?: true
     priceHourly?: true
     priceDaily?: true
   }
@@ -16760,7 +17817,9 @@ export namespace Prisma {
   export type MasterJobsMinAggregateInputType = {
     id?: true
     toolID?: true
+    productID?: true
     minWorkingHour?: true
+    workingHours?: true
     levelID?: true
     priceHourly?: true
     priceDaily?: true
@@ -16770,7 +17829,9 @@ export namespace Prisma {
   export type MasterJobsMaxAggregateInputType = {
     id?: true
     toolID?: true
+    productID?: true
     minWorkingHour?: true
+    workingHours?: true
     levelID?: true
     priceHourly?: true
     priceDaily?: true
@@ -16780,7 +17841,9 @@ export namespace Prisma {
   export type MasterJobsCountAggregateInputType = {
     id?: true
     toolID?: true
+    productID?: true
     minWorkingHour?: true
+    workingHours?: true
     levelID?: true
     priceHourly?: true
     priceDaily?: true
@@ -16877,7 +17940,9 @@ export namespace Prisma {
   export type MasterJobsGroupByOutputType = {
     id: string
     toolID: string
+    productID: string
     minWorkingHour: number
+    workingHours: number
     levelID: string
     priceHourly: number
     priceDaily: number
@@ -16906,12 +17971,15 @@ export namespace Prisma {
   export type MasterJobsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     toolID?: boolean
+    productID?: boolean
     minWorkingHour?: boolean
+    workingHours?: boolean
     levelID?: boolean
     priceHourly?: boolean
     priceDaily?: boolean
     experience?: boolean
     tool?: boolean | ToolDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
     level?: boolean | LevelDefaultArgs<ExtArgs>
     masters?: boolean | MasterJobs$mastersArgs<ExtArgs>
     _count?: boolean | MasterJobsCountOutputTypeDefaultArgs<ExtArgs>
@@ -16920,50 +17988,61 @@ export namespace Prisma {
   export type MasterJobsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     toolID?: boolean
+    productID?: boolean
     minWorkingHour?: boolean
+    workingHours?: boolean
     levelID?: boolean
     priceHourly?: boolean
     priceDaily?: boolean
     experience?: boolean
     tool?: boolean | ToolDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
     level?: boolean | LevelDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["masterJobs"]>
 
   export type MasterJobsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     toolID?: boolean
+    productID?: boolean
     minWorkingHour?: boolean
+    workingHours?: boolean
     levelID?: boolean
     priceHourly?: boolean
     priceDaily?: boolean
     experience?: boolean
     tool?: boolean | ToolDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
     level?: boolean | LevelDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["masterJobs"]>
 
   export type MasterJobsSelectScalar = {
     id?: boolean
     toolID?: boolean
+    productID?: boolean
     minWorkingHour?: boolean
+    workingHours?: boolean
     levelID?: boolean
     priceHourly?: boolean
     priceDaily?: boolean
     experience?: boolean
   }
 
-  export type MasterJobsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "toolID" | "minWorkingHour" | "levelID" | "priceHourly" | "priceDaily" | "experience", ExtArgs["result"]["masterJobs"]>
+  export type MasterJobsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "toolID" | "productID" | "minWorkingHour" | "workingHours" | "levelID" | "priceHourly" | "priceDaily" | "experience", ExtArgs["result"]["masterJobs"]>
   export type MasterJobsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tool?: boolean | ToolDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
     level?: boolean | LevelDefaultArgs<ExtArgs>
     masters?: boolean | MasterJobs$mastersArgs<ExtArgs>
     _count?: boolean | MasterJobsCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type MasterJobsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tool?: boolean | ToolDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
     level?: boolean | LevelDefaultArgs<ExtArgs>
   }
   export type MasterJobsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tool?: boolean | ToolDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
     level?: boolean | LevelDefaultArgs<ExtArgs>
   }
 
@@ -16971,13 +18050,16 @@ export namespace Prisma {
     name: "MasterJobs"
     objects: {
       tool: Prisma.$ToolPayload<ExtArgs>
+      product: Prisma.$ProductPayload<ExtArgs>
       level: Prisma.$LevelPayload<ExtArgs>
       masters: Prisma.$MasterPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       toolID: string
+      productID: string
       minWorkingHour: number
+      workingHours: number
       levelID: string
       priceHourly: number
       priceDaily: number
@@ -17377,6 +18459,7 @@ export namespace Prisma {
   export interface Prisma__MasterJobsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     tool<T extends ToolDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ToolDefaultArgs<ExtArgs>>): Prisma__ToolClient<$Result.GetResult<Prisma.$ToolPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     level<T extends LevelDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LevelDefaultArgs<ExtArgs>>): Prisma__LevelClient<$Result.GetResult<Prisma.$LevelPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     masters<T extends MasterJobs$mastersArgs<ExtArgs> = {}>(args?: Subset<T, MasterJobs$mastersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -17410,7 +18493,9 @@ export namespace Prisma {
   interface MasterJobsFieldRefs {
     readonly id: FieldRef<"MasterJobs", 'String'>
     readonly toolID: FieldRef<"MasterJobs", 'String'>
+    readonly productID: FieldRef<"MasterJobs", 'String'>
     readonly minWorkingHour: FieldRef<"MasterJobs", 'Int'>
+    readonly workingHours: FieldRef<"MasterJobs", 'Int'>
     readonly levelID: FieldRef<"MasterJobs", 'String'>
     readonly priceHourly: FieldRef<"MasterJobs", 'Int'>
     readonly priceDaily: FieldRef<"MasterJobs", 'Int'>
@@ -22949,28 +24034,36 @@ export namespace Prisma {
 
   export const ProductScalarFieldEnum: {
     id: 'id',
+    isActive: 'isActive',
     nameRu: 'nameRu',
     nameUz: 'nameUz',
     nameEn: 'nameEn',
-    image: 'image',
-    workingHours: 'workingHours',
-    levelID: 'levelID',
-    priceHourly: 'priceHourly',
-    priceDaily: 'priceDaily',
-    tools: 'tools'
+    image: 'image'
   };
 
   export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
 
 
+  export const ProfessionTypeScalarFieldEnum: {
+    id: 'id',
+    nameRu: 'nameRu',
+    nameUz: 'nameUz',
+    nameEn: 'nameEn',
+    productId: 'productId'
+  };
+
+  export type ProfessionTypeScalarFieldEnum = (typeof ProfessionTypeScalarFieldEnum)[keyof typeof ProfessionTypeScalarFieldEnum]
+
+
   export const OrderScalarFieldEnum: {
     id: 'id',
-    userID: 'userID',
     productID: 'productID',
     toolID: 'toolID',
     levelID: 'levelID',
     quantity: 'quantity',
     toolCount: 'toolCount',
+    workingHours: 'workingHours',
+    minWorkingHours: 'minWorkingHours',
     measure: 'measure',
     totalPrice: 'totalPrice',
     locationLat: 'locationLat',
@@ -23002,8 +24095,7 @@ export namespace Prisma {
     capacityID: 'capacityID',
     sizeID: 'sizeID',
     image: 'image',
-    isActive: 'isActive',
-    levelID: 'levelID'
+    isActive: 'isActive'
   };
 
   export type ToolScalarFieldEnum = (typeof ToolScalarFieldEnum)[keyof typeof ToolScalarFieldEnum]
@@ -23080,7 +24172,9 @@ export namespace Prisma {
   export const MasterJobsScalarFieldEnum: {
     id: 'id',
     toolID: 'toolID',
+    productID: 'productID',
     minWorkingHour: 'minWorkingHour',
+    workingHours: 'workingHours',
     levelID: 'levelID',
     priceHourly: 'priceHourly',
     priceDaily: 'priceDaily',
@@ -23236,6 +24330,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -23260,13 +24361,6 @@ export namespace Prisma {
    * Reference to a field of type 'PaymentType[]'
    */
   export type ListEnumPaymentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentType[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -23321,7 +24415,6 @@ export namespace Prisma {
     inn?: StringNullableFilter<"User"> | string | null
     region?: XOR<RegionNullableScalarRelationFilter, RegionWhereInput> | null
     baskets?: BasketListRelationFilter
-    orders?: OrderListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -23341,7 +24434,6 @@ export namespace Prisma {
     inn?: SortOrderInput | SortOrder
     region?: RegionOrderByWithRelationInput
     baskets?: BasketOrderByRelationAggregateInput
-    orders?: OrderOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -23364,7 +24456,6 @@ export namespace Prisma {
     inn?: StringNullableFilter<"User"> | string | null
     region?: XOR<RegionNullableScalarRelationFilter, RegionWhereInput> | null
     baskets?: BasketListRelationFilter
-    orders?: OrderListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -23517,32 +24608,28 @@ export namespace Prisma {
     OR?: ProductWhereInput[]
     NOT?: ProductWhereInput | ProductWhereInput[]
     id?: StringFilter<"Product"> | string
+    isActive?: BoolFilter<"Product"> | boolean
     nameRu?: StringFilter<"Product"> | string
     nameUz?: StringFilter<"Product"> | string
     nameEn?: StringFilter<"Product"> | string
     image?: StringFilter<"Product"> | string
-    workingHours?: IntFilter<"Product"> | number
-    levelID?: StringFilter<"Product"> | string
-    priceHourly?: IntFilter<"Product"> | number
-    priceDaily?: IntFilter<"Product"> | number
-    tools?: StringFilter<"Product"> | string
     baskets?: BasketListRelationFilter
     orders?: OrderListRelationFilter
+    masterJobs?: MasterJobsListRelationFilter
+    intimateCategory?: ProfessionTypeListRelationFilter
   }
 
   export type ProductOrderByWithRelationInput = {
     id?: SortOrder
+    isActive?: SortOrder
     nameRu?: SortOrder
     nameUz?: SortOrder
     nameEn?: SortOrder
     image?: SortOrder
-    workingHours?: SortOrder
-    levelID?: SortOrder
-    priceHourly?: SortOrder
-    priceDaily?: SortOrder
-    tools?: SortOrder
     baskets?: BasketOrderByRelationAggregateInput
     orders?: OrderOrderByRelationAggregateInput
+    masterJobs?: MasterJobsOrderByRelationAggregateInput
+    intimateCategory?: ProfessionTypeOrderByRelationAggregateInput
   }
 
   export type ProductWhereUniqueInput = Prisma.AtLeast<{
@@ -23550,35 +24637,27 @@ export namespace Prisma {
     AND?: ProductWhereInput | ProductWhereInput[]
     OR?: ProductWhereInput[]
     NOT?: ProductWhereInput | ProductWhereInput[]
+    isActive?: BoolFilter<"Product"> | boolean
     nameRu?: StringFilter<"Product"> | string
     nameUz?: StringFilter<"Product"> | string
     nameEn?: StringFilter<"Product"> | string
     image?: StringFilter<"Product"> | string
-    workingHours?: IntFilter<"Product"> | number
-    levelID?: StringFilter<"Product"> | string
-    priceHourly?: IntFilter<"Product"> | number
-    priceDaily?: IntFilter<"Product"> | number
-    tools?: StringFilter<"Product"> | string
     baskets?: BasketListRelationFilter
     orders?: OrderListRelationFilter
+    masterJobs?: MasterJobsListRelationFilter
+    intimateCategory?: ProfessionTypeListRelationFilter
   }, "id">
 
   export type ProductOrderByWithAggregationInput = {
     id?: SortOrder
+    isActive?: SortOrder
     nameRu?: SortOrder
     nameUz?: SortOrder
     nameEn?: SortOrder
     image?: SortOrder
-    workingHours?: SortOrder
-    levelID?: SortOrder
-    priceHourly?: SortOrder
-    priceDaily?: SortOrder
-    tools?: SortOrder
     _count?: ProductCountOrderByAggregateInput
-    _avg?: ProductAvgOrderByAggregateInput
     _max?: ProductMaxOrderByAggregateInput
     _min?: ProductMinOrderByAggregateInput
-    _sum?: ProductSumOrderByAggregateInput
   }
 
   export type ProductScalarWhereWithAggregatesInput = {
@@ -23586,15 +24665,66 @@ export namespace Prisma {
     OR?: ProductScalarWhereWithAggregatesInput[]
     NOT?: ProductScalarWhereWithAggregatesInput | ProductScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Product"> | string
+    isActive?: BoolWithAggregatesFilter<"Product"> | boolean
     nameRu?: StringWithAggregatesFilter<"Product"> | string
     nameUz?: StringWithAggregatesFilter<"Product"> | string
     nameEn?: StringWithAggregatesFilter<"Product"> | string
     image?: StringWithAggregatesFilter<"Product"> | string
-    workingHours?: IntWithAggregatesFilter<"Product"> | number
-    levelID?: StringWithAggregatesFilter<"Product"> | string
-    priceHourly?: IntWithAggregatesFilter<"Product"> | number
-    priceDaily?: IntWithAggregatesFilter<"Product"> | number
-    tools?: StringWithAggregatesFilter<"Product"> | string
+  }
+
+  export type ProfessionTypeWhereInput = {
+    AND?: ProfessionTypeWhereInput | ProfessionTypeWhereInput[]
+    OR?: ProfessionTypeWhereInput[]
+    NOT?: ProfessionTypeWhereInput | ProfessionTypeWhereInput[]
+    id?: StringFilter<"ProfessionType"> | string
+    nameRu?: StringFilter<"ProfessionType"> | string
+    nameUz?: StringFilter<"ProfessionType"> | string
+    nameEn?: StringFilter<"ProfessionType"> | string
+    productId?: StringFilter<"ProfessionType"> | string
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+  }
+
+  export type ProfessionTypeOrderByWithRelationInput = {
+    id?: SortOrder
+    nameRu?: SortOrder
+    nameUz?: SortOrder
+    nameEn?: SortOrder
+    productId?: SortOrder
+    product?: ProductOrderByWithRelationInput
+  }
+
+  export type ProfessionTypeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ProfessionTypeWhereInput | ProfessionTypeWhereInput[]
+    OR?: ProfessionTypeWhereInput[]
+    NOT?: ProfessionTypeWhereInput | ProfessionTypeWhereInput[]
+    nameRu?: StringFilter<"ProfessionType"> | string
+    nameUz?: StringFilter<"ProfessionType"> | string
+    nameEn?: StringFilter<"ProfessionType"> | string
+    productId?: StringFilter<"ProfessionType"> | string
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+  }, "id">
+
+  export type ProfessionTypeOrderByWithAggregationInput = {
+    id?: SortOrder
+    nameRu?: SortOrder
+    nameUz?: SortOrder
+    nameEn?: SortOrder
+    productId?: SortOrder
+    _count?: ProfessionTypeCountOrderByAggregateInput
+    _max?: ProfessionTypeMaxOrderByAggregateInput
+    _min?: ProfessionTypeMinOrderByAggregateInput
+  }
+
+  export type ProfessionTypeScalarWhereWithAggregatesInput = {
+    AND?: ProfessionTypeScalarWhereWithAggregatesInput | ProfessionTypeScalarWhereWithAggregatesInput[]
+    OR?: ProfessionTypeScalarWhereWithAggregatesInput[]
+    NOT?: ProfessionTypeScalarWhereWithAggregatesInput | ProfessionTypeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ProfessionType"> | string
+    nameRu?: StringWithAggregatesFilter<"ProfessionType"> | string
+    nameUz?: StringWithAggregatesFilter<"ProfessionType"> | string
+    nameEn?: StringWithAggregatesFilter<"ProfessionType"> | string
+    productId?: StringWithAggregatesFilter<"ProfessionType"> | string
   }
 
   export type OrderWhereInput = {
@@ -23602,14 +24732,15 @@ export namespace Prisma {
     OR?: OrderWhereInput[]
     NOT?: OrderWhereInput | OrderWhereInput[]
     id?: StringFilter<"Order"> | string
-    userID?: StringFilter<"Order"> | string
     productID?: StringFilter<"Order"> | string
     toolID?: StringFilter<"Order"> | string
     levelID?: StringFilter<"Order"> | string
     quantity?: IntFilter<"Order"> | number
     toolCount?: IntFilter<"Order"> | number
+    workingHours?: IntFilter<"Order"> | number
+    minWorkingHours?: IntFilter<"Order"> | number
     measure?: StringFilter<"Order"> | string
-    totalPrice?: IntFilter<"Order"> | number
+    totalPrice?: IntNullableFilter<"Order"> | number | null
     locationLat?: StringFilter<"Order"> | string
     locationLong?: StringFilter<"Order"> | string
     address?: StringFilter<"Order"> | string
@@ -23619,7 +24750,6 @@ export namespace Prisma {
     withDelivery?: BoolFilter<"Order"> | boolean
     status?: EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
     commentToDelivery?: StringFilter<"Order"> | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
     tool?: XOR<ToolScalarRelationFilter, ToolWhereInput>
     level?: XOR<LevelScalarRelationFilter, LevelWhereInput>
@@ -23628,14 +24758,15 @@ export namespace Prisma {
 
   export type OrderOrderByWithRelationInput = {
     id?: SortOrder
-    userID?: SortOrder
     productID?: SortOrder
     toolID?: SortOrder
     levelID?: SortOrder
     quantity?: SortOrder
     toolCount?: SortOrder
+    workingHours?: SortOrder
+    minWorkingHours?: SortOrder
     measure?: SortOrder
-    totalPrice?: SortOrder
+    totalPrice?: SortOrderInput | SortOrder
     locationLat?: SortOrder
     locationLong?: SortOrder
     address?: SortOrder
@@ -23645,7 +24776,6 @@ export namespace Prisma {
     withDelivery?: SortOrder
     status?: SortOrder
     commentToDelivery?: SortOrder
-    user?: UserOrderByWithRelationInput
     product?: ProductOrderByWithRelationInput
     tool?: ToolOrderByWithRelationInput
     level?: LevelOrderByWithRelationInput
@@ -23657,14 +24787,15 @@ export namespace Prisma {
     AND?: OrderWhereInput | OrderWhereInput[]
     OR?: OrderWhereInput[]
     NOT?: OrderWhereInput | OrderWhereInput[]
-    userID?: StringFilter<"Order"> | string
     productID?: StringFilter<"Order"> | string
     toolID?: StringFilter<"Order"> | string
     levelID?: StringFilter<"Order"> | string
     quantity?: IntFilter<"Order"> | number
     toolCount?: IntFilter<"Order"> | number
+    workingHours?: IntFilter<"Order"> | number
+    minWorkingHours?: IntFilter<"Order"> | number
     measure?: StringFilter<"Order"> | string
-    totalPrice?: IntFilter<"Order"> | number
+    totalPrice?: IntNullableFilter<"Order"> | number | null
     locationLat?: StringFilter<"Order"> | string
     locationLong?: StringFilter<"Order"> | string
     address?: StringFilter<"Order"> | string
@@ -23674,7 +24805,6 @@ export namespace Prisma {
     withDelivery?: BoolFilter<"Order"> | boolean
     status?: EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
     commentToDelivery?: StringFilter<"Order"> | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
     tool?: XOR<ToolScalarRelationFilter, ToolWhereInput>
     level?: XOR<LevelScalarRelationFilter, LevelWhereInput>
@@ -23683,14 +24813,15 @@ export namespace Prisma {
 
   export type OrderOrderByWithAggregationInput = {
     id?: SortOrder
-    userID?: SortOrder
     productID?: SortOrder
     toolID?: SortOrder
     levelID?: SortOrder
     quantity?: SortOrder
     toolCount?: SortOrder
+    workingHours?: SortOrder
+    minWorkingHours?: SortOrder
     measure?: SortOrder
-    totalPrice?: SortOrder
+    totalPrice?: SortOrderInput | SortOrder
     locationLat?: SortOrder
     locationLong?: SortOrder
     address?: SortOrder
@@ -23712,14 +24843,15 @@ export namespace Prisma {
     OR?: OrderScalarWhereWithAggregatesInput[]
     NOT?: OrderScalarWhereWithAggregatesInput | OrderScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Order"> | string
-    userID?: StringWithAggregatesFilter<"Order"> | string
     productID?: StringWithAggregatesFilter<"Order"> | string
     toolID?: StringWithAggregatesFilter<"Order"> | string
     levelID?: StringWithAggregatesFilter<"Order"> | string
     quantity?: IntWithAggregatesFilter<"Order"> | number
     toolCount?: IntWithAggregatesFilter<"Order"> | number
+    workingHours?: IntWithAggregatesFilter<"Order"> | number
+    minWorkingHours?: IntWithAggregatesFilter<"Order"> | number
     measure?: StringWithAggregatesFilter<"Order"> | string
-    totalPrice?: IntWithAggregatesFilter<"Order"> | number
+    totalPrice?: IntNullableWithAggregatesFilter<"Order"> | number | null
     locationLat?: StringWithAggregatesFilter<"Order"> | string
     locationLong?: StringWithAggregatesFilter<"Order"> | string
     address?: StringWithAggregatesFilter<"Order"> | string
@@ -23750,11 +24882,9 @@ export namespace Prisma {
     sizeID?: StringFilter<"Tool"> | string
     image?: StringFilter<"Tool"> | string
     isActive?: BoolFilter<"Tool"> | boolean
-    levelID?: StringFilter<"Tool"> | string
     brand?: XOR<BrandScalarRelationFilter, BrandWhereInput>
     capacity?: XOR<CapacityScalarRelationFilter, CapacityWhereInput>
     size?: XOR<SizeScalarRelationFilter, SizeWhereInput>
-    level?: XOR<LevelScalarRelationFilter, LevelWhereInput>
     orders?: OrderListRelationFilter
     masterJobs?: MasterJobsListRelationFilter
   }
@@ -23775,11 +24905,9 @@ export namespace Prisma {
     sizeID?: SortOrder
     image?: SortOrder
     isActive?: SortOrder
-    levelID?: SortOrder
     brand?: BrandOrderByWithRelationInput
     capacity?: CapacityOrderByWithRelationInput
     size?: SizeOrderByWithRelationInput
-    level?: LevelOrderByWithRelationInput
     orders?: OrderOrderByRelationAggregateInput
     masterJobs?: MasterJobsOrderByRelationAggregateInput
   }
@@ -23803,11 +24931,9 @@ export namespace Prisma {
     sizeID?: StringFilter<"Tool"> | string
     image?: StringFilter<"Tool"> | string
     isActive?: BoolFilter<"Tool"> | boolean
-    levelID?: StringFilter<"Tool"> | string
     brand?: XOR<BrandScalarRelationFilter, BrandWhereInput>
     capacity?: XOR<CapacityScalarRelationFilter, CapacityWhereInput>
     size?: XOR<SizeScalarRelationFilter, SizeWhereInput>
-    level?: XOR<LevelScalarRelationFilter, LevelWhereInput>
     orders?: OrderListRelationFilter
     masterJobs?: MasterJobsListRelationFilter
   }, "id" | "code">
@@ -23828,7 +24954,6 @@ export namespace Prisma {
     sizeID?: SortOrder
     image?: SortOrder
     isActive?: SortOrder
-    levelID?: SortOrder
     _count?: ToolCountOrderByAggregateInput
     _avg?: ToolAvgOrderByAggregateInput
     _max?: ToolMaxOrderByAggregateInput
@@ -23855,7 +24980,6 @@ export namespace Prisma {
     sizeID?: StringWithAggregatesFilter<"Tool"> | string
     image?: StringWithAggregatesFilter<"Tool"> | string
     isActive?: BoolWithAggregatesFilter<"Tool"> | boolean
-    levelID?: StringWithAggregatesFilter<"Tool"> | string
   }
 
   export type BrandWhereInput = {
@@ -24016,7 +25140,6 @@ export namespace Prisma {
     nameRu?: StringFilter<"Level"> | string
     nameUz?: StringFilter<"Level"> | string
     nameEn?: StringFilter<"Level"> | string
-    tools?: ToolListRelationFilter
     orders?: OrderListRelationFilter
     masterJobs?: MasterJobsListRelationFilter
   }
@@ -24026,7 +25149,6 @@ export namespace Prisma {
     nameRu?: SortOrder
     nameUz?: SortOrder
     nameEn?: SortOrder
-    tools?: ToolOrderByRelationAggregateInput
     orders?: OrderOrderByRelationAggregateInput
     masterJobs?: MasterJobsOrderByRelationAggregateInput
   }
@@ -24039,7 +25161,6 @@ export namespace Prisma {
     nameRu?: StringFilter<"Level"> | string
     nameUz?: StringFilter<"Level"> | string
     nameEn?: StringFilter<"Level"> | string
-    tools?: ToolListRelationFilter
     orders?: OrderListRelationFilter
     masterJobs?: MasterJobsListRelationFilter
   }, "id">
@@ -24220,12 +25341,15 @@ export namespace Prisma {
     NOT?: MasterJobsWhereInput | MasterJobsWhereInput[]
     id?: StringFilter<"MasterJobs"> | string
     toolID?: StringFilter<"MasterJobs"> | string
+    productID?: StringFilter<"MasterJobs"> | string
     minWorkingHour?: IntFilter<"MasterJobs"> | number
+    workingHours?: IntFilter<"MasterJobs"> | number
     levelID?: StringFilter<"MasterJobs"> | string
     priceHourly?: IntFilter<"MasterJobs"> | number
     priceDaily?: IntFilter<"MasterJobs"> | number
     experience?: StringFilter<"MasterJobs"> | string
     tool?: XOR<ToolScalarRelationFilter, ToolWhereInput>
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
     level?: XOR<LevelScalarRelationFilter, LevelWhereInput>
     masters?: MasterListRelationFilter
   }
@@ -24233,12 +25357,15 @@ export namespace Prisma {
   export type MasterJobsOrderByWithRelationInput = {
     id?: SortOrder
     toolID?: SortOrder
+    productID?: SortOrder
     minWorkingHour?: SortOrder
+    workingHours?: SortOrder
     levelID?: SortOrder
     priceHourly?: SortOrder
     priceDaily?: SortOrder
     experience?: SortOrder
     tool?: ToolOrderByWithRelationInput
+    product?: ProductOrderByWithRelationInput
     level?: LevelOrderByWithRelationInput
     masters?: MasterOrderByRelationAggregateInput
   }
@@ -24249,12 +25376,15 @@ export namespace Prisma {
     OR?: MasterJobsWhereInput[]
     NOT?: MasterJobsWhereInput | MasterJobsWhereInput[]
     toolID?: StringFilter<"MasterJobs"> | string
+    productID?: StringFilter<"MasterJobs"> | string
     minWorkingHour?: IntFilter<"MasterJobs"> | number
+    workingHours?: IntFilter<"MasterJobs"> | number
     levelID?: StringFilter<"MasterJobs"> | string
     priceHourly?: IntFilter<"MasterJobs"> | number
     priceDaily?: IntFilter<"MasterJobs"> | number
     experience?: StringFilter<"MasterJobs"> | string
     tool?: XOR<ToolScalarRelationFilter, ToolWhereInput>
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
     level?: XOR<LevelScalarRelationFilter, LevelWhereInput>
     masters?: MasterListRelationFilter
   }, "id">
@@ -24262,7 +25392,9 @@ export namespace Prisma {
   export type MasterJobsOrderByWithAggregationInput = {
     id?: SortOrder
     toolID?: SortOrder
+    productID?: SortOrder
     minWorkingHour?: SortOrder
+    workingHours?: SortOrder
     levelID?: SortOrder
     priceHourly?: SortOrder
     priceDaily?: SortOrder
@@ -24280,7 +25412,9 @@ export namespace Prisma {
     NOT?: MasterJobsScalarWhereWithAggregatesInput | MasterJobsScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"MasterJobs"> | string
     toolID?: StringWithAggregatesFilter<"MasterJobs"> | string
+    productID?: StringWithAggregatesFilter<"MasterJobs"> | string
     minWorkingHour?: IntWithAggregatesFilter<"MasterJobs"> | number
+    workingHours?: IntWithAggregatesFilter<"MasterJobs"> | number
     levelID?: StringWithAggregatesFilter<"MasterJobs"> | string
     priceHourly?: IntWithAggregatesFilter<"MasterJobs"> | number
     priceDaily?: IntWithAggregatesFilter<"MasterJobs"> | number
@@ -24588,7 +25722,6 @@ export namespace Prisma {
     inn?: string | null
     region?: RegionCreateNestedOneWithoutUsersInput
     baskets?: BasketCreateNestedManyWithoutUserInput
-    orders?: OrderCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -24607,7 +25740,6 @@ export namespace Prisma {
     passportSeries?: string | null
     inn?: string | null
     baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
-    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -24626,7 +25758,6 @@ export namespace Prisma {
     inn?: NullableStringFieldUpdateOperationsInput | string | null
     region?: RegionUpdateOneWithoutUsersNestedInput
     baskets?: BasketUpdateManyWithoutUserNestedInput
-    orders?: OrderUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -24645,7 +25776,6 @@ export namespace Prisma {
     passportSeries?: NullableStringFieldUpdateOperationsInput | string | null
     inn?: NullableStringFieldUpdateOperationsInput | string | null
     baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -24800,109 +25930,146 @@ export namespace Prisma {
 
   export type ProductCreateInput = {
     id?: string
+    isActive: boolean
     nameRu: string
     nameUz: string
     nameEn: string
     image: string
-    workingHours: number
-    levelID: string
-    priceHourly: number
-    priceDaily: number
-    tools: string
     baskets?: BasketCreateNestedManyWithoutProductInput
     orders?: OrderCreateNestedManyWithoutProductInput
+    masterJobs?: MasterJobsCreateNestedManyWithoutProductInput
+    intimateCategory?: ProfessionTypeCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateInput = {
     id?: string
+    isActive: boolean
     nameRu: string
     nameUz: string
     nameEn: string
     image: string
-    workingHours: number
-    levelID: string
-    priceHourly: number
-    priceDaily: number
-    tools: string
     baskets?: BasketUncheckedCreateNestedManyWithoutProductInput
     orders?: OrderUncheckedCreateNestedManyWithoutProductInput
+    masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutProductInput
+    intimateCategory?: ProfessionTypeUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     nameRu?: StringFieldUpdateOperationsInput | string
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    workingHours?: IntFieldUpdateOperationsInput | number
-    levelID?: StringFieldUpdateOperationsInput | string
-    priceHourly?: IntFieldUpdateOperationsInput | number
-    priceDaily?: IntFieldUpdateOperationsInput | number
-    tools?: StringFieldUpdateOperationsInput | string
     baskets?: BasketUpdateManyWithoutProductNestedInput
     orders?: OrderUpdateManyWithoutProductNestedInput
+    masterJobs?: MasterJobsUpdateManyWithoutProductNestedInput
+    intimateCategory?: ProfessionTypeUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     nameRu?: StringFieldUpdateOperationsInput | string
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    workingHours?: IntFieldUpdateOperationsInput | number
-    levelID?: StringFieldUpdateOperationsInput | string
-    priceHourly?: IntFieldUpdateOperationsInput | number
-    priceDaily?: IntFieldUpdateOperationsInput | number
-    tools?: StringFieldUpdateOperationsInput | string
     baskets?: BasketUncheckedUpdateManyWithoutProductNestedInput
     orders?: OrderUncheckedUpdateManyWithoutProductNestedInput
+    masterJobs?: MasterJobsUncheckedUpdateManyWithoutProductNestedInput
+    intimateCategory?: ProfessionTypeUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductCreateManyInput = {
     id?: string
+    isActive: boolean
     nameRu: string
     nameUz: string
     nameEn: string
     image: string
-    workingHours: number
-    levelID: string
-    priceHourly: number
-    priceDaily: number
-    tools: string
   }
 
   export type ProductUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     nameRu?: StringFieldUpdateOperationsInput | string
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    workingHours?: IntFieldUpdateOperationsInput | number
-    levelID?: StringFieldUpdateOperationsInput | string
-    priceHourly?: IntFieldUpdateOperationsInput | number
-    priceDaily?: IntFieldUpdateOperationsInput | number
-    tools?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProductUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     nameRu?: StringFieldUpdateOperationsInput | string
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    workingHours?: IntFieldUpdateOperationsInput | number
-    levelID?: StringFieldUpdateOperationsInput | string
-    priceHourly?: IntFieldUpdateOperationsInput | number
-    priceDaily?: IntFieldUpdateOperationsInput | number
-    tools?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ProfessionTypeCreateInput = {
+    id?: string
+    nameRu: string
+    nameUz: string
+    nameEn: string
+    product: ProductCreateNestedOneWithoutIntimateCategoryInput
+  }
+
+  export type ProfessionTypeUncheckedCreateInput = {
+    id?: string
+    nameRu: string
+    nameUz: string
+    nameEn: string
+    productId: string
+  }
+
+  export type ProfessionTypeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nameRu?: StringFieldUpdateOperationsInput | string
+    nameUz?: StringFieldUpdateOperationsInput | string
+    nameEn?: StringFieldUpdateOperationsInput | string
+    product?: ProductUpdateOneRequiredWithoutIntimateCategoryNestedInput
+  }
+
+  export type ProfessionTypeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nameRu?: StringFieldUpdateOperationsInput | string
+    nameUz?: StringFieldUpdateOperationsInput | string
+    nameEn?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ProfessionTypeCreateManyInput = {
+    id?: string
+    nameRu: string
+    nameUz: string
+    nameEn: string
+    productId: string
+  }
+
+  export type ProfessionTypeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nameRu?: StringFieldUpdateOperationsInput | string
+    nameUz?: StringFieldUpdateOperationsInput | string
+    nameEn?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ProfessionTypeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nameRu?: StringFieldUpdateOperationsInput | string
+    nameUz?: StringFieldUpdateOperationsInput | string
+    nameEn?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
   }
 
   export type OrderCreateInput = {
     id?: string
     quantity: number
     toolCount: number
+    workingHours: number
+    minWorkingHours: number
     measure: string
-    totalPrice: number
+    totalPrice?: number | null
     locationLat: string
     locationLong: string
     address: string
@@ -24912,7 +26079,6 @@ export namespace Prisma {
     withDelivery: boolean
     status: $Enums.OrderStatus
     commentToDelivery: string
-    user: UserCreateNestedOneWithoutOrdersInput
     product: ProductCreateNestedOneWithoutOrdersInput
     tool: ToolCreateNestedOneWithoutOrdersInput
     level: LevelCreateNestedOneWithoutOrdersInput
@@ -24921,14 +26087,15 @@ export namespace Prisma {
 
   export type OrderUncheckedCreateInput = {
     id?: string
-    userID: string
     productID: string
     toolID: string
     levelID: string
     quantity: number
     toolCount: number
+    workingHours: number
+    minWorkingHours: number
     measure: string
-    totalPrice: number
+    totalPrice?: number | null
     locationLat: string
     locationLong: string
     address: string
@@ -24945,8 +26112,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     toolCount?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
+    minWorkingHours?: IntFieldUpdateOperationsInput | number
     measure?: StringFieldUpdateOperationsInput | string
-    totalPrice?: IntFieldUpdateOperationsInput | number
+    totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     locationLat?: StringFieldUpdateOperationsInput | string
     locationLong?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -24956,7 +26125,6 @@ export namespace Prisma {
     withDelivery?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     commentToDelivery?: StringFieldUpdateOperationsInput | string
-    user?: UserUpdateOneRequiredWithoutOrdersNestedInput
     product?: ProductUpdateOneRequiredWithoutOrdersNestedInput
     tool?: ToolUpdateOneRequiredWithoutOrdersNestedInput
     level?: LevelUpdateOneRequiredWithoutOrdersNestedInput
@@ -24965,14 +26133,15 @@ export namespace Prisma {
 
   export type OrderUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userID?: StringFieldUpdateOperationsInput | string
     productID?: StringFieldUpdateOperationsInput | string
     toolID?: StringFieldUpdateOperationsInput | string
     levelID?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     toolCount?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
+    minWorkingHours?: IntFieldUpdateOperationsInput | number
     measure?: StringFieldUpdateOperationsInput | string
-    totalPrice?: IntFieldUpdateOperationsInput | number
+    totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     locationLat?: StringFieldUpdateOperationsInput | string
     locationLong?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -24987,14 +26156,15 @@ export namespace Prisma {
 
   export type OrderCreateManyInput = {
     id?: string
-    userID: string
     productID: string
     toolID: string
     levelID: string
     quantity: number
     toolCount: number
+    workingHours: number
+    minWorkingHours: number
     measure: string
-    totalPrice: number
+    totalPrice?: number | null
     locationLat: string
     locationLong: string
     address: string
@@ -25010,8 +26180,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     toolCount?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
+    minWorkingHours?: IntFieldUpdateOperationsInput | number
     measure?: StringFieldUpdateOperationsInput | string
-    totalPrice?: IntFieldUpdateOperationsInput | number
+    totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     locationLat?: StringFieldUpdateOperationsInput | string
     locationLong?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -25025,14 +26197,15 @@ export namespace Prisma {
 
   export type OrderUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userID?: StringFieldUpdateOperationsInput | string
     productID?: StringFieldUpdateOperationsInput | string
     toolID?: StringFieldUpdateOperationsInput | string
     levelID?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     toolCount?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
+    minWorkingHours?: IntFieldUpdateOperationsInput | number
     measure?: StringFieldUpdateOperationsInput | string
-    totalPrice?: IntFieldUpdateOperationsInput | number
+    totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     locationLat?: StringFieldUpdateOperationsInput | string
     locationLong?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -25060,7 +26233,6 @@ export namespace Prisma {
     brand: BrandCreateNestedOneWithoutToolsInput
     capacity: CapacityCreateNestedOneWithoutToolsInput
     size: SizeCreateNestedOneWithoutToolsInput
-    level: LevelCreateNestedOneWithoutToolsInput
     orders?: OrderCreateNestedManyWithoutToolInput
     masterJobs?: MasterJobsCreateNestedManyWithoutToolInput
   }
@@ -25081,7 +26253,6 @@ export namespace Prisma {
     sizeID: string
     image: string
     isActive: boolean
-    levelID: string
     orders?: OrderUncheckedCreateNestedManyWithoutToolInput
     masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutToolInput
   }
@@ -25102,7 +26273,6 @@ export namespace Prisma {
     brand?: BrandUpdateOneRequiredWithoutToolsNestedInput
     capacity?: CapacityUpdateOneRequiredWithoutToolsNestedInput
     size?: SizeUpdateOneRequiredWithoutToolsNestedInput
-    level?: LevelUpdateOneRequiredWithoutToolsNestedInput
     orders?: OrderUpdateManyWithoutToolNestedInput
     masterJobs?: MasterJobsUpdateManyWithoutToolNestedInput
   }
@@ -25123,7 +26293,6 @@ export namespace Prisma {
     sizeID?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    levelID?: StringFieldUpdateOperationsInput | string
     orders?: OrderUncheckedUpdateManyWithoutToolNestedInput
     masterJobs?: MasterJobsUncheckedUpdateManyWithoutToolNestedInput
   }
@@ -25144,7 +26313,6 @@ export namespace Prisma {
     sizeID: string
     image: string
     isActive: boolean
-    levelID: string
   }
 
   export type ToolUpdateManyMutationInput = {
@@ -25178,7 +26346,6 @@ export namespace Prisma {
     sizeID?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    levelID?: StringFieldUpdateOperationsInput | string
   }
 
   export type BrandCreateInput = {
@@ -25345,7 +26512,6 @@ export namespace Prisma {
     nameRu: string
     nameUz: string
     nameEn: string
-    tools?: ToolCreateNestedManyWithoutLevelInput
     orders?: OrderCreateNestedManyWithoutLevelInput
     masterJobs?: MasterJobsCreateNestedManyWithoutLevelInput
   }
@@ -25355,7 +26521,6 @@ export namespace Prisma {
     nameRu: string
     nameUz: string
     nameEn: string
-    tools?: ToolUncheckedCreateNestedManyWithoutLevelInput
     orders?: OrderUncheckedCreateNestedManyWithoutLevelInput
     masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutLevelInput
   }
@@ -25365,7 +26530,6 @@ export namespace Prisma {
     nameRu?: StringFieldUpdateOperationsInput | string
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
-    tools?: ToolUpdateManyWithoutLevelNestedInput
     orders?: OrderUpdateManyWithoutLevelNestedInput
     masterJobs?: MasterJobsUpdateManyWithoutLevelNestedInput
   }
@@ -25375,7 +26539,6 @@ export namespace Prisma {
     nameRu?: StringFieldUpdateOperationsInput | string
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
-    tools?: ToolUncheckedUpdateManyWithoutLevelNestedInput
     orders?: OrderUncheckedUpdateManyWithoutLevelNestedInput
     masterJobs?: MasterJobsUncheckedUpdateManyWithoutLevelNestedInput
   }
@@ -25559,10 +26722,12 @@ export namespace Prisma {
   export type MasterJobsCreateInput = {
     id?: string
     minWorkingHour: number
+    workingHours: number
     priceHourly: number
     priceDaily: number
     experience: string
     tool: ToolCreateNestedOneWithoutMasterJobsInput
+    product: ProductCreateNestedOneWithoutMasterJobsInput
     level: LevelCreateNestedOneWithoutMasterJobsInput
     masters?: MasterCreateNestedManyWithoutMasterJobsInput
   }
@@ -25570,7 +26735,9 @@ export namespace Prisma {
   export type MasterJobsUncheckedCreateInput = {
     id?: string
     toolID: string
+    productID: string
     minWorkingHour: number
+    workingHours: number
     levelID: string
     priceHourly: number
     priceDaily: number
@@ -25581,10 +26748,12 @@ export namespace Prisma {
   export type MasterJobsUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     minWorkingHour?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
     priceHourly?: IntFieldUpdateOperationsInput | number
     priceDaily?: IntFieldUpdateOperationsInput | number
     experience?: StringFieldUpdateOperationsInput | string
     tool?: ToolUpdateOneRequiredWithoutMasterJobsNestedInput
+    product?: ProductUpdateOneRequiredWithoutMasterJobsNestedInput
     level?: LevelUpdateOneRequiredWithoutMasterJobsNestedInput
     masters?: MasterUpdateManyWithoutMasterJobsNestedInput
   }
@@ -25592,7 +26761,9 @@ export namespace Prisma {
   export type MasterJobsUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     toolID?: StringFieldUpdateOperationsInput | string
+    productID?: StringFieldUpdateOperationsInput | string
     minWorkingHour?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
     levelID?: StringFieldUpdateOperationsInput | string
     priceHourly?: IntFieldUpdateOperationsInput | number
     priceDaily?: IntFieldUpdateOperationsInput | number
@@ -25603,7 +26774,9 @@ export namespace Prisma {
   export type MasterJobsCreateManyInput = {
     id?: string
     toolID: string
+    productID: string
     minWorkingHour: number
+    workingHours: number
     levelID: string
     priceHourly: number
     priceDaily: number
@@ -25613,6 +26786,7 @@ export namespace Prisma {
   export type MasterJobsUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     minWorkingHour?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
     priceHourly?: IntFieldUpdateOperationsInput | number
     priceDaily?: IntFieldUpdateOperationsInput | number
     experience?: StringFieldUpdateOperationsInput | string
@@ -25621,7 +26795,9 @@ export namespace Prisma {
   export type MasterJobsUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     toolID?: StringFieldUpdateOperationsInput | string
+    productID?: StringFieldUpdateOperationsInput | string
     minWorkingHour?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
     levelID?: StringFieldUpdateOperationsInput | string
     priceHourly?: IntFieldUpdateOperationsInput | number
     priceDaily?: IntFieldUpdateOperationsInput | number
@@ -25998,22 +27174,12 @@ export namespace Prisma {
     none?: BasketWhereInput
   }
 
-  export type OrderListRelationFilter = {
-    every?: OrderWhereInput
-    some?: OrderWhereInput
-    none?: OrderWhereInput
-  }
-
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
   export type BasketOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type OrderOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -26221,55 +27387,109 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type OrderListRelationFilter = {
+    every?: OrderWhereInput
+    some?: OrderWhereInput
+    none?: OrderWhereInput
+  }
+
+  export type MasterJobsListRelationFilter = {
+    every?: MasterJobsWhereInput
+    some?: MasterJobsWhereInput
+    none?: MasterJobsWhereInput
+  }
+
+  export type ProfessionTypeListRelationFilter = {
+    every?: ProfessionTypeWhereInput
+    some?: ProfessionTypeWhereInput
+    none?: ProfessionTypeWhereInput
+  }
+
+  export type OrderOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MasterJobsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ProfessionTypeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type ProductCountOrderByAggregateInput = {
     id?: SortOrder
+    isActive?: SortOrder
     nameRu?: SortOrder
     nameUz?: SortOrder
     nameEn?: SortOrder
     image?: SortOrder
-    workingHours?: SortOrder
-    levelID?: SortOrder
-    priceHourly?: SortOrder
-    priceDaily?: SortOrder
-    tools?: SortOrder
-  }
-
-  export type ProductAvgOrderByAggregateInput = {
-    workingHours?: SortOrder
-    priceHourly?: SortOrder
-    priceDaily?: SortOrder
   }
 
   export type ProductMaxOrderByAggregateInput = {
     id?: SortOrder
+    isActive?: SortOrder
     nameRu?: SortOrder
     nameUz?: SortOrder
     nameEn?: SortOrder
     image?: SortOrder
-    workingHours?: SortOrder
-    levelID?: SortOrder
-    priceHourly?: SortOrder
-    priceDaily?: SortOrder
-    tools?: SortOrder
   }
 
   export type ProductMinOrderByAggregateInput = {
     id?: SortOrder
+    isActive?: SortOrder
     nameRu?: SortOrder
     nameUz?: SortOrder
     nameEn?: SortOrder
     image?: SortOrder
-    workingHours?: SortOrder
-    levelID?: SortOrder
-    priceHourly?: SortOrder
-    priceDaily?: SortOrder
-    tools?: SortOrder
   }
 
-  export type ProductSumOrderByAggregateInput = {
-    workingHours?: SortOrder
-    priceHourly?: SortOrder
-    priceDaily?: SortOrder
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type ProfessionTypeCountOrderByAggregateInput = {
+    id?: SortOrder
+    nameRu?: SortOrder
+    nameUz?: SortOrder
+    nameEn?: SortOrder
+    productId?: SortOrder
+  }
+
+  export type ProfessionTypeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    nameRu?: SortOrder
+    nameUz?: SortOrder
+    nameEn?: SortOrder
+    productId?: SortOrder
+  }
+
+  export type ProfessionTypeMinOrderByAggregateInput = {
+    id?: SortOrder
+    nameRu?: SortOrder
+    nameUz?: SortOrder
+    nameEn?: SortOrder
+    productId?: SortOrder
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -26288,11 +27508,6 @@ export namespace Prisma {
     in?: $Enums.PaymentType[] | ListEnumPaymentTypeFieldRefInput<$PrismaModel>
     notIn?: $Enums.PaymentType[] | ListEnumPaymentTypeFieldRefInput<$PrismaModel>
     not?: NestedEnumPaymentTypeFilter<$PrismaModel> | $Enums.PaymentType
-  }
-
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type EnumOrderStatusFilter<$PrismaModel = never> = {
@@ -26324,12 +27539,13 @@ export namespace Prisma {
 
   export type OrderCountOrderByAggregateInput = {
     id?: SortOrder
-    userID?: SortOrder
     productID?: SortOrder
     toolID?: SortOrder
     levelID?: SortOrder
     quantity?: SortOrder
     toolCount?: SortOrder
+    workingHours?: SortOrder
+    minWorkingHours?: SortOrder
     measure?: SortOrder
     totalPrice?: SortOrder
     locationLat?: SortOrder
@@ -26346,17 +27562,20 @@ export namespace Prisma {
   export type OrderAvgOrderByAggregateInput = {
     quantity?: SortOrder
     toolCount?: SortOrder
+    workingHours?: SortOrder
+    minWorkingHours?: SortOrder
     totalPrice?: SortOrder
   }
 
   export type OrderMaxOrderByAggregateInput = {
     id?: SortOrder
-    userID?: SortOrder
     productID?: SortOrder
     toolID?: SortOrder
     levelID?: SortOrder
     quantity?: SortOrder
     toolCount?: SortOrder
+    workingHours?: SortOrder
+    minWorkingHours?: SortOrder
     measure?: SortOrder
     totalPrice?: SortOrder
     locationLat?: SortOrder
@@ -26372,12 +27591,13 @@ export namespace Prisma {
 
   export type OrderMinOrderByAggregateInput = {
     id?: SortOrder
-    userID?: SortOrder
     productID?: SortOrder
     toolID?: SortOrder
     levelID?: SortOrder
     quantity?: SortOrder
     toolCount?: SortOrder
+    workingHours?: SortOrder
+    minWorkingHours?: SortOrder
     measure?: SortOrder
     totalPrice?: SortOrder
     locationLat?: SortOrder
@@ -26394,7 +27614,25 @@ export namespace Prisma {
   export type OrderSumOrderByAggregateInput = {
     quantity?: SortOrder
     toolCount?: SortOrder
+    workingHours?: SortOrder
+    minWorkingHours?: SortOrder
     totalPrice?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -26419,14 +27657,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumPaymentTypeFilter<$PrismaModel>
     _max?: NestedEnumPaymentTypeFilter<$PrismaModel>
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type EnumOrderStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -26454,16 +27684,6 @@ export namespace Prisma {
     isNot?: SizeWhereInput
   }
 
-  export type MasterJobsListRelationFilter = {
-    every?: MasterJobsWhereInput
-    some?: MasterJobsWhereInput
-    none?: MasterJobsWhereInput
-  }
-
-  export type MasterJobsOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type ToolCountOrderByAggregateInput = {
     id?: SortOrder
     nameRu?: SortOrder
@@ -26480,7 +27700,6 @@ export namespace Prisma {
     sizeID?: SortOrder
     image?: SortOrder
     isActive?: SortOrder
-    levelID?: SortOrder
   }
 
   export type ToolAvgOrderByAggregateInput = {
@@ -26504,7 +27723,6 @@ export namespace Prisma {
     sizeID?: SortOrder
     image?: SortOrder
     isActive?: SortOrder
-    levelID?: SortOrder
   }
 
   export type ToolMinOrderByAggregateInput = {
@@ -26523,7 +27741,6 @@ export namespace Prisma {
     sizeID?: SortOrder
     image?: SortOrder
     isActive?: SortOrder
-    levelID?: SortOrder
   }
 
   export type ToolSumOrderByAggregateInput = {
@@ -26735,7 +27952,9 @@ export namespace Prisma {
   export type MasterJobsCountOrderByAggregateInput = {
     id?: SortOrder
     toolID?: SortOrder
+    productID?: SortOrder
     minWorkingHour?: SortOrder
+    workingHours?: SortOrder
     levelID?: SortOrder
     priceHourly?: SortOrder
     priceDaily?: SortOrder
@@ -26744,6 +27963,7 @@ export namespace Prisma {
 
   export type MasterJobsAvgOrderByAggregateInput = {
     minWorkingHour?: SortOrder
+    workingHours?: SortOrder
     priceHourly?: SortOrder
     priceDaily?: SortOrder
   }
@@ -26751,7 +27971,9 @@ export namespace Prisma {
   export type MasterJobsMaxOrderByAggregateInput = {
     id?: SortOrder
     toolID?: SortOrder
+    productID?: SortOrder
     minWorkingHour?: SortOrder
+    workingHours?: SortOrder
     levelID?: SortOrder
     priceHourly?: SortOrder
     priceDaily?: SortOrder
@@ -26761,7 +27983,9 @@ export namespace Prisma {
   export type MasterJobsMinOrderByAggregateInput = {
     id?: SortOrder
     toolID?: SortOrder
+    productID?: SortOrder
     minWorkingHour?: SortOrder
+    workingHours?: SortOrder
     levelID?: SortOrder
     priceHourly?: SortOrder
     priceDaily?: SortOrder
@@ -26770,6 +27994,7 @@ export namespace Prisma {
 
   export type MasterJobsSumOrderByAggregateInput = {
     minWorkingHour?: SortOrder
+    workingHours?: SortOrder
     priceHourly?: SortOrder
     priceDaily?: SortOrder
   }
@@ -26922,25 +28147,11 @@ export namespace Prisma {
     connect?: BasketWhereUniqueInput | BasketWhereUniqueInput[]
   }
 
-  export type OrderCreateNestedManyWithoutUserInput = {
-    create?: XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput> | OrderCreateWithoutUserInput[] | OrderUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: OrderCreateOrConnectWithoutUserInput | OrderCreateOrConnectWithoutUserInput[]
-    createMany?: OrderCreateManyUserInputEnvelope
-    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
-  }
-
   export type BasketUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<BasketCreateWithoutUserInput, BasketUncheckedCreateWithoutUserInput> | BasketCreateWithoutUserInput[] | BasketUncheckedCreateWithoutUserInput[]
     connectOrCreate?: BasketCreateOrConnectWithoutUserInput | BasketCreateOrConnectWithoutUserInput[]
     createMany?: BasketCreateManyUserInputEnvelope
     connect?: BasketWhereUniqueInput | BasketWhereUniqueInput[]
-  }
-
-  export type OrderUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput> | OrderCreateWithoutUserInput[] | OrderUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: OrderCreateOrConnectWithoutUserInput | OrderCreateOrConnectWithoutUserInput[]
-    createMany?: OrderCreateManyUserInputEnvelope
-    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -26983,20 +28194,6 @@ export namespace Prisma {
     deleteMany?: BasketScalarWhereInput | BasketScalarWhereInput[]
   }
 
-  export type OrderUpdateManyWithoutUserNestedInput = {
-    create?: XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput> | OrderCreateWithoutUserInput[] | OrderUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: OrderCreateOrConnectWithoutUserInput | OrderCreateOrConnectWithoutUserInput[]
-    upsert?: OrderUpsertWithWhereUniqueWithoutUserInput | OrderUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: OrderCreateManyUserInputEnvelope
-    set?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
-    disconnect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
-    delete?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
-    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
-    update?: OrderUpdateWithWhereUniqueWithoutUserInput | OrderUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: OrderUpdateManyWithWhereWithoutUserInput | OrderUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
-  }
-
   export type BasketUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<BasketCreateWithoutUserInput, BasketUncheckedCreateWithoutUserInput> | BasketCreateWithoutUserInput[] | BasketUncheckedCreateWithoutUserInput[]
     connectOrCreate?: BasketCreateOrConnectWithoutUserInput | BasketCreateOrConnectWithoutUserInput[]
@@ -27009,20 +28206,6 @@ export namespace Prisma {
     update?: BasketUpdateWithWhereUniqueWithoutUserInput | BasketUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: BasketUpdateManyWithWhereWithoutUserInput | BasketUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: BasketScalarWhereInput | BasketScalarWhereInput[]
-  }
-
-  export type OrderUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput> | OrderCreateWithoutUserInput[] | OrderUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: OrderCreateOrConnectWithoutUserInput | OrderCreateOrConnectWithoutUserInput[]
-    upsert?: OrderUpsertWithWhereUniqueWithoutUserInput | OrderUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: OrderCreateManyUserInputEnvelope
-    set?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
-    disconnect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
-    delete?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
-    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
-    update?: OrderUpdateWithWhereUniqueWithoutUserInput | OrderUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: OrderUpdateManyWithWhereWithoutUserInput | OrderUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
   }
 
   export type UserCreateNestedManyWithoutRegionInput = {
@@ -27117,6 +28300,20 @@ export namespace Prisma {
     connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
   }
 
+  export type MasterJobsCreateNestedManyWithoutProductInput = {
+    create?: XOR<MasterJobsCreateWithoutProductInput, MasterJobsUncheckedCreateWithoutProductInput> | MasterJobsCreateWithoutProductInput[] | MasterJobsUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: MasterJobsCreateOrConnectWithoutProductInput | MasterJobsCreateOrConnectWithoutProductInput[]
+    createMany?: MasterJobsCreateManyProductInputEnvelope
+    connect?: MasterJobsWhereUniqueInput | MasterJobsWhereUniqueInput[]
+  }
+
+  export type ProfessionTypeCreateNestedManyWithoutProductInput = {
+    create?: XOR<ProfessionTypeCreateWithoutProductInput, ProfessionTypeUncheckedCreateWithoutProductInput> | ProfessionTypeCreateWithoutProductInput[] | ProfessionTypeUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: ProfessionTypeCreateOrConnectWithoutProductInput | ProfessionTypeCreateOrConnectWithoutProductInput[]
+    createMany?: ProfessionTypeCreateManyProductInputEnvelope
+    connect?: ProfessionTypeWhereUniqueInput | ProfessionTypeWhereUniqueInput[]
+  }
+
   export type BasketUncheckedCreateNestedManyWithoutProductInput = {
     create?: XOR<BasketCreateWithoutProductInput, BasketUncheckedCreateWithoutProductInput> | BasketCreateWithoutProductInput[] | BasketUncheckedCreateWithoutProductInput[]
     connectOrCreate?: BasketCreateOrConnectWithoutProductInput | BasketCreateOrConnectWithoutProductInput[]
@@ -27129,6 +28326,24 @@ export namespace Prisma {
     connectOrCreate?: OrderCreateOrConnectWithoutProductInput | OrderCreateOrConnectWithoutProductInput[]
     createMany?: OrderCreateManyProductInputEnvelope
     connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+  }
+
+  export type MasterJobsUncheckedCreateNestedManyWithoutProductInput = {
+    create?: XOR<MasterJobsCreateWithoutProductInput, MasterJobsUncheckedCreateWithoutProductInput> | MasterJobsCreateWithoutProductInput[] | MasterJobsUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: MasterJobsCreateOrConnectWithoutProductInput | MasterJobsCreateOrConnectWithoutProductInput[]
+    createMany?: MasterJobsCreateManyProductInputEnvelope
+    connect?: MasterJobsWhereUniqueInput | MasterJobsWhereUniqueInput[]
+  }
+
+  export type ProfessionTypeUncheckedCreateNestedManyWithoutProductInput = {
+    create?: XOR<ProfessionTypeCreateWithoutProductInput, ProfessionTypeUncheckedCreateWithoutProductInput> | ProfessionTypeCreateWithoutProductInput[] | ProfessionTypeUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: ProfessionTypeCreateOrConnectWithoutProductInput | ProfessionTypeCreateOrConnectWithoutProductInput[]
+    createMany?: ProfessionTypeCreateManyProductInputEnvelope
+    connect?: ProfessionTypeWhereUniqueInput | ProfessionTypeWhereUniqueInput[]
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type BasketUpdateManyWithoutProductNestedInput = {
@@ -27159,6 +28374,34 @@ export namespace Prisma {
     deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
   }
 
+  export type MasterJobsUpdateManyWithoutProductNestedInput = {
+    create?: XOR<MasterJobsCreateWithoutProductInput, MasterJobsUncheckedCreateWithoutProductInput> | MasterJobsCreateWithoutProductInput[] | MasterJobsUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: MasterJobsCreateOrConnectWithoutProductInput | MasterJobsCreateOrConnectWithoutProductInput[]
+    upsert?: MasterJobsUpsertWithWhereUniqueWithoutProductInput | MasterJobsUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: MasterJobsCreateManyProductInputEnvelope
+    set?: MasterJobsWhereUniqueInput | MasterJobsWhereUniqueInput[]
+    disconnect?: MasterJobsWhereUniqueInput | MasterJobsWhereUniqueInput[]
+    delete?: MasterJobsWhereUniqueInput | MasterJobsWhereUniqueInput[]
+    connect?: MasterJobsWhereUniqueInput | MasterJobsWhereUniqueInput[]
+    update?: MasterJobsUpdateWithWhereUniqueWithoutProductInput | MasterJobsUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: MasterJobsUpdateManyWithWhereWithoutProductInput | MasterJobsUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: MasterJobsScalarWhereInput | MasterJobsScalarWhereInput[]
+  }
+
+  export type ProfessionTypeUpdateManyWithoutProductNestedInput = {
+    create?: XOR<ProfessionTypeCreateWithoutProductInput, ProfessionTypeUncheckedCreateWithoutProductInput> | ProfessionTypeCreateWithoutProductInput[] | ProfessionTypeUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: ProfessionTypeCreateOrConnectWithoutProductInput | ProfessionTypeCreateOrConnectWithoutProductInput[]
+    upsert?: ProfessionTypeUpsertWithWhereUniqueWithoutProductInput | ProfessionTypeUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: ProfessionTypeCreateManyProductInputEnvelope
+    set?: ProfessionTypeWhereUniqueInput | ProfessionTypeWhereUniqueInput[]
+    disconnect?: ProfessionTypeWhereUniqueInput | ProfessionTypeWhereUniqueInput[]
+    delete?: ProfessionTypeWhereUniqueInput | ProfessionTypeWhereUniqueInput[]
+    connect?: ProfessionTypeWhereUniqueInput | ProfessionTypeWhereUniqueInput[]
+    update?: ProfessionTypeUpdateWithWhereUniqueWithoutProductInput | ProfessionTypeUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: ProfessionTypeUpdateManyWithWhereWithoutProductInput | ProfessionTypeUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: ProfessionTypeScalarWhereInput | ProfessionTypeScalarWhereInput[]
+  }
+
   export type BasketUncheckedUpdateManyWithoutProductNestedInput = {
     create?: XOR<BasketCreateWithoutProductInput, BasketUncheckedCreateWithoutProductInput> | BasketCreateWithoutProductInput[] | BasketUncheckedCreateWithoutProductInput[]
     connectOrCreate?: BasketCreateOrConnectWithoutProductInput | BasketCreateOrConnectWithoutProductInput[]
@@ -27187,10 +28430,46 @@ export namespace Prisma {
     deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutOrdersInput = {
-    create?: XOR<UserCreateWithoutOrdersInput, UserUncheckedCreateWithoutOrdersInput>
-    connectOrCreate?: UserCreateOrConnectWithoutOrdersInput
-    connect?: UserWhereUniqueInput
+  export type MasterJobsUncheckedUpdateManyWithoutProductNestedInput = {
+    create?: XOR<MasterJobsCreateWithoutProductInput, MasterJobsUncheckedCreateWithoutProductInput> | MasterJobsCreateWithoutProductInput[] | MasterJobsUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: MasterJobsCreateOrConnectWithoutProductInput | MasterJobsCreateOrConnectWithoutProductInput[]
+    upsert?: MasterJobsUpsertWithWhereUniqueWithoutProductInput | MasterJobsUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: MasterJobsCreateManyProductInputEnvelope
+    set?: MasterJobsWhereUniqueInput | MasterJobsWhereUniqueInput[]
+    disconnect?: MasterJobsWhereUniqueInput | MasterJobsWhereUniqueInput[]
+    delete?: MasterJobsWhereUniqueInput | MasterJobsWhereUniqueInput[]
+    connect?: MasterJobsWhereUniqueInput | MasterJobsWhereUniqueInput[]
+    update?: MasterJobsUpdateWithWhereUniqueWithoutProductInput | MasterJobsUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: MasterJobsUpdateManyWithWhereWithoutProductInput | MasterJobsUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: MasterJobsScalarWhereInput | MasterJobsScalarWhereInput[]
+  }
+
+  export type ProfessionTypeUncheckedUpdateManyWithoutProductNestedInput = {
+    create?: XOR<ProfessionTypeCreateWithoutProductInput, ProfessionTypeUncheckedCreateWithoutProductInput> | ProfessionTypeCreateWithoutProductInput[] | ProfessionTypeUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: ProfessionTypeCreateOrConnectWithoutProductInput | ProfessionTypeCreateOrConnectWithoutProductInput[]
+    upsert?: ProfessionTypeUpsertWithWhereUniqueWithoutProductInput | ProfessionTypeUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: ProfessionTypeCreateManyProductInputEnvelope
+    set?: ProfessionTypeWhereUniqueInput | ProfessionTypeWhereUniqueInput[]
+    disconnect?: ProfessionTypeWhereUniqueInput | ProfessionTypeWhereUniqueInput[]
+    delete?: ProfessionTypeWhereUniqueInput | ProfessionTypeWhereUniqueInput[]
+    connect?: ProfessionTypeWhereUniqueInput | ProfessionTypeWhereUniqueInput[]
+    update?: ProfessionTypeUpdateWithWhereUniqueWithoutProductInput | ProfessionTypeUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: ProfessionTypeUpdateManyWithWhereWithoutProductInput | ProfessionTypeUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: ProfessionTypeScalarWhereInput | ProfessionTypeScalarWhereInput[]
+  }
+
+  export type ProductCreateNestedOneWithoutIntimateCategoryInput = {
+    create?: XOR<ProductCreateWithoutIntimateCategoryInput, ProductUncheckedCreateWithoutIntimateCategoryInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutIntimateCategoryInput
+    connect?: ProductWhereUniqueInput
+  }
+
+  export type ProductUpdateOneRequiredWithoutIntimateCategoryNestedInput = {
+    create?: XOR<ProductCreateWithoutIntimateCategoryInput, ProductUncheckedCreateWithoutIntimateCategoryInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutIntimateCategoryInput
+    upsert?: ProductUpsertWithoutIntimateCategoryInput
+    connect?: ProductWhereUniqueInput
+    update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutIntimateCategoryInput, ProductUpdateWithoutIntimateCategoryInput>, ProductUncheckedUpdateWithoutIntimateCategoryInput>
   }
 
   export type ProductCreateNestedOneWithoutOrdersInput = {
@@ -27225,6 +28504,14 @@ export namespace Prisma {
     connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
   }
 
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
@@ -27233,20 +28520,8 @@ export namespace Prisma {
     set?: $Enums.PaymentType
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
   export type EnumOrderStatusFieldUpdateOperationsInput = {
     set?: $Enums.OrderStatus
-  }
-
-  export type UserUpdateOneRequiredWithoutOrdersNestedInput = {
-    create?: XOR<UserCreateWithoutOrdersInput, UserUncheckedCreateWithoutOrdersInput>
-    connectOrCreate?: UserCreateOrConnectWithoutOrdersInput
-    upsert?: UserUpsertWithoutOrdersInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutOrdersInput, UserUpdateWithoutOrdersInput>, UserUncheckedUpdateWithoutOrdersInput>
   }
 
   export type ProductUpdateOneRequiredWithoutOrdersNestedInput = {
@@ -27319,12 +28594,6 @@ export namespace Prisma {
     connect?: SizeWhereUniqueInput
   }
 
-  export type LevelCreateNestedOneWithoutToolsInput = {
-    create?: XOR<LevelCreateWithoutToolsInput, LevelUncheckedCreateWithoutToolsInput>
-    connectOrCreate?: LevelCreateOrConnectWithoutToolsInput
-    connect?: LevelWhereUniqueInput
-  }
-
   export type OrderCreateNestedManyWithoutToolInput = {
     create?: XOR<OrderCreateWithoutToolInput, OrderUncheckedCreateWithoutToolInput> | OrderCreateWithoutToolInput[] | OrderUncheckedCreateWithoutToolInput[]
     connectOrCreate?: OrderCreateOrConnectWithoutToolInput | OrderCreateOrConnectWithoutToolInput[]
@@ -27375,14 +28644,6 @@ export namespace Prisma {
     upsert?: SizeUpsertWithoutToolsInput
     connect?: SizeWhereUniqueInput
     update?: XOR<XOR<SizeUpdateToOneWithWhereWithoutToolsInput, SizeUpdateWithoutToolsInput>, SizeUncheckedUpdateWithoutToolsInput>
-  }
-
-  export type LevelUpdateOneRequiredWithoutToolsNestedInput = {
-    create?: XOR<LevelCreateWithoutToolsInput, LevelUncheckedCreateWithoutToolsInput>
-    connectOrCreate?: LevelCreateOrConnectWithoutToolsInput
-    upsert?: LevelUpsertWithoutToolsInput
-    connect?: LevelWhereUniqueInput
-    update?: XOR<XOR<LevelUpdateToOneWithWhereWithoutToolsInput, LevelUpdateWithoutToolsInput>, LevelUncheckedUpdateWithoutToolsInput>
   }
 
   export type OrderUpdateManyWithoutToolNestedInput = {
@@ -27567,13 +28828,6 @@ export namespace Prisma {
     deleteMany?: ToolScalarWhereInput | ToolScalarWhereInput[]
   }
 
-  export type ToolCreateNestedManyWithoutLevelInput = {
-    create?: XOR<ToolCreateWithoutLevelInput, ToolUncheckedCreateWithoutLevelInput> | ToolCreateWithoutLevelInput[] | ToolUncheckedCreateWithoutLevelInput[]
-    connectOrCreate?: ToolCreateOrConnectWithoutLevelInput | ToolCreateOrConnectWithoutLevelInput[]
-    createMany?: ToolCreateManyLevelInputEnvelope
-    connect?: ToolWhereUniqueInput | ToolWhereUniqueInput[]
-  }
-
   export type OrderCreateNestedManyWithoutLevelInput = {
     create?: XOR<OrderCreateWithoutLevelInput, OrderUncheckedCreateWithoutLevelInput> | OrderCreateWithoutLevelInput[] | OrderUncheckedCreateWithoutLevelInput[]
     connectOrCreate?: OrderCreateOrConnectWithoutLevelInput | OrderCreateOrConnectWithoutLevelInput[]
@@ -27588,13 +28842,6 @@ export namespace Prisma {
     connect?: MasterJobsWhereUniqueInput | MasterJobsWhereUniqueInput[]
   }
 
-  export type ToolUncheckedCreateNestedManyWithoutLevelInput = {
-    create?: XOR<ToolCreateWithoutLevelInput, ToolUncheckedCreateWithoutLevelInput> | ToolCreateWithoutLevelInput[] | ToolUncheckedCreateWithoutLevelInput[]
-    connectOrCreate?: ToolCreateOrConnectWithoutLevelInput | ToolCreateOrConnectWithoutLevelInput[]
-    createMany?: ToolCreateManyLevelInputEnvelope
-    connect?: ToolWhereUniqueInput | ToolWhereUniqueInput[]
-  }
-
   export type OrderUncheckedCreateNestedManyWithoutLevelInput = {
     create?: XOR<OrderCreateWithoutLevelInput, OrderUncheckedCreateWithoutLevelInput> | OrderCreateWithoutLevelInput[] | OrderUncheckedCreateWithoutLevelInput[]
     connectOrCreate?: OrderCreateOrConnectWithoutLevelInput | OrderCreateOrConnectWithoutLevelInput[]
@@ -27607,20 +28854,6 @@ export namespace Prisma {
     connectOrCreate?: MasterJobsCreateOrConnectWithoutLevelInput | MasterJobsCreateOrConnectWithoutLevelInput[]
     createMany?: MasterJobsCreateManyLevelInputEnvelope
     connect?: MasterJobsWhereUniqueInput | MasterJobsWhereUniqueInput[]
-  }
-
-  export type ToolUpdateManyWithoutLevelNestedInput = {
-    create?: XOR<ToolCreateWithoutLevelInput, ToolUncheckedCreateWithoutLevelInput> | ToolCreateWithoutLevelInput[] | ToolUncheckedCreateWithoutLevelInput[]
-    connectOrCreate?: ToolCreateOrConnectWithoutLevelInput | ToolCreateOrConnectWithoutLevelInput[]
-    upsert?: ToolUpsertWithWhereUniqueWithoutLevelInput | ToolUpsertWithWhereUniqueWithoutLevelInput[]
-    createMany?: ToolCreateManyLevelInputEnvelope
-    set?: ToolWhereUniqueInput | ToolWhereUniqueInput[]
-    disconnect?: ToolWhereUniqueInput | ToolWhereUniqueInput[]
-    delete?: ToolWhereUniqueInput | ToolWhereUniqueInput[]
-    connect?: ToolWhereUniqueInput | ToolWhereUniqueInput[]
-    update?: ToolUpdateWithWhereUniqueWithoutLevelInput | ToolUpdateWithWhereUniqueWithoutLevelInput[]
-    updateMany?: ToolUpdateManyWithWhereWithoutLevelInput | ToolUpdateManyWithWhereWithoutLevelInput[]
-    deleteMany?: ToolScalarWhereInput | ToolScalarWhereInput[]
   }
 
   export type OrderUpdateManyWithoutLevelNestedInput = {
@@ -27649,20 +28882,6 @@ export namespace Prisma {
     update?: MasterJobsUpdateWithWhereUniqueWithoutLevelInput | MasterJobsUpdateWithWhereUniqueWithoutLevelInput[]
     updateMany?: MasterJobsUpdateManyWithWhereWithoutLevelInput | MasterJobsUpdateManyWithWhereWithoutLevelInput[]
     deleteMany?: MasterJobsScalarWhereInput | MasterJobsScalarWhereInput[]
-  }
-
-  export type ToolUncheckedUpdateManyWithoutLevelNestedInput = {
-    create?: XOR<ToolCreateWithoutLevelInput, ToolUncheckedCreateWithoutLevelInput> | ToolCreateWithoutLevelInput[] | ToolUncheckedCreateWithoutLevelInput[]
-    connectOrCreate?: ToolCreateOrConnectWithoutLevelInput | ToolCreateOrConnectWithoutLevelInput[]
-    upsert?: ToolUpsertWithWhereUniqueWithoutLevelInput | ToolUpsertWithWhereUniqueWithoutLevelInput[]
-    createMany?: ToolCreateManyLevelInputEnvelope
-    set?: ToolWhereUniqueInput | ToolWhereUniqueInput[]
-    disconnect?: ToolWhereUniqueInput | ToolWhereUniqueInput[]
-    delete?: ToolWhereUniqueInput | ToolWhereUniqueInput[]
-    connect?: ToolWhereUniqueInput | ToolWhereUniqueInput[]
-    update?: ToolUpdateWithWhereUniqueWithoutLevelInput | ToolUpdateWithWhereUniqueWithoutLevelInput[]
-    updateMany?: ToolUpdateManyWithWhereWithoutLevelInput | ToolUpdateManyWithWhereWithoutLevelInput[]
-    deleteMany?: ToolScalarWhereInput | ToolScalarWhereInput[]
   }
 
   export type OrderUncheckedUpdateManyWithoutLevelNestedInput = {
@@ -27783,6 +29002,12 @@ export namespace Prisma {
     connect?: ToolWhereUniqueInput
   }
 
+  export type ProductCreateNestedOneWithoutMasterJobsInput = {
+    create?: XOR<ProductCreateWithoutMasterJobsInput, ProductUncheckedCreateWithoutMasterJobsInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutMasterJobsInput
+    connect?: ProductWhereUniqueInput
+  }
+
   export type LevelCreateNestedOneWithoutMasterJobsInput = {
     create?: XOR<LevelCreateWithoutMasterJobsInput, LevelUncheckedCreateWithoutMasterJobsInput>
     connectOrCreate?: LevelCreateOrConnectWithoutMasterJobsInput
@@ -27809,6 +29034,14 @@ export namespace Prisma {
     upsert?: ToolUpsertWithoutMasterJobsInput
     connect?: ToolWhereUniqueInput
     update?: XOR<XOR<ToolUpdateToOneWithWhereWithoutMasterJobsInput, ToolUpdateWithoutMasterJobsInput>, ToolUncheckedUpdateWithoutMasterJobsInput>
+  }
+
+  export type ProductUpdateOneRequiredWithoutMasterJobsNestedInput = {
+    create?: XOR<ProductCreateWithoutMasterJobsInput, ProductUncheckedCreateWithoutMasterJobsInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutMasterJobsInput
+    upsert?: ProductUpsertWithoutMasterJobsInput
+    connect?: ProductWhereUniqueInput
+    update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutMasterJobsInput, ProductUpdateWithoutMasterJobsInput>, ProductUncheckedUpdateWithoutMasterJobsInput>
   }
 
   export type LevelUpdateOneRequiredWithoutMasterJobsNestedInput = {
@@ -27992,6 +29225,19 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -28010,16 +29256,38 @@ export namespace Prisma {
     not?: NestedEnumPaymentTypeFilter<$PrismaModel> | $Enums.PaymentType
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type NestedEnumOrderStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.OrderStatus | EnumOrderStatusFieldRefInput<$PrismaModel>
     in?: $Enums.OrderStatus[] | ListEnumOrderStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.OrderStatus[] | ListEnumOrderStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumOrderStatusFilter<$PrismaModel> | $Enums.OrderStatus
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -28044,14 +29312,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumPaymentTypeFilter<$PrismaModel>
     _max?: NestedEnumPaymentTypeFilter<$PrismaModel>
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedEnumOrderStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -28102,58 +29362,6 @@ export namespace Prisma {
 
   export type BasketCreateManyUserInputEnvelope = {
     data: BasketCreateManyUserInput | BasketCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type OrderCreateWithoutUserInput = {
-    id?: string
-    quantity: number
-    toolCount: number
-    measure: string
-    totalPrice: number
-    locationLat: string
-    locationLong: string
-    address: string
-    orderDate?: Date | string
-    deliveryDate: Date | string
-    paymentType: $Enums.PaymentType
-    withDelivery: boolean
-    status: $Enums.OrderStatus
-    commentToDelivery: string
-    product: ProductCreateNestedOneWithoutOrdersInput
-    tool: ToolCreateNestedOneWithoutOrdersInput
-    level: LevelCreateNestedOneWithoutOrdersInput
-    comments?: CommentCreateNestedManyWithoutOrderInput
-  }
-
-  export type OrderUncheckedCreateWithoutUserInput = {
-    id?: string
-    productID: string
-    toolID: string
-    levelID: string
-    quantity: number
-    toolCount: number
-    measure: string
-    totalPrice: number
-    locationLat: string
-    locationLong: string
-    address: string
-    orderDate?: Date | string
-    deliveryDate: Date | string
-    paymentType: $Enums.PaymentType
-    withDelivery: boolean
-    status: $Enums.OrderStatus
-    commentToDelivery: string
-    comments?: CommentUncheckedCreateNestedManyWithoutOrderInput
-  }
-
-  export type OrderCreateOrConnectWithoutUserInput = {
-    where: OrderWhereUniqueInput
-    create: XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput>
-  }
-
-  export type OrderCreateManyUserInputEnvelope = {
-    data: OrderCreateManyUserInput | OrderCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -28208,46 +29416,6 @@ export namespace Prisma {
     quantity?: IntFilter<"Basket"> | number
   }
 
-  export type OrderUpsertWithWhereUniqueWithoutUserInput = {
-    where: OrderWhereUniqueInput
-    update: XOR<OrderUpdateWithoutUserInput, OrderUncheckedUpdateWithoutUserInput>
-    create: XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput>
-  }
-
-  export type OrderUpdateWithWhereUniqueWithoutUserInput = {
-    where: OrderWhereUniqueInput
-    data: XOR<OrderUpdateWithoutUserInput, OrderUncheckedUpdateWithoutUserInput>
-  }
-
-  export type OrderUpdateManyWithWhereWithoutUserInput = {
-    where: OrderScalarWhereInput
-    data: XOR<OrderUpdateManyMutationInput, OrderUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type OrderScalarWhereInput = {
-    AND?: OrderScalarWhereInput | OrderScalarWhereInput[]
-    OR?: OrderScalarWhereInput[]
-    NOT?: OrderScalarWhereInput | OrderScalarWhereInput[]
-    id?: StringFilter<"Order"> | string
-    userID?: StringFilter<"Order"> | string
-    productID?: StringFilter<"Order"> | string
-    toolID?: StringFilter<"Order"> | string
-    levelID?: StringFilter<"Order"> | string
-    quantity?: IntFilter<"Order"> | number
-    toolCount?: IntFilter<"Order"> | number
-    measure?: StringFilter<"Order"> | string
-    totalPrice?: IntFilter<"Order"> | number
-    locationLat?: StringFilter<"Order"> | string
-    locationLong?: StringFilter<"Order"> | string
-    address?: StringFilter<"Order"> | string
-    orderDate?: DateTimeFilter<"Order"> | Date | string
-    deliveryDate?: DateTimeFilter<"Order"> | Date | string
-    paymentType?: EnumPaymentTypeFilter<"Order"> | $Enums.PaymentType
-    withDelivery?: BoolFilter<"Order"> | boolean
-    status?: EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
-    commentToDelivery?: StringFilter<"Order"> | string
-  }
-
   export type UserCreateWithoutRegionInput = {
     id?: string
     nameRu: string
@@ -28263,7 +29431,6 @@ export namespace Prisma {
     passportSeries?: string | null
     inn?: string | null
     baskets?: BasketCreateNestedManyWithoutUserInput
-    orders?: OrderCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRegionInput = {
@@ -28281,7 +29448,6 @@ export namespace Prisma {
     passportSeries?: string | null
     inn?: string | null
     baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
-    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRegionInput = {
@@ -28332,30 +29498,26 @@ export namespace Prisma {
 
   export type ProductCreateWithoutBasketsInput = {
     id?: string
+    isActive: boolean
     nameRu: string
     nameUz: string
     nameEn: string
     image: string
-    workingHours: number
-    levelID: string
-    priceHourly: number
-    priceDaily: number
-    tools: string
     orders?: OrderCreateNestedManyWithoutProductInput
+    masterJobs?: MasterJobsCreateNestedManyWithoutProductInput
+    intimateCategory?: ProfessionTypeCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutBasketsInput = {
     id?: string
+    isActive: boolean
     nameRu: string
     nameUz: string
     nameEn: string
     image: string
-    workingHours: number
-    levelID: string
-    priceHourly: number
-    priceDaily: number
-    tools: string
     orders?: OrderUncheckedCreateNestedManyWithoutProductInput
+    masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutProductInput
+    intimateCategory?: ProfessionTypeUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutBasketsInput = {
@@ -28378,7 +29540,6 @@ export namespace Prisma {
     passportSeries?: string | null
     inn?: string | null
     region?: RegionCreateNestedOneWithoutUsersInput
-    orders?: OrderCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBasketsInput = {
@@ -28396,7 +29557,6 @@ export namespace Prisma {
     location: string
     passportSeries?: string | null
     inn?: string | null
-    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBasketsInput = {
@@ -28417,30 +29577,26 @@ export namespace Prisma {
 
   export type ProductUpdateWithoutBasketsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     nameRu?: StringFieldUpdateOperationsInput | string
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    workingHours?: IntFieldUpdateOperationsInput | number
-    levelID?: StringFieldUpdateOperationsInput | string
-    priceHourly?: IntFieldUpdateOperationsInput | number
-    priceDaily?: IntFieldUpdateOperationsInput | number
-    tools?: StringFieldUpdateOperationsInput | string
     orders?: OrderUpdateManyWithoutProductNestedInput
+    masterJobs?: MasterJobsUpdateManyWithoutProductNestedInput
+    intimateCategory?: ProfessionTypeUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutBasketsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     nameRu?: StringFieldUpdateOperationsInput | string
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    workingHours?: IntFieldUpdateOperationsInput | number
-    levelID?: StringFieldUpdateOperationsInput | string
-    priceHourly?: IntFieldUpdateOperationsInput | number
-    priceDaily?: IntFieldUpdateOperationsInput | number
-    tools?: StringFieldUpdateOperationsInput | string
     orders?: OrderUncheckedUpdateManyWithoutProductNestedInput
+    masterJobs?: MasterJobsUncheckedUpdateManyWithoutProductNestedInput
+    intimateCategory?: ProfessionTypeUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type UserUpsertWithoutBasketsInput = {
@@ -28469,7 +29625,6 @@ export namespace Prisma {
     passportSeries?: NullableStringFieldUpdateOperationsInput | string | null
     inn?: NullableStringFieldUpdateOperationsInput | string | null
     region?: RegionUpdateOneWithoutUsersNestedInput
-    orders?: OrderUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBasketsInput = {
@@ -28487,7 +29642,6 @@ export namespace Prisma {
     location?: StringFieldUpdateOperationsInput | string
     passportSeries?: NullableStringFieldUpdateOperationsInput | string | null
     inn?: NullableStringFieldUpdateOperationsInput | string | null
-    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type BasketCreateWithoutProductInput = {
@@ -28516,8 +29670,10 @@ export namespace Prisma {
     id?: string
     quantity: number
     toolCount: number
+    workingHours: number
+    minWorkingHours: number
     measure: string
-    totalPrice: number
+    totalPrice?: number | null
     locationLat: string
     locationLong: string
     address: string
@@ -28527,7 +29683,6 @@ export namespace Prisma {
     withDelivery: boolean
     status: $Enums.OrderStatus
     commentToDelivery: string
-    user: UserCreateNestedOneWithoutOrdersInput
     tool: ToolCreateNestedOneWithoutOrdersInput
     level: LevelCreateNestedOneWithoutOrdersInput
     comments?: CommentCreateNestedManyWithoutOrderInput
@@ -28535,13 +29690,14 @@ export namespace Prisma {
 
   export type OrderUncheckedCreateWithoutProductInput = {
     id?: string
-    userID: string
     toolID: string
     levelID: string
     quantity: number
     toolCount: number
+    workingHours: number
+    minWorkingHours: number
     measure: string
-    totalPrice: number
+    totalPrice?: number | null
     locationLat: string
     locationLong: string
     address: string
@@ -28561,6 +29717,64 @@ export namespace Prisma {
 
   export type OrderCreateManyProductInputEnvelope = {
     data: OrderCreateManyProductInput | OrderCreateManyProductInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MasterJobsCreateWithoutProductInput = {
+    id?: string
+    minWorkingHour: number
+    workingHours: number
+    priceHourly: number
+    priceDaily: number
+    experience: string
+    tool: ToolCreateNestedOneWithoutMasterJobsInput
+    level: LevelCreateNestedOneWithoutMasterJobsInput
+    masters?: MasterCreateNestedManyWithoutMasterJobsInput
+  }
+
+  export type MasterJobsUncheckedCreateWithoutProductInput = {
+    id?: string
+    toolID: string
+    minWorkingHour: number
+    workingHours: number
+    levelID: string
+    priceHourly: number
+    priceDaily: number
+    experience: string
+    masters?: MasterUncheckedCreateNestedManyWithoutMasterJobsInput
+  }
+
+  export type MasterJobsCreateOrConnectWithoutProductInput = {
+    where: MasterJobsWhereUniqueInput
+    create: XOR<MasterJobsCreateWithoutProductInput, MasterJobsUncheckedCreateWithoutProductInput>
+  }
+
+  export type MasterJobsCreateManyProductInputEnvelope = {
+    data: MasterJobsCreateManyProductInput | MasterJobsCreateManyProductInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ProfessionTypeCreateWithoutProductInput = {
+    id?: string
+    nameRu: string
+    nameUz: string
+    nameEn: string
+  }
+
+  export type ProfessionTypeUncheckedCreateWithoutProductInput = {
+    id?: string
+    nameRu: string
+    nameUz: string
+    nameEn: string
+  }
+
+  export type ProfessionTypeCreateOrConnectWithoutProductInput = {
+    where: ProfessionTypeWhereUniqueInput
+    create: XOR<ProfessionTypeCreateWithoutProductInput, ProfessionTypeUncheckedCreateWithoutProductInput>
+  }
+
+  export type ProfessionTypeCreateManyProductInputEnvelope = {
+    data: ProfessionTypeCreateManyProductInput | ProfessionTypeCreateManyProductInput[]
     skipDuplicates?: boolean
   }
 
@@ -28596,73 +29810,175 @@ export namespace Prisma {
     data: XOR<OrderUpdateManyMutationInput, OrderUncheckedUpdateManyWithoutProductInput>
   }
 
-  export type UserCreateWithoutOrdersInput = {
+  export type OrderScalarWhereInput = {
+    AND?: OrderScalarWhereInput | OrderScalarWhereInput[]
+    OR?: OrderScalarWhereInput[]
+    NOT?: OrderScalarWhereInput | OrderScalarWhereInput[]
+    id?: StringFilter<"Order"> | string
+    productID?: StringFilter<"Order"> | string
+    toolID?: StringFilter<"Order"> | string
+    levelID?: StringFilter<"Order"> | string
+    quantity?: IntFilter<"Order"> | number
+    toolCount?: IntFilter<"Order"> | number
+    workingHours?: IntFilter<"Order"> | number
+    minWorkingHours?: IntFilter<"Order"> | number
+    measure?: StringFilter<"Order"> | string
+    totalPrice?: IntNullableFilter<"Order"> | number | null
+    locationLat?: StringFilter<"Order"> | string
+    locationLong?: StringFilter<"Order"> | string
+    address?: StringFilter<"Order"> | string
+    orderDate?: DateTimeFilter<"Order"> | Date | string
+    deliveryDate?: DateTimeFilter<"Order"> | Date | string
+    paymentType?: EnumPaymentTypeFilter<"Order"> | $Enums.PaymentType
+    withDelivery?: BoolFilter<"Order"> | boolean
+    status?: EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
+    commentToDelivery?: StringFilter<"Order"> | string
+  }
+
+  export type MasterJobsUpsertWithWhereUniqueWithoutProductInput = {
+    where: MasterJobsWhereUniqueInput
+    update: XOR<MasterJobsUpdateWithoutProductInput, MasterJobsUncheckedUpdateWithoutProductInput>
+    create: XOR<MasterJobsCreateWithoutProductInput, MasterJobsUncheckedCreateWithoutProductInput>
+  }
+
+  export type MasterJobsUpdateWithWhereUniqueWithoutProductInput = {
+    where: MasterJobsWhereUniqueInput
+    data: XOR<MasterJobsUpdateWithoutProductInput, MasterJobsUncheckedUpdateWithoutProductInput>
+  }
+
+  export type MasterJobsUpdateManyWithWhereWithoutProductInput = {
+    where: MasterJobsScalarWhereInput
+    data: XOR<MasterJobsUpdateManyMutationInput, MasterJobsUncheckedUpdateManyWithoutProductInput>
+  }
+
+  export type MasterJobsScalarWhereInput = {
+    AND?: MasterJobsScalarWhereInput | MasterJobsScalarWhereInput[]
+    OR?: MasterJobsScalarWhereInput[]
+    NOT?: MasterJobsScalarWhereInput | MasterJobsScalarWhereInput[]
+    id?: StringFilter<"MasterJobs"> | string
+    toolID?: StringFilter<"MasterJobs"> | string
+    productID?: StringFilter<"MasterJobs"> | string
+    minWorkingHour?: IntFilter<"MasterJobs"> | number
+    workingHours?: IntFilter<"MasterJobs"> | number
+    levelID?: StringFilter<"MasterJobs"> | string
+    priceHourly?: IntFilter<"MasterJobs"> | number
+    priceDaily?: IntFilter<"MasterJobs"> | number
+    experience?: StringFilter<"MasterJobs"> | string
+  }
+
+  export type ProfessionTypeUpsertWithWhereUniqueWithoutProductInput = {
+    where: ProfessionTypeWhereUniqueInput
+    update: XOR<ProfessionTypeUpdateWithoutProductInput, ProfessionTypeUncheckedUpdateWithoutProductInput>
+    create: XOR<ProfessionTypeCreateWithoutProductInput, ProfessionTypeUncheckedCreateWithoutProductInput>
+  }
+
+  export type ProfessionTypeUpdateWithWhereUniqueWithoutProductInput = {
+    where: ProfessionTypeWhereUniqueInput
+    data: XOR<ProfessionTypeUpdateWithoutProductInput, ProfessionTypeUncheckedUpdateWithoutProductInput>
+  }
+
+  export type ProfessionTypeUpdateManyWithWhereWithoutProductInput = {
+    where: ProfessionTypeScalarWhereInput
+    data: XOR<ProfessionTypeUpdateManyMutationInput, ProfessionTypeUncheckedUpdateManyWithoutProductInput>
+  }
+
+  export type ProfessionTypeScalarWhereInput = {
+    AND?: ProfessionTypeScalarWhereInput | ProfessionTypeScalarWhereInput[]
+    OR?: ProfessionTypeScalarWhereInput[]
+    NOT?: ProfessionTypeScalarWhereInput | ProfessionTypeScalarWhereInput[]
+    id?: StringFilter<"ProfessionType"> | string
+    nameRu?: StringFilter<"ProfessionType"> | string
+    nameUz?: StringFilter<"ProfessionType"> | string
+    nameEn?: StringFilter<"ProfessionType"> | string
+    productId?: StringFilter<"ProfessionType"> | string
+  }
+
+  export type ProductCreateWithoutIntimateCategoryInput = {
     id?: string
+    isActive: boolean
     nameRu: string
     nameUz: string
     nameEn: string
-    email: string
-    password: string
-    phone: string
     image: string
-    role: $Enums.UserRole
-    status: $Enums.UserStatus
-    location: string
-    passportSeries?: string | null
-    inn?: string | null
-    region?: RegionCreateNestedOneWithoutUsersInput
-    baskets?: BasketCreateNestedManyWithoutUserInput
+    baskets?: BasketCreateNestedManyWithoutProductInput
+    orders?: OrderCreateNestedManyWithoutProductInput
+    masterJobs?: MasterJobsCreateNestedManyWithoutProductInput
   }
 
-  export type UserUncheckedCreateWithoutOrdersInput = {
+  export type ProductUncheckedCreateWithoutIntimateCategoryInput = {
     id?: string
+    isActive: boolean
     nameRu: string
     nameUz: string
     nameEn: string
-    email: string
-    password: string
-    phone: string
     image: string
-    role: $Enums.UserRole
-    status: $Enums.UserStatus
-    regionID?: string | null
-    location: string
-    passportSeries?: string | null
-    inn?: string | null
-    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+    baskets?: BasketUncheckedCreateNestedManyWithoutProductInput
+    orders?: OrderUncheckedCreateNestedManyWithoutProductInput
+    masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutProductInput
   }
 
-  export type UserCreateOrConnectWithoutOrdersInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutOrdersInput, UserUncheckedCreateWithoutOrdersInput>
+  export type ProductCreateOrConnectWithoutIntimateCategoryInput = {
+    where: ProductWhereUniqueInput
+    create: XOR<ProductCreateWithoutIntimateCategoryInput, ProductUncheckedCreateWithoutIntimateCategoryInput>
+  }
+
+  export type ProductUpsertWithoutIntimateCategoryInput = {
+    update: XOR<ProductUpdateWithoutIntimateCategoryInput, ProductUncheckedUpdateWithoutIntimateCategoryInput>
+    create: XOR<ProductCreateWithoutIntimateCategoryInput, ProductUncheckedCreateWithoutIntimateCategoryInput>
+    where?: ProductWhereInput
+  }
+
+  export type ProductUpdateToOneWithWhereWithoutIntimateCategoryInput = {
+    where?: ProductWhereInput
+    data: XOR<ProductUpdateWithoutIntimateCategoryInput, ProductUncheckedUpdateWithoutIntimateCategoryInput>
+  }
+
+  export type ProductUpdateWithoutIntimateCategoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    nameRu?: StringFieldUpdateOperationsInput | string
+    nameUz?: StringFieldUpdateOperationsInput | string
+    nameEn?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    baskets?: BasketUpdateManyWithoutProductNestedInput
+    orders?: OrderUpdateManyWithoutProductNestedInput
+    masterJobs?: MasterJobsUpdateManyWithoutProductNestedInput
+  }
+
+  export type ProductUncheckedUpdateWithoutIntimateCategoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    nameRu?: StringFieldUpdateOperationsInput | string
+    nameUz?: StringFieldUpdateOperationsInput | string
+    nameEn?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    baskets?: BasketUncheckedUpdateManyWithoutProductNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutProductNestedInput
+    masterJobs?: MasterJobsUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductCreateWithoutOrdersInput = {
     id?: string
+    isActive: boolean
     nameRu: string
     nameUz: string
     nameEn: string
     image: string
-    workingHours: number
-    levelID: string
-    priceHourly: number
-    priceDaily: number
-    tools: string
     baskets?: BasketCreateNestedManyWithoutProductInput
+    masterJobs?: MasterJobsCreateNestedManyWithoutProductInput
+    intimateCategory?: ProfessionTypeCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutOrdersInput = {
     id?: string
+    isActive: boolean
     nameRu: string
     nameUz: string
     nameEn: string
     image: string
-    workingHours: number
-    levelID: string
-    priceHourly: number
-    priceDaily: number
-    tools: string
     baskets?: BasketUncheckedCreateNestedManyWithoutProductInput
+    masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutProductInput
+    intimateCategory?: ProfessionTypeUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutOrdersInput = {
@@ -28686,7 +30002,6 @@ export namespace Prisma {
     brand: BrandCreateNestedOneWithoutToolsInput
     capacity: CapacityCreateNestedOneWithoutToolsInput
     size: SizeCreateNestedOneWithoutToolsInput
-    level: LevelCreateNestedOneWithoutToolsInput
     masterJobs?: MasterJobsCreateNestedManyWithoutToolInput
   }
 
@@ -28706,7 +30021,6 @@ export namespace Prisma {
     sizeID: string
     image: string
     isActive: boolean
-    levelID: string
     masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutToolInput
   }
 
@@ -28720,7 +30034,6 @@ export namespace Prisma {
     nameRu: string
     nameUz: string
     nameEn: string
-    tools?: ToolCreateNestedManyWithoutLevelInput
     masterJobs?: MasterJobsCreateNestedManyWithoutLevelInput
   }
 
@@ -28729,7 +30042,6 @@ export namespace Prisma {
     nameRu: string
     nameUz: string
     nameEn: string
-    tools?: ToolUncheckedCreateNestedManyWithoutLevelInput
     masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutLevelInput
   }
 
@@ -28762,53 +30074,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UserUpsertWithoutOrdersInput = {
-    update: XOR<UserUpdateWithoutOrdersInput, UserUncheckedUpdateWithoutOrdersInput>
-    create: XOR<UserCreateWithoutOrdersInput, UserUncheckedCreateWithoutOrdersInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutOrdersInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutOrdersInput, UserUncheckedUpdateWithoutOrdersInput>
-  }
-
-  export type UserUpdateWithoutOrdersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nameRu?: StringFieldUpdateOperationsInput | string
-    nameUz?: StringFieldUpdateOperationsInput | string
-    nameEn?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    image?: StringFieldUpdateOperationsInput | string
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-    location?: StringFieldUpdateOperationsInput | string
-    passportSeries?: NullableStringFieldUpdateOperationsInput | string | null
-    inn?: NullableStringFieldUpdateOperationsInput | string | null
-    region?: RegionUpdateOneWithoutUsersNestedInput
-    baskets?: BasketUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutOrdersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nameRu?: StringFieldUpdateOperationsInput | string
-    nameUz?: StringFieldUpdateOperationsInput | string
-    nameEn?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    image?: StringFieldUpdateOperationsInput | string
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-    regionID?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: StringFieldUpdateOperationsInput | string
-    passportSeries?: NullableStringFieldUpdateOperationsInput | string | null
-    inn?: NullableStringFieldUpdateOperationsInput | string | null
-    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
-  }
-
   export type ProductUpsertWithoutOrdersInput = {
     update: XOR<ProductUpdateWithoutOrdersInput, ProductUncheckedUpdateWithoutOrdersInput>
     create: XOR<ProductCreateWithoutOrdersInput, ProductUncheckedCreateWithoutOrdersInput>
@@ -28822,30 +30087,26 @@ export namespace Prisma {
 
   export type ProductUpdateWithoutOrdersInput = {
     id?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     nameRu?: StringFieldUpdateOperationsInput | string
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    workingHours?: IntFieldUpdateOperationsInput | number
-    levelID?: StringFieldUpdateOperationsInput | string
-    priceHourly?: IntFieldUpdateOperationsInput | number
-    priceDaily?: IntFieldUpdateOperationsInput | number
-    tools?: StringFieldUpdateOperationsInput | string
     baskets?: BasketUpdateManyWithoutProductNestedInput
+    masterJobs?: MasterJobsUpdateManyWithoutProductNestedInput
+    intimateCategory?: ProfessionTypeUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutOrdersInput = {
     id?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     nameRu?: StringFieldUpdateOperationsInput | string
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    workingHours?: IntFieldUpdateOperationsInput | number
-    levelID?: StringFieldUpdateOperationsInput | string
-    priceHourly?: IntFieldUpdateOperationsInput | number
-    priceDaily?: IntFieldUpdateOperationsInput | number
-    tools?: StringFieldUpdateOperationsInput | string
     baskets?: BasketUncheckedUpdateManyWithoutProductNestedInput
+    masterJobs?: MasterJobsUncheckedUpdateManyWithoutProductNestedInput
+    intimateCategory?: ProfessionTypeUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ToolUpsertWithoutOrdersInput = {
@@ -28875,7 +30136,6 @@ export namespace Prisma {
     brand?: BrandUpdateOneRequiredWithoutToolsNestedInput
     capacity?: CapacityUpdateOneRequiredWithoutToolsNestedInput
     size?: SizeUpdateOneRequiredWithoutToolsNestedInput
-    level?: LevelUpdateOneRequiredWithoutToolsNestedInput
     masterJobs?: MasterJobsUpdateManyWithoutToolNestedInput
   }
 
@@ -28895,7 +30155,6 @@ export namespace Prisma {
     sizeID?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    levelID?: StringFieldUpdateOperationsInput | string
     masterJobs?: MasterJobsUncheckedUpdateManyWithoutToolNestedInput
   }
 
@@ -28915,7 +30174,6 @@ export namespace Prisma {
     nameRu?: StringFieldUpdateOperationsInput | string
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
-    tools?: ToolUpdateManyWithoutLevelNestedInput
     masterJobs?: MasterJobsUpdateManyWithoutLevelNestedInput
   }
 
@@ -28924,7 +30182,6 @@ export namespace Prisma {
     nameRu?: StringFieldUpdateOperationsInput | string
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
-    tools?: ToolUncheckedUpdateManyWithoutLevelNestedInput
     masterJobs?: MasterJobsUncheckedUpdateManyWithoutLevelNestedInput
   }
 
@@ -29012,35 +30269,14 @@ export namespace Prisma {
     create: XOR<SizeCreateWithoutToolsInput, SizeUncheckedCreateWithoutToolsInput>
   }
 
-  export type LevelCreateWithoutToolsInput = {
-    id?: string
-    nameRu: string
-    nameUz: string
-    nameEn: string
-    orders?: OrderCreateNestedManyWithoutLevelInput
-    masterJobs?: MasterJobsCreateNestedManyWithoutLevelInput
-  }
-
-  export type LevelUncheckedCreateWithoutToolsInput = {
-    id?: string
-    nameRu: string
-    nameUz: string
-    nameEn: string
-    orders?: OrderUncheckedCreateNestedManyWithoutLevelInput
-    masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutLevelInput
-  }
-
-  export type LevelCreateOrConnectWithoutToolsInput = {
-    where: LevelWhereUniqueInput
-    create: XOR<LevelCreateWithoutToolsInput, LevelUncheckedCreateWithoutToolsInput>
-  }
-
   export type OrderCreateWithoutToolInput = {
     id?: string
     quantity: number
     toolCount: number
+    workingHours: number
+    minWorkingHours: number
     measure: string
-    totalPrice: number
+    totalPrice?: number | null
     locationLat: string
     locationLong: string
     address: string
@@ -29050,7 +30286,6 @@ export namespace Prisma {
     withDelivery: boolean
     status: $Enums.OrderStatus
     commentToDelivery: string
-    user: UserCreateNestedOneWithoutOrdersInput
     product: ProductCreateNestedOneWithoutOrdersInput
     level: LevelCreateNestedOneWithoutOrdersInput
     comments?: CommentCreateNestedManyWithoutOrderInput
@@ -29058,13 +30293,14 @@ export namespace Prisma {
 
   export type OrderUncheckedCreateWithoutToolInput = {
     id?: string
-    userID: string
     productID: string
     levelID: string
     quantity: number
     toolCount: number
+    workingHours: number
+    minWorkingHours: number
     measure: string
-    totalPrice: number
+    totalPrice?: number | null
     locationLat: string
     locationLong: string
     address: string
@@ -29090,16 +30326,20 @@ export namespace Prisma {
   export type MasterJobsCreateWithoutToolInput = {
     id?: string
     minWorkingHour: number
+    workingHours: number
     priceHourly: number
     priceDaily: number
     experience: string
+    product: ProductCreateNestedOneWithoutMasterJobsInput
     level: LevelCreateNestedOneWithoutMasterJobsInput
     masters?: MasterCreateNestedManyWithoutMasterJobsInput
   }
 
   export type MasterJobsUncheckedCreateWithoutToolInput = {
     id?: string
+    productID: string
     minWorkingHour: number
+    workingHours: number
     levelID: string
     priceHourly: number
     priceDaily: number
@@ -29192,35 +30432,6 @@ export namespace Prisma {
     nameEn?: StringFieldUpdateOperationsInput | string
   }
 
-  export type LevelUpsertWithoutToolsInput = {
-    update: XOR<LevelUpdateWithoutToolsInput, LevelUncheckedUpdateWithoutToolsInput>
-    create: XOR<LevelCreateWithoutToolsInput, LevelUncheckedCreateWithoutToolsInput>
-    where?: LevelWhereInput
-  }
-
-  export type LevelUpdateToOneWithWhereWithoutToolsInput = {
-    where?: LevelWhereInput
-    data: XOR<LevelUpdateWithoutToolsInput, LevelUncheckedUpdateWithoutToolsInput>
-  }
-
-  export type LevelUpdateWithoutToolsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nameRu?: StringFieldUpdateOperationsInput | string
-    nameUz?: StringFieldUpdateOperationsInput | string
-    nameEn?: StringFieldUpdateOperationsInput | string
-    orders?: OrderUpdateManyWithoutLevelNestedInput
-    masterJobs?: MasterJobsUpdateManyWithoutLevelNestedInput
-  }
-
-  export type LevelUncheckedUpdateWithoutToolsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nameRu?: StringFieldUpdateOperationsInput | string
-    nameUz?: StringFieldUpdateOperationsInput | string
-    nameEn?: StringFieldUpdateOperationsInput | string
-    orders?: OrderUncheckedUpdateManyWithoutLevelNestedInput
-    masterJobs?: MasterJobsUncheckedUpdateManyWithoutLevelNestedInput
-  }
-
   export type OrderUpsertWithWhereUniqueWithoutToolInput = {
     where: OrderWhereUniqueInput
     update: XOR<OrderUpdateWithoutToolInput, OrderUncheckedUpdateWithoutToolInput>
@@ -29253,19 +30464,6 @@ export namespace Prisma {
     data: XOR<MasterJobsUpdateManyMutationInput, MasterJobsUncheckedUpdateManyWithoutToolInput>
   }
 
-  export type MasterJobsScalarWhereInput = {
-    AND?: MasterJobsScalarWhereInput | MasterJobsScalarWhereInput[]
-    OR?: MasterJobsScalarWhereInput[]
-    NOT?: MasterJobsScalarWhereInput | MasterJobsScalarWhereInput[]
-    id?: StringFilter<"MasterJobs"> | string
-    toolID?: StringFilter<"MasterJobs"> | string
-    minWorkingHour?: IntFilter<"MasterJobs"> | number
-    levelID?: StringFilter<"MasterJobs"> | string
-    priceHourly?: IntFilter<"MasterJobs"> | number
-    priceDaily?: IntFilter<"MasterJobs"> | number
-    experience?: StringFilter<"MasterJobs"> | string
-  }
-
   export type ToolCreateWithoutBrandInput = {
     id?: string
     nameRu: string
@@ -29281,7 +30479,6 @@ export namespace Prisma {
     isActive: boolean
     capacity: CapacityCreateNestedOneWithoutToolsInput
     size: SizeCreateNestedOneWithoutToolsInput
-    level: LevelCreateNestedOneWithoutToolsInput
     orders?: OrderCreateNestedManyWithoutToolInput
     masterJobs?: MasterJobsCreateNestedManyWithoutToolInput
   }
@@ -29301,7 +30498,6 @@ export namespace Prisma {
     sizeID: string
     image: string
     isActive: boolean
-    levelID: string
     orders?: OrderUncheckedCreateNestedManyWithoutToolInput
     masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutToolInput
   }
@@ -29351,7 +30547,6 @@ export namespace Prisma {
     sizeID?: StringFilter<"Tool"> | string
     image?: StringFilter<"Tool"> | string
     isActive?: BoolFilter<"Tool"> | boolean
-    levelID?: StringFilter<"Tool"> | string
   }
 
   export type ToolCreateWithoutCapacityInput = {
@@ -29369,7 +30564,6 @@ export namespace Prisma {
     isActive: boolean
     brand: BrandCreateNestedOneWithoutToolsInput
     size: SizeCreateNestedOneWithoutToolsInput
-    level: LevelCreateNestedOneWithoutToolsInput
     orders?: OrderCreateNestedManyWithoutToolInput
     masterJobs?: MasterJobsCreateNestedManyWithoutToolInput
   }
@@ -29389,7 +30583,6 @@ export namespace Prisma {
     sizeID: string
     image: string
     isActive: boolean
-    levelID: string
     orders?: OrderUncheckedCreateNestedManyWithoutToolInput
     masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutToolInput
   }
@@ -29435,7 +30628,6 @@ export namespace Prisma {
     isActive: boolean
     brand: BrandCreateNestedOneWithoutToolsInput
     capacity: CapacityCreateNestedOneWithoutToolsInput
-    level: LevelCreateNestedOneWithoutToolsInput
     orders?: OrderCreateNestedManyWithoutToolInput
     masterJobs?: MasterJobsCreateNestedManyWithoutToolInput
   }
@@ -29455,7 +30647,6 @@ export namespace Prisma {
     capacityID: string
     image: string
     isActive: boolean
-    levelID: string
     orders?: OrderUncheckedCreateNestedManyWithoutToolInput
     masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutToolInput
   }
@@ -29486,62 +30677,14 @@ export namespace Prisma {
     data: XOR<ToolUpdateManyMutationInput, ToolUncheckedUpdateManyWithoutSizeInput>
   }
 
-  export type ToolCreateWithoutLevelInput = {
-    id?: string
-    nameRu: string
-    nameUz: string
-    nameEn: string
-    descriptionRu: string
-    descriptionUz: string
-    descriptionEn: string
-    price: number
-    quantity: number
-    code?: string | null
-    image: string
-    isActive: boolean
-    brand: BrandCreateNestedOneWithoutToolsInput
-    capacity: CapacityCreateNestedOneWithoutToolsInput
-    size: SizeCreateNestedOneWithoutToolsInput
-    orders?: OrderCreateNestedManyWithoutToolInput
-    masterJobs?: MasterJobsCreateNestedManyWithoutToolInput
-  }
-
-  export type ToolUncheckedCreateWithoutLevelInput = {
-    id?: string
-    nameRu: string
-    nameUz: string
-    nameEn: string
-    descriptionRu: string
-    descriptionUz: string
-    descriptionEn: string
-    price: number
-    quantity: number
-    code?: string | null
-    brandID: string
-    capacityID: string
-    sizeID: string
-    image: string
-    isActive: boolean
-    orders?: OrderUncheckedCreateNestedManyWithoutToolInput
-    masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutToolInput
-  }
-
-  export type ToolCreateOrConnectWithoutLevelInput = {
-    where: ToolWhereUniqueInput
-    create: XOR<ToolCreateWithoutLevelInput, ToolUncheckedCreateWithoutLevelInput>
-  }
-
-  export type ToolCreateManyLevelInputEnvelope = {
-    data: ToolCreateManyLevelInput | ToolCreateManyLevelInput[]
-    skipDuplicates?: boolean
-  }
-
   export type OrderCreateWithoutLevelInput = {
     id?: string
     quantity: number
     toolCount: number
+    workingHours: number
+    minWorkingHours: number
     measure: string
-    totalPrice: number
+    totalPrice?: number | null
     locationLat: string
     locationLong: string
     address: string
@@ -29551,7 +30694,6 @@ export namespace Prisma {
     withDelivery: boolean
     status: $Enums.OrderStatus
     commentToDelivery: string
-    user: UserCreateNestedOneWithoutOrdersInput
     product: ProductCreateNestedOneWithoutOrdersInput
     tool: ToolCreateNestedOneWithoutOrdersInput
     comments?: CommentCreateNestedManyWithoutOrderInput
@@ -29559,13 +30701,14 @@ export namespace Prisma {
 
   export type OrderUncheckedCreateWithoutLevelInput = {
     id?: string
-    userID: string
     productID: string
     toolID: string
     quantity: number
     toolCount: number
+    workingHours: number
+    minWorkingHours: number
     measure: string
-    totalPrice: number
+    totalPrice?: number | null
     locationLat: string
     locationLong: string
     address: string
@@ -29591,17 +30734,21 @@ export namespace Prisma {
   export type MasterJobsCreateWithoutLevelInput = {
     id?: string
     minWorkingHour: number
+    workingHours: number
     priceHourly: number
     priceDaily: number
     experience: string
     tool: ToolCreateNestedOneWithoutMasterJobsInput
+    product: ProductCreateNestedOneWithoutMasterJobsInput
     masters?: MasterCreateNestedManyWithoutMasterJobsInput
   }
 
   export type MasterJobsUncheckedCreateWithoutLevelInput = {
     id?: string
     toolID: string
+    productID: string
     minWorkingHour: number
+    workingHours: number
     priceHourly: number
     priceDaily: number
     experience: string
@@ -29616,22 +30763,6 @@ export namespace Prisma {
   export type MasterJobsCreateManyLevelInputEnvelope = {
     data: MasterJobsCreateManyLevelInput | MasterJobsCreateManyLevelInput[]
     skipDuplicates?: boolean
-  }
-
-  export type ToolUpsertWithWhereUniqueWithoutLevelInput = {
-    where: ToolWhereUniqueInput
-    update: XOR<ToolUpdateWithoutLevelInput, ToolUncheckedUpdateWithoutLevelInput>
-    create: XOR<ToolCreateWithoutLevelInput, ToolUncheckedCreateWithoutLevelInput>
-  }
-
-  export type ToolUpdateWithWhereUniqueWithoutLevelInput = {
-    where: ToolWhereUniqueInput
-    data: XOR<ToolUpdateWithoutLevelInput, ToolUncheckedUpdateWithoutLevelInput>
-  }
-
-  export type ToolUpdateManyWithWhereWithoutLevelInput = {
-    where: ToolScalarWhereInput
-    data: XOR<ToolUpdateManyMutationInput, ToolUncheckedUpdateManyWithoutLevelInput>
   }
 
   export type OrderUpsertWithWhereUniqueWithoutLevelInput = {
@@ -29703,8 +30834,10 @@ export namespace Prisma {
     id?: string
     quantity: number
     toolCount: number
+    workingHours: number
+    minWorkingHours: number
     measure: string
-    totalPrice: number
+    totalPrice?: number | null
     locationLat: string
     locationLong: string
     address: string
@@ -29714,7 +30847,6 @@ export namespace Prisma {
     withDelivery: boolean
     status: $Enums.OrderStatus
     commentToDelivery: string
-    user: UserCreateNestedOneWithoutOrdersInput
     product: ProductCreateNestedOneWithoutOrdersInput
     tool: ToolCreateNestedOneWithoutOrdersInput
     level: LevelCreateNestedOneWithoutOrdersInput
@@ -29722,14 +30854,15 @@ export namespace Prisma {
 
   export type OrderUncheckedCreateWithoutCommentsInput = {
     id?: string
-    userID: string
     productID: string
     toolID: string
     levelID: string
     quantity: number
     toolCount: number
+    workingHours: number
+    minWorkingHours: number
     measure: string
-    totalPrice: number
+    totalPrice?: number | null
     locationLat: string
     locationLong: string
     address: string
@@ -29800,8 +30933,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     toolCount?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
+    minWorkingHours?: IntFieldUpdateOperationsInput | number
     measure?: StringFieldUpdateOperationsInput | string
-    totalPrice?: IntFieldUpdateOperationsInput | number
+    totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     locationLat?: StringFieldUpdateOperationsInput | string
     locationLong?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -29811,7 +30946,6 @@ export namespace Prisma {
     withDelivery?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     commentToDelivery?: StringFieldUpdateOperationsInput | string
-    user?: UserUpdateOneRequiredWithoutOrdersNestedInput
     product?: ProductUpdateOneRequiredWithoutOrdersNestedInput
     tool?: ToolUpdateOneRequiredWithoutOrdersNestedInput
     level?: LevelUpdateOneRequiredWithoutOrdersNestedInput
@@ -29819,14 +30953,15 @@ export namespace Prisma {
 
   export type OrderUncheckedUpdateWithoutCommentsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userID?: StringFieldUpdateOperationsInput | string
     productID?: StringFieldUpdateOperationsInput | string
     toolID?: StringFieldUpdateOperationsInput | string
     levelID?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     toolCount?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
+    minWorkingHours?: IntFieldUpdateOperationsInput | number
     measure?: StringFieldUpdateOperationsInput | string
-    totalPrice?: IntFieldUpdateOperationsInput | number
+    totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     locationLat?: StringFieldUpdateOperationsInput | string
     locationLong?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -29841,17 +30976,21 @@ export namespace Prisma {
   export type MasterJobsCreateWithoutMastersInput = {
     id?: string
     minWorkingHour: number
+    workingHours: number
     priceHourly: number
     priceDaily: number
     experience: string
     tool: ToolCreateNestedOneWithoutMasterJobsInput
+    product: ProductCreateNestedOneWithoutMasterJobsInput
     level: LevelCreateNestedOneWithoutMasterJobsInput
   }
 
   export type MasterJobsUncheckedCreateWithoutMastersInput = {
     id?: string
     toolID: string
+    productID: string
     minWorkingHour: number
+    workingHours: number
     levelID: string
     priceHourly: number
     priceDaily: number
@@ -29901,17 +31040,21 @@ export namespace Prisma {
   export type MasterJobsUpdateWithoutMastersInput = {
     id?: StringFieldUpdateOperationsInput | string
     minWorkingHour?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
     priceHourly?: IntFieldUpdateOperationsInput | number
     priceDaily?: IntFieldUpdateOperationsInput | number
     experience?: StringFieldUpdateOperationsInput | string
     tool?: ToolUpdateOneRequiredWithoutMasterJobsNestedInput
+    product?: ProductUpdateOneRequiredWithoutMasterJobsNestedInput
     level?: LevelUpdateOneRequiredWithoutMasterJobsNestedInput
   }
 
   export type MasterJobsUncheckedUpdateWithoutMastersInput = {
     id?: StringFieldUpdateOperationsInput | string
     toolID?: StringFieldUpdateOperationsInput | string
+    productID?: StringFieldUpdateOperationsInput | string
     minWorkingHour?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
     levelID?: StringFieldUpdateOperationsInput | string
     priceHourly?: IntFieldUpdateOperationsInput | number
     priceDaily?: IntFieldUpdateOperationsInput | number
@@ -29950,7 +31093,6 @@ export namespace Prisma {
     brand: BrandCreateNestedOneWithoutToolsInput
     capacity: CapacityCreateNestedOneWithoutToolsInput
     size: SizeCreateNestedOneWithoutToolsInput
-    level: LevelCreateNestedOneWithoutToolsInput
     orders?: OrderCreateNestedManyWithoutToolInput
   }
 
@@ -29970,7 +31112,6 @@ export namespace Prisma {
     sizeID: string
     image: string
     isActive: boolean
-    levelID: string
     orders?: OrderUncheckedCreateNestedManyWithoutToolInput
   }
 
@@ -29979,12 +31120,40 @@ export namespace Prisma {
     create: XOR<ToolCreateWithoutMasterJobsInput, ToolUncheckedCreateWithoutMasterJobsInput>
   }
 
+  export type ProductCreateWithoutMasterJobsInput = {
+    id?: string
+    isActive: boolean
+    nameRu: string
+    nameUz: string
+    nameEn: string
+    image: string
+    baskets?: BasketCreateNestedManyWithoutProductInput
+    orders?: OrderCreateNestedManyWithoutProductInput
+    intimateCategory?: ProfessionTypeCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductUncheckedCreateWithoutMasterJobsInput = {
+    id?: string
+    isActive: boolean
+    nameRu: string
+    nameUz: string
+    nameEn: string
+    image: string
+    baskets?: BasketUncheckedCreateNestedManyWithoutProductInput
+    orders?: OrderUncheckedCreateNestedManyWithoutProductInput
+    intimateCategory?: ProfessionTypeUncheckedCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductCreateOrConnectWithoutMasterJobsInput = {
+    where: ProductWhereUniqueInput
+    create: XOR<ProductCreateWithoutMasterJobsInput, ProductUncheckedCreateWithoutMasterJobsInput>
+  }
+
   export type LevelCreateWithoutMasterJobsInput = {
     id?: string
     nameRu: string
     nameUz: string
     nameEn: string
-    tools?: ToolCreateNestedManyWithoutLevelInput
     orders?: OrderCreateNestedManyWithoutLevelInput
   }
 
@@ -29993,7 +31162,6 @@ export namespace Prisma {
     nameRu: string
     nameUz: string
     nameEn: string
-    tools?: ToolUncheckedCreateNestedManyWithoutLevelInput
     orders?: OrderUncheckedCreateNestedManyWithoutLevelInput
   }
 
@@ -30067,7 +31235,6 @@ export namespace Prisma {
     brand?: BrandUpdateOneRequiredWithoutToolsNestedInput
     capacity?: CapacityUpdateOneRequiredWithoutToolsNestedInput
     size?: SizeUpdateOneRequiredWithoutToolsNestedInput
-    level?: LevelUpdateOneRequiredWithoutToolsNestedInput
     orders?: OrderUpdateManyWithoutToolNestedInput
   }
 
@@ -30087,8 +31254,42 @@ export namespace Prisma {
     sizeID?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    levelID?: StringFieldUpdateOperationsInput | string
     orders?: OrderUncheckedUpdateManyWithoutToolNestedInput
+  }
+
+  export type ProductUpsertWithoutMasterJobsInput = {
+    update: XOR<ProductUpdateWithoutMasterJobsInput, ProductUncheckedUpdateWithoutMasterJobsInput>
+    create: XOR<ProductCreateWithoutMasterJobsInput, ProductUncheckedCreateWithoutMasterJobsInput>
+    where?: ProductWhereInput
+  }
+
+  export type ProductUpdateToOneWithWhereWithoutMasterJobsInput = {
+    where?: ProductWhereInput
+    data: XOR<ProductUpdateWithoutMasterJobsInput, ProductUncheckedUpdateWithoutMasterJobsInput>
+  }
+
+  export type ProductUpdateWithoutMasterJobsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    nameRu?: StringFieldUpdateOperationsInput | string
+    nameUz?: StringFieldUpdateOperationsInput | string
+    nameEn?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    baskets?: BasketUpdateManyWithoutProductNestedInput
+    orders?: OrderUpdateManyWithoutProductNestedInput
+    intimateCategory?: ProfessionTypeUpdateManyWithoutProductNestedInput
+  }
+
+  export type ProductUncheckedUpdateWithoutMasterJobsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    nameRu?: StringFieldUpdateOperationsInput | string
+    nameUz?: StringFieldUpdateOperationsInput | string
+    nameEn?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    baskets?: BasketUncheckedUpdateManyWithoutProductNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutProductNestedInput
+    intimateCategory?: ProfessionTypeUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type LevelUpsertWithoutMasterJobsInput = {
@@ -30107,7 +31308,6 @@ export namespace Prisma {
     nameRu?: StringFieldUpdateOperationsInput | string
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
-    tools?: ToolUpdateManyWithoutLevelNestedInput
     orders?: OrderUpdateManyWithoutLevelNestedInput
   }
 
@@ -30116,7 +31316,6 @@ export namespace Prisma {
     nameRu?: StringFieldUpdateOperationsInput | string
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
-    tools?: ToolUncheckedUpdateManyWithoutLevelNestedInput
     orders?: OrderUncheckedUpdateManyWithoutLevelNestedInput
   }
 
@@ -30159,26 +31358,6 @@ export namespace Prisma {
     quantity: number
   }
 
-  export type OrderCreateManyUserInput = {
-    id?: string
-    productID: string
-    toolID: string
-    levelID: string
-    quantity: number
-    toolCount: number
-    measure: string
-    totalPrice: number
-    locationLat: string
-    locationLong: string
-    address: string
-    orderDate?: Date | string
-    deliveryDate: Date | string
-    paymentType: $Enums.PaymentType
-    withDelivery: boolean
-    status: $Enums.OrderStatus
-    commentToDelivery: string
-  }
-
   export type BasketUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
@@ -30195,68 +31374,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     productID?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type OrderUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    quantity?: IntFieldUpdateOperationsInput | number
-    toolCount?: IntFieldUpdateOperationsInput | number
-    measure?: StringFieldUpdateOperationsInput | string
-    totalPrice?: IntFieldUpdateOperationsInput | number
-    locationLat?: StringFieldUpdateOperationsInput | string
-    locationLong?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    orderDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    deliveryDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    paymentType?: EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
-    withDelivery?: BoolFieldUpdateOperationsInput | boolean
-    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    commentToDelivery?: StringFieldUpdateOperationsInput | string
-    product?: ProductUpdateOneRequiredWithoutOrdersNestedInput
-    tool?: ToolUpdateOneRequiredWithoutOrdersNestedInput
-    level?: LevelUpdateOneRequiredWithoutOrdersNestedInput
-    comments?: CommentUpdateManyWithoutOrderNestedInput
-  }
-
-  export type OrderUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    productID?: StringFieldUpdateOperationsInput | string
-    toolID?: StringFieldUpdateOperationsInput | string
-    levelID?: StringFieldUpdateOperationsInput | string
-    quantity?: IntFieldUpdateOperationsInput | number
-    toolCount?: IntFieldUpdateOperationsInput | number
-    measure?: StringFieldUpdateOperationsInput | string
-    totalPrice?: IntFieldUpdateOperationsInput | number
-    locationLat?: StringFieldUpdateOperationsInput | string
-    locationLong?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    orderDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    deliveryDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    paymentType?: EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
-    withDelivery?: BoolFieldUpdateOperationsInput | boolean
-    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    commentToDelivery?: StringFieldUpdateOperationsInput | string
-    comments?: CommentUncheckedUpdateManyWithoutOrderNestedInput
-  }
-
-  export type OrderUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    productID?: StringFieldUpdateOperationsInput | string
-    toolID?: StringFieldUpdateOperationsInput | string
-    levelID?: StringFieldUpdateOperationsInput | string
-    quantity?: IntFieldUpdateOperationsInput | number
-    toolCount?: IntFieldUpdateOperationsInput | number
-    measure?: StringFieldUpdateOperationsInput | string
-    totalPrice?: IntFieldUpdateOperationsInput | number
-    locationLat?: StringFieldUpdateOperationsInput | string
-    locationLong?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    orderDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    deliveryDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    paymentType?: EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
-    withDelivery?: BoolFieldUpdateOperationsInput | boolean
-    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    commentToDelivery?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserCreateManyRegionInput = {
@@ -30290,7 +31407,6 @@ export namespace Prisma {
     passportSeries?: NullableStringFieldUpdateOperationsInput | string | null
     inn?: NullableStringFieldUpdateOperationsInput | string | null
     baskets?: BasketUpdateManyWithoutUserNestedInput
-    orders?: OrderUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRegionInput = {
@@ -30308,7 +31424,6 @@ export namespace Prisma {
     passportSeries?: NullableStringFieldUpdateOperationsInput | string | null
     inn?: NullableStringFieldUpdateOperationsInput | string | null
     baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutRegionInput = {
@@ -30335,13 +31450,14 @@ export namespace Prisma {
 
   export type OrderCreateManyProductInput = {
     id?: string
-    userID: string
     toolID: string
     levelID: string
     quantity: number
     toolCount: number
+    workingHours: number
+    minWorkingHours: number
     measure: string
-    totalPrice: number
+    totalPrice?: number | null
     locationLat: string
     locationLong: string
     address: string
@@ -30351,6 +31467,24 @@ export namespace Prisma {
     withDelivery: boolean
     status: $Enums.OrderStatus
     commentToDelivery: string
+  }
+
+  export type MasterJobsCreateManyProductInput = {
+    id?: string
+    toolID: string
+    minWorkingHour: number
+    workingHours: number
+    levelID: string
+    priceHourly: number
+    priceDaily: number
+    experience: string
+  }
+
+  export type ProfessionTypeCreateManyProductInput = {
+    id?: string
+    nameRu: string
+    nameUz: string
+    nameEn: string
   }
 
   export type BasketUpdateWithoutProductInput = {
@@ -30375,8 +31509,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     toolCount?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
+    minWorkingHours?: IntFieldUpdateOperationsInput | number
     measure?: StringFieldUpdateOperationsInput | string
-    totalPrice?: IntFieldUpdateOperationsInput | number
+    totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     locationLat?: StringFieldUpdateOperationsInput | string
     locationLong?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -30386,7 +31522,6 @@ export namespace Prisma {
     withDelivery?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     commentToDelivery?: StringFieldUpdateOperationsInput | string
-    user?: UserUpdateOneRequiredWithoutOrdersNestedInput
     tool?: ToolUpdateOneRequiredWithoutOrdersNestedInput
     level?: LevelUpdateOneRequiredWithoutOrdersNestedInput
     comments?: CommentUpdateManyWithoutOrderNestedInput
@@ -30394,13 +31529,14 @@ export namespace Prisma {
 
   export type OrderUncheckedUpdateWithoutProductInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userID?: StringFieldUpdateOperationsInput | string
     toolID?: StringFieldUpdateOperationsInput | string
     levelID?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     toolCount?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
+    minWorkingHours?: IntFieldUpdateOperationsInput | number
     measure?: StringFieldUpdateOperationsInput | string
-    totalPrice?: IntFieldUpdateOperationsInput | number
+    totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     locationLat?: StringFieldUpdateOperationsInput | string
     locationLong?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -30415,13 +31551,14 @@ export namespace Prisma {
 
   export type OrderUncheckedUpdateManyWithoutProductInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userID?: StringFieldUpdateOperationsInput | string
     toolID?: StringFieldUpdateOperationsInput | string
     levelID?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     toolCount?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
+    minWorkingHours?: IntFieldUpdateOperationsInput | number
     measure?: StringFieldUpdateOperationsInput | string
-    totalPrice?: IntFieldUpdateOperationsInput | number
+    totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     locationLat?: StringFieldUpdateOperationsInput | string
     locationLong?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -30431,6 +31568,62 @@ export namespace Prisma {
     withDelivery?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     commentToDelivery?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MasterJobsUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    minWorkingHour?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
+    priceHourly?: IntFieldUpdateOperationsInput | number
+    priceDaily?: IntFieldUpdateOperationsInput | number
+    experience?: StringFieldUpdateOperationsInput | string
+    tool?: ToolUpdateOneRequiredWithoutMasterJobsNestedInput
+    level?: LevelUpdateOneRequiredWithoutMasterJobsNestedInput
+    masters?: MasterUpdateManyWithoutMasterJobsNestedInput
+  }
+
+  export type MasterJobsUncheckedUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    toolID?: StringFieldUpdateOperationsInput | string
+    minWorkingHour?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
+    levelID?: StringFieldUpdateOperationsInput | string
+    priceHourly?: IntFieldUpdateOperationsInput | number
+    priceDaily?: IntFieldUpdateOperationsInput | number
+    experience?: StringFieldUpdateOperationsInput | string
+    masters?: MasterUncheckedUpdateManyWithoutMasterJobsNestedInput
+  }
+
+  export type MasterJobsUncheckedUpdateManyWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    toolID?: StringFieldUpdateOperationsInput | string
+    minWorkingHour?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
+    levelID?: StringFieldUpdateOperationsInput | string
+    priceHourly?: IntFieldUpdateOperationsInput | number
+    priceDaily?: IntFieldUpdateOperationsInput | number
+    experience?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ProfessionTypeUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nameRu?: StringFieldUpdateOperationsInput | string
+    nameUz?: StringFieldUpdateOperationsInput | string
+    nameEn?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ProfessionTypeUncheckedUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nameRu?: StringFieldUpdateOperationsInput | string
+    nameUz?: StringFieldUpdateOperationsInput | string
+    nameEn?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ProfessionTypeUncheckedUpdateManyWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nameRu?: StringFieldUpdateOperationsInput | string
+    nameUz?: StringFieldUpdateOperationsInput | string
+    nameEn?: StringFieldUpdateOperationsInput | string
   }
 
   export type CommentCreateManyOrderInput = {
@@ -30463,13 +31656,14 @@ export namespace Prisma {
 
   export type OrderCreateManyToolInput = {
     id?: string
-    userID: string
     productID: string
     levelID: string
     quantity: number
     toolCount: number
+    workingHours: number
+    minWorkingHours: number
     measure: string
-    totalPrice: number
+    totalPrice?: number | null
     locationLat: string
     locationLong: string
     address: string
@@ -30483,7 +31677,9 @@ export namespace Prisma {
 
   export type MasterJobsCreateManyToolInput = {
     id?: string
+    productID: string
     minWorkingHour: number
+    workingHours: number
     levelID: string
     priceHourly: number
     priceDaily: number
@@ -30494,8 +31690,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     toolCount?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
+    minWorkingHours?: IntFieldUpdateOperationsInput | number
     measure?: StringFieldUpdateOperationsInput | string
-    totalPrice?: IntFieldUpdateOperationsInput | number
+    totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     locationLat?: StringFieldUpdateOperationsInput | string
     locationLong?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -30505,7 +31703,6 @@ export namespace Prisma {
     withDelivery?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     commentToDelivery?: StringFieldUpdateOperationsInput | string
-    user?: UserUpdateOneRequiredWithoutOrdersNestedInput
     product?: ProductUpdateOneRequiredWithoutOrdersNestedInput
     level?: LevelUpdateOneRequiredWithoutOrdersNestedInput
     comments?: CommentUpdateManyWithoutOrderNestedInput
@@ -30513,13 +31710,14 @@ export namespace Prisma {
 
   export type OrderUncheckedUpdateWithoutToolInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userID?: StringFieldUpdateOperationsInput | string
     productID?: StringFieldUpdateOperationsInput | string
     levelID?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     toolCount?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
+    minWorkingHours?: IntFieldUpdateOperationsInput | number
     measure?: StringFieldUpdateOperationsInput | string
-    totalPrice?: IntFieldUpdateOperationsInput | number
+    totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     locationLat?: StringFieldUpdateOperationsInput | string
     locationLong?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -30534,13 +31732,14 @@ export namespace Prisma {
 
   export type OrderUncheckedUpdateManyWithoutToolInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userID?: StringFieldUpdateOperationsInput | string
     productID?: StringFieldUpdateOperationsInput | string
     levelID?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     toolCount?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
+    minWorkingHours?: IntFieldUpdateOperationsInput | number
     measure?: StringFieldUpdateOperationsInput | string
-    totalPrice?: IntFieldUpdateOperationsInput | number
+    totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     locationLat?: StringFieldUpdateOperationsInput | string
     locationLong?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -30555,16 +31754,20 @@ export namespace Prisma {
   export type MasterJobsUpdateWithoutToolInput = {
     id?: StringFieldUpdateOperationsInput | string
     minWorkingHour?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
     priceHourly?: IntFieldUpdateOperationsInput | number
     priceDaily?: IntFieldUpdateOperationsInput | number
     experience?: StringFieldUpdateOperationsInput | string
+    product?: ProductUpdateOneRequiredWithoutMasterJobsNestedInput
     level?: LevelUpdateOneRequiredWithoutMasterJobsNestedInput
     masters?: MasterUpdateManyWithoutMasterJobsNestedInput
   }
 
   export type MasterJobsUncheckedUpdateWithoutToolInput = {
     id?: StringFieldUpdateOperationsInput | string
+    productID?: StringFieldUpdateOperationsInput | string
     minWorkingHour?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
     levelID?: StringFieldUpdateOperationsInput | string
     priceHourly?: IntFieldUpdateOperationsInput | number
     priceDaily?: IntFieldUpdateOperationsInput | number
@@ -30574,7 +31777,9 @@ export namespace Prisma {
 
   export type MasterJobsUncheckedUpdateManyWithoutToolInput = {
     id?: StringFieldUpdateOperationsInput | string
+    productID?: StringFieldUpdateOperationsInput | string
     minWorkingHour?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
     levelID?: StringFieldUpdateOperationsInput | string
     priceHourly?: IntFieldUpdateOperationsInput | number
     priceDaily?: IntFieldUpdateOperationsInput | number
@@ -30596,7 +31801,6 @@ export namespace Prisma {
     sizeID: string
     image: string
     isActive: boolean
-    levelID: string
   }
 
   export type ToolUpdateWithoutBrandInput = {
@@ -30614,7 +31818,6 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     capacity?: CapacityUpdateOneRequiredWithoutToolsNestedInput
     size?: SizeUpdateOneRequiredWithoutToolsNestedInput
-    level?: LevelUpdateOneRequiredWithoutToolsNestedInput
     orders?: OrderUpdateManyWithoutToolNestedInput
     masterJobs?: MasterJobsUpdateManyWithoutToolNestedInput
   }
@@ -30634,7 +31837,6 @@ export namespace Prisma {
     sizeID?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    levelID?: StringFieldUpdateOperationsInput | string
     orders?: OrderUncheckedUpdateManyWithoutToolNestedInput
     masterJobs?: MasterJobsUncheckedUpdateManyWithoutToolNestedInput
   }
@@ -30654,7 +31856,6 @@ export namespace Prisma {
     sizeID?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    levelID?: StringFieldUpdateOperationsInput | string
   }
 
   export type ToolCreateManyCapacityInput = {
@@ -30672,7 +31873,6 @@ export namespace Prisma {
     sizeID: string
     image: string
     isActive: boolean
-    levelID: string
   }
 
   export type ToolUpdateWithoutCapacityInput = {
@@ -30690,7 +31890,6 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     brand?: BrandUpdateOneRequiredWithoutToolsNestedInput
     size?: SizeUpdateOneRequiredWithoutToolsNestedInput
-    level?: LevelUpdateOneRequiredWithoutToolsNestedInput
     orders?: OrderUpdateManyWithoutToolNestedInput
     masterJobs?: MasterJobsUpdateManyWithoutToolNestedInput
   }
@@ -30710,7 +31909,6 @@ export namespace Prisma {
     sizeID?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    levelID?: StringFieldUpdateOperationsInput | string
     orders?: OrderUncheckedUpdateManyWithoutToolNestedInput
     masterJobs?: MasterJobsUncheckedUpdateManyWithoutToolNestedInput
   }
@@ -30730,7 +31928,6 @@ export namespace Prisma {
     sizeID?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    levelID?: StringFieldUpdateOperationsInput | string
   }
 
   export type ToolCreateManySizeInput = {
@@ -30748,7 +31945,6 @@ export namespace Prisma {
     capacityID: string
     image: string
     isActive: boolean
-    levelID: string
   }
 
   export type ToolUpdateWithoutSizeInput = {
@@ -30766,7 +31962,6 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     brand?: BrandUpdateOneRequiredWithoutToolsNestedInput
     capacity?: CapacityUpdateOneRequiredWithoutToolsNestedInput
-    level?: LevelUpdateOneRequiredWithoutToolsNestedInput
     orders?: OrderUpdateManyWithoutToolNestedInput
     masterJobs?: MasterJobsUpdateManyWithoutToolNestedInput
   }
@@ -30786,7 +31981,6 @@ export namespace Prisma {
     capacityID?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    levelID?: StringFieldUpdateOperationsInput | string
     orders?: OrderUncheckedUpdateManyWithoutToolNestedInput
     masterJobs?: MasterJobsUncheckedUpdateManyWithoutToolNestedInput
   }
@@ -30806,36 +32000,18 @@ export namespace Prisma {
     capacityID?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    levelID?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type ToolCreateManyLevelInput = {
-    id?: string
-    nameRu: string
-    nameUz: string
-    nameEn: string
-    descriptionRu: string
-    descriptionUz: string
-    descriptionEn: string
-    price: number
-    quantity: number
-    code?: string | null
-    brandID: string
-    capacityID: string
-    sizeID: string
-    image: string
-    isActive: boolean
   }
 
   export type OrderCreateManyLevelInput = {
     id?: string
-    userID: string
     productID: string
     toolID: string
     quantity: number
     toolCount: number
+    workingHours: number
+    minWorkingHours: number
     measure: string
-    totalPrice: number
+    totalPrice?: number | null
     locationLat: string
     locationLong: string
     address: string
@@ -30850,76 +32026,22 @@ export namespace Prisma {
   export type MasterJobsCreateManyLevelInput = {
     id?: string
     toolID: string
+    productID: string
     minWorkingHour: number
+    workingHours: number
     priceHourly: number
     priceDaily: number
     experience: string
-  }
-
-  export type ToolUpdateWithoutLevelInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nameRu?: StringFieldUpdateOperationsInput | string
-    nameUz?: StringFieldUpdateOperationsInput | string
-    nameEn?: StringFieldUpdateOperationsInput | string
-    descriptionRu?: StringFieldUpdateOperationsInput | string
-    descriptionUz?: StringFieldUpdateOperationsInput | string
-    descriptionEn?: StringFieldUpdateOperationsInput | string
-    price?: IntFieldUpdateOperationsInput | number
-    quantity?: IntFieldUpdateOperationsInput | number
-    code?: NullableStringFieldUpdateOperationsInput | string | null
-    image?: StringFieldUpdateOperationsInput | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    brand?: BrandUpdateOneRequiredWithoutToolsNestedInput
-    capacity?: CapacityUpdateOneRequiredWithoutToolsNestedInput
-    size?: SizeUpdateOneRequiredWithoutToolsNestedInput
-    orders?: OrderUpdateManyWithoutToolNestedInput
-    masterJobs?: MasterJobsUpdateManyWithoutToolNestedInput
-  }
-
-  export type ToolUncheckedUpdateWithoutLevelInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nameRu?: StringFieldUpdateOperationsInput | string
-    nameUz?: StringFieldUpdateOperationsInput | string
-    nameEn?: StringFieldUpdateOperationsInput | string
-    descriptionRu?: StringFieldUpdateOperationsInput | string
-    descriptionUz?: StringFieldUpdateOperationsInput | string
-    descriptionEn?: StringFieldUpdateOperationsInput | string
-    price?: IntFieldUpdateOperationsInput | number
-    quantity?: IntFieldUpdateOperationsInput | number
-    code?: NullableStringFieldUpdateOperationsInput | string | null
-    brandID?: StringFieldUpdateOperationsInput | string
-    capacityID?: StringFieldUpdateOperationsInput | string
-    sizeID?: StringFieldUpdateOperationsInput | string
-    image?: StringFieldUpdateOperationsInput | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    orders?: OrderUncheckedUpdateManyWithoutToolNestedInput
-    masterJobs?: MasterJobsUncheckedUpdateManyWithoutToolNestedInput
-  }
-
-  export type ToolUncheckedUpdateManyWithoutLevelInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nameRu?: StringFieldUpdateOperationsInput | string
-    nameUz?: StringFieldUpdateOperationsInput | string
-    nameEn?: StringFieldUpdateOperationsInput | string
-    descriptionRu?: StringFieldUpdateOperationsInput | string
-    descriptionUz?: StringFieldUpdateOperationsInput | string
-    descriptionEn?: StringFieldUpdateOperationsInput | string
-    price?: IntFieldUpdateOperationsInput | number
-    quantity?: IntFieldUpdateOperationsInput | number
-    code?: NullableStringFieldUpdateOperationsInput | string | null
-    brandID?: StringFieldUpdateOperationsInput | string
-    capacityID?: StringFieldUpdateOperationsInput | string
-    sizeID?: StringFieldUpdateOperationsInput | string
-    image?: StringFieldUpdateOperationsInput | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type OrderUpdateWithoutLevelInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     toolCount?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
+    minWorkingHours?: IntFieldUpdateOperationsInput | number
     measure?: StringFieldUpdateOperationsInput | string
-    totalPrice?: IntFieldUpdateOperationsInput | number
+    totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     locationLat?: StringFieldUpdateOperationsInput | string
     locationLong?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -30929,7 +32051,6 @@ export namespace Prisma {
     withDelivery?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     commentToDelivery?: StringFieldUpdateOperationsInput | string
-    user?: UserUpdateOneRequiredWithoutOrdersNestedInput
     product?: ProductUpdateOneRequiredWithoutOrdersNestedInput
     tool?: ToolUpdateOneRequiredWithoutOrdersNestedInput
     comments?: CommentUpdateManyWithoutOrderNestedInput
@@ -30937,13 +32058,14 @@ export namespace Prisma {
 
   export type OrderUncheckedUpdateWithoutLevelInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userID?: StringFieldUpdateOperationsInput | string
     productID?: StringFieldUpdateOperationsInput | string
     toolID?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     toolCount?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
+    minWorkingHours?: IntFieldUpdateOperationsInput | number
     measure?: StringFieldUpdateOperationsInput | string
-    totalPrice?: IntFieldUpdateOperationsInput | number
+    totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     locationLat?: StringFieldUpdateOperationsInput | string
     locationLong?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -30958,13 +32080,14 @@ export namespace Prisma {
 
   export type OrderUncheckedUpdateManyWithoutLevelInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userID?: StringFieldUpdateOperationsInput | string
     productID?: StringFieldUpdateOperationsInput | string
     toolID?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     toolCount?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
+    minWorkingHours?: IntFieldUpdateOperationsInput | number
     measure?: StringFieldUpdateOperationsInput | string
-    totalPrice?: IntFieldUpdateOperationsInput | number
+    totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     locationLat?: StringFieldUpdateOperationsInput | string
     locationLong?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -30979,17 +32102,21 @@ export namespace Prisma {
   export type MasterJobsUpdateWithoutLevelInput = {
     id?: StringFieldUpdateOperationsInput | string
     minWorkingHour?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
     priceHourly?: IntFieldUpdateOperationsInput | number
     priceDaily?: IntFieldUpdateOperationsInput | number
     experience?: StringFieldUpdateOperationsInput | string
     tool?: ToolUpdateOneRequiredWithoutMasterJobsNestedInput
+    product?: ProductUpdateOneRequiredWithoutMasterJobsNestedInput
     masters?: MasterUpdateManyWithoutMasterJobsNestedInput
   }
 
   export type MasterJobsUncheckedUpdateWithoutLevelInput = {
     id?: StringFieldUpdateOperationsInput | string
     toolID?: StringFieldUpdateOperationsInput | string
+    productID?: StringFieldUpdateOperationsInput | string
     minWorkingHour?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
     priceHourly?: IntFieldUpdateOperationsInput | number
     priceDaily?: IntFieldUpdateOperationsInput | number
     experience?: StringFieldUpdateOperationsInput | string
@@ -30999,7 +32126,9 @@ export namespace Prisma {
   export type MasterJobsUncheckedUpdateManyWithoutLevelInput = {
     id?: StringFieldUpdateOperationsInput | string
     toolID?: StringFieldUpdateOperationsInput | string
+    productID?: StringFieldUpdateOperationsInput | string
     minWorkingHour?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
     priceHourly?: IntFieldUpdateOperationsInput | number
     priceDaily?: IntFieldUpdateOperationsInput | number
     experience?: StringFieldUpdateOperationsInput | string

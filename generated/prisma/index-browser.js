@@ -150,25 +150,30 @@ exports.Prisma.BasketScalarFieldEnum = {
 
 exports.Prisma.ProductScalarFieldEnum = {
   id: 'id',
+  isActive: 'isActive',
   nameRu: 'nameRu',
   nameUz: 'nameUz',
   nameEn: 'nameEn',
-  image: 'image',
-  workingHours: 'workingHours',
-  levelID: 'levelID',
-  priceHourly: 'priceHourly',
-  priceDaily: 'priceDaily',
-  tools: 'tools'
+  image: 'image'
+};
+
+exports.Prisma.ProfessionTypeScalarFieldEnum = {
+  id: 'id',
+  nameRu: 'nameRu',
+  nameUz: 'nameUz',
+  nameEn: 'nameEn',
+  productId: 'productId'
 };
 
 exports.Prisma.OrderScalarFieldEnum = {
   id: 'id',
-  userID: 'userID',
   productID: 'productID',
   toolID: 'toolID',
   levelID: 'levelID',
   quantity: 'quantity',
   toolCount: 'toolCount',
+  workingHours: 'workingHours',
+  minWorkingHours: 'minWorkingHours',
   measure: 'measure',
   totalPrice: 'totalPrice',
   locationLat: 'locationLat',
@@ -197,8 +202,7 @@ exports.Prisma.ToolScalarFieldEnum = {
   capacityID: 'capacityID',
   sizeID: 'sizeID',
   image: 'image',
-  isActive: 'isActive',
-  levelID: 'levelID'
+  isActive: 'isActive'
 };
 
 exports.Prisma.BrandScalarFieldEnum = {
@@ -254,7 +258,9 @@ exports.Prisma.MasterScalarFieldEnum = {
 exports.Prisma.MasterJobsScalarFieldEnum = {
   id: 'id',
   toolID: 'toolID',
+  productID: 'productID',
   minWorkingHour: 'minWorkingHour',
+  workingHours: 'workingHours',
   levelID: 'levelID',
   priceHourly: 'priceHourly',
   priceDaily: 'priceDaily',
@@ -351,6 +357,7 @@ exports.Prisma.ModelName = {
   Region: 'Region',
   Basket: 'Basket',
   Product: 'Product',
+  ProfessionType: 'ProfessionType',
   Order: 'Order',
   Tool: 'Tool',
   Brand: 'Brand',

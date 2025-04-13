@@ -60,7 +60,6 @@ model User {
 
   region    Region? @relation(fields: [regionID], references: [id])
   baskets   Basket[]
-  orders    Order[]
 }
 
 model Region {
@@ -83,31 +82,43 @@ model Basket {
 }
 
 model Product {
-  id           String @id @default(uuid())
-  nameRu       String
-  nameUz       String
-  nameEn       String
-  image        String
-  workingHours Int
-  levelID      String
-  priceHourly  Int
-  priceDaily   Int
-  tools        String
+  id              String           @id @default(uuid())
+  isActive        Boolean
+  nameRu          String
+  nameUz          String
+  nameEn          String
+  image           String
 
-  baskets      Basket[]
-  orders       Order[]
+  baskets         Basket[] 
+  orders          Order[]   
+  masterJobs      MasterJobs[] 
+  intimateCategory ProfessionType []  
 }
+
+
+model ProfessionType  {
+  id          String   @id @default(uuid())
+  nameRu      String
+  nameUz      String
+  nameEn      String
+  productId   String  
+
+  product     Product @relation(fields: [productId], references: [id]) 
+}
+
+
 
 model Order {
   id                String @id @default(uuid())
-  userID            String
   productID         String
   toolID            String
   levelID           String
   quantity          Int
   toolCount         Int
+  workingHours      Int
+  minWorkingHours   Int
   measure           String
-  totalPrice        Int
+  totalPrice        Int?
   locationLat       String
   locationLong      String
   address           String
@@ -118,7 +129,6 @@ model Order {
   status            OrderStatus
   commentToDelivery String
 
-  user              User    @relation(fields: [userID], references: [id])
   product           Product @relation(fields: [productID], references: [id])
   tool              Tool    @relation(fields: [toolID], references: [id])
   level             Level   @relation(fields: [levelID], references: [id])
@@ -141,12 +151,11 @@ model Tool {
   sizeID         String
   image          String
   isActive       Boolean
-  levelID        String
+
 
   brand          Brand     @relation(fields: [brandID], references: [id])
   capacity       Capacity  @relation(fields: [capacityID], references: [id])
   size           Size      @relation(fields: [sizeID], references: [id])
-  level          Level     @relation(fields: [levelID], references: [id])
   orders         Order[]
   masterJobs     MasterJobs[]
 }
@@ -184,7 +193,6 @@ model Level {
   nameUz     String
   nameEn     String
 
-  tools      Tool[]
   orders     Order[]
   masterJobs MasterJobs[]
 }
@@ -218,16 +226,19 @@ model Master {
 }
 
 model MasterJobs {
-  id              String @id @default(uuid())
+  id              String   @id @default(uuid())
   toolID          String
+  productID       String  
   minWorkingHour  Int
+  workingHours    Int
   levelID         String
   priceHourly     Int
   priceDaily      Int
   experience      String
 
-  tool            Tool  @relation(fields: [toolID], references: [id])
-  level           Level @relation(fields: [levelID], references: [id])
+  tool            Tool     @relation(fields: [toolID], references: [id])
+  product         Product  @relation(fields: [productID], references: [id])
+  level           Level    @relation(fields: [levelID], references: [id])
   masters         Master[]
 }
 

@@ -20,8 +20,7 @@ export class ToolService {
     let allTools = await this.prisma.tool.findMany({include:{
       size:{select:{nameEn:true,nameRu:true,nameUz:true}},
       brand:{select:{nameEn:true,nameRu:true,nameUz:true}},
-      capacity:{select:{nameEn:true,nameRu:true,nameUz:true}}, 
-      level:{select:{nameEn:true,nameRu:true,nameUz:true}}
+      capacity:{select:{nameEn:true,nameRu:true,nameUz:true}}
     }});
     if(!allTools.length){
       throw new BadRequestException("Not found tools")
@@ -33,8 +32,7 @@ export class ToolService {
     let isToolExists = await this.prisma.tool.findFirst({where:{id},include:{
       size:{select:{nameEn:true,nameRu:true,nameUz:true}},
       brand:{select:{nameEn:true,nameRu:true,nameUz:true}},
-      capacity:{select:{nameEn:true,nameRu:true,nameUz:true}},
-      level:{select:{nameEn:true,nameRu:true,nameUz:true}}
+      capacity:{select:{nameEn:true,nameRu:true,nameUz:true}}
     }});
     if(!isToolExists){
       throw new BadRequestException("Tool not found")

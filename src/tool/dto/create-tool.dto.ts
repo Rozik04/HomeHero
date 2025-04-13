@@ -54,7 +54,4 @@ export class CreateToolDto {
   @IsBoolean()
   isActive: boolean;
 
-  @IsString()
-  @IsNotEmpty()
-  levelID: string;
 }

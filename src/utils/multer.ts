@@ -19,3 +19,13 @@ export let multerUp = ({
         }
     })
 })
+
+
+export let multerPr = ({
+    storage: diskStorage({
+        destination:'./uploadProducts',
+        filename:(req,file,cb)=>{
+            cb(null, `${Date.now()}${extname(file.originalname)}`)
+        }
+    })
+})
