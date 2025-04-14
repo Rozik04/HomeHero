@@ -11,9 +11,10 @@ import { ToolModule } from './tool/tool.module';
 import { LevelModule } from './level/level.module';
 import { MasterJobsModule } from './master-jobs/master-jobs.module';
 import { ProductModule } from './product/product.module';
+import { MasterModule } from './master/master.module';
 
 @Module({
-  imports: [PrismaModule, RegionModule, UserModule, BrandModule, SizeModule, CapacityModule, ToolModule, LevelModule, MasterJobsModule, ProductModule],
+  imports: [PrismaModule, RegionModule, UserModule, BrandModule, SizeModule, CapacityModule, ToolModule, LevelModule, MasterJobsModule, ProductModule, MasterModule],
   controllers: [AppController],
   providers: [AppService],
 })

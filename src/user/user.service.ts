@@ -25,7 +25,7 @@ export class UserService {
       user: process.env.USER,
       pass: process.env.PASS
     }
-  })
+  }) 
 
   async sendOtp(data:{email:string}):Promise<{otp: string}>{
     let {email} =  data;
@@ -215,5 +215,5 @@ try {
     }
 
   }
-
 }
+

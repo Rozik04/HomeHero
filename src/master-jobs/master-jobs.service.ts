@@ -8,6 +8,14 @@ export class MasterJobsService {
   constructor(private readonly prisma:PrismaService){}
 
   async create(createMasterJobDto: CreateMasterJobDto) {
+    let checkLevel = await this.prisma.product.findFirst({where:{id:createMasterJobDto.productID,levels:{some:{levelID:createMasterJobDto.levelID}}}});
+    if(!checkLevel){
+      throw new BadRequestException("This level is not linked to this product.")
+    }
+    let checkTool = await this.prisma.product.findFirst({where:{id:createMasterJobDto.productID,tools:{some:{toolID:createMasterJobDto.toolID}}}});
+    if(!checkTool){
+      throw new BadRequestException("This tool is not linked to this product.")
+    }
     let created = await this.prisma.masterJobs.create({data:{...createMasterJobDto}});
     return {created}
   }

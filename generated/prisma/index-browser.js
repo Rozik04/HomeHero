@@ -148,15 +148,6 @@ exports.Prisma.BasketScalarFieldEnum = {
   quantity: 'quantity'
 };
 
-exports.Prisma.ProductScalarFieldEnum = {
-  id: 'id',
-  isActive: 'isActive',
-  nameRu: 'nameRu',
-  nameUz: 'nameUz',
-  nameEn: 'nameEn',
-  image: 'image'
-};
-
 exports.Prisma.ProfessionTypeScalarFieldEnum = {
   id: 'id',
   nameRu: 'nameRu',
@@ -187,24 +178,6 @@ exports.Prisma.OrderScalarFieldEnum = {
   commentToDelivery: 'commentToDelivery'
 };
 
-exports.Prisma.ToolScalarFieldEnum = {
-  id: 'id',
-  nameRu: 'nameRu',
-  nameUz: 'nameUz',
-  nameEn: 'nameEn',
-  descriptionRu: 'descriptionRu',
-  descriptionUz: 'descriptionUz',
-  descriptionEn: 'descriptionEn',
-  price: 'price',
-  quantity: 'quantity',
-  code: 'code',
-  brandID: 'brandID',
-  capacityID: 'capacityID',
-  sizeID: 'sizeID',
-  image: 'image',
-  isActive: 'isActive'
-};
-
 exports.Prisma.BrandScalarFieldEnum = {
   id: 'id',
   nameRu: 'nameRu',
@@ -220,13 +193,6 @@ exports.Prisma.CapacityScalarFieldEnum = {
 };
 
 exports.Prisma.SizeScalarFieldEnum = {
-  id: 'id',
-  nameRu: 'nameRu',
-  nameUz: 'nameUz',
-  nameEn: 'nameEn'
-};
-
-exports.Prisma.LevelScalarFieldEnum = {
   id: 'id',
   nameRu: 'nameRu',
   nameUz: 'nameUz',
@@ -251,7 +217,7 @@ exports.Prisma.MasterScalarFieldEnum = {
   year: 'year',
   image: 'image',
   passportImage: 'passportImage',
-  star: 'star',
+  rating: 'rating',
   masterJobsID: 'masterJobsID'
 };
 
@@ -312,6 +278,52 @@ exports.Prisma.PartnerScalarFieldEnum = {
   image: 'image'
 };
 
+exports.Prisma.ProductScalarFieldEnum = {
+  id: 'id',
+  isActive: 'isActive',
+  nameRu: 'nameRu',
+  nameUz: 'nameUz',
+  nameEn: 'nameEn',
+  image: 'image'
+};
+
+exports.Prisma.LevelScalarFieldEnum = {
+  id: 'id',
+  nameRu: 'nameRu',
+  nameUz: 'nameUz',
+  nameEn: 'nameEn'
+};
+
+exports.Prisma.ToolScalarFieldEnum = {
+  id: 'id',
+  nameRu: 'nameRu',
+  nameUz: 'nameUz',
+  nameEn: 'nameEn',
+  descriptionRu: 'descriptionRu',
+  descriptionUz: 'descriptionUz',
+  descriptionEn: 'descriptionEn',
+  price: 'price',
+  quantity: 'quantity',
+  code: 'code',
+  brandID: 'brandID',
+  capacityID: 'capacityID',
+  sizeID: 'sizeID',
+  image: 'image',
+  isActive: 'isActive'
+};
+
+exports.Prisma.ProductLevelScalarFieldEnum = {
+  id: 'id',
+  productID: 'productID',
+  levelID: 'levelID'
+};
+
+exports.Prisma.ProductToolScalarFieldEnum = {
+  id: 'id',
+  productID: 'productID',
+  toolID: 'toolID'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -356,14 +368,11 @@ exports.Prisma.ModelName = {
   User: 'User',
   Region: 'Region',
   Basket: 'Basket',
-  Product: 'Product',
   ProfessionType: 'ProfessionType',
   Order: 'Order',
-  Tool: 'Tool',
   Brand: 'Brand',
   Capacity: 'Capacity',
   Size: 'Size',
-  Level: 'Level',
   Comment: 'Comment',
   Master: 'Master',
   MasterJobs: 'MasterJobs',
@@ -371,7 +380,12 @@ exports.Prisma.ModelName = {
   ShowCase: 'ShowCase',
   FAQ: 'FAQ',
   Contact: 'Contact',
-  Partner: 'Partner'
+  Partner: 'Partner',
+  Product: 'Product',
+  Level: 'Level',
+  Tool: 'Tool',
+  ProductLevel: 'ProductLevel',
+  ProductTool: 'ProductTool'
 };
 
 /**

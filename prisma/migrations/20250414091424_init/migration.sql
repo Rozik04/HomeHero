@@ -51,18 +51,6 @@ CREATE TABLE "Basket" (
 );
 
 -- CreateTable
-CREATE TABLE "Product" (
-    "id" TEXT NOT NULL,
-    "isActive" BOOLEAN NOT NULL,
-    "nameRu" TEXT NOT NULL,
-    "nameUz" TEXT NOT NULL,
-    "nameEn" TEXT NOT NULL,
-    "image" TEXT NOT NULL,
-
-    CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "ProfessionType" (
     "id" TEXT NOT NULL,
     "nameRu" TEXT NOT NULL,
@@ -99,27 +87,6 @@ CREATE TABLE "Order" (
 );
 
 -- CreateTable
-CREATE TABLE "Tool" (
-    "id" TEXT NOT NULL,
-    "nameRu" TEXT NOT NULL,
-    "nameUz" TEXT NOT NULL,
-    "nameEn" TEXT NOT NULL,
-    "descriptionRu" TEXT NOT NULL,
-    "descriptionUz" TEXT NOT NULL,
-    "descriptionEn" TEXT NOT NULL,
-    "price" INTEGER NOT NULL,
-    "quantity" INTEGER NOT NULL,
-    "code" TEXT,
-    "brandID" TEXT NOT NULL,
-    "capacityID" TEXT NOT NULL,
-    "sizeID" TEXT NOT NULL,
-    "image" TEXT NOT NULL,
-    "isActive" BOOLEAN NOT NULL,
-
-    CONSTRAINT "Tool_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "Brand" (
     "id" TEXT NOT NULL,
     "nameRu" TEXT NOT NULL,
@@ -150,16 +117,6 @@ CREATE TABLE "Size" (
 );
 
 -- CreateTable
-CREATE TABLE "Level" (
-    "id" TEXT NOT NULL,
-    "nameRu" TEXT NOT NULL,
-    "nameUz" TEXT NOT NULL,
-    "nameEn" TEXT NOT NULL,
-
-    CONSTRAINT "Level_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "Comment" (
     "id" TEXT NOT NULL,
     "message" TEXT NOT NULL,
@@ -181,7 +138,7 @@ CREATE TABLE "Master" (
     "year" TEXT NOT NULL,
     "image" TEXT NOT NULL,
     "passportImage" TEXT NOT NULL,
-    "star" INTEGER NOT NULL,
+    "rating" INTEGER,
     "masterJobsID" TEXT NOT NULL,
 
     CONSTRAINT "Master_pkey" PRIMARY KEY ("id")
@@ -262,11 +219,78 @@ CREATE TABLE "Partner" (
     CONSTRAINT "Partner_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "Product" (
+    "id" TEXT NOT NULL,
+    "isActive" BOOLEAN NOT NULL,
+    "nameRu" TEXT NOT NULL,
+    "nameUz" TEXT NOT NULL,
+    "nameEn" TEXT NOT NULL,
+    "image" TEXT NOT NULL,
+
+    CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Level" (
+    "id" TEXT NOT NULL,
+    "nameRu" TEXT NOT NULL,
+    "nameUz" TEXT NOT NULL,
+    "nameEn" TEXT NOT NULL,
+
+    CONSTRAINT "Level_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Tool" (
+    "id" TEXT NOT NULL,
+    "nameRu" TEXT NOT NULL,
+    "nameUz" TEXT NOT NULL,
+    "nameEn" TEXT NOT NULL,
+    "descriptionRu" TEXT NOT NULL,
+    "descriptionUz" TEXT NOT NULL,
+    "descriptionEn" TEXT NOT NULL,
+    "price" INTEGER NOT NULL,
+    "quantity" INTEGER NOT NULL,
+    "code" TEXT,
+    "brandID" TEXT NOT NULL,
+    "capacityID" TEXT NOT NULL,
+    "sizeID" TEXT NOT NULL,
+    "image" TEXT NOT NULL,
+    "isActive" BOOLEAN NOT NULL,
+
+    CONSTRAINT "Tool_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "ProductLevel" (
+    "id" TEXT NOT NULL,
+    "productID" TEXT NOT NULL,
+    "levelID" TEXT NOT NULL,
+
+    CONSTRAINT "ProductLevel_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "ProductTool" (
+    "id" TEXT NOT NULL,
+    "productID" TEXT NOT NULL,
+    "toolID" TEXT NOT NULL,
+
+    CONSTRAINT "ProductTool_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Tool_code_key" ON "Tool"("code");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "ProductLevel_productID_levelID_key" ON "ProductLevel"("productID", "levelID");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "ProductTool_productID_toolID_key" ON "ProductTool"("productID", "toolID");
 
 -- AddForeignKey
 ALTER TABLE "User" ADD CONSTRAINT "User_regionID_fkey" FOREIGN KEY ("regionID") REFERENCES "Region"("id") ON DELETE SET NULL ON UPDATE CASCADE;
@@ -290,15 +314,6 @@ ALTER TABLE "Order" ADD CONSTRAINT "Order_toolID_fkey" FOREIGN KEY ("toolID") RE
 ALTER TABLE "Order" ADD CONSTRAINT "Order_levelID_fkey" FOREIGN KEY ("levelID") REFERENCES "Level"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Tool" ADD CONSTRAINT "Tool_brandID_fkey" FOREIGN KEY ("brandID") REFERENCES "Brand"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Tool" ADD CONSTRAINT "Tool_capacityID_fkey" FOREIGN KEY ("capacityID") REFERENCES "Capacity"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Tool" ADD CONSTRAINT "Tool_sizeID_fkey" FOREIGN KEY ("sizeID") REFERENCES "Size"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "Comment" ADD CONSTRAINT "Comment_masterID_fkey" FOREIGN KEY ("masterID") REFERENCES "Master"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -315,3 +330,24 @@ ALTER TABLE "MasterJobs" ADD CONSTRAINT "MasterJobs_productID_fkey" FOREIGN KEY 
 
 -- AddForeignKey
 ALTER TABLE "MasterJobs" ADD CONSTRAINT "MasterJobs_levelID_fkey" FOREIGN KEY ("levelID") REFERENCES "Level"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Tool" ADD CONSTRAINT "Tool_brandID_fkey" FOREIGN KEY ("brandID") REFERENCES "Brand"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Tool" ADD CONSTRAINT "Tool_capacityID_fkey" FOREIGN KEY ("capacityID") REFERENCES "Capacity"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Tool" ADD CONSTRAINT "Tool_sizeID_fkey" FOREIGN KEY ("sizeID") REFERENCES "Size"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ProductLevel" ADD CONSTRAINT "ProductLevel_productID_fkey" FOREIGN KEY ("productID") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ProductLevel" ADD CONSTRAINT "ProductLevel_levelID_fkey" FOREIGN KEY ("levelID") REFERENCES "Level"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ProductTool" ADD CONSTRAINT "ProductTool_productID_fkey" FOREIGN KEY ("productID") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ProductTool" ADD CONSTRAINT "ProductTool_toolID_fkey" FOREIGN KEY ("toolID") REFERENCES "Tool"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -1,4 +1,4 @@
-import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsBoolean, IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
 
 export class CreateProductDto {
   @IsString()
@@ -20,4 +20,12 @@ export class CreateProductDto {
   @IsBoolean()
   @IsNotEmpty()
   isActive: boolean;
+
+  @IsArray()
+  @IsUUID('all', { each: true })
+  levelIDs: string[];
+
+  @IsArray()
+  @IsUUID('all', { each: true })
+  toolIDs: string[];
 }

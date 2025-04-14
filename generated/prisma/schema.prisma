@@ -80,20 +80,6 @@ model Basket {
   user    User    @relation(fields: [userID], references: [id])
 }
 
-model Product {
-  id       String  @id @default(uuid())
-  isActive Boolean
-  nameRu   String
-  nameUz   String
-  nameEn   String
-  image    String
-
-  baskets          Basket[]
-  orders           Order[]
-  masterJobs       MasterJobs[]
-  intimateCategory ProfessionType[]
-}
-
 model ProfessionType {
   id        String @id @default(uuid())
   nameRu    String
@@ -131,30 +117,6 @@ model Order {
   comments Comment[]
 }
 
-model Tool {
-  id            String  @id @default(uuid())
-  nameRu        String
-  nameUz        String
-  nameEn        String
-  descriptionRu String
-  descriptionUz String
-  descriptionEn String
-  price         Int
-  quantity      Int
-  code          String? @unique
-  brandID       String
-  capacityID    String
-  sizeID        String
-  image         String
-  isActive      Boolean
-
-  brand      Brand        @relation(fields: [brandID], references: [id])
-  capacity   Capacity     @relation(fields: [capacityID], references: [id])
-  size       Size         @relation(fields: [sizeID], references: [id])
-  orders     Order[]
-  masterJobs MasterJobs[]
-}
-
 model Brand {
   id     String @id @default(uuid())
   nameRu String
@@ -182,16 +144,6 @@ model Size {
   tools Tool[]
 }
 
-model Level {
-  id     String @id @default(uuid())
-  nameRu String
-  nameUz String
-  nameEn String
-
-  orders     Order[]
-  masterJobs MasterJobs[]
-}
-
 model Comment {
   id       String @id @default(uuid())
   message  String
@@ -213,7 +165,7 @@ model Master {
   year          String
   image         String
   passportImage String
-  star          Int
+  rating        Int?
   masterJobsID  String
 
   masterJobs MasterJobs @relation(fields: [masterJobsID], references: [id])
@@ -280,4 +232,77 @@ model Partner {
   nameUz String
   nameEn String
   image  String
+}
+
+model Product {
+  id       String  @id @default(uuid())
+  isActive Boolean
+  nameRu   String
+  nameUz   String
+  nameEn   String
+  image    String
+
+  baskets          Basket[]
+  orders           Order[]
+  masterJobs       MasterJobs[]
+  intimateCategory ProfessionType[]
+
+  levels ProductLevel[]
+  tools  ProductTool[]
+}
+
+model Level {
+  id     String @id @default(uuid())
+  nameRu String
+  nameUz String
+  nameEn String
+
+  orders     Order[]
+  masterJobs MasterJobs[]
+  products   ProductLevel[]
+}
+
+model Tool {
+  id            String  @id @default(uuid())
+  nameRu        String
+  nameUz        String
+  nameEn        String
+  descriptionRu String
+  descriptionUz String
+  descriptionEn String
+  price         Int
+  quantity      Int
+  code          String? @unique
+  brandID       String
+  capacityID    String
+  sizeID        String
+  image         String
+  isActive      Boolean
+
+  brand      Brand         @relation(fields: [brandID], references: [id])
+  capacity   Capacity      @relation(fields: [capacityID], references: [id])
+  size       Size          @relation(fields: [sizeID], references: [id])
+  orders     Order[]
+  masterJobs MasterJobs[]
+  products   ProductTool[]
+}
+
+model ProductLevel {
+  id        String  @id @default(uuid())
+  product   Product @relation(fields: [productID], references: [id])
+  productID String
+  level     Level   @relation(fields: [levelID], references: [id])
+  levelID   String
+
+  @@unique([productID, levelID])
+}
+
+model ProductTool {
+  id        String  @id @default(uuid())
+  product   Product @relation(fields: [productID], references: [id])
+  productID String
+  tool      Tool    @relation(fields: [toolID], references: [id])
+  toolID    String
+
+  @@unique([productID, toolID])
 }

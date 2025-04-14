@@ -9,10 +9,12 @@ generator client {
   output   = "../generated/prisma"
 }
 
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 
 enum UserRole {
   admin
@@ -22,15 +24,18 @@ enum UserRole {
   individualuser
 }
 
+
 enum UserStatus {
   active
   passive
 }
 
+
 enum PaymentType {
   cash
   card
 }
+
 
 enum OrderStatus {
   pending
@@ -62,6 +67,7 @@ model User {
   baskets   Basket[]
 }
 
+
 model Region {
   id      String @id @default(uuid())
   nameRu  String
@@ -71,6 +77,7 @@ model Region {
   users   User[]
 }
 
+
 model Basket {
   id        String @id @default(uuid())
   productID String
@@ -79,20 +86,6 @@ model Basket {
 
   product   Product @relation(fields: [productID], references: [id])
   user      User    @relation(fields: [userID], references: [id])
-}
-
-model Product {
-  id              String           @id @default(uuid())
-  isActive        Boolean
-  nameRu          String
-  nameUz          String
-  nameEn          String
-  image           String
-
-  baskets         Basket[] 
-  orders          Order[]   
-  masterJobs      MasterJobs[] 
-  intimateCategory ProfessionType []  
 }
 
 
@@ -105,7 +98,6 @@ model ProfessionType  {
 
   product     Product @relation(fields: [productId], references: [id]) 
 }
-
 
 
 model Order {
@@ -135,30 +127,6 @@ model Order {
   comments          Comment[]
 }
 
-model Tool {
-  id             String @id @default(uuid())
-  nameRu         String
-  nameUz         String
-  nameEn         String
-  descriptionRu  String
-  descriptionUz  String
-  descriptionEn  String
-  price          Int
-  quantity       Int
-  code           String? @unique
-  brandID        String
-  capacityID     String
-  sizeID         String
-  image          String
-  isActive       Boolean
-
-
-  brand          Brand     @relation(fields: [brandID], references: [id])
-  capacity       Capacity  @relation(fields: [capacityID], references: [id])
-  size           Size      @relation(fields: [sizeID], references: [id])
-  orders         Order[]
-  masterJobs     MasterJobs[]
-}
 
 model Brand {
   id     String @id @default(uuid())
@@ -169,6 +137,7 @@ model Brand {
   tools  Tool[]
 }
 
+
 model Capacity {
   id     String @id @default(uuid())
   nameRu String
@@ -177,6 +146,7 @@ model Capacity {
 
   tools  Tool[]
 }
+
 
 model Size {
   id     String @id @default(uuid())
@@ -187,15 +157,6 @@ model Size {
   tools  Tool[]
 }
 
-model Level {
-  id         String @id @default(uuid())
-  nameRu     String
-  nameUz     String
-  nameEn     String
-
-  orders     Order[]
-  masterJobs MasterJobs[]
-}
 
 model Comment {
   id       String @id @default(uuid())
@@ -208,6 +169,7 @@ model Comment {
   order    Order  @relation(fields: [orderID], references: [id])
 }
 
+
 model Master {
   id            String @id @default(uuid())
   nameRu        String
@@ -218,12 +180,13 @@ model Master {
   year          String
   image         String
   passportImage String
-  star          Int
+  rating          Int?
   masterJobsID  String
 
   masterJobs    MasterJobs @relation(fields: [masterJobsID], references: [id])
   comments      Comment[]
 }
+
 
 model MasterJobs {
   id              String   @id @default(uuid())
@@ -242,6 +205,7 @@ model MasterJobs {
   masters         Master[]
 }
 
+
 model GeneralInfo {
   id       String @id @default(uuid())
   email    String
@@ -249,6 +213,7 @@ model GeneralInfo {
   location String
   phone    String
 }
+
 
 model ShowCase {
   id            String @id @default(uuid())
@@ -262,11 +227,13 @@ model ShowCase {
   link          String
 }
 
+
 model FAQ {
   id       String @id @default(uuid())
   question String
   answer   String
 }
+
 
 model Contact {
   id      String @id @default(uuid())
@@ -279,10 +246,89 @@ model Contact {
   email   String
 }
 
+
 model Partner {
   id     String @id @default(uuid())
   nameRu String
   nameUz String
   nameEn String
   image  String
+}
+
+
+model Product {
+  id              String           @id @default(uuid())
+  isActive        Boolean
+  nameRu          String
+  nameUz          String
+  nameEn          String
+  image           String
+
+  baskets         Basket[] 
+  orders          Order[]   
+  masterJobs      MasterJobs[] 
+  intimateCategory ProfessionType []  
+
+  levels          ProductLevel[]
+  tools           ProductTool[]
+}
+
+
+model Level {
+  id         String @id @default(uuid())
+  nameRu     String
+  nameUz     String
+  nameEn     String
+
+  orders     Order[]
+  masterJobs MasterJobs[]
+  products   ProductLevel[]
+}
+
+
+model Tool {
+  id             String @id @default(uuid())
+  nameRu         String
+  nameUz         String
+  nameEn         String
+  descriptionRu  String
+  descriptionUz  String
+  descriptionEn  String
+  price          Int
+  quantity       Int
+  code           String? @unique
+  brandID        String
+  capacityID     String
+  sizeID         String
+  image          String
+  isActive       Boolean
+
+  brand          Brand     @relation(fields: [brandID], references: [id])
+  capacity       Capacity  @relation(fields: [capacityID], references: [id])
+  size           Size      @relation(fields: [sizeID], references: [id])
+  orders         Order[]
+  masterJobs     MasterJobs[]
+  products       ProductTool[]
+}
+
+
+model ProductLevel {
+  id         String   @id @default(uuid())
+  product    Product  @relation(fields: [productID], references: [id])
+  productID  String
+  level      Level    @relation(fields: [levelID], references: [id])
+  levelID    String
+
+  @@unique([productID, levelID])
+}
+
+
+model ProductTool {
+  id         String   @id @default(uuid())
+  product    Product  @relation(fields: [productID], references: [id])
+  productID  String
+  tool       Tool     @relation(fields: [toolID], references: [id])
+  toolID     String
+
+  @@unique([productID, toolID])
 }

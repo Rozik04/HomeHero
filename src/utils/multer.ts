@@ -29,3 +29,21 @@ export let multerPr = ({
         }
     })
 })
+
+export let multerMs = ({
+    storage: diskStorage({
+        destination:'./uploadMasters',
+        filename:(req,file,cb)=>{
+            cb(null, `${Date.now()}${extname(file.originalname)}`)
+        }
+    })
+})
+
+export let multerPs = ({
+    storage: diskStorage({
+        destination:'./uploadPassports',
+        filename:(req,file,cb)=>{
+            cb(null, `${Date.now()}${extname(file.originalname)}`)
+        }
+    })
+})

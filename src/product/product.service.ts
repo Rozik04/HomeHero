@@ -9,21 +9,87 @@ import * as path from 'path';
 export class ProductService {
  constructor(private readonly prisma:PrismaService){}
 
-
-
   async create(createProductDto: CreateProductDto) {
-    let created = await this.prisma.product.create({data:{...createProductDto}});
-    return {created}
+  const { nameRu, nameUz, nameEn, image, isActive, levelIDs, toolIDs } = createProductDto;
+  const product = await this.prisma.product.create({
+    data: {
+      nameRu,
+      nameUz,
+      nameEn,
+      image,
+      isActive,
+    },
+  });
+
+  if (levelIDs && levelIDs.length > 0) {
+    await this.prisma.productLevel.createMany({
+      data: levelIDs.map((levelID) => ({
+        productID: product.id,
+        levelID,
+      })),
+      skipDuplicates: true,
+    });
+  }
+
+  if (toolIDs && toolIDs.length > 0) {
+    await this.prisma.productTool.createMany({
+      data: toolIDs.map((toolID) => ({
+        productID: product.id,
+        toolID,
+      })),
+      skipDuplicates: true,
+    });
+  }
+
+  return product;
   }
 
   async findAll() {
-    let alldata = await this.prisma.product.findMany();
-    if (!alldata.length) {
-      throw new BadGatewayException("No products found");
-    }
-    return { alldata };
+    const products = await this.prisma.product.findMany({
+      include: {
+        levels: {
+          include: {
+            level: true, 
+          },
+        },
+        tools: {
+          include: {
+            tool: true, 
+          },
+        },
+      },
+    });
+  
+    return products.map((product) => ({
+      id: product.id,
+      nameRu: product.nameRu,
+      nameUz: product.nameUz,
+      nameEn: product.nameEn,
+      image: product.image,
+      isActive: product.isActive,
+  
+      levels: product.levels.map((item) => ({
+        id: item.level.id,
+        nameRu: item.level.nameRu,
+        nameUz: item.level.nameUz,
+        nameEn: item.level.nameEn,
+      })),
+  
+      tools: product.tools.map((item) => ({
+        id: item.tool.id,
+        nameRu: item.tool.nameRu,
+        nameUz: item.tool.nameUz,
+        nameEn: item.tool.nameEn,
+        descriptionRu: item.tool.descriptionRu,
+        descriptionUz: item.tool.descriptionUz,
+        descriptionEn: item.tool.descriptionEn,
+        price: item.tool.price,
+        quantity: item.tool.quantity,
+        image: item.tool.image,
+      })),
+    }));
   }
-
+  
   async findOne(id: string) {
     let isProducExists = await this.prisma.product.findFirst({ where: { id } });
     if (!isProducExists) {
