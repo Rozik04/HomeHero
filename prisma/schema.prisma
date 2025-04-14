@@ -9,6 +9,11 @@ generator client {
   output   = "../generated/prisma"
 }
 
+enum ShowCaseType {
+  slider
+  banner
+  card
+}
 
 datasource db {
   provider = "postgresql"
@@ -89,17 +94,6 @@ model Basket {
 }
 
 
-model ProfessionType  {
-  id          String   @id @default(uuid())
-  nameRu      String
-  nameUz      String
-  nameEn      String
-  productId   String  
-
-  product     Product @relation(fields: [productId], references: [id]) 
-}
-
-
 model Order {
   id                String @id @default(uuid())
   productID         String
@@ -177,7 +171,7 @@ model Master {
   nameEn        String
   isActive      Boolean
   phone         String
-  year          String
+  dob          String
   image         String
   passportImage String
   rating          Int?
@@ -215,8 +209,9 @@ model GeneralInfo {
 }
 
 
+
 model ShowCase {
-  id            String @id @default(uuid())
+  id            String        @id @default(uuid())
   nameRu        String
   nameUz        String
   nameEn        String
@@ -225,14 +220,25 @@ model ShowCase {
   descriptionEn String
   image         String
   link          String
+  type          ShowCaseType 
+  isActive      Boolean
+  startDate     DateTime      @default(now())
+  endDate       DateTime
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
 }
 
 
 model FAQ {
-  id       String @id @default(uuid())
-  question String
-  answer   String
+  id           String @id @default(uuid())
+  questionUz   String
+  questionRu   String
+  questionEn   String
+  answerUz     String
+  answerRu     String
+  answerEn     String
 }
+
 
 
 model Contact {
@@ -248,11 +254,17 @@ model Contact {
 
 
 model Partner {
-  id     String @id @default(uuid())
-  nameRu String
-  nameUz String
-  nameEn String
-  image  String
+  id             String   @id @default(uuid())
+  nameRu         String
+  nameUz         String
+  nameEn         String
+  image          String
+  phone          String
+  address        String
+  status         Boolean
+  paymentTerms   String
+  agreementStart DateTime @default(now()) 
+  agreementEnd   DateTime
 }
 
 
@@ -267,8 +279,6 @@ model Product {
   baskets         Basket[] 
   orders          Order[]   
   masterJobs      MasterJobs[] 
-  intimateCategory ProfessionType []  
-
   levels          ProductLevel[]
   tools           ProductTool[]
 }

@@ -1,49 +1,19 @@
-import { diskStorage } from "multer";
-import { extname } from "path";
+import { diskStorage } from 'multer';
+import { extname } from 'path';
 
-export let multerCon = ({
-    storage: diskStorage({
-        destination:'./uploads',
-        filename:(req,file,cb)=>{
-            cb(null, `${Date.now()}${extname(file.originalname)}`)
-        }
-    })
-})
+const createMulterStorage = (destination: string) => ({
+  storage: diskStorage({
+    destination: destination,
+    filename: (req, file, cb) => {
+      cb(null, `${Date.now()}${extname(file.originalname)}`);
+    }
+  })
+});
 
-
-export let multerUp = ({
-    storage: diskStorage({
-        destination:'./uploadTools',
-        filename:(req,file,cb)=>{
-            cb(null, `${Date.now()}${extname(file.originalname)}`)
-        }
-    })
-})
-
-
-export let multerPr = ({
-    storage: diskStorage({
-        destination:'./uploadProducts',
-        filename:(req,file,cb)=>{
-            cb(null, `${Date.now()}${extname(file.originalname)}`)
-        }
-    })
-})
-
-export let multerMs = ({
-    storage: diskStorage({
-        destination:'./uploadMasters',
-        filename:(req,file,cb)=>{
-            cb(null, `${Date.now()}${extname(file.originalname)}`)
-        }
-    })
-})
-
-export let multerPs = ({
-    storage: diskStorage({
-        destination:'./uploadPassports',
-        filename:(req,file,cb)=>{
-            cb(null, `${Date.now()}${extname(file.originalname)}`)
-        }
-    })
-})
+export const multerCon = createMulterStorage('./uploads');
+export const multerUp = createMulterStorage('./uploadTools');
+export const multerPr = createMulterStorage('./uploadProducts');
+export const multerMs = createMulterStorage('./uploadMasters');
+export const multerPs = createMulterStorage('./uploadPassports');
+export const multerPar = createMulterStorage('./uploadPartners');
+export const multerShow = createMulterStorage('./uploadShowCases');

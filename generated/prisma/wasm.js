@@ -148,14 +148,6 @@ exports.Prisma.BasketScalarFieldEnum = {
   quantity: 'quantity'
 };
 
-exports.Prisma.ProfessionTypeScalarFieldEnum = {
-  id: 'id',
-  nameRu: 'nameRu',
-  nameUz: 'nameUz',
-  nameEn: 'nameEn',
-  productId: 'productId'
-};
-
 exports.Prisma.OrderScalarFieldEnum = {
   id: 'id',
   productID: 'productID',
@@ -214,7 +206,7 @@ exports.Prisma.MasterScalarFieldEnum = {
   nameEn: 'nameEn',
   isActive: 'isActive',
   phone: 'phone',
-  year: 'year',
+  dob: 'dob',
   image: 'image',
   passportImage: 'passportImage',
   rating: 'rating',
@@ -250,13 +242,23 @@ exports.Prisma.ShowCaseScalarFieldEnum = {
   descriptionUz: 'descriptionUz',
   descriptionEn: 'descriptionEn',
   image: 'image',
-  link: 'link'
+  link: 'link',
+  type: 'type',
+  isActive: 'isActive',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.FAQScalarFieldEnum = {
   id: 'id',
-  question: 'question',
-  answer: 'answer'
+  questionUz: 'questionUz',
+  questionRu: 'questionRu',
+  questionEn: 'questionEn',
+  answerUz: 'answerUz',
+  answerRu: 'answerRu',
+  answerEn: 'answerEn'
 };
 
 exports.Prisma.ContactScalarFieldEnum = {
@@ -275,7 +277,13 @@ exports.Prisma.PartnerScalarFieldEnum = {
   nameRu: 'nameRu',
   nameUz: 'nameUz',
   nameEn: 'nameEn',
-  image: 'image'
+  image: 'image',
+  phone: 'phone',
+  address: 'address',
+  status: 'status',
+  paymentTerms: 'paymentTerms',
+  agreementStart: 'agreementStart',
+  agreementEnd: 'agreementEnd'
 };
 
 exports.Prisma.ProductScalarFieldEnum = {
@@ -364,11 +372,16 @@ exports.OrderStatus = exports.$Enums.OrderStatus = {
   delivered: 'delivered'
 };
 
+exports.ShowCaseType = exports.$Enums.ShowCaseType = {
+  slider: 'slider',
+  banner: 'banner',
+  card: 'card'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Region: 'Region',
   Basket: 'Basket',
-  ProfessionType: 'ProfessionType',
   Order: 'Order',
   Brand: 'Brand',
   Capacity: 'Capacity',

@@ -30,7 +30,7 @@ import {
   
     @IsString()
     @IsNotEmpty()
-    year: string;
+    dob: string;
   
     @IsString()
     @IsNotEmpty()

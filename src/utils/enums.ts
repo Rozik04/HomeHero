@@ -6,6 +6,12 @@ export enum UserRole {
     individualuser = 'individualuser'
   }
   
+export enum ShowCaseType {
+  slider = "slider",
+  banner = "banner",
+  card = "card"
+}
+
   export enum UserStatus {
     active = 'active',
     passive = 'passive'

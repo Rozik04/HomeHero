@@ -29,11 +29,6 @@ export type Region = $Result.DefaultSelection<Prisma.$RegionPayload>
  */
 export type Basket = $Result.DefaultSelection<Prisma.$BasketPayload>
 /**
- * Model ProfessionType
- * 
- */
-export type ProfessionType = $Result.DefaultSelection<Prisma.$ProfessionTypePayload>
-/**
  * Model Order
  * 
  */
@@ -123,7 +118,16 @@ export type ProductTool = $Result.DefaultSelection<Prisma.$ProductToolPayload>
  * Enums
  */
 export namespace $Enums {
-  export const UserRole: {
+  export const ShowCaseType: {
+  slider: 'slider',
+  banner: 'banner',
+  card: 'card'
+};
+
+export type ShowCaseType = (typeof ShowCaseType)[keyof typeof ShowCaseType]
+
+
+export const UserRole: {
   admin: 'admin',
   superadmin: 'superadmin',
   vieweradmin: 'vieweradmin',
@@ -161,6 +165,10 @@ export const OrderStatus: {
 export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
 
 }
+
+export type ShowCaseType = $Enums.ShowCaseType
+
+export const ShowCaseType: typeof $Enums.ShowCaseType
 
 export type UserRole = $Enums.UserRole
 
@@ -332,16 +340,6 @@ export class PrismaClient<
     * ```
     */
   get basket(): Prisma.BasketDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.professionType`: Exposes CRUD operations for the **ProfessionType** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more ProfessionTypes
-    * const professionTypes = await prisma.professionType.findMany()
-    * ```
-    */
-  get professionType(): Prisma.ProfessionTypeDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.order`: Exposes CRUD operations for the **Order** model.
@@ -955,7 +953,6 @@ export namespace Prisma {
     User: 'User',
     Region: 'Region',
     Basket: 'Basket',
-    ProfessionType: 'ProfessionType',
     Order: 'Order',
     Brand: 'Brand',
     Capacity: 'Capacity',
@@ -991,7 +988,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "region" | "basket" | "professionType" | "order" | "brand" | "capacity" | "size" | "comment" | "master" | "masterJobs" | "generalInfo" | "showCase" | "fAQ" | "contact" | "partner" | "product" | "level" | "tool" | "productLevel" | "productTool"
+      modelProps: "user" | "region" | "basket" | "order" | "brand" | "capacity" | "size" | "comment" | "master" | "masterJobs" | "generalInfo" | "showCase" | "fAQ" | "contact" | "partner" | "product" | "level" | "tool" | "productLevel" | "productTool"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1214,80 +1211,6 @@ export namespace Prisma {
           count: {
             args: Prisma.BasketCountArgs<ExtArgs>
             result: $Utils.Optional<BasketCountAggregateOutputType> | number
-          }
-        }
-      }
-      ProfessionType: {
-        payload: Prisma.$ProfessionTypePayload<ExtArgs>
-        fields: Prisma.ProfessionTypeFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.ProfessionTypeFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProfessionTypePayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.ProfessionTypeFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProfessionTypePayload>
-          }
-          findFirst: {
-            args: Prisma.ProfessionTypeFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProfessionTypePayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.ProfessionTypeFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProfessionTypePayload>
-          }
-          findMany: {
-            args: Prisma.ProfessionTypeFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProfessionTypePayload>[]
-          }
-          create: {
-            args: Prisma.ProfessionTypeCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProfessionTypePayload>
-          }
-          createMany: {
-            args: Prisma.ProfessionTypeCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.ProfessionTypeCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProfessionTypePayload>[]
-          }
-          delete: {
-            args: Prisma.ProfessionTypeDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProfessionTypePayload>
-          }
-          update: {
-            args: Prisma.ProfessionTypeUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProfessionTypePayload>
-          }
-          deleteMany: {
-            args: Prisma.ProfessionTypeDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.ProfessionTypeUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.ProfessionTypeUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProfessionTypePayload>[]
-          }
-          upsert: {
-            args: Prisma.ProfessionTypeUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProfessionTypePayload>
-          }
-          aggregate: {
-            args: Prisma.ProfessionTypeAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateProfessionType>
-          }
-          groupBy: {
-            args: Prisma.ProfessionTypeGroupByArgs<ExtArgs>
-            result: $Utils.Optional<ProfessionTypeGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.ProfessionTypeCountArgs<ExtArgs>
-            result: $Utils.Optional<ProfessionTypeCountAggregateOutputType> | number
           }
         }
       }
@@ -2636,7 +2559,6 @@ export namespace Prisma {
     user?: UserOmit
     region?: RegionOmit
     basket?: BasketOmit
-    professionType?: ProfessionTypeOmit
     order?: OrderOmit
     brand?: BrandOmit
     capacity?: CapacityOmit
@@ -2999,7 +2921,6 @@ export namespace Prisma {
     baskets: number
     orders: number
     masterJobs: number
-    intimateCategory: number
     levels: number
     tools: number
   }
@@ -3008,7 +2929,6 @@ export namespace Prisma {
     baskets?: boolean | ProductCountOutputTypeCountBasketsArgs
     orders?: boolean | ProductCountOutputTypeCountOrdersArgs
     masterJobs?: boolean | ProductCountOutputTypeCountMasterJobsArgs
-    intimateCategory?: boolean | ProductCountOutputTypeCountIntimateCategoryArgs
     levels?: boolean | ProductCountOutputTypeCountLevelsArgs
     tools?: boolean | ProductCountOutputTypeCountToolsArgs
   }
@@ -3043,13 +2963,6 @@ export namespace Prisma {
    */
   export type ProductCountOutputTypeCountMasterJobsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MasterJobsWhereInput
-  }
-
-  /**
-   * ProductCountOutputType without action
-   */
-  export type ProductCountOutputTypeCountIntimateCategoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ProfessionTypeWhereInput
   }
 
   /**
@@ -6534,1064 +6447,6 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: BasketInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model ProfessionType
-   */
-
-  export type AggregateProfessionType = {
-    _count: ProfessionTypeCountAggregateOutputType | null
-    _min: ProfessionTypeMinAggregateOutputType | null
-    _max: ProfessionTypeMaxAggregateOutputType | null
-  }
-
-  export type ProfessionTypeMinAggregateOutputType = {
-    id: string | null
-    nameRu: string | null
-    nameUz: string | null
-    nameEn: string | null
-    productId: string | null
-  }
-
-  export type ProfessionTypeMaxAggregateOutputType = {
-    id: string | null
-    nameRu: string | null
-    nameUz: string | null
-    nameEn: string | null
-    productId: string | null
-  }
-
-  export type ProfessionTypeCountAggregateOutputType = {
-    id: number
-    nameRu: number
-    nameUz: number
-    nameEn: number
-    productId: number
-    _all: number
-  }
-
-
-  export type ProfessionTypeMinAggregateInputType = {
-    id?: true
-    nameRu?: true
-    nameUz?: true
-    nameEn?: true
-    productId?: true
-  }
-
-  export type ProfessionTypeMaxAggregateInputType = {
-    id?: true
-    nameRu?: true
-    nameUz?: true
-    nameEn?: true
-    productId?: true
-  }
-
-  export type ProfessionTypeCountAggregateInputType = {
-    id?: true
-    nameRu?: true
-    nameUz?: true
-    nameEn?: true
-    productId?: true
-    _all?: true
-  }
-
-  export type ProfessionTypeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which ProfessionType to aggregate.
-     */
-    where?: ProfessionTypeWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of ProfessionTypes to fetch.
-     */
-    orderBy?: ProfessionTypeOrderByWithRelationInput | ProfessionTypeOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: ProfessionTypeWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` ProfessionTypes from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` ProfessionTypes.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned ProfessionTypes
-    **/
-    _count?: true | ProfessionTypeCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: ProfessionTypeMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: ProfessionTypeMaxAggregateInputType
-  }
-
-  export type GetProfessionTypeAggregateType<T extends ProfessionTypeAggregateArgs> = {
-        [P in keyof T & keyof AggregateProfessionType]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateProfessionType[P]>
-      : GetScalarType<T[P], AggregateProfessionType[P]>
-  }
-
-
-
-
-  export type ProfessionTypeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ProfessionTypeWhereInput
-    orderBy?: ProfessionTypeOrderByWithAggregationInput | ProfessionTypeOrderByWithAggregationInput[]
-    by: ProfessionTypeScalarFieldEnum[] | ProfessionTypeScalarFieldEnum
-    having?: ProfessionTypeScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: ProfessionTypeCountAggregateInputType | true
-    _min?: ProfessionTypeMinAggregateInputType
-    _max?: ProfessionTypeMaxAggregateInputType
-  }
-
-  export type ProfessionTypeGroupByOutputType = {
-    id: string
-    nameRu: string
-    nameUz: string
-    nameEn: string
-    productId: string
-    _count: ProfessionTypeCountAggregateOutputType | null
-    _min: ProfessionTypeMinAggregateOutputType | null
-    _max: ProfessionTypeMaxAggregateOutputType | null
-  }
-
-  type GetProfessionTypeGroupByPayload<T extends ProfessionTypeGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<ProfessionTypeGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof ProfessionTypeGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], ProfessionTypeGroupByOutputType[P]>
-            : GetScalarType<T[P], ProfessionTypeGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type ProfessionTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    nameRu?: boolean
-    nameUz?: boolean
-    nameEn?: boolean
-    productId?: boolean
-    product?: boolean | ProductDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["professionType"]>
-
-  export type ProfessionTypeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    nameRu?: boolean
-    nameUz?: boolean
-    nameEn?: boolean
-    productId?: boolean
-    product?: boolean | ProductDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["professionType"]>
-
-  export type ProfessionTypeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    nameRu?: boolean
-    nameUz?: boolean
-    nameEn?: boolean
-    productId?: boolean
-    product?: boolean | ProductDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["professionType"]>
-
-  export type ProfessionTypeSelectScalar = {
-    id?: boolean
-    nameRu?: boolean
-    nameUz?: boolean
-    nameEn?: boolean
-    productId?: boolean
-  }
-
-  export type ProfessionTypeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nameRu" | "nameUz" | "nameEn" | "productId", ExtArgs["result"]["professionType"]>
-  export type ProfessionTypeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    product?: boolean | ProductDefaultArgs<ExtArgs>
-  }
-  export type ProfessionTypeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    product?: boolean | ProductDefaultArgs<ExtArgs>
-  }
-  export type ProfessionTypeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    product?: boolean | ProductDefaultArgs<ExtArgs>
-  }
-
-  export type $ProfessionTypePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "ProfessionType"
-    objects: {
-      product: Prisma.$ProductPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      nameRu: string
-      nameUz: string
-      nameEn: string
-      productId: string
-    }, ExtArgs["result"]["professionType"]>
-    composites: {}
-  }
-
-  type ProfessionTypeGetPayload<S extends boolean | null | undefined | ProfessionTypeDefaultArgs> = $Result.GetResult<Prisma.$ProfessionTypePayload, S>
-
-  type ProfessionTypeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<ProfessionTypeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: ProfessionTypeCountAggregateInputType | true
-    }
-
-  export interface ProfessionTypeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ProfessionType'], meta: { name: 'ProfessionType' } }
-    /**
-     * Find zero or one ProfessionType that matches the filter.
-     * @param {ProfessionTypeFindUniqueArgs} args - Arguments to find a ProfessionType
-     * @example
-     * // Get one ProfessionType
-     * const professionType = await prisma.professionType.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends ProfessionTypeFindUniqueArgs>(args: SelectSubset<T, ProfessionTypeFindUniqueArgs<ExtArgs>>): Prisma__ProfessionTypeClient<$Result.GetResult<Prisma.$ProfessionTypePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one ProfessionType that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {ProfessionTypeFindUniqueOrThrowArgs} args - Arguments to find a ProfessionType
-     * @example
-     * // Get one ProfessionType
-     * const professionType = await prisma.professionType.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends ProfessionTypeFindUniqueOrThrowArgs>(args: SelectSubset<T, ProfessionTypeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ProfessionTypeClient<$Result.GetResult<Prisma.$ProfessionTypePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first ProfessionType that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProfessionTypeFindFirstArgs} args - Arguments to find a ProfessionType
-     * @example
-     * // Get one ProfessionType
-     * const professionType = await prisma.professionType.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends ProfessionTypeFindFirstArgs>(args?: SelectSubset<T, ProfessionTypeFindFirstArgs<ExtArgs>>): Prisma__ProfessionTypeClient<$Result.GetResult<Prisma.$ProfessionTypePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first ProfessionType that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProfessionTypeFindFirstOrThrowArgs} args - Arguments to find a ProfessionType
-     * @example
-     * // Get one ProfessionType
-     * const professionType = await prisma.professionType.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends ProfessionTypeFindFirstOrThrowArgs>(args?: SelectSubset<T, ProfessionTypeFindFirstOrThrowArgs<ExtArgs>>): Prisma__ProfessionTypeClient<$Result.GetResult<Prisma.$ProfessionTypePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more ProfessionTypes that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProfessionTypeFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all ProfessionTypes
-     * const professionTypes = await prisma.professionType.findMany()
-     * 
-     * // Get first 10 ProfessionTypes
-     * const professionTypes = await prisma.professionType.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const professionTypeWithIdOnly = await prisma.professionType.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends ProfessionTypeFindManyArgs>(args?: SelectSubset<T, ProfessionTypeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfessionTypePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a ProfessionType.
-     * @param {ProfessionTypeCreateArgs} args - Arguments to create a ProfessionType.
-     * @example
-     * // Create one ProfessionType
-     * const ProfessionType = await prisma.professionType.create({
-     *   data: {
-     *     // ... data to create a ProfessionType
-     *   }
-     * })
-     * 
-     */
-    create<T extends ProfessionTypeCreateArgs>(args: SelectSubset<T, ProfessionTypeCreateArgs<ExtArgs>>): Prisma__ProfessionTypeClient<$Result.GetResult<Prisma.$ProfessionTypePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many ProfessionTypes.
-     * @param {ProfessionTypeCreateManyArgs} args - Arguments to create many ProfessionTypes.
-     * @example
-     * // Create many ProfessionTypes
-     * const professionType = await prisma.professionType.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends ProfessionTypeCreateManyArgs>(args?: SelectSubset<T, ProfessionTypeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many ProfessionTypes and returns the data saved in the database.
-     * @param {ProfessionTypeCreateManyAndReturnArgs} args - Arguments to create many ProfessionTypes.
-     * @example
-     * // Create many ProfessionTypes
-     * const professionType = await prisma.professionType.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many ProfessionTypes and only return the `id`
-     * const professionTypeWithIdOnly = await prisma.professionType.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends ProfessionTypeCreateManyAndReturnArgs>(args?: SelectSubset<T, ProfessionTypeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfessionTypePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a ProfessionType.
-     * @param {ProfessionTypeDeleteArgs} args - Arguments to delete one ProfessionType.
-     * @example
-     * // Delete one ProfessionType
-     * const ProfessionType = await prisma.professionType.delete({
-     *   where: {
-     *     // ... filter to delete one ProfessionType
-     *   }
-     * })
-     * 
-     */
-    delete<T extends ProfessionTypeDeleteArgs>(args: SelectSubset<T, ProfessionTypeDeleteArgs<ExtArgs>>): Prisma__ProfessionTypeClient<$Result.GetResult<Prisma.$ProfessionTypePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one ProfessionType.
-     * @param {ProfessionTypeUpdateArgs} args - Arguments to update one ProfessionType.
-     * @example
-     * // Update one ProfessionType
-     * const professionType = await prisma.professionType.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends ProfessionTypeUpdateArgs>(args: SelectSubset<T, ProfessionTypeUpdateArgs<ExtArgs>>): Prisma__ProfessionTypeClient<$Result.GetResult<Prisma.$ProfessionTypePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more ProfessionTypes.
-     * @param {ProfessionTypeDeleteManyArgs} args - Arguments to filter ProfessionTypes to delete.
-     * @example
-     * // Delete a few ProfessionTypes
-     * const { count } = await prisma.professionType.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends ProfessionTypeDeleteManyArgs>(args?: SelectSubset<T, ProfessionTypeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more ProfessionTypes.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProfessionTypeUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many ProfessionTypes
-     * const professionType = await prisma.professionType.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends ProfessionTypeUpdateManyArgs>(args: SelectSubset<T, ProfessionTypeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more ProfessionTypes and returns the data updated in the database.
-     * @param {ProfessionTypeUpdateManyAndReturnArgs} args - Arguments to update many ProfessionTypes.
-     * @example
-     * // Update many ProfessionTypes
-     * const professionType = await prisma.professionType.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more ProfessionTypes and only return the `id`
-     * const professionTypeWithIdOnly = await prisma.professionType.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends ProfessionTypeUpdateManyAndReturnArgs>(args: SelectSubset<T, ProfessionTypeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfessionTypePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one ProfessionType.
-     * @param {ProfessionTypeUpsertArgs} args - Arguments to update or create a ProfessionType.
-     * @example
-     * // Update or create a ProfessionType
-     * const professionType = await prisma.professionType.upsert({
-     *   create: {
-     *     // ... data to create a ProfessionType
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the ProfessionType we want to update
-     *   }
-     * })
-     */
-    upsert<T extends ProfessionTypeUpsertArgs>(args: SelectSubset<T, ProfessionTypeUpsertArgs<ExtArgs>>): Prisma__ProfessionTypeClient<$Result.GetResult<Prisma.$ProfessionTypePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of ProfessionTypes.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProfessionTypeCountArgs} args - Arguments to filter ProfessionTypes to count.
-     * @example
-     * // Count the number of ProfessionTypes
-     * const count = await prisma.professionType.count({
-     *   where: {
-     *     // ... the filter for the ProfessionTypes we want to count
-     *   }
-     * })
-    **/
-    count<T extends ProfessionTypeCountArgs>(
-      args?: Subset<T, ProfessionTypeCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], ProfessionTypeCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a ProfessionType.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProfessionTypeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends ProfessionTypeAggregateArgs>(args: Subset<T, ProfessionTypeAggregateArgs>): Prisma.PrismaPromise<GetProfessionTypeAggregateType<T>>
-
-    /**
-     * Group by ProfessionType.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProfessionTypeGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends ProfessionTypeGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ProfessionTypeGroupByArgs['orderBy'] }
-        : { orderBy?: ProfessionTypeGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, ProfessionTypeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProfessionTypeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the ProfessionType model
-   */
-  readonly fields: ProfessionTypeFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for ProfessionType.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__ProfessionTypeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the ProfessionType model
-   */
-  interface ProfessionTypeFieldRefs {
-    readonly id: FieldRef<"ProfessionType", 'String'>
-    readonly nameRu: FieldRef<"ProfessionType", 'String'>
-    readonly nameUz: FieldRef<"ProfessionType", 'String'>
-    readonly nameEn: FieldRef<"ProfessionType", 'String'>
-    readonly productId: FieldRef<"ProfessionType", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * ProfessionType findUnique
-   */
-  export type ProfessionTypeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProfessionType
-     */
-    select?: ProfessionTypeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ProfessionType
-     */
-    omit?: ProfessionTypeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProfessionTypeInclude<ExtArgs> | null
-    /**
-     * Filter, which ProfessionType to fetch.
-     */
-    where: ProfessionTypeWhereUniqueInput
-  }
-
-  /**
-   * ProfessionType findUniqueOrThrow
-   */
-  export type ProfessionTypeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProfessionType
-     */
-    select?: ProfessionTypeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ProfessionType
-     */
-    omit?: ProfessionTypeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProfessionTypeInclude<ExtArgs> | null
-    /**
-     * Filter, which ProfessionType to fetch.
-     */
-    where: ProfessionTypeWhereUniqueInput
-  }
-
-  /**
-   * ProfessionType findFirst
-   */
-  export type ProfessionTypeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProfessionType
-     */
-    select?: ProfessionTypeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ProfessionType
-     */
-    omit?: ProfessionTypeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProfessionTypeInclude<ExtArgs> | null
-    /**
-     * Filter, which ProfessionType to fetch.
-     */
-    where?: ProfessionTypeWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of ProfessionTypes to fetch.
-     */
-    orderBy?: ProfessionTypeOrderByWithRelationInput | ProfessionTypeOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for ProfessionTypes.
-     */
-    cursor?: ProfessionTypeWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` ProfessionTypes from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` ProfessionTypes.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of ProfessionTypes.
-     */
-    distinct?: ProfessionTypeScalarFieldEnum | ProfessionTypeScalarFieldEnum[]
-  }
-
-  /**
-   * ProfessionType findFirstOrThrow
-   */
-  export type ProfessionTypeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProfessionType
-     */
-    select?: ProfessionTypeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ProfessionType
-     */
-    omit?: ProfessionTypeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProfessionTypeInclude<ExtArgs> | null
-    /**
-     * Filter, which ProfessionType to fetch.
-     */
-    where?: ProfessionTypeWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of ProfessionTypes to fetch.
-     */
-    orderBy?: ProfessionTypeOrderByWithRelationInput | ProfessionTypeOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for ProfessionTypes.
-     */
-    cursor?: ProfessionTypeWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` ProfessionTypes from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` ProfessionTypes.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of ProfessionTypes.
-     */
-    distinct?: ProfessionTypeScalarFieldEnum | ProfessionTypeScalarFieldEnum[]
-  }
-
-  /**
-   * ProfessionType findMany
-   */
-  export type ProfessionTypeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProfessionType
-     */
-    select?: ProfessionTypeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ProfessionType
-     */
-    omit?: ProfessionTypeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProfessionTypeInclude<ExtArgs> | null
-    /**
-     * Filter, which ProfessionTypes to fetch.
-     */
-    where?: ProfessionTypeWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of ProfessionTypes to fetch.
-     */
-    orderBy?: ProfessionTypeOrderByWithRelationInput | ProfessionTypeOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing ProfessionTypes.
-     */
-    cursor?: ProfessionTypeWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` ProfessionTypes from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` ProfessionTypes.
-     */
-    skip?: number
-    distinct?: ProfessionTypeScalarFieldEnum | ProfessionTypeScalarFieldEnum[]
-  }
-
-  /**
-   * ProfessionType create
-   */
-  export type ProfessionTypeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProfessionType
-     */
-    select?: ProfessionTypeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ProfessionType
-     */
-    omit?: ProfessionTypeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProfessionTypeInclude<ExtArgs> | null
-    /**
-     * The data needed to create a ProfessionType.
-     */
-    data: XOR<ProfessionTypeCreateInput, ProfessionTypeUncheckedCreateInput>
-  }
-
-  /**
-   * ProfessionType createMany
-   */
-  export type ProfessionTypeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many ProfessionTypes.
-     */
-    data: ProfessionTypeCreateManyInput | ProfessionTypeCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * ProfessionType createManyAndReturn
-   */
-  export type ProfessionTypeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProfessionType
-     */
-    select?: ProfessionTypeSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the ProfessionType
-     */
-    omit?: ProfessionTypeOmit<ExtArgs> | null
-    /**
-     * The data used to create many ProfessionTypes.
-     */
-    data: ProfessionTypeCreateManyInput | ProfessionTypeCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProfessionTypeIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * ProfessionType update
-   */
-  export type ProfessionTypeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProfessionType
-     */
-    select?: ProfessionTypeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ProfessionType
-     */
-    omit?: ProfessionTypeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProfessionTypeInclude<ExtArgs> | null
-    /**
-     * The data needed to update a ProfessionType.
-     */
-    data: XOR<ProfessionTypeUpdateInput, ProfessionTypeUncheckedUpdateInput>
-    /**
-     * Choose, which ProfessionType to update.
-     */
-    where: ProfessionTypeWhereUniqueInput
-  }
-
-  /**
-   * ProfessionType updateMany
-   */
-  export type ProfessionTypeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update ProfessionTypes.
-     */
-    data: XOR<ProfessionTypeUpdateManyMutationInput, ProfessionTypeUncheckedUpdateManyInput>
-    /**
-     * Filter which ProfessionTypes to update
-     */
-    where?: ProfessionTypeWhereInput
-    /**
-     * Limit how many ProfessionTypes to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * ProfessionType updateManyAndReturn
-   */
-  export type ProfessionTypeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProfessionType
-     */
-    select?: ProfessionTypeSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the ProfessionType
-     */
-    omit?: ProfessionTypeOmit<ExtArgs> | null
-    /**
-     * The data used to update ProfessionTypes.
-     */
-    data: XOR<ProfessionTypeUpdateManyMutationInput, ProfessionTypeUncheckedUpdateManyInput>
-    /**
-     * Filter which ProfessionTypes to update
-     */
-    where?: ProfessionTypeWhereInput
-    /**
-     * Limit how many ProfessionTypes to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProfessionTypeIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * ProfessionType upsert
-   */
-  export type ProfessionTypeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProfessionType
-     */
-    select?: ProfessionTypeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ProfessionType
-     */
-    omit?: ProfessionTypeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProfessionTypeInclude<ExtArgs> | null
-    /**
-     * The filter to search for the ProfessionType to update in case it exists.
-     */
-    where: ProfessionTypeWhereUniqueInput
-    /**
-     * In case the ProfessionType found by the `where` argument doesn't exist, create a new ProfessionType with this data.
-     */
-    create: XOR<ProfessionTypeCreateInput, ProfessionTypeUncheckedCreateInput>
-    /**
-     * In case the ProfessionType was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<ProfessionTypeUpdateInput, ProfessionTypeUncheckedUpdateInput>
-  }
-
-  /**
-   * ProfessionType delete
-   */
-  export type ProfessionTypeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProfessionType
-     */
-    select?: ProfessionTypeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ProfessionType
-     */
-    omit?: ProfessionTypeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProfessionTypeInclude<ExtArgs> | null
-    /**
-     * Filter which ProfessionType to delete.
-     */
-    where: ProfessionTypeWhereUniqueInput
-  }
-
-  /**
-   * ProfessionType deleteMany
-   */
-  export type ProfessionTypeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which ProfessionTypes to delete
-     */
-    where?: ProfessionTypeWhereInput
-    /**
-     * Limit how many ProfessionTypes to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * ProfessionType without action
-   */
-  export type ProfessionTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProfessionType
-     */
-    select?: ProfessionTypeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ProfessionType
-     */
-    omit?: ProfessionTypeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProfessionTypeInclude<ExtArgs> | null
   }
 
 
@@ -13229,7 +12084,7 @@ export namespace Prisma {
     nameEn: string | null
     isActive: boolean | null
     phone: string | null
-    year: string | null
+    dob: string | null
     image: string | null
     passportImage: string | null
     rating: number | null
@@ -13243,7 +12098,7 @@ export namespace Prisma {
     nameEn: string | null
     isActive: boolean | null
     phone: string | null
-    year: string | null
+    dob: string | null
     image: string | null
     passportImage: string | null
     rating: number | null
@@ -13257,7 +12112,7 @@ export namespace Prisma {
     nameEn: number
     isActive: number
     phone: number
-    year: number
+    dob: number
     image: number
     passportImage: number
     rating: number
@@ -13281,7 +12136,7 @@ export namespace Prisma {
     nameEn?: true
     isActive?: true
     phone?: true
-    year?: true
+    dob?: true
     image?: true
     passportImage?: true
     rating?: true
@@ -13295,7 +12150,7 @@ export namespace Prisma {
     nameEn?: true
     isActive?: true
     phone?: true
-    year?: true
+    dob?: true
     image?: true
     passportImage?: true
     rating?: true
@@ -13309,7 +12164,7 @@ export namespace Prisma {
     nameEn?: true
     isActive?: true
     phone?: true
-    year?: true
+    dob?: true
     image?: true
     passportImage?: true
     rating?: true
@@ -13410,7 +12265,7 @@ export namespace Prisma {
     nameEn: string
     isActive: boolean
     phone: string
-    year: string
+    dob: string
     image: string
     passportImage: string
     rating: number | null
@@ -13443,7 +12298,7 @@ export namespace Prisma {
     nameEn?: boolean
     isActive?: boolean
     phone?: boolean
-    year?: boolean
+    dob?: boolean
     image?: boolean
     passportImage?: boolean
     rating?: boolean
@@ -13460,7 +12315,7 @@ export namespace Prisma {
     nameEn?: boolean
     isActive?: boolean
     phone?: boolean
-    year?: boolean
+    dob?: boolean
     image?: boolean
     passportImage?: boolean
     rating?: boolean
@@ -13475,7 +12330,7 @@ export namespace Prisma {
     nameEn?: boolean
     isActive?: boolean
     phone?: boolean
-    year?: boolean
+    dob?: boolean
     image?: boolean
     passportImage?: boolean
     rating?: boolean
@@ -13490,14 +12345,14 @@ export namespace Prisma {
     nameEn?: boolean
     isActive?: boolean
     phone?: boolean
-    year?: boolean
+    dob?: boolean
     image?: boolean
     passportImage?: boolean
     rating?: boolean
     masterJobsID?: boolean
   }
 
-  export type MasterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nameRu" | "nameUz" | "nameEn" | "isActive" | "phone" | "year" | "image" | "passportImage" | "rating" | "masterJobsID", ExtArgs["result"]["master"]>
+  export type MasterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nameRu" | "nameUz" | "nameEn" | "isActive" | "phone" | "dob" | "image" | "passportImage" | "rating" | "masterJobsID", ExtArgs["result"]["master"]>
   export type MasterInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     masterJobs?: boolean | MasterJobsDefaultArgs<ExtArgs>
     comments?: boolean | Master$commentsArgs<ExtArgs>
@@ -13523,7 +12378,7 @@ export namespace Prisma {
       nameEn: string
       isActive: boolean
       phone: string
-      year: string
+      dob: string
       image: string
       passportImage: string
       rating: number | null
@@ -13959,7 +12814,7 @@ export namespace Prisma {
     readonly nameEn: FieldRef<"Master", 'String'>
     readonly isActive: FieldRef<"Master", 'Boolean'>
     readonly phone: FieldRef<"Master", 'String'>
-    readonly year: FieldRef<"Master", 'String'>
+    readonly dob: FieldRef<"Master", 'String'>
     readonly image: FieldRef<"Master", 'String'>
     readonly passportImage: FieldRef<"Master", 'String'>
     readonly rating: FieldRef<"Master", 'Int'>
@@ -16619,6 +15474,12 @@ export namespace Prisma {
     descriptionEn: string | null
     image: string | null
     link: string | null
+    type: $Enums.ShowCaseType | null
+    isActive: boolean | null
+    startDate: Date | null
+    endDate: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type ShowCaseMaxAggregateOutputType = {
@@ -16631,6 +15492,12 @@ export namespace Prisma {
     descriptionEn: string | null
     image: string | null
     link: string | null
+    type: $Enums.ShowCaseType | null
+    isActive: boolean | null
+    startDate: Date | null
+    endDate: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type ShowCaseCountAggregateOutputType = {
@@ -16643,6 +15510,12 @@ export namespace Prisma {
     descriptionEn: number
     image: number
     link: number
+    type: number
+    isActive: number
+    startDate: number
+    endDate: number
+    createdAt: number
+    updatedAt: number
     _all: number
   }
 
@@ -16657,6 +15530,12 @@ export namespace Prisma {
     descriptionEn?: true
     image?: true
     link?: true
+    type?: true
+    isActive?: true
+    startDate?: true
+    endDate?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type ShowCaseMaxAggregateInputType = {
@@ -16669,6 +15548,12 @@ export namespace Prisma {
     descriptionEn?: true
     image?: true
     link?: true
+    type?: true
+    isActive?: true
+    startDate?: true
+    endDate?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type ShowCaseCountAggregateInputType = {
@@ -16681,6 +15566,12 @@ export namespace Prisma {
     descriptionEn?: true
     image?: true
     link?: true
+    type?: true
+    isActive?: true
+    startDate?: true
+    endDate?: true
+    createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -16766,6 +15657,12 @@ export namespace Prisma {
     descriptionEn: string
     image: string
     link: string
+    type: $Enums.ShowCaseType
+    isActive: boolean
+    startDate: Date
+    endDate: Date
+    createdAt: Date
+    updatedAt: Date
     _count: ShowCaseCountAggregateOutputType | null
     _min: ShowCaseMinAggregateOutputType | null
     _max: ShowCaseMaxAggregateOutputType | null
@@ -16795,6 +15692,12 @@ export namespace Prisma {
     descriptionEn?: boolean
     image?: boolean
     link?: boolean
+    type?: boolean
+    isActive?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }, ExtArgs["result"]["showCase"]>
 
   export type ShowCaseSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -16807,6 +15710,12 @@ export namespace Prisma {
     descriptionEn?: boolean
     image?: boolean
     link?: boolean
+    type?: boolean
+    isActive?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }, ExtArgs["result"]["showCase"]>
 
   export type ShowCaseSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -16819,6 +15728,12 @@ export namespace Prisma {
     descriptionEn?: boolean
     image?: boolean
     link?: boolean
+    type?: boolean
+    isActive?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }, ExtArgs["result"]["showCase"]>
 
   export type ShowCaseSelectScalar = {
@@ -16831,9 +15746,15 @@ export namespace Prisma {
     descriptionEn?: boolean
     image?: boolean
     link?: boolean
+    type?: boolean
+    isActive?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type ShowCaseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nameRu" | "nameUz" | "nameEn" | "descriptionRu" | "descriptionUz" | "descriptionEn" | "image" | "link", ExtArgs["result"]["showCase"]>
+  export type ShowCaseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nameRu" | "nameUz" | "nameEn" | "descriptionRu" | "descriptionUz" | "descriptionEn" | "image" | "link" | "type" | "isActive" | "startDate" | "endDate" | "createdAt" | "updatedAt", ExtArgs["result"]["showCase"]>
 
   export type $ShowCasePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "ShowCase"
@@ -16848,6 +15769,12 @@ export namespace Prisma {
       descriptionEn: string
       image: string
       link: string
+      type: $Enums.ShowCaseType
+      isActive: boolean
+      startDate: Date
+      endDate: Date
+      createdAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["showCase"]>
     composites: {}
   }
@@ -17280,6 +16207,12 @@ export namespace Prisma {
     readonly descriptionEn: FieldRef<"ShowCase", 'String'>
     readonly image: FieldRef<"ShowCase", 'String'>
     readonly link: FieldRef<"ShowCase", 'String'>
+    readonly type: FieldRef<"ShowCase", 'ShowCaseType'>
+    readonly isActive: FieldRef<"ShowCase", 'Boolean'>
+    readonly startDate: FieldRef<"ShowCase", 'DateTime'>
+    readonly endDate: FieldRef<"ShowCase", 'DateTime'>
+    readonly createdAt: FieldRef<"ShowCase", 'DateTime'>
+    readonly updatedAt: FieldRef<"ShowCase", 'DateTime'>
   }
     
 
@@ -17658,40 +16591,64 @@ export namespace Prisma {
 
   export type FAQMinAggregateOutputType = {
     id: string | null
-    question: string | null
-    answer: string | null
+    questionUz: string | null
+    questionRu: string | null
+    questionEn: string | null
+    answerUz: string | null
+    answerRu: string | null
+    answerEn: string | null
   }
 
   export type FAQMaxAggregateOutputType = {
     id: string | null
-    question: string | null
-    answer: string | null
+    questionUz: string | null
+    questionRu: string | null
+    questionEn: string | null
+    answerUz: string | null
+    answerRu: string | null
+    answerEn: string | null
   }
 
   export type FAQCountAggregateOutputType = {
     id: number
-    question: number
-    answer: number
+    questionUz: number
+    questionRu: number
+    questionEn: number
+    answerUz: number
+    answerRu: number
+    answerEn: number
     _all: number
   }
 
 
   export type FAQMinAggregateInputType = {
     id?: true
-    question?: true
-    answer?: true
+    questionUz?: true
+    questionRu?: true
+    questionEn?: true
+    answerUz?: true
+    answerRu?: true
+    answerEn?: true
   }
 
   export type FAQMaxAggregateInputType = {
     id?: true
-    question?: true
-    answer?: true
+    questionUz?: true
+    questionRu?: true
+    questionEn?: true
+    answerUz?: true
+    answerRu?: true
+    answerEn?: true
   }
 
   export type FAQCountAggregateInputType = {
     id?: true
-    question?: true
-    answer?: true
+    questionUz?: true
+    questionRu?: true
+    questionEn?: true
+    answerUz?: true
+    answerRu?: true
+    answerEn?: true
     _all?: true
   }
 
@@ -17769,8 +16726,12 @@ export namespace Prisma {
 
   export type FAQGroupByOutputType = {
     id: string
-    question: string
-    answer: string
+    questionUz: string
+    questionRu: string
+    questionEn: string
+    answerUz: string
+    answerRu: string
+    answerEn: string
     _count: FAQCountAggregateOutputType | null
     _min: FAQMinAggregateOutputType | null
     _max: FAQMaxAggregateOutputType | null
@@ -17792,37 +16753,57 @@ export namespace Prisma {
 
   export type FAQSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    question?: boolean
-    answer?: boolean
+    questionUz?: boolean
+    questionRu?: boolean
+    questionEn?: boolean
+    answerUz?: boolean
+    answerRu?: boolean
+    answerEn?: boolean
   }, ExtArgs["result"]["fAQ"]>
 
   export type FAQSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    question?: boolean
-    answer?: boolean
+    questionUz?: boolean
+    questionRu?: boolean
+    questionEn?: boolean
+    answerUz?: boolean
+    answerRu?: boolean
+    answerEn?: boolean
   }, ExtArgs["result"]["fAQ"]>
 
   export type FAQSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    question?: boolean
-    answer?: boolean
+    questionUz?: boolean
+    questionRu?: boolean
+    questionEn?: boolean
+    answerUz?: boolean
+    answerRu?: boolean
+    answerEn?: boolean
   }, ExtArgs["result"]["fAQ"]>
 
   export type FAQSelectScalar = {
     id?: boolean
-    question?: boolean
-    answer?: boolean
+    questionUz?: boolean
+    questionRu?: boolean
+    questionEn?: boolean
+    answerUz?: boolean
+    answerRu?: boolean
+    answerEn?: boolean
   }
 
-  export type FAQOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "question" | "answer", ExtArgs["result"]["fAQ"]>
+  export type FAQOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "questionUz" | "questionRu" | "questionEn" | "answerUz" | "answerRu" | "answerEn", ExtArgs["result"]["fAQ"]>
 
   export type $FAQPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "FAQ"
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      question: string
-      answer: string
+      questionUz: string
+      questionRu: string
+      questionEn: string
+      answerUz: string
+      answerRu: string
+      answerEn: string
     }, ExtArgs["result"]["fAQ"]>
     composites: {}
   }
@@ -18247,8 +17228,12 @@ export namespace Prisma {
    */
   interface FAQFieldRefs {
     readonly id: FieldRef<"FAQ", 'String'>
-    readonly question: FieldRef<"FAQ", 'String'>
-    readonly answer: FieldRef<"FAQ", 'String'>
+    readonly questionUz: FieldRef<"FAQ", 'String'>
+    readonly questionRu: FieldRef<"FAQ", 'String'>
+    readonly questionEn: FieldRef<"FAQ", 'String'>
+    readonly answerUz: FieldRef<"FAQ", 'String'>
+    readonly answerRu: FieldRef<"FAQ", 'String'>
+    readonly answerEn: FieldRef<"FAQ", 'String'>
   }
     
 
@@ -19665,6 +18650,12 @@ export namespace Prisma {
     nameUz: string | null
     nameEn: string | null
     image: string | null
+    phone: string | null
+    address: string | null
+    status: boolean | null
+    paymentTerms: string | null
+    agreementStart: Date | null
+    agreementEnd: Date | null
   }
 
   export type PartnerMaxAggregateOutputType = {
@@ -19673,6 +18664,12 @@ export namespace Prisma {
     nameUz: string | null
     nameEn: string | null
     image: string | null
+    phone: string | null
+    address: string | null
+    status: boolean | null
+    paymentTerms: string | null
+    agreementStart: Date | null
+    agreementEnd: Date | null
   }
 
   export type PartnerCountAggregateOutputType = {
@@ -19681,6 +18678,12 @@ export namespace Prisma {
     nameUz: number
     nameEn: number
     image: number
+    phone: number
+    address: number
+    status: number
+    paymentTerms: number
+    agreementStart: number
+    agreementEnd: number
     _all: number
   }
 
@@ -19691,6 +18694,12 @@ export namespace Prisma {
     nameUz?: true
     nameEn?: true
     image?: true
+    phone?: true
+    address?: true
+    status?: true
+    paymentTerms?: true
+    agreementStart?: true
+    agreementEnd?: true
   }
 
   export type PartnerMaxAggregateInputType = {
@@ -19699,6 +18708,12 @@ export namespace Prisma {
     nameUz?: true
     nameEn?: true
     image?: true
+    phone?: true
+    address?: true
+    status?: true
+    paymentTerms?: true
+    agreementStart?: true
+    agreementEnd?: true
   }
 
   export type PartnerCountAggregateInputType = {
@@ -19707,6 +18722,12 @@ export namespace Prisma {
     nameUz?: true
     nameEn?: true
     image?: true
+    phone?: true
+    address?: true
+    status?: true
+    paymentTerms?: true
+    agreementStart?: true
+    agreementEnd?: true
     _all?: true
   }
 
@@ -19788,6 +18809,12 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
+    phone: string
+    address: string
+    status: boolean
+    paymentTerms: string
+    agreementStart: Date
+    agreementEnd: Date
     _count: PartnerCountAggregateOutputType | null
     _min: PartnerMinAggregateOutputType | null
     _max: PartnerMaxAggregateOutputType | null
@@ -19813,6 +18840,12 @@ export namespace Prisma {
     nameUz?: boolean
     nameEn?: boolean
     image?: boolean
+    phone?: boolean
+    address?: boolean
+    status?: boolean
+    paymentTerms?: boolean
+    agreementStart?: boolean
+    agreementEnd?: boolean
   }, ExtArgs["result"]["partner"]>
 
   export type PartnerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -19821,6 +18854,12 @@ export namespace Prisma {
     nameUz?: boolean
     nameEn?: boolean
     image?: boolean
+    phone?: boolean
+    address?: boolean
+    status?: boolean
+    paymentTerms?: boolean
+    agreementStart?: boolean
+    agreementEnd?: boolean
   }, ExtArgs["result"]["partner"]>
 
   export type PartnerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -19829,6 +18868,12 @@ export namespace Prisma {
     nameUz?: boolean
     nameEn?: boolean
     image?: boolean
+    phone?: boolean
+    address?: boolean
+    status?: boolean
+    paymentTerms?: boolean
+    agreementStart?: boolean
+    agreementEnd?: boolean
   }, ExtArgs["result"]["partner"]>
 
   export type PartnerSelectScalar = {
@@ -19837,9 +18882,15 @@ export namespace Prisma {
     nameUz?: boolean
     nameEn?: boolean
     image?: boolean
+    phone?: boolean
+    address?: boolean
+    status?: boolean
+    paymentTerms?: boolean
+    agreementStart?: boolean
+    agreementEnd?: boolean
   }
 
-  export type PartnerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nameRu" | "nameUz" | "nameEn" | "image", ExtArgs["result"]["partner"]>
+  export type PartnerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nameRu" | "nameUz" | "nameEn" | "image" | "phone" | "address" | "status" | "paymentTerms" | "agreementStart" | "agreementEnd", ExtArgs["result"]["partner"]>
 
   export type $PartnerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Partner"
@@ -19850,6 +18901,12 @@ export namespace Prisma {
       nameUz: string
       nameEn: string
       image: string
+      phone: string
+      address: string
+      status: boolean
+      paymentTerms: string
+      agreementStart: Date
+      agreementEnd: Date
     }, ExtArgs["result"]["partner"]>
     composites: {}
   }
@@ -20278,6 +19335,12 @@ export namespace Prisma {
     readonly nameUz: FieldRef<"Partner", 'String'>
     readonly nameEn: FieldRef<"Partner", 'String'>
     readonly image: FieldRef<"Partner", 'String'>
+    readonly phone: FieldRef<"Partner", 'String'>
+    readonly address: FieldRef<"Partner", 'String'>
+    readonly status: FieldRef<"Partner", 'Boolean'>
+    readonly paymentTerms: FieldRef<"Partner", 'String'>
+    readonly agreementStart: FieldRef<"Partner", 'DateTime'>
+    readonly agreementEnd: FieldRef<"Partner", 'DateTime'>
   }
     
 
@@ -20819,7 +19882,6 @@ export namespace Prisma {
     baskets?: boolean | Product$basketsArgs<ExtArgs>
     orders?: boolean | Product$ordersArgs<ExtArgs>
     masterJobs?: boolean | Product$masterJobsArgs<ExtArgs>
-    intimateCategory?: boolean | Product$intimateCategoryArgs<ExtArgs>
     levels?: boolean | Product$levelsArgs<ExtArgs>
     tools?: boolean | Product$toolsArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
@@ -20857,7 +19919,6 @@ export namespace Prisma {
     baskets?: boolean | Product$basketsArgs<ExtArgs>
     orders?: boolean | Product$ordersArgs<ExtArgs>
     masterJobs?: boolean | Product$masterJobsArgs<ExtArgs>
-    intimateCategory?: boolean | Product$intimateCategoryArgs<ExtArgs>
     levels?: boolean | Product$levelsArgs<ExtArgs>
     tools?: boolean | Product$toolsArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
@@ -20871,7 +19932,6 @@ export namespace Prisma {
       baskets: Prisma.$BasketPayload<ExtArgs>[]
       orders: Prisma.$OrderPayload<ExtArgs>[]
       masterJobs: Prisma.$MasterJobsPayload<ExtArgs>[]
-      intimateCategory: Prisma.$ProfessionTypePayload<ExtArgs>[]
       levels: Prisma.$ProductLevelPayload<ExtArgs>[]
       tools: Prisma.$ProductToolPayload<ExtArgs>[]
     }
@@ -21279,7 +20339,6 @@ export namespace Prisma {
     baskets<T extends Product$basketsArgs<ExtArgs> = {}>(args?: Subset<T, Product$basketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BasketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     orders<T extends Product$ordersArgs<ExtArgs> = {}>(args?: Subset<T, Product$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     masterJobs<T extends Product$masterJobsArgs<ExtArgs> = {}>(args?: Subset<T, Product$masterJobsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterJobsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    intimateCategory<T extends Product$intimateCategoryArgs<ExtArgs> = {}>(args?: Subset<T, Product$intimateCategoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfessionTypePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     levels<T extends Product$levelsArgs<ExtArgs> = {}>(args?: Subset<T, Product$levelsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductLevelPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tools<T extends Product$toolsArgs<ExtArgs> = {}>(args?: Subset<T, Product$toolsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductToolPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -21774,30 +20833,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MasterJobsScalarFieldEnum | MasterJobsScalarFieldEnum[]
-  }
-
-  /**
-   * Product.intimateCategory
-   */
-  export type Product$intimateCategoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProfessionType
-     */
-    select?: ProfessionTypeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ProfessionType
-     */
-    omit?: ProfessionTypeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProfessionTypeInclude<ExtArgs> | null
-    where?: ProfessionTypeWhereInput
-    orderBy?: ProfessionTypeOrderByWithRelationInput | ProfessionTypeOrderByWithRelationInput[]
-    cursor?: ProfessionTypeWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ProfessionTypeScalarFieldEnum | ProfessionTypeScalarFieldEnum[]
   }
 
   /**
@@ -26442,17 +25477,6 @@ export namespace Prisma {
   export type BasketScalarFieldEnum = (typeof BasketScalarFieldEnum)[keyof typeof BasketScalarFieldEnum]
 
 
-  export const ProfessionTypeScalarFieldEnum: {
-    id: 'id',
-    nameRu: 'nameRu',
-    nameUz: 'nameUz',
-    nameEn: 'nameEn',
-    productId: 'productId'
-  };
-
-  export type ProfessionTypeScalarFieldEnum = (typeof ProfessionTypeScalarFieldEnum)[keyof typeof ProfessionTypeScalarFieldEnum]
-
-
   export const OrderScalarFieldEnum: {
     id: 'id',
     productID: 'productID',
@@ -26526,7 +25550,7 @@ export namespace Prisma {
     nameEn: 'nameEn',
     isActive: 'isActive',
     phone: 'phone',
-    year: 'year',
+    dob: 'dob',
     image: 'image',
     passportImage: 'passportImage',
     rating: 'rating',
@@ -26571,7 +25595,13 @@ export namespace Prisma {
     descriptionUz: 'descriptionUz',
     descriptionEn: 'descriptionEn',
     image: 'image',
-    link: 'link'
+    link: 'link',
+    type: 'type',
+    isActive: 'isActive',
+    startDate: 'startDate',
+    endDate: 'endDate',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
   export type ShowCaseScalarFieldEnum = (typeof ShowCaseScalarFieldEnum)[keyof typeof ShowCaseScalarFieldEnum]
@@ -26579,8 +25609,12 @@ export namespace Prisma {
 
   export const FAQScalarFieldEnum: {
     id: 'id',
-    question: 'question',
-    answer: 'answer'
+    questionUz: 'questionUz',
+    questionRu: 'questionRu',
+    questionEn: 'questionEn',
+    answerUz: 'answerUz',
+    answerRu: 'answerRu',
+    answerEn: 'answerEn'
   };
 
   export type FAQScalarFieldEnum = (typeof FAQScalarFieldEnum)[keyof typeof FAQScalarFieldEnum]
@@ -26605,7 +25639,13 @@ export namespace Prisma {
     nameRu: 'nameRu',
     nameUz: 'nameUz',
     nameEn: 'nameEn',
-    image: 'image'
+    image: 'image',
+    phone: 'phone',
+    address: 'address',
+    status: 'status',
+    paymentTerms: 'paymentTerms',
+    agreementStart: 'agreementStart',
+    agreementEnd: 'agreementEnd'
   };
 
   export type PartnerScalarFieldEnum = (typeof PartnerScalarFieldEnum)[keyof typeof PartnerScalarFieldEnum]
@@ -26803,6 +25843,20 @@ export namespace Prisma {
    * Reference to a field of type 'OrderStatus[]'
    */
   export type ListEnumOrderStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OrderStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ShowCaseType'
+   */
+  export type EnumShowCaseTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShowCaseType'>
+    
+
+
+  /**
+   * Reference to a field of type 'ShowCaseType[]'
+   */
+  export type ListEnumShowCaseTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShowCaseType[]'>
     
 
 
@@ -27029,61 +26083,6 @@ export namespace Prisma {
     productID?: StringWithAggregatesFilter<"Basket"> | string
     userID?: StringWithAggregatesFilter<"Basket"> | string
     quantity?: IntWithAggregatesFilter<"Basket"> | number
-  }
-
-  export type ProfessionTypeWhereInput = {
-    AND?: ProfessionTypeWhereInput | ProfessionTypeWhereInput[]
-    OR?: ProfessionTypeWhereInput[]
-    NOT?: ProfessionTypeWhereInput | ProfessionTypeWhereInput[]
-    id?: StringFilter<"ProfessionType"> | string
-    nameRu?: StringFilter<"ProfessionType"> | string
-    nameUz?: StringFilter<"ProfessionType"> | string
-    nameEn?: StringFilter<"ProfessionType"> | string
-    productId?: StringFilter<"ProfessionType"> | string
-    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
-  }
-
-  export type ProfessionTypeOrderByWithRelationInput = {
-    id?: SortOrder
-    nameRu?: SortOrder
-    nameUz?: SortOrder
-    nameEn?: SortOrder
-    productId?: SortOrder
-    product?: ProductOrderByWithRelationInput
-  }
-
-  export type ProfessionTypeWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: ProfessionTypeWhereInput | ProfessionTypeWhereInput[]
-    OR?: ProfessionTypeWhereInput[]
-    NOT?: ProfessionTypeWhereInput | ProfessionTypeWhereInput[]
-    nameRu?: StringFilter<"ProfessionType"> | string
-    nameUz?: StringFilter<"ProfessionType"> | string
-    nameEn?: StringFilter<"ProfessionType"> | string
-    productId?: StringFilter<"ProfessionType"> | string
-    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
-  }, "id">
-
-  export type ProfessionTypeOrderByWithAggregationInput = {
-    id?: SortOrder
-    nameRu?: SortOrder
-    nameUz?: SortOrder
-    nameEn?: SortOrder
-    productId?: SortOrder
-    _count?: ProfessionTypeCountOrderByAggregateInput
-    _max?: ProfessionTypeMaxOrderByAggregateInput
-    _min?: ProfessionTypeMinOrderByAggregateInput
-  }
-
-  export type ProfessionTypeScalarWhereWithAggregatesInput = {
-    AND?: ProfessionTypeScalarWhereWithAggregatesInput | ProfessionTypeScalarWhereWithAggregatesInput[]
-    OR?: ProfessionTypeScalarWhereWithAggregatesInput[]
-    NOT?: ProfessionTypeScalarWhereWithAggregatesInput | ProfessionTypeScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"ProfessionType"> | string
-    nameRu?: StringWithAggregatesFilter<"ProfessionType"> | string
-    nameUz?: StringWithAggregatesFilter<"ProfessionType"> | string
-    nameEn?: StringWithAggregatesFilter<"ProfessionType"> | string
-    productId?: StringWithAggregatesFilter<"ProfessionType"> | string
   }
 
   export type OrderWhereInput = {
@@ -27442,7 +26441,7 @@ export namespace Prisma {
     nameEn?: StringFilter<"Master"> | string
     isActive?: BoolFilter<"Master"> | boolean
     phone?: StringFilter<"Master"> | string
-    year?: StringFilter<"Master"> | string
+    dob?: StringFilter<"Master"> | string
     image?: StringFilter<"Master"> | string
     passportImage?: StringFilter<"Master"> | string
     rating?: IntNullableFilter<"Master"> | number | null
@@ -27458,7 +26457,7 @@ export namespace Prisma {
     nameEn?: SortOrder
     isActive?: SortOrder
     phone?: SortOrder
-    year?: SortOrder
+    dob?: SortOrder
     image?: SortOrder
     passportImage?: SortOrder
     rating?: SortOrderInput | SortOrder
@@ -27477,7 +26476,7 @@ export namespace Prisma {
     nameEn?: StringFilter<"Master"> | string
     isActive?: BoolFilter<"Master"> | boolean
     phone?: StringFilter<"Master"> | string
-    year?: StringFilter<"Master"> | string
+    dob?: StringFilter<"Master"> | string
     image?: StringFilter<"Master"> | string
     passportImage?: StringFilter<"Master"> | string
     rating?: IntNullableFilter<"Master"> | number | null
@@ -27493,7 +26492,7 @@ export namespace Prisma {
     nameEn?: SortOrder
     isActive?: SortOrder
     phone?: SortOrder
-    year?: SortOrder
+    dob?: SortOrder
     image?: SortOrder
     passportImage?: SortOrder
     rating?: SortOrderInput | SortOrder
@@ -27515,7 +26514,7 @@ export namespace Prisma {
     nameEn?: StringWithAggregatesFilter<"Master"> | string
     isActive?: BoolWithAggregatesFilter<"Master"> | boolean
     phone?: StringWithAggregatesFilter<"Master"> | string
-    year?: StringWithAggregatesFilter<"Master"> | string
+    dob?: StringWithAggregatesFilter<"Master"> | string
     image?: StringWithAggregatesFilter<"Master"> | string
     passportImage?: StringWithAggregatesFilter<"Master"> | string
     rating?: IntNullableWithAggregatesFilter<"Master"> | number | null
@@ -27673,6 +26672,12 @@ export namespace Prisma {
     descriptionEn?: StringFilter<"ShowCase"> | string
     image?: StringFilter<"ShowCase"> | string
     link?: StringFilter<"ShowCase"> | string
+    type?: EnumShowCaseTypeFilter<"ShowCase"> | $Enums.ShowCaseType
+    isActive?: BoolFilter<"ShowCase"> | boolean
+    startDate?: DateTimeFilter<"ShowCase"> | Date | string
+    endDate?: DateTimeFilter<"ShowCase"> | Date | string
+    createdAt?: DateTimeFilter<"ShowCase"> | Date | string
+    updatedAt?: DateTimeFilter<"ShowCase"> | Date | string
   }
 
   export type ShowCaseOrderByWithRelationInput = {
@@ -27685,6 +26690,12 @@ export namespace Prisma {
     descriptionEn?: SortOrder
     image?: SortOrder
     link?: SortOrder
+    type?: SortOrder
+    isActive?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type ShowCaseWhereUniqueInput = Prisma.AtLeast<{
@@ -27700,6 +26711,12 @@ export namespace Prisma {
     descriptionEn?: StringFilter<"ShowCase"> | string
     image?: StringFilter<"ShowCase"> | string
     link?: StringFilter<"ShowCase"> | string
+    type?: EnumShowCaseTypeFilter<"ShowCase"> | $Enums.ShowCaseType
+    isActive?: BoolFilter<"ShowCase"> | boolean
+    startDate?: DateTimeFilter<"ShowCase"> | Date | string
+    endDate?: DateTimeFilter<"ShowCase"> | Date | string
+    createdAt?: DateTimeFilter<"ShowCase"> | Date | string
+    updatedAt?: DateTimeFilter<"ShowCase"> | Date | string
   }, "id">
 
   export type ShowCaseOrderByWithAggregationInput = {
@@ -27712,6 +26729,12 @@ export namespace Prisma {
     descriptionEn?: SortOrder
     image?: SortOrder
     link?: SortOrder
+    type?: SortOrder
+    isActive?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: ShowCaseCountOrderByAggregateInput
     _max?: ShowCaseMaxOrderByAggregateInput
     _min?: ShowCaseMinOrderByAggregateInput
@@ -27730,6 +26753,12 @@ export namespace Prisma {
     descriptionEn?: StringWithAggregatesFilter<"ShowCase"> | string
     image?: StringWithAggregatesFilter<"ShowCase"> | string
     link?: StringWithAggregatesFilter<"ShowCase"> | string
+    type?: EnumShowCaseTypeWithAggregatesFilter<"ShowCase"> | $Enums.ShowCaseType
+    isActive?: BoolWithAggregatesFilter<"ShowCase"> | boolean
+    startDate?: DateTimeWithAggregatesFilter<"ShowCase"> | Date | string
+    endDate?: DateTimeWithAggregatesFilter<"ShowCase"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"ShowCase"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ShowCase"> | Date | string
   }
 
   export type FAQWhereInput = {
@@ -27737,14 +26766,22 @@ export namespace Prisma {
     OR?: FAQWhereInput[]
     NOT?: FAQWhereInput | FAQWhereInput[]
     id?: StringFilter<"FAQ"> | string
-    question?: StringFilter<"FAQ"> | string
-    answer?: StringFilter<"FAQ"> | string
+    questionUz?: StringFilter<"FAQ"> | string
+    questionRu?: StringFilter<"FAQ"> | string
+    questionEn?: StringFilter<"FAQ"> | string
+    answerUz?: StringFilter<"FAQ"> | string
+    answerRu?: StringFilter<"FAQ"> | string
+    answerEn?: StringFilter<"FAQ"> | string
   }
 
   export type FAQOrderByWithRelationInput = {
     id?: SortOrder
-    question?: SortOrder
-    answer?: SortOrder
+    questionUz?: SortOrder
+    questionRu?: SortOrder
+    questionEn?: SortOrder
+    answerUz?: SortOrder
+    answerRu?: SortOrder
+    answerEn?: SortOrder
   }
 
   export type FAQWhereUniqueInput = Prisma.AtLeast<{
@@ -27752,14 +26789,22 @@ export namespace Prisma {
     AND?: FAQWhereInput | FAQWhereInput[]
     OR?: FAQWhereInput[]
     NOT?: FAQWhereInput | FAQWhereInput[]
-    question?: StringFilter<"FAQ"> | string
-    answer?: StringFilter<"FAQ"> | string
+    questionUz?: StringFilter<"FAQ"> | string
+    questionRu?: StringFilter<"FAQ"> | string
+    questionEn?: StringFilter<"FAQ"> | string
+    answerUz?: StringFilter<"FAQ"> | string
+    answerRu?: StringFilter<"FAQ"> | string
+    answerEn?: StringFilter<"FAQ"> | string
   }, "id">
 
   export type FAQOrderByWithAggregationInput = {
     id?: SortOrder
-    question?: SortOrder
-    answer?: SortOrder
+    questionUz?: SortOrder
+    questionRu?: SortOrder
+    questionEn?: SortOrder
+    answerUz?: SortOrder
+    answerRu?: SortOrder
+    answerEn?: SortOrder
     _count?: FAQCountOrderByAggregateInput
     _max?: FAQMaxOrderByAggregateInput
     _min?: FAQMinOrderByAggregateInput
@@ -27770,8 +26815,12 @@ export namespace Prisma {
     OR?: FAQScalarWhereWithAggregatesInput[]
     NOT?: FAQScalarWhereWithAggregatesInput | FAQScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"FAQ"> | string
-    question?: StringWithAggregatesFilter<"FAQ"> | string
-    answer?: StringWithAggregatesFilter<"FAQ"> | string
+    questionUz?: StringWithAggregatesFilter<"FAQ"> | string
+    questionRu?: StringWithAggregatesFilter<"FAQ"> | string
+    questionEn?: StringWithAggregatesFilter<"FAQ"> | string
+    answerUz?: StringWithAggregatesFilter<"FAQ"> | string
+    answerRu?: StringWithAggregatesFilter<"FAQ"> | string
+    answerEn?: StringWithAggregatesFilter<"FAQ"> | string
   }
 
   export type ContactWhereInput = {
@@ -27850,6 +26899,12 @@ export namespace Prisma {
     nameUz?: StringFilter<"Partner"> | string
     nameEn?: StringFilter<"Partner"> | string
     image?: StringFilter<"Partner"> | string
+    phone?: StringFilter<"Partner"> | string
+    address?: StringFilter<"Partner"> | string
+    status?: BoolFilter<"Partner"> | boolean
+    paymentTerms?: StringFilter<"Partner"> | string
+    agreementStart?: DateTimeFilter<"Partner"> | Date | string
+    agreementEnd?: DateTimeFilter<"Partner"> | Date | string
   }
 
   export type PartnerOrderByWithRelationInput = {
@@ -27858,6 +26913,12 @@ export namespace Prisma {
     nameUz?: SortOrder
     nameEn?: SortOrder
     image?: SortOrder
+    phone?: SortOrder
+    address?: SortOrder
+    status?: SortOrder
+    paymentTerms?: SortOrder
+    agreementStart?: SortOrder
+    agreementEnd?: SortOrder
   }
 
   export type PartnerWhereUniqueInput = Prisma.AtLeast<{
@@ -27869,6 +26930,12 @@ export namespace Prisma {
     nameUz?: StringFilter<"Partner"> | string
     nameEn?: StringFilter<"Partner"> | string
     image?: StringFilter<"Partner"> | string
+    phone?: StringFilter<"Partner"> | string
+    address?: StringFilter<"Partner"> | string
+    status?: BoolFilter<"Partner"> | boolean
+    paymentTerms?: StringFilter<"Partner"> | string
+    agreementStart?: DateTimeFilter<"Partner"> | Date | string
+    agreementEnd?: DateTimeFilter<"Partner"> | Date | string
   }, "id">
 
   export type PartnerOrderByWithAggregationInput = {
@@ -27877,6 +26944,12 @@ export namespace Prisma {
     nameUz?: SortOrder
     nameEn?: SortOrder
     image?: SortOrder
+    phone?: SortOrder
+    address?: SortOrder
+    status?: SortOrder
+    paymentTerms?: SortOrder
+    agreementStart?: SortOrder
+    agreementEnd?: SortOrder
     _count?: PartnerCountOrderByAggregateInput
     _max?: PartnerMaxOrderByAggregateInput
     _min?: PartnerMinOrderByAggregateInput
@@ -27891,6 +26964,12 @@ export namespace Prisma {
     nameUz?: StringWithAggregatesFilter<"Partner"> | string
     nameEn?: StringWithAggregatesFilter<"Partner"> | string
     image?: StringWithAggregatesFilter<"Partner"> | string
+    phone?: StringWithAggregatesFilter<"Partner"> | string
+    address?: StringWithAggregatesFilter<"Partner"> | string
+    status?: BoolWithAggregatesFilter<"Partner"> | boolean
+    paymentTerms?: StringWithAggregatesFilter<"Partner"> | string
+    agreementStart?: DateTimeWithAggregatesFilter<"Partner"> | Date | string
+    agreementEnd?: DateTimeWithAggregatesFilter<"Partner"> | Date | string
   }
 
   export type ProductWhereInput = {
@@ -27906,7 +26985,6 @@ export namespace Prisma {
     baskets?: BasketListRelationFilter
     orders?: OrderListRelationFilter
     masterJobs?: MasterJobsListRelationFilter
-    intimateCategory?: ProfessionTypeListRelationFilter
     levels?: ProductLevelListRelationFilter
     tools?: ProductToolListRelationFilter
   }
@@ -27921,7 +26999,6 @@ export namespace Prisma {
     baskets?: BasketOrderByRelationAggregateInput
     orders?: OrderOrderByRelationAggregateInput
     masterJobs?: MasterJobsOrderByRelationAggregateInput
-    intimateCategory?: ProfessionTypeOrderByRelationAggregateInput
     levels?: ProductLevelOrderByRelationAggregateInput
     tools?: ProductToolOrderByRelationAggregateInput
   }
@@ -27939,7 +27016,6 @@ export namespace Prisma {
     baskets?: BasketListRelationFilter
     orders?: OrderListRelationFilter
     masterJobs?: MasterJobsListRelationFilter
-    intimateCategory?: ProfessionTypeListRelationFilter
     levels?: ProductLevelListRelationFilter
     tools?: ProductToolListRelationFilter
   }, "id">
@@ -28466,61 +27542,6 @@ export namespace Prisma {
     quantity?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ProfessionTypeCreateInput = {
-    id?: string
-    nameRu: string
-    nameUz: string
-    nameEn: string
-    product: ProductCreateNestedOneWithoutIntimateCategoryInput
-  }
-
-  export type ProfessionTypeUncheckedCreateInput = {
-    id?: string
-    nameRu: string
-    nameUz: string
-    nameEn: string
-    productId: string
-  }
-
-  export type ProfessionTypeUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nameRu?: StringFieldUpdateOperationsInput | string
-    nameUz?: StringFieldUpdateOperationsInput | string
-    nameEn?: StringFieldUpdateOperationsInput | string
-    product?: ProductUpdateOneRequiredWithoutIntimateCategoryNestedInput
-  }
-
-  export type ProfessionTypeUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nameRu?: StringFieldUpdateOperationsInput | string
-    nameUz?: StringFieldUpdateOperationsInput | string
-    nameEn?: StringFieldUpdateOperationsInput | string
-    productId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type ProfessionTypeCreateManyInput = {
-    id?: string
-    nameRu: string
-    nameUz: string
-    nameEn: string
-    productId: string
-  }
-
-  export type ProfessionTypeUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nameRu?: StringFieldUpdateOperationsInput | string
-    nameUz?: StringFieldUpdateOperationsInput | string
-    nameEn?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type ProfessionTypeUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nameRu?: StringFieldUpdateOperationsInput | string
-    nameUz?: StringFieldUpdateOperationsInput | string
-    nameEn?: StringFieldUpdateOperationsInput | string
-    productId?: StringFieldUpdateOperationsInput | string
-  }
-
   export type OrderCreateInput = {
     id?: string
     quantity: number
@@ -28896,7 +27917,7 @@ export namespace Prisma {
     nameEn: string
     isActive: boolean
     phone: string
-    year: string
+    dob: string
     image: string
     passportImage: string
     rating?: number | null
@@ -28911,7 +27932,7 @@ export namespace Prisma {
     nameEn: string
     isActive: boolean
     phone: string
-    year: string
+    dob: string
     image: string
     passportImage: string
     rating?: number | null
@@ -28926,7 +27947,7 @@ export namespace Prisma {
     nameEn?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     phone?: StringFieldUpdateOperationsInput | string
-    year?: StringFieldUpdateOperationsInput | string
+    dob?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
     rating?: NullableIntFieldUpdateOperationsInput | number | null
@@ -28941,7 +27962,7 @@ export namespace Prisma {
     nameEn?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     phone?: StringFieldUpdateOperationsInput | string
-    year?: StringFieldUpdateOperationsInput | string
+    dob?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
     rating?: NullableIntFieldUpdateOperationsInput | number | null
@@ -28956,7 +27977,7 @@ export namespace Prisma {
     nameEn: string
     isActive: boolean
     phone: string
-    year: string
+    dob: string
     image: string
     passportImage: string
     rating?: number | null
@@ -28970,7 +27991,7 @@ export namespace Prisma {
     nameEn?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     phone?: StringFieldUpdateOperationsInput | string
-    year?: StringFieldUpdateOperationsInput | string
+    dob?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
     rating?: NullableIntFieldUpdateOperationsInput | number | null
@@ -28983,7 +28004,7 @@ export namespace Prisma {
     nameEn?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     phone?: StringFieldUpdateOperationsInput | string
-    year?: StringFieldUpdateOperationsInput | string
+    dob?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
     rating?: NullableIntFieldUpdateOperationsInput | number | null
@@ -29141,6 +28162,12 @@ export namespace Prisma {
     descriptionEn: string
     image: string
     link: string
+    type: $Enums.ShowCaseType
+    isActive: boolean
+    startDate?: Date | string
+    endDate: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type ShowCaseUncheckedCreateInput = {
@@ -29153,6 +28180,12 @@ export namespace Prisma {
     descriptionEn: string
     image: string
     link: string
+    type: $Enums.ShowCaseType
+    isActive: boolean
+    startDate?: Date | string
+    endDate: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type ShowCaseUpdateInput = {
@@ -29165,6 +28198,12 @@ export namespace Prisma {
     descriptionEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     link?: StringFieldUpdateOperationsInput | string
+    type?: EnumShowCaseTypeFieldUpdateOperationsInput | $Enums.ShowCaseType
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ShowCaseUncheckedUpdateInput = {
@@ -29177,6 +28216,12 @@ export namespace Prisma {
     descriptionEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     link?: StringFieldUpdateOperationsInput | string
+    type?: EnumShowCaseTypeFieldUpdateOperationsInput | $Enums.ShowCaseType
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ShowCaseCreateManyInput = {
@@ -29189,6 +28234,12 @@ export namespace Prisma {
     descriptionEn: string
     image: string
     link: string
+    type: $Enums.ShowCaseType
+    isActive: boolean
+    startDate?: Date | string
+    endDate: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type ShowCaseUpdateManyMutationInput = {
@@ -29201,6 +28252,12 @@ export namespace Prisma {
     descriptionEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     link?: StringFieldUpdateOperationsInput | string
+    type?: EnumShowCaseTypeFieldUpdateOperationsInput | $Enums.ShowCaseType
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ShowCaseUncheckedUpdateManyInput = {
@@ -29213,48 +28270,82 @@ export namespace Prisma {
     descriptionEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     link?: StringFieldUpdateOperationsInput | string
+    type?: EnumShowCaseTypeFieldUpdateOperationsInput | $Enums.ShowCaseType
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FAQCreateInput = {
     id?: string
-    question: string
-    answer: string
+    questionUz: string
+    questionRu: string
+    questionEn: string
+    answerUz: string
+    answerRu: string
+    answerEn: string
   }
 
   export type FAQUncheckedCreateInput = {
     id?: string
-    question: string
-    answer: string
+    questionUz: string
+    questionRu: string
+    questionEn: string
+    answerUz: string
+    answerRu: string
+    answerEn: string
   }
 
   export type FAQUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    question?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
+    questionUz?: StringFieldUpdateOperationsInput | string
+    questionRu?: StringFieldUpdateOperationsInput | string
+    questionEn?: StringFieldUpdateOperationsInput | string
+    answerUz?: StringFieldUpdateOperationsInput | string
+    answerRu?: StringFieldUpdateOperationsInput | string
+    answerEn?: StringFieldUpdateOperationsInput | string
   }
 
   export type FAQUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    question?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
+    questionUz?: StringFieldUpdateOperationsInput | string
+    questionRu?: StringFieldUpdateOperationsInput | string
+    questionEn?: StringFieldUpdateOperationsInput | string
+    answerUz?: StringFieldUpdateOperationsInput | string
+    answerRu?: StringFieldUpdateOperationsInput | string
+    answerEn?: StringFieldUpdateOperationsInput | string
   }
 
   export type FAQCreateManyInput = {
     id?: string
-    question: string
-    answer: string
+    questionUz: string
+    questionRu: string
+    questionEn: string
+    answerUz: string
+    answerRu: string
+    answerEn: string
   }
 
   export type FAQUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    question?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
+    questionUz?: StringFieldUpdateOperationsInput | string
+    questionRu?: StringFieldUpdateOperationsInput | string
+    questionEn?: StringFieldUpdateOperationsInput | string
+    answerUz?: StringFieldUpdateOperationsInput | string
+    answerRu?: StringFieldUpdateOperationsInput | string
+    answerEn?: StringFieldUpdateOperationsInput | string
   }
 
   export type FAQUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    question?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
+    questionUz?: StringFieldUpdateOperationsInput | string
+    questionRu?: StringFieldUpdateOperationsInput | string
+    questionEn?: StringFieldUpdateOperationsInput | string
+    answerUz?: StringFieldUpdateOperationsInput | string
+    answerRu?: StringFieldUpdateOperationsInput | string
+    answerEn?: StringFieldUpdateOperationsInput | string
   }
 
   export type ContactCreateInput = {
@@ -29340,6 +28431,12 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
+    phone: string
+    address: string
+    status: boolean
+    paymentTerms: string
+    agreementStart?: Date | string
+    agreementEnd: Date | string
   }
 
   export type PartnerUncheckedCreateInput = {
@@ -29348,6 +28445,12 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
+    phone: string
+    address: string
+    status: boolean
+    paymentTerms: string
+    agreementStart?: Date | string
+    agreementEnd: Date | string
   }
 
   export type PartnerUpdateInput = {
@@ -29356,6 +28459,12 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    paymentTerms?: StringFieldUpdateOperationsInput | string
+    agreementStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    agreementEnd?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PartnerUncheckedUpdateInput = {
@@ -29364,6 +28473,12 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    paymentTerms?: StringFieldUpdateOperationsInput | string
+    agreementStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    agreementEnd?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PartnerCreateManyInput = {
@@ -29372,6 +28487,12 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
+    phone: string
+    address: string
+    status: boolean
+    paymentTerms: string
+    agreementStart?: Date | string
+    agreementEnd: Date | string
   }
 
   export type PartnerUpdateManyMutationInput = {
@@ -29380,6 +28501,12 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    paymentTerms?: StringFieldUpdateOperationsInput | string
+    agreementStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    agreementEnd?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PartnerUncheckedUpdateManyInput = {
@@ -29388,6 +28515,12 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    paymentTerms?: StringFieldUpdateOperationsInput | string
+    agreementStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    agreementEnd?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProductCreateInput = {
@@ -29400,7 +28533,6 @@ export namespace Prisma {
     baskets?: BasketCreateNestedManyWithoutProductInput
     orders?: OrderCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsCreateNestedManyWithoutProductInput
-    intimateCategory?: ProfessionTypeCreateNestedManyWithoutProductInput
     levels?: ProductLevelCreateNestedManyWithoutProductInput
     tools?: ProductToolCreateNestedManyWithoutProductInput
   }
@@ -29415,7 +28547,6 @@ export namespace Prisma {
     baskets?: BasketUncheckedCreateNestedManyWithoutProductInput
     orders?: OrderUncheckedCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutProductInput
-    intimateCategory?: ProfessionTypeUncheckedCreateNestedManyWithoutProductInput
     levels?: ProductLevelUncheckedCreateNestedManyWithoutProductInput
     tools?: ProductToolUncheckedCreateNestedManyWithoutProductInput
   }
@@ -29430,7 +28561,6 @@ export namespace Prisma {
     baskets?: BasketUpdateManyWithoutProductNestedInput
     orders?: OrderUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUpdateManyWithoutProductNestedInput
-    intimateCategory?: ProfessionTypeUpdateManyWithoutProductNestedInput
     levels?: ProductLevelUpdateManyWithoutProductNestedInput
     tools?: ProductToolUpdateManyWithoutProductNestedInput
   }
@@ -29445,7 +28575,6 @@ export namespace Prisma {
     baskets?: BasketUncheckedUpdateManyWithoutProductNestedInput
     orders?: OrderUncheckedUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUncheckedUpdateManyWithoutProductNestedInput
-    intimateCategory?: ProfessionTypeUncheckedUpdateManyWithoutProductNestedInput
     levels?: ProductLevelUncheckedUpdateManyWithoutProductNestedInput
     tools?: ProductToolUncheckedUpdateManyWithoutProductNestedInput
   }
@@ -30021,30 +29150,6 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type ProfessionTypeCountOrderByAggregateInput = {
-    id?: SortOrder
-    nameRu?: SortOrder
-    nameUz?: SortOrder
-    nameEn?: SortOrder
-    productId?: SortOrder
-  }
-
-  export type ProfessionTypeMaxOrderByAggregateInput = {
-    id?: SortOrder
-    nameRu?: SortOrder
-    nameUz?: SortOrder
-    nameEn?: SortOrder
-    productId?: SortOrder
-  }
-
-  export type ProfessionTypeMinOrderByAggregateInput = {
-    id?: SortOrder
-    nameRu?: SortOrder
-    nameUz?: SortOrder
-    nameEn?: SortOrder
-    productId?: SortOrder
-  }
-
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -30373,7 +29478,7 @@ export namespace Prisma {
     nameEn?: SortOrder
     isActive?: SortOrder
     phone?: SortOrder
-    year?: SortOrder
+    dob?: SortOrder
     image?: SortOrder
     passportImage?: SortOrder
     rating?: SortOrder
@@ -30391,7 +29496,7 @@ export namespace Prisma {
     nameEn?: SortOrder
     isActive?: SortOrder
     phone?: SortOrder
-    year?: SortOrder
+    dob?: SortOrder
     image?: SortOrder
     passportImage?: SortOrder
     rating?: SortOrder
@@ -30405,7 +29510,7 @@ export namespace Prisma {
     nameEn?: SortOrder
     isActive?: SortOrder
     phone?: SortOrder
-    year?: SortOrder
+    dob?: SortOrder
     image?: SortOrder
     passportImage?: SortOrder
     rating?: SortOrder
@@ -30500,6 +29605,13 @@ export namespace Prisma {
     phone?: SortOrder
   }
 
+  export type EnumShowCaseTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ShowCaseType | EnumShowCaseTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ShowCaseType[] | ListEnumShowCaseTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ShowCaseType[] | ListEnumShowCaseTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumShowCaseTypeFilter<$PrismaModel> | $Enums.ShowCaseType
+  }
+
   export type ShowCaseCountOrderByAggregateInput = {
     id?: SortOrder
     nameRu?: SortOrder
@@ -30510,6 +29622,12 @@ export namespace Prisma {
     descriptionEn?: SortOrder
     image?: SortOrder
     link?: SortOrder
+    type?: SortOrder
+    isActive?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type ShowCaseMaxOrderByAggregateInput = {
@@ -30522,6 +29640,12 @@ export namespace Prisma {
     descriptionEn?: SortOrder
     image?: SortOrder
     link?: SortOrder
+    type?: SortOrder
+    isActive?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type ShowCaseMinOrderByAggregateInput = {
@@ -30534,24 +29658,52 @@ export namespace Prisma {
     descriptionEn?: SortOrder
     image?: SortOrder
     link?: SortOrder
+    type?: SortOrder
+    isActive?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumShowCaseTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ShowCaseType | EnumShowCaseTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ShowCaseType[] | ListEnumShowCaseTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ShowCaseType[] | ListEnumShowCaseTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumShowCaseTypeWithAggregatesFilter<$PrismaModel> | $Enums.ShowCaseType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumShowCaseTypeFilter<$PrismaModel>
+    _max?: NestedEnumShowCaseTypeFilter<$PrismaModel>
   }
 
   export type FAQCountOrderByAggregateInput = {
     id?: SortOrder
-    question?: SortOrder
-    answer?: SortOrder
+    questionUz?: SortOrder
+    questionRu?: SortOrder
+    questionEn?: SortOrder
+    answerUz?: SortOrder
+    answerRu?: SortOrder
+    answerEn?: SortOrder
   }
 
   export type FAQMaxOrderByAggregateInput = {
     id?: SortOrder
-    question?: SortOrder
-    answer?: SortOrder
+    questionUz?: SortOrder
+    questionRu?: SortOrder
+    questionEn?: SortOrder
+    answerUz?: SortOrder
+    answerRu?: SortOrder
+    answerEn?: SortOrder
   }
 
   export type FAQMinOrderByAggregateInput = {
     id?: SortOrder
-    question?: SortOrder
-    answer?: SortOrder
+    questionUz?: SortOrder
+    questionRu?: SortOrder
+    questionEn?: SortOrder
+    answerUz?: SortOrder
+    answerRu?: SortOrder
+    answerEn?: SortOrder
   }
 
   export type ContactCountOrderByAggregateInput = {
@@ -30593,6 +29745,12 @@ export namespace Prisma {
     nameUz?: SortOrder
     nameEn?: SortOrder
     image?: SortOrder
+    phone?: SortOrder
+    address?: SortOrder
+    status?: SortOrder
+    paymentTerms?: SortOrder
+    agreementStart?: SortOrder
+    agreementEnd?: SortOrder
   }
 
   export type PartnerMaxOrderByAggregateInput = {
@@ -30601,6 +29759,12 @@ export namespace Prisma {
     nameUz?: SortOrder
     nameEn?: SortOrder
     image?: SortOrder
+    phone?: SortOrder
+    address?: SortOrder
+    status?: SortOrder
+    paymentTerms?: SortOrder
+    agreementStart?: SortOrder
+    agreementEnd?: SortOrder
   }
 
   export type PartnerMinOrderByAggregateInput = {
@@ -30609,6 +29773,12 @@ export namespace Prisma {
     nameUz?: SortOrder
     nameEn?: SortOrder
     image?: SortOrder
+    phone?: SortOrder
+    address?: SortOrder
+    status?: SortOrder
+    paymentTerms?: SortOrder
+    agreementStart?: SortOrder
+    agreementEnd?: SortOrder
   }
 
   export type OrderListRelationFilter = {
@@ -30621,12 +29791,6 @@ export namespace Prisma {
     every?: MasterJobsWhereInput
     some?: MasterJobsWhereInput
     none?: MasterJobsWhereInput
-  }
-
-  export type ProfessionTypeListRelationFilter = {
-    every?: ProfessionTypeWhereInput
-    some?: ProfessionTypeWhereInput
-    none?: ProfessionTypeWhereInput
   }
 
   export type ProductLevelListRelationFilter = {
@@ -30646,10 +29810,6 @@ export namespace Prisma {
   }
 
   export type MasterJobsOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type ProfessionTypeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -30984,20 +30144,6 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutBasketsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBasketsInput, UserUpdateWithoutBasketsInput>, UserUncheckedUpdateWithoutBasketsInput>
-  }
-
-  export type ProductCreateNestedOneWithoutIntimateCategoryInput = {
-    create?: XOR<ProductCreateWithoutIntimateCategoryInput, ProductUncheckedCreateWithoutIntimateCategoryInput>
-    connectOrCreate?: ProductCreateOrConnectWithoutIntimateCategoryInput
-    connect?: ProductWhereUniqueInput
-  }
-
-  export type ProductUpdateOneRequiredWithoutIntimateCategoryNestedInput = {
-    create?: XOR<ProductCreateWithoutIntimateCategoryInput, ProductUncheckedCreateWithoutIntimateCategoryInput>
-    connectOrCreate?: ProductCreateOrConnectWithoutIntimateCategoryInput
-    upsert?: ProductUpsertWithoutIntimateCategoryInput
-    connect?: ProductWhereUniqueInput
-    update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutIntimateCategoryInput, ProductUpdateWithoutIntimateCategoryInput>, ProductUncheckedUpdateWithoutIntimateCategoryInput>
   }
 
   export type ProductCreateNestedOneWithoutOrdersInput = {
@@ -31402,6 +30548,10 @@ export namespace Prisma {
     deleteMany?: MasterScalarWhereInput | MasterScalarWhereInput[]
   }
 
+  export type EnumShowCaseTypeFieldUpdateOperationsInput = {
+    set?: $Enums.ShowCaseType
+  }
+
   export type BasketCreateNestedManyWithoutProductInput = {
     create?: XOR<BasketCreateWithoutProductInput, BasketUncheckedCreateWithoutProductInput> | BasketCreateWithoutProductInput[] | BasketUncheckedCreateWithoutProductInput[]
     connectOrCreate?: BasketCreateOrConnectWithoutProductInput | BasketCreateOrConnectWithoutProductInput[]
@@ -31421,13 +30571,6 @@ export namespace Prisma {
     connectOrCreate?: MasterJobsCreateOrConnectWithoutProductInput | MasterJobsCreateOrConnectWithoutProductInput[]
     createMany?: MasterJobsCreateManyProductInputEnvelope
     connect?: MasterJobsWhereUniqueInput | MasterJobsWhereUniqueInput[]
-  }
-
-  export type ProfessionTypeCreateNestedManyWithoutProductInput = {
-    create?: XOR<ProfessionTypeCreateWithoutProductInput, ProfessionTypeUncheckedCreateWithoutProductInput> | ProfessionTypeCreateWithoutProductInput[] | ProfessionTypeUncheckedCreateWithoutProductInput[]
-    connectOrCreate?: ProfessionTypeCreateOrConnectWithoutProductInput | ProfessionTypeCreateOrConnectWithoutProductInput[]
-    createMany?: ProfessionTypeCreateManyProductInputEnvelope
-    connect?: ProfessionTypeWhereUniqueInput | ProfessionTypeWhereUniqueInput[]
   }
 
   export type ProductLevelCreateNestedManyWithoutProductInput = {
@@ -31463,13 +30606,6 @@ export namespace Prisma {
     connectOrCreate?: MasterJobsCreateOrConnectWithoutProductInput | MasterJobsCreateOrConnectWithoutProductInput[]
     createMany?: MasterJobsCreateManyProductInputEnvelope
     connect?: MasterJobsWhereUniqueInput | MasterJobsWhereUniqueInput[]
-  }
-
-  export type ProfessionTypeUncheckedCreateNestedManyWithoutProductInput = {
-    create?: XOR<ProfessionTypeCreateWithoutProductInput, ProfessionTypeUncheckedCreateWithoutProductInput> | ProfessionTypeCreateWithoutProductInput[] | ProfessionTypeUncheckedCreateWithoutProductInput[]
-    connectOrCreate?: ProfessionTypeCreateOrConnectWithoutProductInput | ProfessionTypeCreateOrConnectWithoutProductInput[]
-    createMany?: ProfessionTypeCreateManyProductInputEnvelope
-    connect?: ProfessionTypeWhereUniqueInput | ProfessionTypeWhereUniqueInput[]
   }
 
   export type ProductLevelUncheckedCreateNestedManyWithoutProductInput = {
@@ -31526,20 +30662,6 @@ export namespace Prisma {
     update?: MasterJobsUpdateWithWhereUniqueWithoutProductInput | MasterJobsUpdateWithWhereUniqueWithoutProductInput[]
     updateMany?: MasterJobsUpdateManyWithWhereWithoutProductInput | MasterJobsUpdateManyWithWhereWithoutProductInput[]
     deleteMany?: MasterJobsScalarWhereInput | MasterJobsScalarWhereInput[]
-  }
-
-  export type ProfessionTypeUpdateManyWithoutProductNestedInput = {
-    create?: XOR<ProfessionTypeCreateWithoutProductInput, ProfessionTypeUncheckedCreateWithoutProductInput> | ProfessionTypeCreateWithoutProductInput[] | ProfessionTypeUncheckedCreateWithoutProductInput[]
-    connectOrCreate?: ProfessionTypeCreateOrConnectWithoutProductInput | ProfessionTypeCreateOrConnectWithoutProductInput[]
-    upsert?: ProfessionTypeUpsertWithWhereUniqueWithoutProductInput | ProfessionTypeUpsertWithWhereUniqueWithoutProductInput[]
-    createMany?: ProfessionTypeCreateManyProductInputEnvelope
-    set?: ProfessionTypeWhereUniqueInput | ProfessionTypeWhereUniqueInput[]
-    disconnect?: ProfessionTypeWhereUniqueInput | ProfessionTypeWhereUniqueInput[]
-    delete?: ProfessionTypeWhereUniqueInput | ProfessionTypeWhereUniqueInput[]
-    connect?: ProfessionTypeWhereUniqueInput | ProfessionTypeWhereUniqueInput[]
-    update?: ProfessionTypeUpdateWithWhereUniqueWithoutProductInput | ProfessionTypeUpdateWithWhereUniqueWithoutProductInput[]
-    updateMany?: ProfessionTypeUpdateManyWithWhereWithoutProductInput | ProfessionTypeUpdateManyWithWhereWithoutProductInput[]
-    deleteMany?: ProfessionTypeScalarWhereInput | ProfessionTypeScalarWhereInput[]
   }
 
   export type ProductLevelUpdateManyWithoutProductNestedInput = {
@@ -31610,20 +30732,6 @@ export namespace Prisma {
     update?: MasterJobsUpdateWithWhereUniqueWithoutProductInput | MasterJobsUpdateWithWhereUniqueWithoutProductInput[]
     updateMany?: MasterJobsUpdateManyWithWhereWithoutProductInput | MasterJobsUpdateManyWithWhereWithoutProductInput[]
     deleteMany?: MasterJobsScalarWhereInput | MasterJobsScalarWhereInput[]
-  }
-
-  export type ProfessionTypeUncheckedUpdateManyWithoutProductNestedInput = {
-    create?: XOR<ProfessionTypeCreateWithoutProductInput, ProfessionTypeUncheckedCreateWithoutProductInput> | ProfessionTypeCreateWithoutProductInput[] | ProfessionTypeUncheckedCreateWithoutProductInput[]
-    connectOrCreate?: ProfessionTypeCreateOrConnectWithoutProductInput | ProfessionTypeCreateOrConnectWithoutProductInput[]
-    upsert?: ProfessionTypeUpsertWithWhereUniqueWithoutProductInput | ProfessionTypeUpsertWithWhereUniqueWithoutProductInput[]
-    createMany?: ProfessionTypeCreateManyProductInputEnvelope
-    set?: ProfessionTypeWhereUniqueInput | ProfessionTypeWhereUniqueInput[]
-    disconnect?: ProfessionTypeWhereUniqueInput | ProfessionTypeWhereUniqueInput[]
-    delete?: ProfessionTypeWhereUniqueInput | ProfessionTypeWhereUniqueInput[]
-    connect?: ProfessionTypeWhereUniqueInput | ProfessionTypeWhereUniqueInput[]
-    update?: ProfessionTypeUpdateWithWhereUniqueWithoutProductInput | ProfessionTypeUpdateWithWhereUniqueWithoutProductInput[]
-    updateMany?: ProfessionTypeUpdateManyWithWhereWithoutProductInput | ProfessionTypeUpdateManyWithWhereWithoutProductInput[]
-    deleteMany?: ProfessionTypeScalarWhereInput | ProfessionTypeScalarWhereInput[]
   }
 
   export type ProductLevelUncheckedUpdateManyWithoutProductNestedInput = {
@@ -32248,6 +31356,23 @@ export namespace Prisma {
     _max?: NestedEnumOrderStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumShowCaseTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ShowCaseType | EnumShowCaseTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ShowCaseType[] | ListEnumShowCaseTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ShowCaseType[] | ListEnumShowCaseTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumShowCaseTypeFilter<$PrismaModel> | $Enums.ShowCaseType
+  }
+
+  export type NestedEnumShowCaseTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ShowCaseType | EnumShowCaseTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ShowCaseType[] | ListEnumShowCaseTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ShowCaseType[] | ListEnumShowCaseTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumShowCaseTypeWithAggregatesFilter<$PrismaModel> | $Enums.ShowCaseType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumShowCaseTypeFilter<$PrismaModel>
+    _max?: NestedEnumShowCaseTypeFilter<$PrismaModel>
+  }
+
   export type RegionCreateWithoutUsersInput = {
     id?: string
     nameRu: string
@@ -32429,7 +31554,6 @@ export namespace Prisma {
     image: string
     orders?: OrderCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsCreateNestedManyWithoutProductInput
-    intimateCategory?: ProfessionTypeCreateNestedManyWithoutProductInput
     levels?: ProductLevelCreateNestedManyWithoutProductInput
     tools?: ProductToolCreateNestedManyWithoutProductInput
   }
@@ -32443,7 +31567,6 @@ export namespace Prisma {
     image: string
     orders?: OrderUncheckedCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutProductInput
-    intimateCategory?: ProfessionTypeUncheckedCreateNestedManyWithoutProductInput
     levels?: ProductLevelUncheckedCreateNestedManyWithoutProductInput
     tools?: ProductToolUncheckedCreateNestedManyWithoutProductInput
   }
@@ -32512,7 +31635,6 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     orders?: OrderUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUpdateManyWithoutProductNestedInput
-    intimateCategory?: ProfessionTypeUpdateManyWithoutProductNestedInput
     levels?: ProductLevelUpdateManyWithoutProductNestedInput
     tools?: ProductToolUpdateManyWithoutProductNestedInput
   }
@@ -32526,7 +31648,6 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     orders?: OrderUncheckedUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUncheckedUpdateManyWithoutProductNestedInput
-    intimateCategory?: ProfessionTypeUncheckedUpdateManyWithoutProductNestedInput
     levels?: ProductLevelUncheckedUpdateManyWithoutProductNestedInput
     tools?: ProductToolUncheckedUpdateManyWithoutProductNestedInput
   }
@@ -32576,78 +31697,6 @@ export namespace Prisma {
     inn?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type ProductCreateWithoutIntimateCategoryInput = {
-    id?: string
-    isActive: boolean
-    nameRu: string
-    nameUz: string
-    nameEn: string
-    image: string
-    baskets?: BasketCreateNestedManyWithoutProductInput
-    orders?: OrderCreateNestedManyWithoutProductInput
-    masterJobs?: MasterJobsCreateNestedManyWithoutProductInput
-    levels?: ProductLevelCreateNestedManyWithoutProductInput
-    tools?: ProductToolCreateNestedManyWithoutProductInput
-  }
-
-  export type ProductUncheckedCreateWithoutIntimateCategoryInput = {
-    id?: string
-    isActive: boolean
-    nameRu: string
-    nameUz: string
-    nameEn: string
-    image: string
-    baskets?: BasketUncheckedCreateNestedManyWithoutProductInput
-    orders?: OrderUncheckedCreateNestedManyWithoutProductInput
-    masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutProductInput
-    levels?: ProductLevelUncheckedCreateNestedManyWithoutProductInput
-    tools?: ProductToolUncheckedCreateNestedManyWithoutProductInput
-  }
-
-  export type ProductCreateOrConnectWithoutIntimateCategoryInput = {
-    where: ProductWhereUniqueInput
-    create: XOR<ProductCreateWithoutIntimateCategoryInput, ProductUncheckedCreateWithoutIntimateCategoryInput>
-  }
-
-  export type ProductUpsertWithoutIntimateCategoryInput = {
-    update: XOR<ProductUpdateWithoutIntimateCategoryInput, ProductUncheckedUpdateWithoutIntimateCategoryInput>
-    create: XOR<ProductCreateWithoutIntimateCategoryInput, ProductUncheckedCreateWithoutIntimateCategoryInput>
-    where?: ProductWhereInput
-  }
-
-  export type ProductUpdateToOneWithWhereWithoutIntimateCategoryInput = {
-    where?: ProductWhereInput
-    data: XOR<ProductUpdateWithoutIntimateCategoryInput, ProductUncheckedUpdateWithoutIntimateCategoryInput>
-  }
-
-  export type ProductUpdateWithoutIntimateCategoryInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    nameRu?: StringFieldUpdateOperationsInput | string
-    nameUz?: StringFieldUpdateOperationsInput | string
-    nameEn?: StringFieldUpdateOperationsInput | string
-    image?: StringFieldUpdateOperationsInput | string
-    baskets?: BasketUpdateManyWithoutProductNestedInput
-    orders?: OrderUpdateManyWithoutProductNestedInput
-    masterJobs?: MasterJobsUpdateManyWithoutProductNestedInput
-    levels?: ProductLevelUpdateManyWithoutProductNestedInput
-    tools?: ProductToolUpdateManyWithoutProductNestedInput
-  }
-
-  export type ProductUncheckedUpdateWithoutIntimateCategoryInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    nameRu?: StringFieldUpdateOperationsInput | string
-    nameUz?: StringFieldUpdateOperationsInput | string
-    nameEn?: StringFieldUpdateOperationsInput | string
-    image?: StringFieldUpdateOperationsInput | string
-    baskets?: BasketUncheckedUpdateManyWithoutProductNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutProductNestedInput
-    masterJobs?: MasterJobsUncheckedUpdateManyWithoutProductNestedInput
-    levels?: ProductLevelUncheckedUpdateManyWithoutProductNestedInput
-    tools?: ProductToolUncheckedUpdateManyWithoutProductNestedInput
-  }
-
   export type ProductCreateWithoutOrdersInput = {
     id?: string
     isActive: boolean
@@ -32657,7 +31706,6 @@ export namespace Prisma {
     image: string
     baskets?: BasketCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsCreateNestedManyWithoutProductInput
-    intimateCategory?: ProfessionTypeCreateNestedManyWithoutProductInput
     levels?: ProductLevelCreateNestedManyWithoutProductInput
     tools?: ProductToolCreateNestedManyWithoutProductInput
   }
@@ -32671,7 +31719,6 @@ export namespace Prisma {
     image: string
     baskets?: BasketUncheckedCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutProductInput
-    intimateCategory?: ProfessionTypeUncheckedCreateNestedManyWithoutProductInput
     levels?: ProductLevelUncheckedCreateNestedManyWithoutProductInput
     tools?: ProductToolUncheckedCreateNestedManyWithoutProductInput
   }
@@ -32793,7 +31840,6 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     baskets?: BasketUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUpdateManyWithoutProductNestedInput
-    intimateCategory?: ProfessionTypeUpdateManyWithoutProductNestedInput
     levels?: ProductLevelUpdateManyWithoutProductNestedInput
     tools?: ProductToolUpdateManyWithoutProductNestedInput
   }
@@ -32807,7 +31853,6 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     baskets?: BasketUncheckedUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUncheckedUpdateManyWithoutProductNestedInput
-    intimateCategory?: ProfessionTypeUncheckedUpdateManyWithoutProductNestedInput
     levels?: ProductLevelUncheckedUpdateManyWithoutProductNestedInput
     tools?: ProductToolUncheckedUpdateManyWithoutProductNestedInput
   }
@@ -33145,7 +32190,7 @@ export namespace Prisma {
     nameEn: string
     isActive: boolean
     phone: string
-    year: string
+    dob: string
     image: string
     passportImage: string
     rating?: number | null
@@ -33159,7 +32204,7 @@ export namespace Prisma {
     nameEn: string
     isActive: boolean
     phone: string
-    year: string
+    dob: string
     image: string
     passportImage: string
     rating?: number | null
@@ -33238,7 +32283,7 @@ export namespace Prisma {
     nameEn?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     phone?: StringFieldUpdateOperationsInput | string
-    year?: StringFieldUpdateOperationsInput | string
+    dob?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
     rating?: NullableIntFieldUpdateOperationsInput | number | null
@@ -33252,7 +32297,7 @@ export namespace Prisma {
     nameEn?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     phone?: StringFieldUpdateOperationsInput | string
-    year?: StringFieldUpdateOperationsInput | string
+    dob?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
     rating?: NullableIntFieldUpdateOperationsInput | number | null
@@ -33472,7 +32517,6 @@ export namespace Prisma {
     image: string
     baskets?: BasketCreateNestedManyWithoutProductInput
     orders?: OrderCreateNestedManyWithoutProductInput
-    intimateCategory?: ProfessionTypeCreateNestedManyWithoutProductInput
     levels?: ProductLevelCreateNestedManyWithoutProductInput
     tools?: ProductToolCreateNestedManyWithoutProductInput
   }
@@ -33486,7 +32530,6 @@ export namespace Prisma {
     image: string
     baskets?: BasketUncheckedCreateNestedManyWithoutProductInput
     orders?: OrderUncheckedCreateNestedManyWithoutProductInput
-    intimateCategory?: ProfessionTypeUncheckedCreateNestedManyWithoutProductInput
     levels?: ProductLevelUncheckedCreateNestedManyWithoutProductInput
     tools?: ProductToolUncheckedCreateNestedManyWithoutProductInput
   }
@@ -33526,7 +32569,7 @@ export namespace Prisma {
     nameEn: string
     isActive: boolean
     phone: string
-    year: string
+    dob: string
     image: string
     passportImage: string
     rating?: number | null
@@ -33540,7 +32583,7 @@ export namespace Prisma {
     nameEn: string
     isActive: boolean
     phone: string
-    year: string
+    dob: string
     image: string
     passportImage: string
     rating?: number | null
@@ -33628,7 +32671,6 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     baskets?: BasketUpdateManyWithoutProductNestedInput
     orders?: OrderUpdateManyWithoutProductNestedInput
-    intimateCategory?: ProfessionTypeUpdateManyWithoutProductNestedInput
     levels?: ProductLevelUpdateManyWithoutProductNestedInput
     tools?: ProductToolUpdateManyWithoutProductNestedInput
   }
@@ -33642,7 +32684,6 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     baskets?: BasketUncheckedUpdateManyWithoutProductNestedInput
     orders?: OrderUncheckedUpdateManyWithoutProductNestedInput
-    intimateCategory?: ProfessionTypeUncheckedUpdateManyWithoutProductNestedInput
     levels?: ProductLevelUncheckedUpdateManyWithoutProductNestedInput
     tools?: ProductToolUncheckedUpdateManyWithoutProductNestedInput
   }
@@ -33702,7 +32743,7 @@ export namespace Prisma {
     nameEn?: StringFilter<"Master"> | string
     isActive?: BoolFilter<"Master"> | boolean
     phone?: StringFilter<"Master"> | string
-    year?: StringFilter<"Master"> | string
+    dob?: StringFilter<"Master"> | string
     image?: StringFilter<"Master"> | string
     passportImage?: StringFilter<"Master"> | string
     rating?: IntNullableFilter<"Master"> | number | null
@@ -33816,30 +32857,6 @@ export namespace Prisma {
 
   export type MasterJobsCreateManyProductInputEnvelope = {
     data: MasterJobsCreateManyProductInput | MasterJobsCreateManyProductInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ProfessionTypeCreateWithoutProductInput = {
-    id?: string
-    nameRu: string
-    nameUz: string
-    nameEn: string
-  }
-
-  export type ProfessionTypeUncheckedCreateWithoutProductInput = {
-    id?: string
-    nameRu: string
-    nameUz: string
-    nameEn: string
-  }
-
-  export type ProfessionTypeCreateOrConnectWithoutProductInput = {
-    where: ProfessionTypeWhereUniqueInput
-    create: XOR<ProfessionTypeCreateWithoutProductInput, ProfessionTypeUncheckedCreateWithoutProductInput>
-  }
-
-  export type ProfessionTypeCreateManyProductInputEnvelope = {
-    data: ProfessionTypeCreateManyProductInput | ProfessionTypeCreateManyProductInput[]
     skipDuplicates?: boolean
   }
 
@@ -33969,33 +32986,6 @@ export namespace Prisma {
     priceHourly?: IntFilter<"MasterJobs"> | number
     priceDaily?: IntFilter<"MasterJobs"> | number
     experience?: StringFilter<"MasterJobs"> | string
-  }
-
-  export type ProfessionTypeUpsertWithWhereUniqueWithoutProductInput = {
-    where: ProfessionTypeWhereUniqueInput
-    update: XOR<ProfessionTypeUpdateWithoutProductInput, ProfessionTypeUncheckedUpdateWithoutProductInput>
-    create: XOR<ProfessionTypeCreateWithoutProductInput, ProfessionTypeUncheckedCreateWithoutProductInput>
-  }
-
-  export type ProfessionTypeUpdateWithWhereUniqueWithoutProductInput = {
-    where: ProfessionTypeWhereUniqueInput
-    data: XOR<ProfessionTypeUpdateWithoutProductInput, ProfessionTypeUncheckedUpdateWithoutProductInput>
-  }
-
-  export type ProfessionTypeUpdateManyWithWhereWithoutProductInput = {
-    where: ProfessionTypeScalarWhereInput
-    data: XOR<ProfessionTypeUpdateManyMutationInput, ProfessionTypeUncheckedUpdateManyWithoutProductInput>
-  }
-
-  export type ProfessionTypeScalarWhereInput = {
-    AND?: ProfessionTypeScalarWhereInput | ProfessionTypeScalarWhereInput[]
-    OR?: ProfessionTypeScalarWhereInput[]
-    NOT?: ProfessionTypeScalarWhereInput | ProfessionTypeScalarWhereInput[]
-    id?: StringFilter<"ProfessionType"> | string
-    nameRu?: StringFilter<"ProfessionType"> | string
-    nameUz?: StringFilter<"ProfessionType"> | string
-    nameEn?: StringFilter<"ProfessionType"> | string
-    productId?: StringFilter<"ProfessionType"> | string
   }
 
   export type ProductLevelUpsertWithWhereUniqueWithoutProductInput = {
@@ -34502,7 +33492,6 @@ export namespace Prisma {
     baskets?: BasketCreateNestedManyWithoutProductInput
     orders?: OrderCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsCreateNestedManyWithoutProductInput
-    intimateCategory?: ProfessionTypeCreateNestedManyWithoutProductInput
     tools?: ProductToolCreateNestedManyWithoutProductInput
   }
 
@@ -34516,7 +33505,6 @@ export namespace Prisma {
     baskets?: BasketUncheckedCreateNestedManyWithoutProductInput
     orders?: OrderUncheckedCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutProductInput
-    intimateCategory?: ProfessionTypeUncheckedCreateNestedManyWithoutProductInput
     tools?: ProductToolUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -34569,7 +33557,6 @@ export namespace Prisma {
     baskets?: BasketUpdateManyWithoutProductNestedInput
     orders?: OrderUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUpdateManyWithoutProductNestedInput
-    intimateCategory?: ProfessionTypeUpdateManyWithoutProductNestedInput
     tools?: ProductToolUpdateManyWithoutProductNestedInput
   }
 
@@ -34583,7 +33570,6 @@ export namespace Prisma {
     baskets?: BasketUncheckedUpdateManyWithoutProductNestedInput
     orders?: OrderUncheckedUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUncheckedUpdateManyWithoutProductNestedInput
-    intimateCategory?: ProfessionTypeUncheckedUpdateManyWithoutProductNestedInput
     tools?: ProductToolUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -34626,7 +33612,6 @@ export namespace Prisma {
     baskets?: BasketCreateNestedManyWithoutProductInput
     orders?: OrderCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsCreateNestedManyWithoutProductInput
-    intimateCategory?: ProfessionTypeCreateNestedManyWithoutProductInput
     levels?: ProductLevelCreateNestedManyWithoutProductInput
   }
 
@@ -34640,7 +33625,6 @@ export namespace Prisma {
     baskets?: BasketUncheckedCreateNestedManyWithoutProductInput
     orders?: OrderUncheckedCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutProductInput
-    intimateCategory?: ProfessionTypeUncheckedCreateNestedManyWithoutProductInput
     levels?: ProductLevelUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -34715,7 +33699,6 @@ export namespace Prisma {
     baskets?: BasketUpdateManyWithoutProductNestedInput
     orders?: OrderUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUpdateManyWithoutProductNestedInput
-    intimateCategory?: ProfessionTypeUpdateManyWithoutProductNestedInput
     levels?: ProductLevelUpdateManyWithoutProductNestedInput
   }
 
@@ -34729,7 +33712,6 @@ export namespace Prisma {
     baskets?: BasketUncheckedUpdateManyWithoutProductNestedInput
     orders?: OrderUncheckedUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUncheckedUpdateManyWithoutProductNestedInput
-    intimateCategory?: ProfessionTypeUncheckedUpdateManyWithoutProductNestedInput
     levels?: ProductLevelUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -35159,7 +34141,7 @@ export namespace Prisma {
     nameEn: string
     isActive: boolean
     phone: string
-    year: string
+    dob: string
     image: string
     passportImage: string
     rating?: number | null
@@ -35172,7 +34154,7 @@ export namespace Prisma {
     nameEn?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     phone?: StringFieldUpdateOperationsInput | string
-    year?: StringFieldUpdateOperationsInput | string
+    dob?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
     rating?: NullableIntFieldUpdateOperationsInput | number | null
@@ -35186,7 +34168,7 @@ export namespace Prisma {
     nameEn?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     phone?: StringFieldUpdateOperationsInput | string
-    year?: StringFieldUpdateOperationsInput | string
+    dob?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
     rating?: NullableIntFieldUpdateOperationsInput | number | null
@@ -35200,7 +34182,7 @@ export namespace Prisma {
     nameEn?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     phone?: StringFieldUpdateOperationsInput | string
-    year?: StringFieldUpdateOperationsInput | string
+    dob?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
     rating?: NullableIntFieldUpdateOperationsInput | number | null
@@ -35242,13 +34224,6 @@ export namespace Prisma {
     priceHourly: number
     priceDaily: number
     experience: string
-  }
-
-  export type ProfessionTypeCreateManyProductInput = {
-    id?: string
-    nameRu: string
-    nameUz: string
-    nameEn: string
   }
 
   export type ProductLevelCreateManyProductInput = {
@@ -35377,27 +34352,6 @@ export namespace Prisma {
     priceHourly?: IntFieldUpdateOperationsInput | number
     priceDaily?: IntFieldUpdateOperationsInput | number
     experience?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type ProfessionTypeUpdateWithoutProductInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nameRu?: StringFieldUpdateOperationsInput | string
-    nameUz?: StringFieldUpdateOperationsInput | string
-    nameEn?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type ProfessionTypeUncheckedUpdateWithoutProductInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nameRu?: StringFieldUpdateOperationsInput | string
-    nameUz?: StringFieldUpdateOperationsInput | string
-    nameEn?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type ProfessionTypeUncheckedUpdateManyWithoutProductInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nameRu?: StringFieldUpdateOperationsInput | string
-    nameUz?: StringFieldUpdateOperationsInput | string
-    nameEn?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProductLevelUpdateWithoutProductInput = {

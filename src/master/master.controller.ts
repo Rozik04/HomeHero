@@ -81,14 +81,14 @@ export class MasterController {
     return this.masterService.updateImage(id, image);
     }
 
-    // @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
   // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
-  @Patch('update-image/:id')
+  @Patch('update-PassportImage/:id')
   @UseInterceptors(FileInterceptor('image',multerPs))
   updatePassportImage(@Param('id') id:string, @UploadedFile() image: Express.Multer.File){
     if(!image){
       return {error:"File not uploaded!"}
     }
-    return this.masterService.updateImage(id, image);
+    return this.masterService.updatePassportImage(id, image);
     }
 }

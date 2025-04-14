@@ -12,9 +12,15 @@ import { LevelModule } from './level/level.module';
 import { MasterJobsModule } from './master-jobs/master-jobs.module';
 import { ProductModule } from './product/product.module';
 import { MasterModule } from './master/master.module';
+import { FaqModule } from './faq/faq.module';
+import { GeneralInfoModule } from './general-info/general-info.module';
+import { PartnerModule } from './partner/partner.module';
+import { ShowCaseModule } from './show-case/show-case.module';
+import { SessionModule } from './session/session.module';
+import { ContactModule } from './contact/contact.module';
 
 @Module({
-  imports: [PrismaModule, RegionModule, UserModule, BrandModule, SizeModule, CapacityModule, ToolModule, LevelModule, MasterJobsModule, ProductModule, MasterModule],
+  imports: [PrismaModule, RegionModule, UserModule, BrandModule, SizeModule, CapacityModule, ToolModule, LevelModule, MasterJobsModule, ProductModule, MasterModule, FaqModule, GeneralInfoModule, PartnerModule, ShowCaseModule, SessionModule, ContactModule],
   controllers: [AppController],
   providers: [AppService],
 })
