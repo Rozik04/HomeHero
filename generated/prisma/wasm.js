@@ -143,22 +143,18 @@ exports.Prisma.RegionScalarFieldEnum = {
 
 exports.Prisma.BasketScalarFieldEnum = {
   id: 'id',
-  productID: 'productID',
   userID: 'userID',
-  quantity: 'quantity'
+  productID: 'productID',
+  toolID: 'toolID',
+  levelID: 'levelID',
+  timeUnit: 'timeUnit',
+  count: 'count',
+  workingHours: 'workingHours',
+  totalPrice: 'totalPrice'
 };
 
 exports.Prisma.OrderScalarFieldEnum = {
   id: 'id',
-  productID: 'productID',
-  toolID: 'toolID',
-  levelID: 'levelID',
-  quantity: 'quantity',
-  toolCount: 'toolCount',
-  workingHours: 'workingHours',
-  minWorkingHours: 'minWorkingHours',
-  measure: 'measure',
-  totalPrice: 'totalPrice',
   locationLat: 'locationLat',
   locationLong: 'locationLong',
   address: 'address',
@@ -168,6 +164,18 @@ exports.Prisma.OrderScalarFieldEnum = {
   withDelivery: 'withDelivery',
   status: 'status',
   commentToDelivery: 'commentToDelivery'
+};
+
+exports.Prisma.OrderItemScalarFieldEnum = {
+  id: 'id',
+  orderID: 'orderID',
+  productID: 'productID',
+  toolID: 'toolID',
+  levelID: 'levelID',
+  timeUnit: 'timeUnit',
+  count: 'count',
+  workingHours: 'workingHours',
+  totalPrice: 'totalPrice'
 };
 
 exports.Prisma.BrandScalarFieldEnum = {
@@ -386,6 +394,7 @@ exports.Prisma.ModelName = {
   Region: 'Region',
   Basket: 'Basket',
   Order: 'Order',
+  OrderItem: 'OrderItem',
   Brand: 'Brand',
   Capacity: 'Capacity',
   Size: 'Size',

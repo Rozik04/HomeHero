@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Injectable, Res, UnauthorizedException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -10,7 +10,6 @@ import { JwtService } from '@nestjs/jwt';
 import { promises as fs} from 'fs';
 import * as path from 'path';
 import { UserRole } from 'src/utils/enums';
-import { response } from 'express';
 import { Request, Response } from 'express';
 dotenv.config()
 
@@ -69,7 +68,9 @@ export class UserService {
     if(!isUserExists||isUserExists.status!='active'){
       throw new BadRequestException("This email not verified yet")
     }
-    let hash = bcrypt.hashSync(isUserExists.password, 10)
+    console.log(createUserDto.password);
+    let hash = await bcrypt.hash(createUserDto.password, 10)
+    console.log(hash);
     if(createUserDto.role==UserRole.legaluser){
       if(!createUserDto.inn||!createUserDto.passportSeries){
         throw new BadRequestException("The documents have not been fully entered!")
@@ -94,57 +95,19 @@ export class UserService {
     if(!isUserExists){
       throw new BadRequestException("This email not registered yet!");
     }
-    let compPass = await bcrypt.compare(password, isUserExists.password);
+    
+    let compPass = await bcrypt.compare(password, isUserExists.password,);
+    
     if(!compPass){
       throw new BadRequestException("Wrong password!");
     }
     let accessToken = this.jwt.sign({id:isUserExists.id, role:isUserExists.role})
     const refreshToken = this.jwt.sign({id:isUserExists.id, role:isUserExists.role},{expiresIn:'7d'});
 
-    response.cookie('refresh_token', refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', 
-      sameSite: 'strict',
-      maxAge: 7 * 24 * 60 * 60 * 1000 
-    });
-     return {"You are logged in":isUserExists, accessToken}
+     return {"You are logged in":isUserExists, accessToken, refreshToken}
     
   }
 
-  async refreshToken(req: Request, res: Response) {
-    const refreshToken = req.cookies['refresh_token'];
-
-    if (!refreshToken) {
-      throw new BadRequestException('Refresh token not found');
-    }
-
-    try {
-      // Refresh tokenni tekshiramiz
-      const decoded = this.jwt.verify(refreshToken);
-
-      const user = await this.prisma.user.findUnique({
-        where: { id: decoded.id },
-      });
-
-      if (!user) {
-        throw new BadRequestException('User not found');
-      }
-
-      // Yangi access token yaratamiz
-      const newAccessToken = this.jwt.sign(
-        { id: user.id, role: user.role },
-        { expiresIn: '1h' }
-      );
-
-      return {
-        message: 'New access token generated',
-        accessToken: newAccessToken,
-      };
-
-    } catch (err) {
-      throw new UnauthorizedException('Invalid or expired refresh token');
-    }
-  }
 
   async findAll(){
     let isUsersExist = await this.prisma.user.findMany({include:{region:{select:{nameUz:true, nameRu:true, nameEn:true},},},}); 

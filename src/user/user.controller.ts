@@ -8,7 +8,6 @@ import { JwtAuthGuard } from 'src/utils/token.guard';
 import { JwtRoleGuard } from 'src/utils/role.guard';
 import { Roles } from 'src/utils/role.decorator';
 import { UserRole } from 'src/utils/enums';
-import { Request as ExReq, Response } from 'express';
 
 @Controller('user')
 export class UserController {
@@ -108,11 +107,5 @@ uploadIm(@UploadedFile()image:Express.Multer.File){
     return this.userService.resetPassword(data, userId)
   }
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
-  @Get('refresh')
-  refreshToken(@Req() req: ExReq, @Res() res: Response) {
-    return this.userService.refreshToken(req, res);
-  }
   
 }
