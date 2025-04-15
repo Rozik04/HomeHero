@@ -10,7 +10,7 @@ export class ProductService {
  constructor(private readonly prisma:PrismaService){}
 
   async create(createProductDto: CreateProductDto) {
-  const { nameRu, nameUz, nameEn, image, isActive, levelIDs, toolIDs, minWorkingHours, dailyPrice, hourlyPrice } = createProductDto;
+  const { nameRu, nameUz, nameEn, image, isActive, levelIDs, toolIDs, workingHours, dailyPrice, hourlyPrice } = createProductDto;
   const product = await this.prisma.product.create({
     data: {
       nameRu,
@@ -18,7 +18,7 @@ export class ProductService {
       nameEn,
       image,
       isActive,
-      minWorkingHours,
+      workingHours,
       dailyPrice,
       hourlyPrice
     },

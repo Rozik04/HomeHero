@@ -5662,7 +5662,7 @@ export namespace Prisma {
 
   export type BasketGroupByOutputType = {
     id: string
-    userID: string
+    userID: string | null
     productID: string
     toolID: string
     levelID: string
@@ -5701,7 +5701,7 @@ export namespace Prisma {
     count?: boolean
     workingHours?: boolean
     totalPrice?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | Basket$userArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     tool?: boolean | ToolDefaultArgs<ExtArgs>
     level?: boolean | LevelDefaultArgs<ExtArgs>
@@ -5717,7 +5717,7 @@ export namespace Prisma {
     count?: boolean
     workingHours?: boolean
     totalPrice?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | Basket$userArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     tool?: boolean | ToolDefaultArgs<ExtArgs>
     level?: boolean | LevelDefaultArgs<ExtArgs>
@@ -5733,7 +5733,7 @@ export namespace Prisma {
     count?: boolean
     workingHours?: boolean
     totalPrice?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | Basket$userArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     tool?: boolean | ToolDefaultArgs<ExtArgs>
     level?: boolean | LevelDefaultArgs<ExtArgs>
@@ -5753,19 +5753,19 @@ export namespace Prisma {
 
   export type BasketOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userID" | "productID" | "toolID" | "levelID" | "timeUnit" | "count" | "workingHours" | "totalPrice", ExtArgs["result"]["basket"]>
   export type BasketInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | Basket$userArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     tool?: boolean | ToolDefaultArgs<ExtArgs>
     level?: boolean | LevelDefaultArgs<ExtArgs>
   }
   export type BasketIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | Basket$userArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     tool?: boolean | ToolDefaultArgs<ExtArgs>
     level?: boolean | LevelDefaultArgs<ExtArgs>
   }
   export type BasketIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | Basket$userArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     tool?: boolean | ToolDefaultArgs<ExtArgs>
     level?: boolean | LevelDefaultArgs<ExtArgs>
@@ -5774,14 +5774,14 @@ export namespace Prisma {
   export type $BasketPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Basket"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs> | null
       product: Prisma.$ProductPayload<ExtArgs>
       tool: Prisma.$ToolPayload<ExtArgs>
       level: Prisma.$LevelPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      userID: string
+      userID: string | null
       productID: string
       toolID: string
       levelID: string
@@ -6183,7 +6183,7 @@ export namespace Prisma {
    */
   export interface Prisma__BasketClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends Basket$userArgs<ExtArgs> = {}>(args?: Subset<T, Basket$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     tool<T extends ToolDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ToolDefaultArgs<ExtArgs>>): Prisma__ToolClient<$Result.GetResult<Prisma.$ToolPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     level<T extends LevelDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LevelDefaultArgs<ExtArgs>>): Prisma__LevelClient<$Result.GetResult<Prisma.$LevelPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
@@ -6618,6 +6618,25 @@ export namespace Prisma {
      * Limit how many Baskets to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Basket.user
+   */
+  export type Basket$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
   }
 
   /**
@@ -20904,11 +20923,13 @@ export namespace Prisma {
   }
 
   export type ProductAvgAggregateOutputType = {
+    workingHours: number | null
     hourlyPrice: number | null
     dailyPrice: number | null
   }
 
   export type ProductSumAggregateOutputType = {
+    workingHours: number | null
     hourlyPrice: number | null
     dailyPrice: number | null
   }
@@ -20920,7 +20941,7 @@ export namespace Prisma {
     nameUz: string | null
     nameEn: string | null
     image: string | null
-    minWorkingHours: string | null
+    workingHours: number | null
     hourlyPrice: number | null
     dailyPrice: number | null
   }
@@ -20932,7 +20953,7 @@ export namespace Prisma {
     nameUz: string | null
     nameEn: string | null
     image: string | null
-    minWorkingHours: string | null
+    workingHours: number | null
     hourlyPrice: number | null
     dailyPrice: number | null
   }
@@ -20944,7 +20965,7 @@ export namespace Prisma {
     nameUz: number
     nameEn: number
     image: number
-    minWorkingHours: number
+    workingHours: number
     hourlyPrice: number
     dailyPrice: number
     _all: number
@@ -20952,11 +20973,13 @@ export namespace Prisma {
 
 
   export type ProductAvgAggregateInputType = {
+    workingHours?: true
     hourlyPrice?: true
     dailyPrice?: true
   }
 
   export type ProductSumAggregateInputType = {
+    workingHours?: true
     hourlyPrice?: true
     dailyPrice?: true
   }
@@ -20968,7 +20991,7 @@ export namespace Prisma {
     nameUz?: true
     nameEn?: true
     image?: true
-    minWorkingHours?: true
+    workingHours?: true
     hourlyPrice?: true
     dailyPrice?: true
   }
@@ -20980,7 +21003,7 @@ export namespace Prisma {
     nameUz?: true
     nameEn?: true
     image?: true
-    minWorkingHours?: true
+    workingHours?: true
     hourlyPrice?: true
     dailyPrice?: true
   }
@@ -20992,7 +21015,7 @@ export namespace Prisma {
     nameUz?: true
     nameEn?: true
     image?: true
-    minWorkingHours?: true
+    workingHours?: true
     hourlyPrice?: true
     dailyPrice?: true
     _all?: true
@@ -21091,7 +21114,7 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
-    minWorkingHours: string
+    workingHours: number
     hourlyPrice: number
     dailyPrice: number
     _count: ProductCountAggregateOutputType | null
@@ -21122,7 +21145,7 @@ export namespace Prisma {
     nameUz?: boolean
     nameEn?: boolean
     image?: boolean
-    minWorkingHours?: boolean
+    workingHours?: boolean
     hourlyPrice?: boolean
     dailyPrice?: boolean
     baskets?: boolean | Product$basketsArgs<ExtArgs>
@@ -21140,7 +21163,7 @@ export namespace Prisma {
     nameUz?: boolean
     nameEn?: boolean
     image?: boolean
-    minWorkingHours?: boolean
+    workingHours?: boolean
     hourlyPrice?: boolean
     dailyPrice?: boolean
   }, ExtArgs["result"]["product"]>
@@ -21152,7 +21175,7 @@ export namespace Prisma {
     nameUz?: boolean
     nameEn?: boolean
     image?: boolean
-    minWorkingHours?: boolean
+    workingHours?: boolean
     hourlyPrice?: boolean
     dailyPrice?: boolean
   }, ExtArgs["result"]["product"]>
@@ -21164,12 +21187,12 @@ export namespace Prisma {
     nameUz?: boolean
     nameEn?: boolean
     image?: boolean
-    minWorkingHours?: boolean
+    workingHours?: boolean
     hourlyPrice?: boolean
     dailyPrice?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "isActive" | "nameRu" | "nameUz" | "nameEn" | "image" | "minWorkingHours" | "hourlyPrice" | "dailyPrice", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "isActive" | "nameRu" | "nameUz" | "nameEn" | "image" | "workingHours" | "hourlyPrice" | "dailyPrice", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     baskets?: boolean | Product$basketsArgs<ExtArgs>
     orderItems?: boolean | Product$orderItemsArgs<ExtArgs>
@@ -21197,7 +21220,7 @@ export namespace Prisma {
       nameUz: string
       nameEn: string
       image: string
-      minWorkingHours: string
+      workingHours: number
       hourlyPrice: number
       dailyPrice: number
     }, ExtArgs["result"]["product"]>
@@ -21634,7 +21657,7 @@ export namespace Prisma {
     readonly nameUz: FieldRef<"Product", 'String'>
     readonly nameEn: FieldRef<"Product", 'String'>
     readonly image: FieldRef<"Product", 'String'>
-    readonly minWorkingHours: FieldRef<"Product", 'String'>
+    readonly workingHours: FieldRef<"Product", 'Int'>
     readonly hourlyPrice: FieldRef<"Product", 'Int'>
     readonly dailyPrice: FieldRef<"Product", 'Int'>
   }
@@ -26986,7 +27009,7 @@ export namespace Prisma {
     nameUz: 'nameUz',
     nameEn: 'nameEn',
     image: 'image',
-    minWorkingHours: 'minWorkingHours',
+    workingHours: 'workingHours',
     hourlyPrice: 'hourlyPrice',
     dailyPrice: 'dailyPrice'
   };
@@ -27366,7 +27389,7 @@ export namespace Prisma {
     OR?: BasketWhereInput[]
     NOT?: BasketWhereInput | BasketWhereInput[]
     id?: StringFilter<"Basket"> | string
-    userID?: StringFilter<"Basket"> | string
+    userID?: StringNullableFilter<"Basket"> | string | null
     productID?: StringFilter<"Basket"> | string
     toolID?: StringFilter<"Basket"> | string
     levelID?: StringFilter<"Basket"> | string
@@ -27374,7 +27397,7 @@ export namespace Prisma {
     count?: IntNullableFilter<"Basket"> | number | null
     workingHours?: IntFilter<"Basket"> | number
     totalPrice?: IntNullableFilter<"Basket"> | number | null
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
     tool?: XOR<ToolScalarRelationFilter, ToolWhereInput>
     level?: XOR<LevelScalarRelationFilter, LevelWhereInput>
@@ -27382,7 +27405,7 @@ export namespace Prisma {
 
   export type BasketOrderByWithRelationInput = {
     id?: SortOrder
-    userID?: SortOrder
+    userID?: SortOrderInput | SortOrder
     productID?: SortOrder
     toolID?: SortOrder
     levelID?: SortOrder
@@ -27401,7 +27424,7 @@ export namespace Prisma {
     AND?: BasketWhereInput | BasketWhereInput[]
     OR?: BasketWhereInput[]
     NOT?: BasketWhereInput | BasketWhereInput[]
-    userID?: StringFilter<"Basket"> | string
+    userID?: StringNullableFilter<"Basket"> | string | null
     productID?: StringFilter<"Basket"> | string
     toolID?: StringFilter<"Basket"> | string
     levelID?: StringFilter<"Basket"> | string
@@ -27409,7 +27432,7 @@ export namespace Prisma {
     count?: IntNullableFilter<"Basket"> | number | null
     workingHours?: IntFilter<"Basket"> | number
     totalPrice?: IntNullableFilter<"Basket"> | number | null
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
     tool?: XOR<ToolScalarRelationFilter, ToolWhereInput>
     level?: XOR<LevelScalarRelationFilter, LevelWhereInput>
@@ -27417,7 +27440,7 @@ export namespace Prisma {
 
   export type BasketOrderByWithAggregationInput = {
     id?: SortOrder
-    userID?: SortOrder
+    userID?: SortOrderInput | SortOrder
     productID?: SortOrder
     toolID?: SortOrder
     levelID?: SortOrder
@@ -27437,7 +27460,7 @@ export namespace Prisma {
     OR?: BasketScalarWhereWithAggregatesInput[]
     NOT?: BasketScalarWhereWithAggregatesInput | BasketScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Basket"> | string
-    userID?: StringWithAggregatesFilter<"Basket"> | string
+    userID?: StringNullableWithAggregatesFilter<"Basket"> | string | null
     productID?: StringWithAggregatesFilter<"Basket"> | string
     toolID?: StringWithAggregatesFilter<"Basket"> | string
     levelID?: StringWithAggregatesFilter<"Basket"> | string
@@ -28377,7 +28400,7 @@ export namespace Prisma {
     nameUz?: StringFilter<"Product"> | string
     nameEn?: StringFilter<"Product"> | string
     image?: StringFilter<"Product"> | string
-    minWorkingHours?: StringFilter<"Product"> | string
+    workingHours?: IntFilter<"Product"> | number
     hourlyPrice?: IntFilter<"Product"> | number
     dailyPrice?: IntFilter<"Product"> | number
     baskets?: BasketListRelationFilter
@@ -28394,7 +28417,7 @@ export namespace Prisma {
     nameUz?: SortOrder
     nameEn?: SortOrder
     image?: SortOrder
-    minWorkingHours?: SortOrder
+    workingHours?: SortOrder
     hourlyPrice?: SortOrder
     dailyPrice?: SortOrder
     baskets?: BasketOrderByRelationAggregateInput
@@ -28414,7 +28437,7 @@ export namespace Prisma {
     nameUz?: StringFilter<"Product"> | string
     nameEn?: StringFilter<"Product"> | string
     image?: StringFilter<"Product"> | string
-    minWorkingHours?: StringFilter<"Product"> | string
+    workingHours?: IntFilter<"Product"> | number
     hourlyPrice?: IntFilter<"Product"> | number
     dailyPrice?: IntFilter<"Product"> | number
     baskets?: BasketListRelationFilter
@@ -28431,7 +28454,7 @@ export namespace Prisma {
     nameUz?: SortOrder
     nameEn?: SortOrder
     image?: SortOrder
-    minWorkingHours?: SortOrder
+    workingHours?: SortOrder
     hourlyPrice?: SortOrder
     dailyPrice?: SortOrder
     _count?: ProductCountOrderByAggregateInput
@@ -28451,7 +28474,7 @@ export namespace Prisma {
     nameUz?: StringWithAggregatesFilter<"Product"> | string
     nameEn?: StringWithAggregatesFilter<"Product"> | string
     image?: StringWithAggregatesFilter<"Product"> | string
-    minWorkingHours?: StringWithAggregatesFilter<"Product"> | string
+    workingHours?: IntWithAggregatesFilter<"Product"> | number
     hourlyPrice?: IntWithAggregatesFilter<"Product"> | number
     dailyPrice?: IntWithAggregatesFilter<"Product"> | number
   }
@@ -28919,7 +28942,7 @@ export namespace Prisma {
     count?: number | null
     workingHours: number
     totalPrice?: number | null
-    user: UserCreateNestedOneWithoutBasketsInput
+    user?: UserCreateNestedOneWithoutBasketsInput
     product: ProductCreateNestedOneWithoutBasketsInput
     tool: ToolCreateNestedOneWithoutBasketsInput
     level: LevelCreateNestedOneWithoutBasketsInput
@@ -28927,7 +28950,7 @@ export namespace Prisma {
 
   export type BasketUncheckedCreateInput = {
     id?: string
-    userID: string
+    userID?: string | null
     productID: string
     toolID: string
     levelID: string
@@ -28943,7 +28966,7 @@ export namespace Prisma {
     count?: NullableIntFieldUpdateOperationsInput | number | null
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
-    user?: UserUpdateOneRequiredWithoutBasketsNestedInput
+    user?: UserUpdateOneWithoutBasketsNestedInput
     product?: ProductUpdateOneRequiredWithoutBasketsNestedInput
     tool?: ToolUpdateOneRequiredWithoutBasketsNestedInput
     level?: LevelUpdateOneRequiredWithoutBasketsNestedInput
@@ -28951,7 +28974,7 @@ export namespace Prisma {
 
   export type BasketUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userID?: StringFieldUpdateOperationsInput | string
+    userID?: NullableStringFieldUpdateOperationsInput | string | null
     productID?: StringFieldUpdateOperationsInput | string
     toolID?: StringFieldUpdateOperationsInput | string
     levelID?: StringFieldUpdateOperationsInput | string
@@ -28963,7 +28986,7 @@ export namespace Prisma {
 
   export type BasketCreateManyInput = {
     id?: string
-    userID: string
+    userID?: string | null
     productID: string
     toolID: string
     levelID: string
@@ -28983,7 +29006,7 @@ export namespace Prisma {
 
   export type BasketUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userID?: StringFieldUpdateOperationsInput | string
+    userID?: NullableStringFieldUpdateOperationsInput | string | null
     productID?: StringFieldUpdateOperationsInput | string
     toolID?: StringFieldUpdateOperationsInput | string
     levelID?: StringFieldUpdateOperationsInput | string
@@ -30005,7 +30028,7 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
-    minWorkingHours: string
+    workingHours: number
     hourlyPrice: number
     dailyPrice: number
     baskets?: BasketCreateNestedManyWithoutProductInput
@@ -30022,7 +30045,7 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
-    minWorkingHours: string
+    workingHours: number
     hourlyPrice: number
     dailyPrice: number
     baskets?: BasketUncheckedCreateNestedManyWithoutProductInput
@@ -30039,7 +30062,7 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    minWorkingHours?: StringFieldUpdateOperationsInput | string
+    workingHours?: IntFieldUpdateOperationsInput | number
     hourlyPrice?: IntFieldUpdateOperationsInput | number
     dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUpdateManyWithoutProductNestedInput
@@ -30056,7 +30079,7 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    minWorkingHours?: StringFieldUpdateOperationsInput | string
+    workingHours?: IntFieldUpdateOperationsInput | number
     hourlyPrice?: IntFieldUpdateOperationsInput | number
     dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUncheckedUpdateManyWithoutProductNestedInput
@@ -30073,7 +30096,7 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
-    minWorkingHours: string
+    workingHours: number
     hourlyPrice: number
     dailyPrice: number
   }
@@ -30085,7 +30108,7 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    minWorkingHours?: StringFieldUpdateOperationsInput | string
+    workingHours?: IntFieldUpdateOperationsInput | number
     hourlyPrice?: IntFieldUpdateOperationsInput | number
     dailyPrice?: IntFieldUpdateOperationsInput | number
   }
@@ -30097,7 +30120,7 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    minWorkingHours?: StringFieldUpdateOperationsInput | string
+    workingHours?: IntFieldUpdateOperationsInput | number
     hourlyPrice?: IntFieldUpdateOperationsInput | number
     dailyPrice?: IntFieldUpdateOperationsInput | number
   }
@@ -30610,9 +30633,9 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
   }
 
   export type ProductScalarRelationFilter = {
@@ -31345,12 +31368,13 @@ export namespace Prisma {
     nameUz?: SortOrder
     nameEn?: SortOrder
     image?: SortOrder
-    minWorkingHours?: SortOrder
+    workingHours?: SortOrder
     hourlyPrice?: SortOrder
     dailyPrice?: SortOrder
   }
 
   export type ProductAvgOrderByAggregateInput = {
+    workingHours?: SortOrder
     hourlyPrice?: SortOrder
     dailyPrice?: SortOrder
   }
@@ -31362,7 +31386,7 @@ export namespace Prisma {
     nameUz?: SortOrder
     nameEn?: SortOrder
     image?: SortOrder
-    minWorkingHours?: SortOrder
+    workingHours?: SortOrder
     hourlyPrice?: SortOrder
     dailyPrice?: SortOrder
   }
@@ -31374,12 +31398,13 @@ export namespace Prisma {
     nameUz?: SortOrder
     nameEn?: SortOrder
     image?: SortOrder
-    minWorkingHours?: SortOrder
+    workingHours?: SortOrder
     hourlyPrice?: SortOrder
     dailyPrice?: SortOrder
   }
 
   export type ProductSumOrderByAggregateInput = {
+    workingHours?: SortOrder
     hourlyPrice?: SortOrder
     dailyPrice?: SortOrder
   }
@@ -31686,10 +31711,12 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type UserUpdateOneRequiredWithoutBasketsNestedInput = {
+  export type UserUpdateOneWithoutBasketsNestedInput = {
     create?: XOR<UserCreateWithoutBasketsInput, UserUncheckedCreateWithoutBasketsInput>
     connectOrCreate?: UserCreateOrConnectWithoutBasketsInput
     upsert?: UserUpsertWithoutBasketsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBasketsInput, UserUpdateWithoutBasketsInput>, UserUncheckedUpdateWithoutBasketsInput>
   }
@@ -33174,7 +33201,7 @@ export namespace Prisma {
     OR?: BasketScalarWhereInput[]
     NOT?: BasketScalarWhereInput | BasketScalarWhereInput[]
     id?: StringFilter<"Basket"> | string
-    userID?: StringFilter<"Basket"> | string
+    userID?: StringNullableFilter<"Basket"> | string | null
     productID?: StringFilter<"Basket"> | string
     toolID?: StringFilter<"Basket"> | string
     levelID?: StringFilter<"Basket"> | string
@@ -33310,7 +33337,7 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
-    minWorkingHours: string
+    workingHours: number
     hourlyPrice: number
     dailyPrice: number
     orderItems?: OrderItemCreateNestedManyWithoutProductInput
@@ -33326,7 +33353,7 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
-    minWorkingHours: string
+    workingHours: number
     hourlyPrice: number
     dailyPrice: number
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
@@ -33475,7 +33502,7 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    minWorkingHours?: StringFieldUpdateOperationsInput | string
+    workingHours?: IntFieldUpdateOperationsInput | number
     hourlyPrice?: IntFieldUpdateOperationsInput | number
     dailyPrice?: IntFieldUpdateOperationsInput | number
     orderItems?: OrderItemUpdateManyWithoutProductNestedInput
@@ -33491,7 +33518,7 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    minWorkingHours?: StringFieldUpdateOperationsInput | string
+    workingHours?: IntFieldUpdateOperationsInput | number
     hourlyPrice?: IntFieldUpdateOperationsInput | number
     dailyPrice?: IntFieldUpdateOperationsInput | number
     orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
@@ -33738,7 +33765,7 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
-    minWorkingHours: string
+    workingHours: number
     hourlyPrice: number
     dailyPrice: number
     baskets?: BasketCreateNestedManyWithoutProductInput
@@ -33754,7 +33781,7 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
-    minWorkingHours: string
+    workingHours: number
     hourlyPrice: number
     dailyPrice: number
     baskets?: BasketUncheckedCreateNestedManyWithoutProductInput
@@ -33897,7 +33924,7 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    minWorkingHours?: StringFieldUpdateOperationsInput | string
+    workingHours?: IntFieldUpdateOperationsInput | number
     hourlyPrice?: IntFieldUpdateOperationsInput | number
     dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUpdateManyWithoutProductNestedInput
@@ -33913,7 +33940,7 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    minWorkingHours?: StringFieldUpdateOperationsInput | string
+    workingHours?: IntFieldUpdateOperationsInput | number
     hourlyPrice?: IntFieldUpdateOperationsInput | number
     dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUncheckedUpdateManyWithoutProductNestedInput
@@ -34535,7 +34562,7 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
-    minWorkingHours: string
+    workingHours: number
     hourlyPrice: number
     dailyPrice: number
     baskets?: BasketCreateNestedManyWithoutProductInput
@@ -34551,7 +34578,7 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
-    minWorkingHours: string
+    workingHours: number
     hourlyPrice: number
     dailyPrice: number
     baskets?: BasketUncheckedCreateNestedManyWithoutProductInput
@@ -34694,7 +34721,7 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    minWorkingHours?: StringFieldUpdateOperationsInput | string
+    workingHours?: IntFieldUpdateOperationsInput | number
     hourlyPrice?: IntFieldUpdateOperationsInput | number
     dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUpdateManyWithoutProductNestedInput
@@ -34710,7 +34737,7 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    minWorkingHours?: StringFieldUpdateOperationsInput | string
+    workingHours?: IntFieldUpdateOperationsInput | number
     hourlyPrice?: IntFieldUpdateOperationsInput | number
     dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUncheckedUpdateManyWithoutProductNestedInput
@@ -34795,14 +34822,14 @@ export namespace Prisma {
     count?: number | null
     workingHours: number
     totalPrice?: number | null
-    user: UserCreateNestedOneWithoutBasketsInput
+    user?: UserCreateNestedOneWithoutBasketsInput
     tool: ToolCreateNestedOneWithoutBasketsInput
     level: LevelCreateNestedOneWithoutBasketsInput
   }
 
   export type BasketUncheckedCreateWithoutProductInput = {
     id?: string
-    userID: string
+    userID?: string | null
     toolID: string
     levelID: string
     timeUnit: number
@@ -35117,14 +35144,14 @@ export namespace Prisma {
     count?: number | null
     workingHours: number
     totalPrice?: number | null
-    user: UserCreateNestedOneWithoutBasketsInput
+    user?: UserCreateNestedOneWithoutBasketsInput
     product: ProductCreateNestedOneWithoutBasketsInput
     tool: ToolCreateNestedOneWithoutBasketsInput
   }
 
   export type BasketUncheckedCreateWithoutLevelInput = {
     id?: string
-    userID: string
+    userID?: string | null
     productID: string
     toolID: string
     timeUnit: number
@@ -35336,14 +35363,14 @@ export namespace Prisma {
     count?: number | null
     workingHours: number
     totalPrice?: number | null
-    user: UserCreateNestedOneWithoutBasketsInput
+    user?: UserCreateNestedOneWithoutBasketsInput
     product: ProductCreateNestedOneWithoutBasketsInput
     level: LevelCreateNestedOneWithoutBasketsInput
   }
 
   export type BasketUncheckedCreateWithoutToolInput = {
     id?: string
-    userID: string
+    userID?: string | null
     productID: string
     levelID: string
     timeUnit: number
@@ -35528,7 +35555,7 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
-    minWorkingHours: string
+    workingHours: number
     hourlyPrice: number
     dailyPrice: number
     baskets?: BasketCreateNestedManyWithoutProductInput
@@ -35544,7 +35571,7 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
-    minWorkingHours: string
+    workingHours: number
     hourlyPrice: number
     dailyPrice: number
     baskets?: BasketUncheckedCreateNestedManyWithoutProductInput
@@ -35601,7 +35628,7 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    minWorkingHours?: StringFieldUpdateOperationsInput | string
+    workingHours?: IntFieldUpdateOperationsInput | number
     hourlyPrice?: IntFieldUpdateOperationsInput | number
     dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUpdateManyWithoutProductNestedInput
@@ -35617,7 +35644,7 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    minWorkingHours?: StringFieldUpdateOperationsInput | string
+    workingHours?: IntFieldUpdateOperationsInput | number
     hourlyPrice?: IntFieldUpdateOperationsInput | number
     dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUncheckedUpdateManyWithoutProductNestedInput
@@ -35664,7 +35691,7 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
-    minWorkingHours: string
+    workingHours: number
     hourlyPrice: number
     dailyPrice: number
     baskets?: BasketCreateNestedManyWithoutProductInput
@@ -35680,7 +35707,7 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
-    minWorkingHours: string
+    workingHours: number
     hourlyPrice: number
     dailyPrice: number
     baskets?: BasketUncheckedCreateNestedManyWithoutProductInput
@@ -35759,7 +35786,7 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    minWorkingHours?: StringFieldUpdateOperationsInput | string
+    workingHours?: IntFieldUpdateOperationsInput | number
     hourlyPrice?: IntFieldUpdateOperationsInput | number
     dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUpdateManyWithoutProductNestedInput
@@ -35775,7 +35802,7 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    minWorkingHours?: StringFieldUpdateOperationsInput | string
+    workingHours?: IntFieldUpdateOperationsInput | number
     hourlyPrice?: IntFieldUpdateOperationsInput | number
     dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUncheckedUpdateManyWithoutProductNestedInput
@@ -36325,7 +36352,7 @@ export namespace Prisma {
 
   export type BasketCreateManyProductInput = {
     id?: string
-    userID: string
+    userID?: string | null
     toolID: string
     levelID: string
     timeUnit: number
@@ -36373,14 +36400,14 @@ export namespace Prisma {
     count?: NullableIntFieldUpdateOperationsInput | number | null
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
-    user?: UserUpdateOneRequiredWithoutBasketsNestedInput
+    user?: UserUpdateOneWithoutBasketsNestedInput
     tool?: ToolUpdateOneRequiredWithoutBasketsNestedInput
     level?: LevelUpdateOneRequiredWithoutBasketsNestedInput
   }
 
   export type BasketUncheckedUpdateWithoutProductInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userID?: StringFieldUpdateOperationsInput | string
+    userID?: NullableStringFieldUpdateOperationsInput | string | null
     toolID?: StringFieldUpdateOperationsInput | string
     levelID?: StringFieldUpdateOperationsInput | string
     timeUnit?: IntFieldUpdateOperationsInput | number
@@ -36391,7 +36418,7 @@ export namespace Prisma {
 
   export type BasketUncheckedUpdateManyWithoutProductInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userID?: StringFieldUpdateOperationsInput | string
+    userID?: NullableStringFieldUpdateOperationsInput | string | null
     toolID?: StringFieldUpdateOperationsInput | string
     levelID?: StringFieldUpdateOperationsInput | string
     timeUnit?: IntFieldUpdateOperationsInput | number
@@ -36529,7 +36556,7 @@ export namespace Prisma {
 
   export type BasketCreateManyLevelInput = {
     id?: string
-    userID: string
+    userID?: string | null
     productID: string
     toolID: string
     timeUnit: number
@@ -36628,14 +36655,14 @@ export namespace Prisma {
     count?: NullableIntFieldUpdateOperationsInput | number | null
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
-    user?: UserUpdateOneRequiredWithoutBasketsNestedInput
+    user?: UserUpdateOneWithoutBasketsNestedInput
     product?: ProductUpdateOneRequiredWithoutBasketsNestedInput
     tool?: ToolUpdateOneRequiredWithoutBasketsNestedInput
   }
 
   export type BasketUncheckedUpdateWithoutLevelInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userID?: StringFieldUpdateOperationsInput | string
+    userID?: NullableStringFieldUpdateOperationsInput | string | null
     productID?: StringFieldUpdateOperationsInput | string
     toolID?: StringFieldUpdateOperationsInput | string
     timeUnit?: IntFieldUpdateOperationsInput | number
@@ -36646,7 +36673,7 @@ export namespace Prisma {
 
   export type BasketUncheckedUpdateManyWithoutLevelInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userID?: StringFieldUpdateOperationsInput | string
+    userID?: NullableStringFieldUpdateOperationsInput | string | null
     productID?: StringFieldUpdateOperationsInput | string
     toolID?: StringFieldUpdateOperationsInput | string
     timeUnit?: IntFieldUpdateOperationsInput | number
@@ -36680,7 +36707,7 @@ export namespace Prisma {
 
   export type BasketCreateManyToolInput = {
     id?: string
-    userID: string
+    userID?: string | null
     productID: string
     levelID: string
     timeUnit: number
@@ -36769,14 +36796,14 @@ export namespace Prisma {
     count?: NullableIntFieldUpdateOperationsInput | number | null
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
-    user?: UserUpdateOneRequiredWithoutBasketsNestedInput
+    user?: UserUpdateOneWithoutBasketsNestedInput
     product?: ProductUpdateOneRequiredWithoutBasketsNestedInput
     level?: LevelUpdateOneRequiredWithoutBasketsNestedInput
   }
 
   export type BasketUncheckedUpdateWithoutToolInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userID?: StringFieldUpdateOperationsInput | string
+    userID?: NullableStringFieldUpdateOperationsInput | string | null
     productID?: StringFieldUpdateOperationsInput | string
     levelID?: StringFieldUpdateOperationsInput | string
     timeUnit?: IntFieldUpdateOperationsInput | number
@@ -36787,7 +36814,7 @@ export namespace Prisma {
 
   export type BasketUncheckedUpdateManyWithoutToolInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userID?: StringFieldUpdateOperationsInput | string
+    userID?: NullableStringFieldUpdateOperationsInput | string | null
     productID?: StringFieldUpdateOperationsInput | string
     levelID?: StringFieldUpdateOperationsInput | string
     timeUnit?: IntFieldUpdateOperationsInput | number

@@ -8,8 +8,8 @@ import {
   
   export class CreateBasketDto {
     @IsString()
-    @IsNotEmpty()
-    userID: string;
+    @IsOptional()
+    userID?: string;
   
     @IsString()
     @IsNotEmpty()

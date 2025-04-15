@@ -301,7 +301,7 @@ exports.Prisma.ProductScalarFieldEnum = {
   nameUz: 'nameUz',
   nameEn: 'nameEn',
   image: 'image',
-  minWorkingHours: 'minWorkingHours',
+  workingHours: 'workingHours',
   hourlyPrice: 'hourlyPrice',
   dailyPrice: 'dailyPrice'
 };

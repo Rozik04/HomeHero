@@ -7,8 +7,16 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class BasketService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createBasketDto: CreateBasketDto) {
-    let data = await this.prisma.basket.create({ data: { ...createBasketDto } });
+  async create(createBasketDto: CreateBasketDto, userId:string) {
+    let checkLevel = await this.prisma.product.findFirst({where:{id:createBasketDto.productID,levels:{some:{levelID:createBasketDto.levelID}}}});
+    if(!checkLevel){
+      throw new BadRequestException("This level is not linked to this product.")
+    }
+    let checkTool = await this.prisma.product.findFirst({where:{id:createBasketDto.productID,tools:{some:{toolID:createBasketDto.toolID}}}});
+    if(!checkTool){
+      throw new BadRequestException("This tool is not linked to this product.")
+    }
+    let data = await this.prisma.basket.create({ data: { ...createBasketDto, userID:userId } });
     return { data };
   }
 

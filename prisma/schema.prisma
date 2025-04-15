@@ -84,7 +84,7 @@ model Region {
 
 model Basket {
   id              String   @id @default(uuid())
-  userID          String
+  userID          String?
   productID       String
   toolID          String
   levelID         String
@@ -93,7 +93,7 @@ model Basket {
   workingHours    Int
   totalPrice      Int?
 
-  user            User     @relation(fields: [userID], references: [id])
+  user            User?     @relation(fields: [userID], references: [id])
   product         Product  @relation(fields: [productID], references: [id])
   tool            Tool     @relation(fields: [toolID], references: [id])
   level           Level    @relation(fields: [levelID], references: [id])
@@ -291,7 +291,7 @@ model Product {
   nameUz          String
   nameEn          String
   image           String
-  minWorkingHours String
+  workingHours    Int
   hourlyPrice     Int
   dailyPrice      Int
 

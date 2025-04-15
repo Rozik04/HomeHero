@@ -21,9 +21,10 @@ import { ContactModule } from './contact/contact.module';
 import { OrderModule } from './order/order.module';
 import { OrderItemModule } from './order-item/order-item.module';
 import { BasketModule } from './basket/basket.module';
+import { CommentModule } from './comment/comment.module';
 
 @Module({
-  imports: [PrismaModule, RegionModule, UserModule, BrandModule, SizeModule, CapacityModule, ToolModule, LevelModule, MasterJobsModule, ProductModule, MasterModule, FaqModule, GeneralInfoModule, PartnerModule, ShowCaseModule, SessionModule, ContactModule, OrderModule, OrderItemModule, BasketModule,],
+  imports: [PrismaModule, RegionModule, UserModule, BrandModule, SizeModule, CapacityModule, ToolModule, LevelModule, MasterJobsModule, ProductModule, MasterModule, FaqModule, GeneralInfoModule, PartnerModule, ShowCaseModule, SessionModule, ContactModule, OrderModule, OrderItemModule, BasketModule, CommentModule,],
   controllers: [AppController],
   providers: [AppService],
 })

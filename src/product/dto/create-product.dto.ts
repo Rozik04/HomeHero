@@ -23,8 +23,7 @@ export class CreateProductDto {
 
   @IsString()
   @IsNotEmpty()
-  minWorkingHours : string
-
+  workingHours : number
   @IsNumber()
   @IsNotEmpty()
   hourlyPrice: number

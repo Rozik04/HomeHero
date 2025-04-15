@@ -18,8 +18,8 @@ export class SizeController {
     return this.sizeService.create(createSizeDto);
   }
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
   @Get()
   findAll() {
     return this.sizeService.findAll();

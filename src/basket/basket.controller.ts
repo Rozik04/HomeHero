@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request } from '@nestjs/common';
 import { BasketService } from './basket.service';
 import { CreateBasketDto } from './dto/create-basket.dto';
 import { UpdateBasketDto } from './dto/update-basket.dto';
@@ -14,8 +14,9 @@ export class BasketController {
   // @UseGuards(JwtAuthGuard, JwtRoleGuard)
   // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
   @Post()
-  create(@Body() createBasketDto: CreateBasketDto) {
-    return this.basketService.create(createBasketDto);
+  create(@Body() createBasketDto: CreateBasketDto, @Request() req) {
+    let userId = req.user.id;
+    return this.basketService.create(createBasketDto, userId);
   }
 
   // @UseGuards(JwtAuthGuard, JwtRoleGuard)

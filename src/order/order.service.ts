@@ -19,7 +19,39 @@ export class OrderService {
       commentToDelivery,
       items,
     } = createOrderDto;
-
+  
+    for (const item of items) {
+      const checkLevel = await this.prisma.product.findFirst({
+        where: {
+          id: item.productID,
+          levels: {
+            some: { levelID: item.levelID },
+          },
+        },
+      });
+  
+      if (!checkLevel) {
+        throw new BadRequestException(
+          `LevelID: ${item.levelID} is not linked to ProductID: ${item.productID}`
+        );
+      }
+  
+      const checkTool = await this.prisma.product.findFirst({
+        where: {
+          id: item.productID,
+          tools: {
+            some: { toolID: item.toolID },
+          },
+        },
+      });
+  
+      if (!checkTool) {
+        throw new BadRequestException(
+          `ToolID: ${item.toolID} is not linked to ProductID: ${item.productID}`
+        );
+      }
+    }
+  
     const order = await this.prisma.order.create({
       data: {
         locationLat,
@@ -47,10 +79,10 @@ export class OrderService {
         items: true,
       },
     });
-
+  
     return order;
   }
-
+  
   async findAll() {
     let alldata = await this.prisma.order.findMany();
     if (!alldata.length) {
