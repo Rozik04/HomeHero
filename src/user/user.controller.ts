@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, UseGuards, Request } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, UseGuards, Request, Req, Res } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -8,6 +8,7 @@ import { JwtAuthGuard } from 'src/utils/token.guard';
 import { JwtRoleGuard } from 'src/utils/role.guard';
 import { Roles } from 'src/utils/role.decorator';
 import { UserRole } from 'src/utils/enums';
+import { Request as ExReq, Response } from 'express';
 
 @Controller('user')
 export class UserController {
@@ -105,6 +106,13 @@ uploadIm(@UploadedFile()image:Express.Multer.File){
   resetPassword(@Request() req, @Body() data:{newPassword:string}){
     let userId = req.user.id;
     return this.userService.resetPassword(data, userId)
+  }
+
+  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @Get('refresh')
+  refreshToken(@Req() req: ExReq, @Res() res: Response) {
+    return this.userService.refreshToken(req, res);
   }
   
 }

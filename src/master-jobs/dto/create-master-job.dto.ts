@@ -1,4 +1,4 @@
-import { IsInt, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsInt, IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
 
 export class CreateMasterJobDto {
   @IsString()
@@ -33,4 +33,8 @@ export class CreateMasterJobDto {
   @IsString()
   @IsNotEmpty()
   experience: string;
+
+  @IsUUID()
+  @IsNotEmpty()
+  masterID: string
 }

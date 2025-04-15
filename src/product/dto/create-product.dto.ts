@@ -1,4 +1,4 @@
-import { IsArray, IsBoolean, IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
+import { IsArray, IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID } from 'class-validator';
 
 export class CreateProductDto {
   @IsString()
@@ -20,6 +20,19 @@ export class CreateProductDto {
   @IsBoolean()
   @IsNotEmpty()
   isActive: boolean;
+
+  @IsString()
+  @IsNotEmpty()
+  minWorkingHours : string
+
+  @IsNumber()
+  @IsNotEmpty()
+  hourlyPrice: number
+
+
+  @IsNumber()
+  @IsNotEmpty()
+  dailyPrice: number
 
   @IsArray()
   @IsUUID('all', { each: true })

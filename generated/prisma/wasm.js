@@ -209,8 +209,7 @@ exports.Prisma.MasterScalarFieldEnum = {
   dob: 'dob',
   image: 'image',
   passportImage: 'passportImage',
-  rating: 'rating',
-  masterJobsID: 'masterJobsID'
+  rating: 'rating'
 };
 
 exports.Prisma.MasterJobsScalarFieldEnum = {
@@ -222,7 +221,8 @@ exports.Prisma.MasterJobsScalarFieldEnum = {
   levelID: 'levelID',
   priceHourly: 'priceHourly',
   priceDaily: 'priceDaily',
-  experience: 'experience'
+  experience: 'experience',
+  masterID: 'masterID'
 };
 
 exports.Prisma.GeneralInfoScalarFieldEnum = {
@@ -292,7 +292,10 @@ exports.Prisma.ProductScalarFieldEnum = {
   nameRu: 'nameRu',
   nameUz: 'nameUz',
   nameEn: 'nameEn',
-  image: 'image'
+  image: 'image',
+  minWorkingHours: 'minWorkingHours',
+  hourlyPrice: 'hourlyPrice',
+  dailyPrice: 'dailyPrice'
 };
 
 exports.Prisma.LevelScalarFieldEnum = {

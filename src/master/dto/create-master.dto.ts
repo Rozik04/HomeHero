@@ -44,8 +44,5 @@ import {
     @IsOptional()
     rating?: number;
   
-    @IsUUID()
-    @IsNotEmpty()
-    masterJobsID: string;
   }
   

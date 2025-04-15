@@ -2856,10 +2856,12 @@ export namespace Prisma {
    */
 
   export type MasterCountOutputType = {
+    masterJobs: number
     comments: number
   }
 
   export type MasterCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    masterJobs?: boolean | MasterCountOutputTypeCountMasterJobsArgs
     comments?: boolean | MasterCountOutputTypeCountCommentsArgs
   }
 
@@ -2877,39 +2879,15 @@ export namespace Prisma {
   /**
    * MasterCountOutputType without action
    */
+  export type MasterCountOutputTypeCountMasterJobsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MasterJobsWhereInput
+  }
+
+  /**
+   * MasterCountOutputType without action
+   */
   export type MasterCountOutputTypeCountCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CommentWhereInput
-  }
-
-
-  /**
-   * Count Type MasterJobsCountOutputType
-   */
-
-  export type MasterJobsCountOutputType = {
-    masters: number
-  }
-
-  export type MasterJobsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    masters?: boolean | MasterJobsCountOutputTypeCountMastersArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * MasterJobsCountOutputType without action
-   */
-  export type MasterJobsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MasterJobsCountOutputType
-     */
-    select?: MasterJobsCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * MasterJobsCountOutputType without action
-   */
-  export type MasterJobsCountOutputTypeCountMastersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MasterWhereInput
   }
 
 
@@ -12088,7 +12066,6 @@ export namespace Prisma {
     image: string | null
     passportImage: string | null
     rating: number | null
-    masterJobsID: string | null
   }
 
   export type MasterMaxAggregateOutputType = {
@@ -12102,7 +12079,6 @@ export namespace Prisma {
     image: string | null
     passportImage: string | null
     rating: number | null
-    masterJobsID: string | null
   }
 
   export type MasterCountAggregateOutputType = {
@@ -12116,7 +12092,6 @@ export namespace Prisma {
     image: number
     passportImage: number
     rating: number
-    masterJobsID: number
     _all: number
   }
 
@@ -12140,7 +12115,6 @@ export namespace Prisma {
     image?: true
     passportImage?: true
     rating?: true
-    masterJobsID?: true
   }
 
   export type MasterMaxAggregateInputType = {
@@ -12154,7 +12128,6 @@ export namespace Prisma {
     image?: true
     passportImage?: true
     rating?: true
-    masterJobsID?: true
   }
 
   export type MasterCountAggregateInputType = {
@@ -12168,7 +12141,6 @@ export namespace Prisma {
     image?: true
     passportImage?: true
     rating?: true
-    masterJobsID?: true
     _all?: true
   }
 
@@ -12269,7 +12241,6 @@ export namespace Prisma {
     image: string
     passportImage: string
     rating: number | null
-    masterJobsID: string
     _count: MasterCountAggregateOutputType | null
     _avg: MasterAvgAggregateOutputType | null
     _sum: MasterSumAggregateOutputType | null
@@ -12302,8 +12273,7 @@ export namespace Prisma {
     image?: boolean
     passportImage?: boolean
     rating?: boolean
-    masterJobsID?: boolean
-    masterJobs?: boolean | MasterJobsDefaultArgs<ExtArgs>
+    masterJobs?: boolean | Master$masterJobsArgs<ExtArgs>
     comments?: boolean | Master$commentsArgs<ExtArgs>
     _count?: boolean | MasterCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["master"]>
@@ -12319,8 +12289,6 @@ export namespace Prisma {
     image?: boolean
     passportImage?: boolean
     rating?: boolean
-    masterJobsID?: boolean
-    masterJobs?: boolean | MasterJobsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["master"]>
 
   export type MasterSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -12334,8 +12302,6 @@ export namespace Prisma {
     image?: boolean
     passportImage?: boolean
     rating?: boolean
-    masterJobsID?: boolean
-    masterJobs?: boolean | MasterJobsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["master"]>
 
   export type MasterSelectScalar = {
@@ -12349,26 +12315,21 @@ export namespace Prisma {
     image?: boolean
     passportImage?: boolean
     rating?: boolean
-    masterJobsID?: boolean
   }
 
-  export type MasterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nameRu" | "nameUz" | "nameEn" | "isActive" | "phone" | "dob" | "image" | "passportImage" | "rating" | "masterJobsID", ExtArgs["result"]["master"]>
+  export type MasterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nameRu" | "nameUz" | "nameEn" | "isActive" | "phone" | "dob" | "image" | "passportImage" | "rating", ExtArgs["result"]["master"]>
   export type MasterInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    masterJobs?: boolean | MasterJobsDefaultArgs<ExtArgs>
+    masterJobs?: boolean | Master$masterJobsArgs<ExtArgs>
     comments?: boolean | Master$commentsArgs<ExtArgs>
     _count?: boolean | MasterCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type MasterIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    masterJobs?: boolean | MasterJobsDefaultArgs<ExtArgs>
-  }
-  export type MasterIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    masterJobs?: boolean | MasterJobsDefaultArgs<ExtArgs>
-  }
+  export type MasterIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type MasterIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $MasterPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Master"
     objects: {
-      masterJobs: Prisma.$MasterJobsPayload<ExtArgs>
+      masterJobs: Prisma.$MasterJobsPayload<ExtArgs>[]
       comments: Prisma.$CommentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -12382,7 +12343,6 @@ export namespace Prisma {
       image: string
       passportImage: string
       rating: number | null
-      masterJobsID: string
     }, ExtArgs["result"]["master"]>
     composites: {}
   }
@@ -12777,7 +12737,7 @@ export namespace Prisma {
    */
   export interface Prisma__MasterClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    masterJobs<T extends MasterJobsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MasterJobsDefaultArgs<ExtArgs>>): Prisma__MasterJobsClient<$Result.GetResult<Prisma.$MasterJobsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    masterJobs<T extends Master$masterJobsArgs<ExtArgs> = {}>(args?: Subset<T, Master$masterJobsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterJobsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     comments<T extends Master$commentsArgs<ExtArgs> = {}>(args?: Subset<T, Master$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -12818,7 +12778,6 @@ export namespace Prisma {
     readonly image: FieldRef<"Master", 'String'>
     readonly passportImage: FieldRef<"Master", 'String'>
     readonly rating: FieldRef<"Master", 'Int'>
-    readonly masterJobsID: FieldRef<"Master", 'String'>
   }
     
 
@@ -13068,10 +13027,6 @@ export namespace Prisma {
      */
     data: MasterCreateManyInput | MasterCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MasterIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -13142,10 +13097,6 @@ export namespace Prisma {
      * Limit how many Masters to update.
      */
     limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MasterIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -13212,6 +13163,30 @@ export namespace Prisma {
      * Limit how many Masters to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Master.masterJobs
+   */
+  export type Master$masterJobsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterJobs
+     */
+    select?: MasterJobsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterJobs
+     */
+    omit?: MasterJobsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MasterJobsInclude<ExtArgs> | null
+    where?: MasterJobsWhereInput
+    orderBy?: MasterJobsOrderByWithRelationInput | MasterJobsOrderByWithRelationInput[]
+    cursor?: MasterJobsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MasterJobsScalarFieldEnum | MasterJobsScalarFieldEnum[]
   }
 
   /**
@@ -13293,6 +13268,7 @@ export namespace Prisma {
     priceHourly: number | null
     priceDaily: number | null
     experience: string | null
+    masterID: string | null
   }
 
   export type MasterJobsMaxAggregateOutputType = {
@@ -13305,6 +13281,7 @@ export namespace Prisma {
     priceHourly: number | null
     priceDaily: number | null
     experience: string | null
+    masterID: string | null
   }
 
   export type MasterJobsCountAggregateOutputType = {
@@ -13317,6 +13294,7 @@ export namespace Prisma {
     priceHourly: number
     priceDaily: number
     experience: number
+    masterID: number
     _all: number
   }
 
@@ -13345,6 +13323,7 @@ export namespace Prisma {
     priceHourly?: true
     priceDaily?: true
     experience?: true
+    masterID?: true
   }
 
   export type MasterJobsMaxAggregateInputType = {
@@ -13357,6 +13336,7 @@ export namespace Prisma {
     priceHourly?: true
     priceDaily?: true
     experience?: true
+    masterID?: true
   }
 
   export type MasterJobsCountAggregateInputType = {
@@ -13369,6 +13349,7 @@ export namespace Prisma {
     priceHourly?: true
     priceDaily?: true
     experience?: true
+    masterID?: true
     _all?: true
   }
 
@@ -13468,6 +13449,7 @@ export namespace Prisma {
     priceHourly: number
     priceDaily: number
     experience: string
+    masterID: string
     _count: MasterJobsCountAggregateOutputType | null
     _avg: MasterJobsAvgAggregateOutputType | null
     _sum: MasterJobsSumAggregateOutputType | null
@@ -13499,11 +13481,11 @@ export namespace Prisma {
     priceHourly?: boolean
     priceDaily?: boolean
     experience?: boolean
+    masterID?: boolean
     tool?: boolean | ToolDefaultArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     level?: boolean | LevelDefaultArgs<ExtArgs>
-    masters?: boolean | MasterJobs$mastersArgs<ExtArgs>
-    _count?: boolean | MasterJobsCountOutputTypeDefaultArgs<ExtArgs>
+    master?: boolean | MasterDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["masterJobs"]>
 
   export type MasterJobsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -13516,9 +13498,11 @@ export namespace Prisma {
     priceHourly?: boolean
     priceDaily?: boolean
     experience?: boolean
+    masterID?: boolean
     tool?: boolean | ToolDefaultArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     level?: boolean | LevelDefaultArgs<ExtArgs>
+    master?: boolean | MasterDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["masterJobs"]>
 
   export type MasterJobsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -13531,9 +13515,11 @@ export namespace Prisma {
     priceHourly?: boolean
     priceDaily?: boolean
     experience?: boolean
+    masterID?: boolean
     tool?: boolean | ToolDefaultArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     level?: boolean | LevelDefaultArgs<ExtArgs>
+    master?: boolean | MasterDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["masterJobs"]>
 
   export type MasterJobsSelectScalar = {
@@ -13546,25 +13532,27 @@ export namespace Prisma {
     priceHourly?: boolean
     priceDaily?: boolean
     experience?: boolean
+    masterID?: boolean
   }
 
-  export type MasterJobsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "toolID" | "productID" | "minWorkingHour" | "workingHours" | "levelID" | "priceHourly" | "priceDaily" | "experience", ExtArgs["result"]["masterJobs"]>
+  export type MasterJobsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "toolID" | "productID" | "minWorkingHour" | "workingHours" | "levelID" | "priceHourly" | "priceDaily" | "experience" | "masterID", ExtArgs["result"]["masterJobs"]>
   export type MasterJobsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tool?: boolean | ToolDefaultArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     level?: boolean | LevelDefaultArgs<ExtArgs>
-    masters?: boolean | MasterJobs$mastersArgs<ExtArgs>
-    _count?: boolean | MasterJobsCountOutputTypeDefaultArgs<ExtArgs>
+    master?: boolean | MasterDefaultArgs<ExtArgs>
   }
   export type MasterJobsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tool?: boolean | ToolDefaultArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     level?: boolean | LevelDefaultArgs<ExtArgs>
+    master?: boolean | MasterDefaultArgs<ExtArgs>
   }
   export type MasterJobsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tool?: boolean | ToolDefaultArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     level?: boolean | LevelDefaultArgs<ExtArgs>
+    master?: boolean | MasterDefaultArgs<ExtArgs>
   }
 
   export type $MasterJobsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13573,7 +13561,7 @@ export namespace Prisma {
       tool: Prisma.$ToolPayload<ExtArgs>
       product: Prisma.$ProductPayload<ExtArgs>
       level: Prisma.$LevelPayload<ExtArgs>
-      masters: Prisma.$MasterPayload<ExtArgs>[]
+      master: Prisma.$MasterPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -13585,6 +13573,7 @@ export namespace Prisma {
       priceHourly: number
       priceDaily: number
       experience: string
+      masterID: string
     }, ExtArgs["result"]["masterJobs"]>
     composites: {}
   }
@@ -13982,7 +13971,7 @@ export namespace Prisma {
     tool<T extends ToolDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ToolDefaultArgs<ExtArgs>>): Prisma__ToolClient<$Result.GetResult<Prisma.$ToolPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     level<T extends LevelDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LevelDefaultArgs<ExtArgs>>): Prisma__LevelClient<$Result.GetResult<Prisma.$LevelPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    masters<T extends MasterJobs$mastersArgs<ExtArgs> = {}>(args?: Subset<T, MasterJobs$mastersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    master<T extends MasterDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MasterDefaultArgs<ExtArgs>>): Prisma__MasterClient<$Result.GetResult<Prisma.$MasterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -14021,6 +14010,7 @@ export namespace Prisma {
     readonly priceHourly: FieldRef<"MasterJobs", 'Int'>
     readonly priceDaily: FieldRef<"MasterJobs", 'Int'>
     readonly experience: FieldRef<"MasterJobs", 'String'>
+    readonly masterID: FieldRef<"MasterJobs", 'String'>
   }
     
 
@@ -14414,30 +14404,6 @@ export namespace Prisma {
      * Limit how many MasterJobs to delete.
      */
     limit?: number
-  }
-
-  /**
-   * MasterJobs.masters
-   */
-  export type MasterJobs$mastersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Master
-     */
-    select?: MasterSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Master
-     */
-    omit?: MasterOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MasterInclude<ExtArgs> | null
-    where?: MasterWhereInput
-    orderBy?: MasterOrderByWithRelationInput | MasterOrderByWithRelationInput[]
-    cursor?: MasterWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: MasterScalarFieldEnum | MasterScalarFieldEnum[]
   }
 
   /**
@@ -19713,8 +19679,20 @@ export namespace Prisma {
 
   export type AggregateProduct = {
     _count: ProductCountAggregateOutputType | null
+    _avg: ProductAvgAggregateOutputType | null
+    _sum: ProductSumAggregateOutputType | null
     _min: ProductMinAggregateOutputType | null
     _max: ProductMaxAggregateOutputType | null
+  }
+
+  export type ProductAvgAggregateOutputType = {
+    hourlyPrice: number | null
+    dailyPrice: number | null
+  }
+
+  export type ProductSumAggregateOutputType = {
+    hourlyPrice: number | null
+    dailyPrice: number | null
   }
 
   export type ProductMinAggregateOutputType = {
@@ -19724,6 +19702,9 @@ export namespace Prisma {
     nameUz: string | null
     nameEn: string | null
     image: string | null
+    minWorkingHours: string | null
+    hourlyPrice: number | null
+    dailyPrice: number | null
   }
 
   export type ProductMaxAggregateOutputType = {
@@ -19733,6 +19714,9 @@ export namespace Prisma {
     nameUz: string | null
     nameEn: string | null
     image: string | null
+    minWorkingHours: string | null
+    hourlyPrice: number | null
+    dailyPrice: number | null
   }
 
   export type ProductCountAggregateOutputType = {
@@ -19742,9 +19726,22 @@ export namespace Prisma {
     nameUz: number
     nameEn: number
     image: number
+    minWorkingHours: number
+    hourlyPrice: number
+    dailyPrice: number
     _all: number
   }
 
+
+  export type ProductAvgAggregateInputType = {
+    hourlyPrice?: true
+    dailyPrice?: true
+  }
+
+  export type ProductSumAggregateInputType = {
+    hourlyPrice?: true
+    dailyPrice?: true
+  }
 
   export type ProductMinAggregateInputType = {
     id?: true
@@ -19753,6 +19750,9 @@ export namespace Prisma {
     nameUz?: true
     nameEn?: true
     image?: true
+    minWorkingHours?: true
+    hourlyPrice?: true
+    dailyPrice?: true
   }
 
   export type ProductMaxAggregateInputType = {
@@ -19762,6 +19762,9 @@ export namespace Prisma {
     nameUz?: true
     nameEn?: true
     image?: true
+    minWorkingHours?: true
+    hourlyPrice?: true
+    dailyPrice?: true
   }
 
   export type ProductCountAggregateInputType = {
@@ -19771,6 +19774,9 @@ export namespace Prisma {
     nameUz?: true
     nameEn?: true
     image?: true
+    minWorkingHours?: true
+    hourlyPrice?: true
+    dailyPrice?: true
     _all?: true
   }
 
@@ -19812,6 +19818,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: ProductAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ProductSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ProductMinAggregateInputType
@@ -19842,6 +19860,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ProductCountAggregateInputType | true
+    _avg?: ProductAvgAggregateInputType
+    _sum?: ProductSumAggregateInputType
     _min?: ProductMinAggregateInputType
     _max?: ProductMaxAggregateInputType
   }
@@ -19853,7 +19873,12 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
+    minWorkingHours: string
+    hourlyPrice: number
+    dailyPrice: number
     _count: ProductCountAggregateOutputType | null
+    _avg: ProductAvgAggregateOutputType | null
+    _sum: ProductSumAggregateOutputType | null
     _min: ProductMinAggregateOutputType | null
     _max: ProductMaxAggregateOutputType | null
   }
@@ -19879,6 +19904,9 @@ export namespace Prisma {
     nameUz?: boolean
     nameEn?: boolean
     image?: boolean
+    minWorkingHours?: boolean
+    hourlyPrice?: boolean
+    dailyPrice?: boolean
     baskets?: boolean | Product$basketsArgs<ExtArgs>
     orders?: boolean | Product$ordersArgs<ExtArgs>
     masterJobs?: boolean | Product$masterJobsArgs<ExtArgs>
@@ -19894,6 +19922,9 @@ export namespace Prisma {
     nameUz?: boolean
     nameEn?: boolean
     image?: boolean
+    minWorkingHours?: boolean
+    hourlyPrice?: boolean
+    dailyPrice?: boolean
   }, ExtArgs["result"]["product"]>
 
   export type ProductSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -19903,6 +19934,9 @@ export namespace Prisma {
     nameUz?: boolean
     nameEn?: boolean
     image?: boolean
+    minWorkingHours?: boolean
+    hourlyPrice?: boolean
+    dailyPrice?: boolean
   }, ExtArgs["result"]["product"]>
 
   export type ProductSelectScalar = {
@@ -19912,9 +19946,12 @@ export namespace Prisma {
     nameUz?: boolean
     nameEn?: boolean
     image?: boolean
+    minWorkingHours?: boolean
+    hourlyPrice?: boolean
+    dailyPrice?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "isActive" | "nameRu" | "nameUz" | "nameEn" | "image", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "isActive" | "nameRu" | "nameUz" | "nameEn" | "image" | "minWorkingHours" | "hourlyPrice" | "dailyPrice", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     baskets?: boolean | Product$basketsArgs<ExtArgs>
     orders?: boolean | Product$ordersArgs<ExtArgs>
@@ -19942,6 +19979,9 @@ export namespace Prisma {
       nameUz: string
       nameEn: string
       image: string
+      minWorkingHours: string
+      hourlyPrice: number
+      dailyPrice: number
     }, ExtArgs["result"]["product"]>
     composites: {}
   }
@@ -20376,6 +20416,9 @@ export namespace Prisma {
     readonly nameUz: FieldRef<"Product", 'String'>
     readonly nameEn: FieldRef<"Product", 'String'>
     readonly image: FieldRef<"Product", 'String'>
+    readonly minWorkingHours: FieldRef<"Product", 'String'>
+    readonly hourlyPrice: FieldRef<"Product", 'Int'>
+    readonly dailyPrice: FieldRef<"Product", 'Int'>
   }
     
 
@@ -25553,8 +25596,7 @@ export namespace Prisma {
     dob: 'dob',
     image: 'image',
     passportImage: 'passportImage',
-    rating: 'rating',
-    masterJobsID: 'masterJobsID'
+    rating: 'rating'
   };
 
   export type MasterScalarFieldEnum = (typeof MasterScalarFieldEnum)[keyof typeof MasterScalarFieldEnum]
@@ -25569,7 +25611,8 @@ export namespace Prisma {
     levelID: 'levelID',
     priceHourly: 'priceHourly',
     priceDaily: 'priceDaily',
-    experience: 'experience'
+    experience: 'experience',
+    masterID: 'masterID'
   };
 
   export type MasterJobsScalarFieldEnum = (typeof MasterJobsScalarFieldEnum)[keyof typeof MasterJobsScalarFieldEnum]
@@ -25657,7 +25700,10 @@ export namespace Prisma {
     nameRu: 'nameRu',
     nameUz: 'nameUz',
     nameEn: 'nameEn',
-    image: 'image'
+    image: 'image',
+    minWorkingHours: 'minWorkingHours',
+    hourlyPrice: 'hourlyPrice',
+    dailyPrice: 'dailyPrice'
   };
 
   export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
@@ -26445,8 +26491,7 @@ export namespace Prisma {
     image?: StringFilter<"Master"> | string
     passportImage?: StringFilter<"Master"> | string
     rating?: IntNullableFilter<"Master"> | number | null
-    masterJobsID?: StringFilter<"Master"> | string
-    masterJobs?: XOR<MasterJobsScalarRelationFilter, MasterJobsWhereInput>
+    masterJobs?: MasterJobsListRelationFilter
     comments?: CommentListRelationFilter
   }
 
@@ -26461,8 +26506,7 @@ export namespace Prisma {
     image?: SortOrder
     passportImage?: SortOrder
     rating?: SortOrderInput | SortOrder
-    masterJobsID?: SortOrder
-    masterJobs?: MasterJobsOrderByWithRelationInput
+    masterJobs?: MasterJobsOrderByRelationAggregateInput
     comments?: CommentOrderByRelationAggregateInput
   }
 
@@ -26480,8 +26524,7 @@ export namespace Prisma {
     image?: StringFilter<"Master"> | string
     passportImage?: StringFilter<"Master"> | string
     rating?: IntNullableFilter<"Master"> | number | null
-    masterJobsID?: StringFilter<"Master"> | string
-    masterJobs?: XOR<MasterJobsScalarRelationFilter, MasterJobsWhereInput>
+    masterJobs?: MasterJobsListRelationFilter
     comments?: CommentListRelationFilter
   }, "id">
 
@@ -26496,7 +26539,6 @@ export namespace Prisma {
     image?: SortOrder
     passportImage?: SortOrder
     rating?: SortOrderInput | SortOrder
-    masterJobsID?: SortOrder
     _count?: MasterCountOrderByAggregateInput
     _avg?: MasterAvgOrderByAggregateInput
     _max?: MasterMaxOrderByAggregateInput
@@ -26518,7 +26560,6 @@ export namespace Prisma {
     image?: StringWithAggregatesFilter<"Master"> | string
     passportImage?: StringWithAggregatesFilter<"Master"> | string
     rating?: IntNullableWithAggregatesFilter<"Master"> | number | null
-    masterJobsID?: StringWithAggregatesFilter<"Master"> | string
   }
 
   export type MasterJobsWhereInput = {
@@ -26534,10 +26575,11 @@ export namespace Prisma {
     priceHourly?: IntFilter<"MasterJobs"> | number
     priceDaily?: IntFilter<"MasterJobs"> | number
     experience?: StringFilter<"MasterJobs"> | string
+    masterID?: StringFilter<"MasterJobs"> | string
     tool?: XOR<ToolScalarRelationFilter, ToolWhereInput>
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
     level?: XOR<LevelScalarRelationFilter, LevelWhereInput>
-    masters?: MasterListRelationFilter
+    master?: XOR<MasterScalarRelationFilter, MasterWhereInput>
   }
 
   export type MasterJobsOrderByWithRelationInput = {
@@ -26550,10 +26592,11 @@ export namespace Prisma {
     priceHourly?: SortOrder
     priceDaily?: SortOrder
     experience?: SortOrder
+    masterID?: SortOrder
     tool?: ToolOrderByWithRelationInput
     product?: ProductOrderByWithRelationInput
     level?: LevelOrderByWithRelationInput
-    masters?: MasterOrderByRelationAggregateInput
+    master?: MasterOrderByWithRelationInput
   }
 
   export type MasterJobsWhereUniqueInput = Prisma.AtLeast<{
@@ -26569,10 +26612,11 @@ export namespace Prisma {
     priceHourly?: IntFilter<"MasterJobs"> | number
     priceDaily?: IntFilter<"MasterJobs"> | number
     experience?: StringFilter<"MasterJobs"> | string
+    masterID?: StringFilter<"MasterJobs"> | string
     tool?: XOR<ToolScalarRelationFilter, ToolWhereInput>
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
     level?: XOR<LevelScalarRelationFilter, LevelWhereInput>
-    masters?: MasterListRelationFilter
+    master?: XOR<MasterScalarRelationFilter, MasterWhereInput>
   }, "id">
 
   export type MasterJobsOrderByWithAggregationInput = {
@@ -26585,6 +26629,7 @@ export namespace Prisma {
     priceHourly?: SortOrder
     priceDaily?: SortOrder
     experience?: SortOrder
+    masterID?: SortOrder
     _count?: MasterJobsCountOrderByAggregateInput
     _avg?: MasterJobsAvgOrderByAggregateInput
     _max?: MasterJobsMaxOrderByAggregateInput
@@ -26605,6 +26650,7 @@ export namespace Prisma {
     priceHourly?: IntWithAggregatesFilter<"MasterJobs"> | number
     priceDaily?: IntWithAggregatesFilter<"MasterJobs"> | number
     experience?: StringWithAggregatesFilter<"MasterJobs"> | string
+    masterID?: StringWithAggregatesFilter<"MasterJobs"> | string
   }
 
   export type GeneralInfoWhereInput = {
@@ -26982,6 +27028,9 @@ export namespace Prisma {
     nameUz?: StringFilter<"Product"> | string
     nameEn?: StringFilter<"Product"> | string
     image?: StringFilter<"Product"> | string
+    minWorkingHours?: StringFilter<"Product"> | string
+    hourlyPrice?: IntFilter<"Product"> | number
+    dailyPrice?: IntFilter<"Product"> | number
     baskets?: BasketListRelationFilter
     orders?: OrderListRelationFilter
     masterJobs?: MasterJobsListRelationFilter
@@ -26996,6 +27045,9 @@ export namespace Prisma {
     nameUz?: SortOrder
     nameEn?: SortOrder
     image?: SortOrder
+    minWorkingHours?: SortOrder
+    hourlyPrice?: SortOrder
+    dailyPrice?: SortOrder
     baskets?: BasketOrderByRelationAggregateInput
     orders?: OrderOrderByRelationAggregateInput
     masterJobs?: MasterJobsOrderByRelationAggregateInput
@@ -27013,6 +27065,9 @@ export namespace Prisma {
     nameUz?: StringFilter<"Product"> | string
     nameEn?: StringFilter<"Product"> | string
     image?: StringFilter<"Product"> | string
+    minWorkingHours?: StringFilter<"Product"> | string
+    hourlyPrice?: IntFilter<"Product"> | number
+    dailyPrice?: IntFilter<"Product"> | number
     baskets?: BasketListRelationFilter
     orders?: OrderListRelationFilter
     masterJobs?: MasterJobsListRelationFilter
@@ -27027,9 +27082,14 @@ export namespace Prisma {
     nameUz?: SortOrder
     nameEn?: SortOrder
     image?: SortOrder
+    minWorkingHours?: SortOrder
+    hourlyPrice?: SortOrder
+    dailyPrice?: SortOrder
     _count?: ProductCountOrderByAggregateInput
+    _avg?: ProductAvgOrderByAggregateInput
     _max?: ProductMaxOrderByAggregateInput
     _min?: ProductMinOrderByAggregateInput
+    _sum?: ProductSumOrderByAggregateInput
   }
 
   export type ProductScalarWhereWithAggregatesInput = {
@@ -27042,6 +27102,9 @@ export namespace Prisma {
     nameUz?: StringWithAggregatesFilter<"Product"> | string
     nameEn?: StringWithAggregatesFilter<"Product"> | string
     image?: StringWithAggregatesFilter<"Product"> | string
+    minWorkingHours?: StringWithAggregatesFilter<"Product"> | string
+    hourlyPrice?: IntWithAggregatesFilter<"Product"> | number
+    dailyPrice?: IntWithAggregatesFilter<"Product"> | number
   }
 
   export type LevelWhereInput = {
@@ -27921,7 +27984,7 @@ export namespace Prisma {
     image: string
     passportImage: string
     rating?: number | null
-    masterJobs: MasterJobsCreateNestedOneWithoutMastersInput
+    masterJobs?: MasterJobsCreateNestedManyWithoutMasterInput
     comments?: CommentCreateNestedManyWithoutMasterInput
   }
 
@@ -27936,7 +27999,7 @@ export namespace Prisma {
     image: string
     passportImage: string
     rating?: number | null
-    masterJobsID: string
+    masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutMasterInput
     comments?: CommentUncheckedCreateNestedManyWithoutMasterInput
   }
 
@@ -27951,7 +28014,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
     rating?: NullableIntFieldUpdateOperationsInput | number | null
-    masterJobs?: MasterJobsUpdateOneRequiredWithoutMastersNestedInput
+    masterJobs?: MasterJobsUpdateManyWithoutMasterNestedInput
     comments?: CommentUpdateManyWithoutMasterNestedInput
   }
 
@@ -27966,7 +28029,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
     rating?: NullableIntFieldUpdateOperationsInput | number | null
-    masterJobsID?: StringFieldUpdateOperationsInput | string
+    masterJobs?: MasterJobsUncheckedUpdateManyWithoutMasterNestedInput
     comments?: CommentUncheckedUpdateManyWithoutMasterNestedInput
   }
 
@@ -27981,7 +28044,6 @@ export namespace Prisma {
     image: string
     passportImage: string
     rating?: number | null
-    masterJobsID: string
   }
 
   export type MasterUpdateManyMutationInput = {
@@ -28008,7 +28070,6 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
     rating?: NullableIntFieldUpdateOperationsInput | number | null
-    masterJobsID?: StringFieldUpdateOperationsInput | string
   }
 
   export type MasterJobsCreateInput = {
@@ -28021,7 +28082,7 @@ export namespace Prisma {
     tool: ToolCreateNestedOneWithoutMasterJobsInput
     product: ProductCreateNestedOneWithoutMasterJobsInput
     level: LevelCreateNestedOneWithoutMasterJobsInput
-    masters?: MasterCreateNestedManyWithoutMasterJobsInput
+    master: MasterCreateNestedOneWithoutMasterJobsInput
   }
 
   export type MasterJobsUncheckedCreateInput = {
@@ -28034,7 +28095,7 @@ export namespace Prisma {
     priceHourly: number
     priceDaily: number
     experience: string
-    masters?: MasterUncheckedCreateNestedManyWithoutMasterJobsInput
+    masterID: string
   }
 
   export type MasterJobsUpdateInput = {
@@ -28047,7 +28108,7 @@ export namespace Prisma {
     tool?: ToolUpdateOneRequiredWithoutMasterJobsNestedInput
     product?: ProductUpdateOneRequiredWithoutMasterJobsNestedInput
     level?: LevelUpdateOneRequiredWithoutMasterJobsNestedInput
-    masters?: MasterUpdateManyWithoutMasterJobsNestedInput
+    master?: MasterUpdateOneRequiredWithoutMasterJobsNestedInput
   }
 
   export type MasterJobsUncheckedUpdateInput = {
@@ -28060,7 +28121,7 @@ export namespace Prisma {
     priceHourly?: IntFieldUpdateOperationsInput | number
     priceDaily?: IntFieldUpdateOperationsInput | number
     experience?: StringFieldUpdateOperationsInput | string
-    masters?: MasterUncheckedUpdateManyWithoutMasterJobsNestedInput
+    masterID?: StringFieldUpdateOperationsInput | string
   }
 
   export type MasterJobsCreateManyInput = {
@@ -28073,6 +28134,7 @@ export namespace Prisma {
     priceHourly: number
     priceDaily: number
     experience: string
+    masterID: string
   }
 
   export type MasterJobsUpdateManyMutationInput = {
@@ -28094,6 +28156,7 @@ export namespace Prisma {
     priceHourly?: IntFieldUpdateOperationsInput | number
     priceDaily?: IntFieldUpdateOperationsInput | number
     experience?: StringFieldUpdateOperationsInput | string
+    masterID?: StringFieldUpdateOperationsInput | string
   }
 
   export type GeneralInfoCreateInput = {
@@ -28530,6 +28593,9 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
+    minWorkingHours: string
+    hourlyPrice: number
+    dailyPrice: number
     baskets?: BasketCreateNestedManyWithoutProductInput
     orders?: OrderCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsCreateNestedManyWithoutProductInput
@@ -28544,6 +28610,9 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
+    minWorkingHours: string
+    hourlyPrice: number
+    dailyPrice: number
     baskets?: BasketUncheckedCreateNestedManyWithoutProductInput
     orders?: OrderUncheckedCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutProductInput
@@ -28558,6 +28627,9 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
+    minWorkingHours?: StringFieldUpdateOperationsInput | string
+    hourlyPrice?: IntFieldUpdateOperationsInput | number
+    dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUpdateManyWithoutProductNestedInput
     orders?: OrderUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUpdateManyWithoutProductNestedInput
@@ -28572,6 +28644,9 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
+    minWorkingHours?: StringFieldUpdateOperationsInput | string
+    hourlyPrice?: IntFieldUpdateOperationsInput | number
+    dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUncheckedUpdateManyWithoutProductNestedInput
     orders?: OrderUncheckedUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUncheckedUpdateManyWithoutProductNestedInput
@@ -28586,6 +28661,9 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
+    minWorkingHours: string
+    hourlyPrice: number
+    dailyPrice: number
   }
 
   export type ProductUpdateManyMutationInput = {
@@ -28595,6 +28673,9 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
+    minWorkingHours?: StringFieldUpdateOperationsInput | string
+    hourlyPrice?: IntFieldUpdateOperationsInput | number
+    dailyPrice?: IntFieldUpdateOperationsInput | number
   }
 
   export type ProductUncheckedUpdateManyInput = {
@@ -28604,6 +28685,9 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
+    minWorkingHours?: StringFieldUpdateOperationsInput | string
+    hourlyPrice?: IntFieldUpdateOperationsInput | number
+    dailyPrice?: IntFieldUpdateOperationsInput | number
   }
 
   export type LevelCreateInput = {
@@ -29466,9 +29550,14 @@ export namespace Prisma {
     star?: SortOrder
   }
 
-  export type MasterJobsScalarRelationFilter = {
-    is?: MasterJobsWhereInput
-    isNot?: MasterJobsWhereInput
+  export type MasterJobsListRelationFilter = {
+    every?: MasterJobsWhereInput
+    some?: MasterJobsWhereInput
+    none?: MasterJobsWhereInput
+  }
+
+  export type MasterJobsOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type MasterCountOrderByAggregateInput = {
@@ -29482,7 +29571,6 @@ export namespace Prisma {
     image?: SortOrder
     passportImage?: SortOrder
     rating?: SortOrder
-    masterJobsID?: SortOrder
   }
 
   export type MasterAvgOrderByAggregateInput = {
@@ -29500,7 +29588,6 @@ export namespace Prisma {
     image?: SortOrder
     passportImage?: SortOrder
     rating?: SortOrder
-    masterJobsID?: SortOrder
   }
 
   export type MasterMinOrderByAggregateInput = {
@@ -29514,21 +29601,10 @@ export namespace Prisma {
     image?: SortOrder
     passportImage?: SortOrder
     rating?: SortOrder
-    masterJobsID?: SortOrder
   }
 
   export type MasterSumOrderByAggregateInput = {
     rating?: SortOrder
-  }
-
-  export type MasterListRelationFilter = {
-    every?: MasterWhereInput
-    some?: MasterWhereInput
-    none?: MasterWhereInput
-  }
-
-  export type MasterOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type MasterJobsCountOrderByAggregateInput = {
@@ -29541,6 +29617,7 @@ export namespace Prisma {
     priceHourly?: SortOrder
     priceDaily?: SortOrder
     experience?: SortOrder
+    masterID?: SortOrder
   }
 
   export type MasterJobsAvgOrderByAggregateInput = {
@@ -29560,6 +29637,7 @@ export namespace Prisma {
     priceHourly?: SortOrder
     priceDaily?: SortOrder
     experience?: SortOrder
+    masterID?: SortOrder
   }
 
   export type MasterJobsMinOrderByAggregateInput = {
@@ -29572,6 +29650,7 @@ export namespace Prisma {
     priceHourly?: SortOrder
     priceDaily?: SortOrder
     experience?: SortOrder
+    masterID?: SortOrder
   }
 
   export type MasterJobsSumOrderByAggregateInput = {
@@ -29787,12 +29866,6 @@ export namespace Prisma {
     none?: OrderWhereInput
   }
 
-  export type MasterJobsListRelationFilter = {
-    every?: MasterJobsWhereInput
-    some?: MasterJobsWhereInput
-    none?: MasterJobsWhereInput
-  }
-
   export type ProductLevelListRelationFilter = {
     every?: ProductLevelWhereInput
     some?: ProductLevelWhereInput
@@ -29806,10 +29879,6 @@ export namespace Prisma {
   }
 
   export type OrderOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type MasterJobsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -29828,6 +29897,14 @@ export namespace Prisma {
     nameUz?: SortOrder
     nameEn?: SortOrder
     image?: SortOrder
+    minWorkingHours?: SortOrder
+    hourlyPrice?: SortOrder
+    dailyPrice?: SortOrder
+  }
+
+  export type ProductAvgOrderByAggregateInput = {
+    hourlyPrice?: SortOrder
+    dailyPrice?: SortOrder
   }
 
   export type ProductMaxOrderByAggregateInput = {
@@ -29837,6 +29914,9 @@ export namespace Prisma {
     nameUz?: SortOrder
     nameEn?: SortOrder
     image?: SortOrder
+    minWorkingHours?: SortOrder
+    hourlyPrice?: SortOrder
+    dailyPrice?: SortOrder
   }
 
   export type ProductMinOrderByAggregateInput = {
@@ -29846,6 +29926,14 @@ export namespace Prisma {
     nameUz?: SortOrder
     nameEn?: SortOrder
     image?: SortOrder
+    minWorkingHours?: SortOrder
+    hourlyPrice?: SortOrder
+    dailyPrice?: SortOrder
+  }
+
+  export type ProductSumOrderByAggregateInput = {
+    hourlyPrice?: SortOrder
+    dailyPrice?: SortOrder
   }
 
   export type LevelCountOrderByAggregateInput = {
@@ -30408,10 +30496,11 @@ export namespace Prisma {
     update?: XOR<XOR<OrderUpdateToOneWithWhereWithoutCommentsInput, OrderUpdateWithoutCommentsInput>, OrderUncheckedUpdateWithoutCommentsInput>
   }
 
-  export type MasterJobsCreateNestedOneWithoutMastersInput = {
-    create?: XOR<MasterJobsCreateWithoutMastersInput, MasterJobsUncheckedCreateWithoutMastersInput>
-    connectOrCreate?: MasterJobsCreateOrConnectWithoutMastersInput
-    connect?: MasterJobsWhereUniqueInput
+  export type MasterJobsCreateNestedManyWithoutMasterInput = {
+    create?: XOR<MasterJobsCreateWithoutMasterInput, MasterJobsUncheckedCreateWithoutMasterInput> | MasterJobsCreateWithoutMasterInput[] | MasterJobsUncheckedCreateWithoutMasterInput[]
+    connectOrCreate?: MasterJobsCreateOrConnectWithoutMasterInput | MasterJobsCreateOrConnectWithoutMasterInput[]
+    createMany?: MasterJobsCreateManyMasterInputEnvelope
+    connect?: MasterJobsWhereUniqueInput | MasterJobsWhereUniqueInput[]
   }
 
   export type CommentCreateNestedManyWithoutMasterInput = {
@@ -30421,6 +30510,13 @@ export namespace Prisma {
     connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
   }
 
+  export type MasterJobsUncheckedCreateNestedManyWithoutMasterInput = {
+    create?: XOR<MasterJobsCreateWithoutMasterInput, MasterJobsUncheckedCreateWithoutMasterInput> | MasterJobsCreateWithoutMasterInput[] | MasterJobsUncheckedCreateWithoutMasterInput[]
+    connectOrCreate?: MasterJobsCreateOrConnectWithoutMasterInput | MasterJobsCreateOrConnectWithoutMasterInput[]
+    createMany?: MasterJobsCreateManyMasterInputEnvelope
+    connect?: MasterJobsWhereUniqueInput | MasterJobsWhereUniqueInput[]
+  }
+
   export type CommentUncheckedCreateNestedManyWithoutMasterInput = {
     create?: XOR<CommentCreateWithoutMasterInput, CommentUncheckedCreateWithoutMasterInput> | CommentCreateWithoutMasterInput[] | CommentUncheckedCreateWithoutMasterInput[]
     connectOrCreate?: CommentCreateOrConnectWithoutMasterInput | CommentCreateOrConnectWithoutMasterInput[]
@@ -30428,12 +30524,18 @@ export namespace Prisma {
     connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
   }
 
-  export type MasterJobsUpdateOneRequiredWithoutMastersNestedInput = {
-    create?: XOR<MasterJobsCreateWithoutMastersInput, MasterJobsUncheckedCreateWithoutMastersInput>
-    connectOrCreate?: MasterJobsCreateOrConnectWithoutMastersInput
-    upsert?: MasterJobsUpsertWithoutMastersInput
-    connect?: MasterJobsWhereUniqueInput
-    update?: XOR<XOR<MasterJobsUpdateToOneWithWhereWithoutMastersInput, MasterJobsUpdateWithoutMastersInput>, MasterJobsUncheckedUpdateWithoutMastersInput>
+  export type MasterJobsUpdateManyWithoutMasterNestedInput = {
+    create?: XOR<MasterJobsCreateWithoutMasterInput, MasterJobsUncheckedCreateWithoutMasterInput> | MasterJobsCreateWithoutMasterInput[] | MasterJobsUncheckedCreateWithoutMasterInput[]
+    connectOrCreate?: MasterJobsCreateOrConnectWithoutMasterInput | MasterJobsCreateOrConnectWithoutMasterInput[]
+    upsert?: MasterJobsUpsertWithWhereUniqueWithoutMasterInput | MasterJobsUpsertWithWhereUniqueWithoutMasterInput[]
+    createMany?: MasterJobsCreateManyMasterInputEnvelope
+    set?: MasterJobsWhereUniqueInput | MasterJobsWhereUniqueInput[]
+    disconnect?: MasterJobsWhereUniqueInput | MasterJobsWhereUniqueInput[]
+    delete?: MasterJobsWhereUniqueInput | MasterJobsWhereUniqueInput[]
+    connect?: MasterJobsWhereUniqueInput | MasterJobsWhereUniqueInput[]
+    update?: MasterJobsUpdateWithWhereUniqueWithoutMasterInput | MasterJobsUpdateWithWhereUniqueWithoutMasterInput[]
+    updateMany?: MasterJobsUpdateManyWithWhereWithoutMasterInput | MasterJobsUpdateManyWithWhereWithoutMasterInput[]
+    deleteMany?: MasterJobsScalarWhereInput | MasterJobsScalarWhereInput[]
   }
 
   export type CommentUpdateManyWithoutMasterNestedInput = {
@@ -30448,6 +30550,20 @@ export namespace Prisma {
     update?: CommentUpdateWithWhereUniqueWithoutMasterInput | CommentUpdateWithWhereUniqueWithoutMasterInput[]
     updateMany?: CommentUpdateManyWithWhereWithoutMasterInput | CommentUpdateManyWithWhereWithoutMasterInput[]
     deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
+  export type MasterJobsUncheckedUpdateManyWithoutMasterNestedInput = {
+    create?: XOR<MasterJobsCreateWithoutMasterInput, MasterJobsUncheckedCreateWithoutMasterInput> | MasterJobsCreateWithoutMasterInput[] | MasterJobsUncheckedCreateWithoutMasterInput[]
+    connectOrCreate?: MasterJobsCreateOrConnectWithoutMasterInput | MasterJobsCreateOrConnectWithoutMasterInput[]
+    upsert?: MasterJobsUpsertWithWhereUniqueWithoutMasterInput | MasterJobsUpsertWithWhereUniqueWithoutMasterInput[]
+    createMany?: MasterJobsCreateManyMasterInputEnvelope
+    set?: MasterJobsWhereUniqueInput | MasterJobsWhereUniqueInput[]
+    disconnect?: MasterJobsWhereUniqueInput | MasterJobsWhereUniqueInput[]
+    delete?: MasterJobsWhereUniqueInput | MasterJobsWhereUniqueInput[]
+    connect?: MasterJobsWhereUniqueInput | MasterJobsWhereUniqueInput[]
+    update?: MasterJobsUpdateWithWhereUniqueWithoutMasterInput | MasterJobsUpdateWithWhereUniqueWithoutMasterInput[]
+    updateMany?: MasterJobsUpdateManyWithWhereWithoutMasterInput | MasterJobsUpdateManyWithWhereWithoutMasterInput[]
+    deleteMany?: MasterJobsScalarWhereInput | MasterJobsScalarWhereInput[]
   }
 
   export type CommentUncheckedUpdateManyWithoutMasterNestedInput = {
@@ -30482,18 +30598,10 @@ export namespace Prisma {
     connect?: LevelWhereUniqueInput
   }
 
-  export type MasterCreateNestedManyWithoutMasterJobsInput = {
-    create?: XOR<MasterCreateWithoutMasterJobsInput, MasterUncheckedCreateWithoutMasterJobsInput> | MasterCreateWithoutMasterJobsInput[] | MasterUncheckedCreateWithoutMasterJobsInput[]
-    connectOrCreate?: MasterCreateOrConnectWithoutMasterJobsInput | MasterCreateOrConnectWithoutMasterJobsInput[]
-    createMany?: MasterCreateManyMasterJobsInputEnvelope
-    connect?: MasterWhereUniqueInput | MasterWhereUniqueInput[]
-  }
-
-  export type MasterUncheckedCreateNestedManyWithoutMasterJobsInput = {
-    create?: XOR<MasterCreateWithoutMasterJobsInput, MasterUncheckedCreateWithoutMasterJobsInput> | MasterCreateWithoutMasterJobsInput[] | MasterUncheckedCreateWithoutMasterJobsInput[]
-    connectOrCreate?: MasterCreateOrConnectWithoutMasterJobsInput | MasterCreateOrConnectWithoutMasterJobsInput[]
-    createMany?: MasterCreateManyMasterJobsInputEnvelope
-    connect?: MasterWhereUniqueInput | MasterWhereUniqueInput[]
+  export type MasterCreateNestedOneWithoutMasterJobsInput = {
+    create?: XOR<MasterCreateWithoutMasterJobsInput, MasterUncheckedCreateWithoutMasterJobsInput>
+    connectOrCreate?: MasterCreateOrConnectWithoutMasterJobsInput
+    connect?: MasterWhereUniqueInput
   }
 
   export type ToolUpdateOneRequiredWithoutMasterJobsNestedInput = {
@@ -30520,32 +30628,12 @@ export namespace Prisma {
     update?: XOR<XOR<LevelUpdateToOneWithWhereWithoutMasterJobsInput, LevelUpdateWithoutMasterJobsInput>, LevelUncheckedUpdateWithoutMasterJobsInput>
   }
 
-  export type MasterUpdateManyWithoutMasterJobsNestedInput = {
-    create?: XOR<MasterCreateWithoutMasterJobsInput, MasterUncheckedCreateWithoutMasterJobsInput> | MasterCreateWithoutMasterJobsInput[] | MasterUncheckedCreateWithoutMasterJobsInput[]
-    connectOrCreate?: MasterCreateOrConnectWithoutMasterJobsInput | MasterCreateOrConnectWithoutMasterJobsInput[]
-    upsert?: MasterUpsertWithWhereUniqueWithoutMasterJobsInput | MasterUpsertWithWhereUniqueWithoutMasterJobsInput[]
-    createMany?: MasterCreateManyMasterJobsInputEnvelope
-    set?: MasterWhereUniqueInput | MasterWhereUniqueInput[]
-    disconnect?: MasterWhereUniqueInput | MasterWhereUniqueInput[]
-    delete?: MasterWhereUniqueInput | MasterWhereUniqueInput[]
-    connect?: MasterWhereUniqueInput | MasterWhereUniqueInput[]
-    update?: MasterUpdateWithWhereUniqueWithoutMasterJobsInput | MasterUpdateWithWhereUniqueWithoutMasterJobsInput[]
-    updateMany?: MasterUpdateManyWithWhereWithoutMasterJobsInput | MasterUpdateManyWithWhereWithoutMasterJobsInput[]
-    deleteMany?: MasterScalarWhereInput | MasterScalarWhereInput[]
-  }
-
-  export type MasterUncheckedUpdateManyWithoutMasterJobsNestedInput = {
-    create?: XOR<MasterCreateWithoutMasterJobsInput, MasterUncheckedCreateWithoutMasterJobsInput> | MasterCreateWithoutMasterJobsInput[] | MasterUncheckedCreateWithoutMasterJobsInput[]
-    connectOrCreate?: MasterCreateOrConnectWithoutMasterJobsInput | MasterCreateOrConnectWithoutMasterJobsInput[]
-    upsert?: MasterUpsertWithWhereUniqueWithoutMasterJobsInput | MasterUpsertWithWhereUniqueWithoutMasterJobsInput[]
-    createMany?: MasterCreateManyMasterJobsInputEnvelope
-    set?: MasterWhereUniqueInput | MasterWhereUniqueInput[]
-    disconnect?: MasterWhereUniqueInput | MasterWhereUniqueInput[]
-    delete?: MasterWhereUniqueInput | MasterWhereUniqueInput[]
-    connect?: MasterWhereUniqueInput | MasterWhereUniqueInput[]
-    update?: MasterUpdateWithWhereUniqueWithoutMasterJobsInput | MasterUpdateWithWhereUniqueWithoutMasterJobsInput[]
-    updateMany?: MasterUpdateManyWithWhereWithoutMasterJobsInput | MasterUpdateManyWithWhereWithoutMasterJobsInput[]
-    deleteMany?: MasterScalarWhereInput | MasterScalarWhereInput[]
+  export type MasterUpdateOneRequiredWithoutMasterJobsNestedInput = {
+    create?: XOR<MasterCreateWithoutMasterJobsInput, MasterUncheckedCreateWithoutMasterJobsInput>
+    connectOrCreate?: MasterCreateOrConnectWithoutMasterJobsInput
+    upsert?: MasterUpsertWithoutMasterJobsInput
+    connect?: MasterWhereUniqueInput
+    update?: XOR<XOR<MasterUpdateToOneWithWhereWithoutMasterJobsInput, MasterUpdateWithoutMasterJobsInput>, MasterUncheckedUpdateWithoutMasterJobsInput>
   }
 
   export type EnumShowCaseTypeFieldUpdateOperationsInput = {
@@ -31552,6 +31640,9 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
+    minWorkingHours: string
+    hourlyPrice: number
+    dailyPrice: number
     orders?: OrderCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsCreateNestedManyWithoutProductInput
     levels?: ProductLevelCreateNestedManyWithoutProductInput
@@ -31565,6 +31656,9 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
+    minWorkingHours: string
+    hourlyPrice: number
+    dailyPrice: number
     orders?: OrderUncheckedCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutProductInput
     levels?: ProductLevelUncheckedCreateNestedManyWithoutProductInput
@@ -31633,6 +31727,9 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
+    minWorkingHours?: StringFieldUpdateOperationsInput | string
+    hourlyPrice?: IntFieldUpdateOperationsInput | number
+    dailyPrice?: IntFieldUpdateOperationsInput | number
     orders?: OrderUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUpdateManyWithoutProductNestedInput
     levels?: ProductLevelUpdateManyWithoutProductNestedInput
@@ -31646,6 +31743,9 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
+    minWorkingHours?: StringFieldUpdateOperationsInput | string
+    hourlyPrice?: IntFieldUpdateOperationsInput | number
+    dailyPrice?: IntFieldUpdateOperationsInput | number
     orders?: OrderUncheckedUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUncheckedUpdateManyWithoutProductNestedInput
     levels?: ProductLevelUncheckedUpdateManyWithoutProductNestedInput
@@ -31704,6 +31804,9 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
+    minWorkingHours: string
+    hourlyPrice: number
+    dailyPrice: number
     baskets?: BasketCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsCreateNestedManyWithoutProductInput
     levels?: ProductLevelCreateNestedManyWithoutProductInput
@@ -31717,6 +31820,9 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
+    minWorkingHours: string
+    hourlyPrice: number
+    dailyPrice: number
     baskets?: BasketUncheckedCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutProductInput
     levels?: ProductLevelUncheckedCreateNestedManyWithoutProductInput
@@ -31838,6 +31944,9 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
+    minWorkingHours?: StringFieldUpdateOperationsInput | string
+    hourlyPrice?: IntFieldUpdateOperationsInput | number
+    dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUpdateManyWithoutProductNestedInput
     levels?: ProductLevelUpdateManyWithoutProductNestedInput
@@ -31851,6 +31960,9 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
+    minWorkingHours?: StringFieldUpdateOperationsInput | string
+    hourlyPrice?: IntFieldUpdateOperationsInput | number
+    dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUncheckedUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUncheckedUpdateManyWithoutProductNestedInput
     levels?: ProductLevelUncheckedUpdateManyWithoutProductNestedInput
@@ -32194,7 +32306,7 @@ export namespace Prisma {
     image: string
     passportImage: string
     rating?: number | null
-    masterJobs: MasterJobsCreateNestedOneWithoutMastersInput
+    masterJobs?: MasterJobsCreateNestedManyWithoutMasterInput
   }
 
   export type MasterUncheckedCreateWithoutCommentsInput = {
@@ -32208,7 +32320,7 @@ export namespace Prisma {
     image: string
     passportImage: string
     rating?: number | null
-    masterJobsID: string
+    masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutMasterInput
   }
 
   export type MasterCreateOrConnectWithoutCommentsInput = {
@@ -32287,7 +32399,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
     rating?: NullableIntFieldUpdateOperationsInput | number | null
-    masterJobs?: MasterJobsUpdateOneRequiredWithoutMastersNestedInput
+    masterJobs?: MasterJobsUpdateManyWithoutMasterNestedInput
   }
 
   export type MasterUncheckedUpdateWithoutCommentsInput = {
@@ -32301,7 +32413,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
     rating?: NullableIntFieldUpdateOperationsInput | number | null
-    masterJobsID?: StringFieldUpdateOperationsInput | string
+    masterJobs?: MasterJobsUncheckedUpdateManyWithoutMasterNestedInput
   }
 
   export type OrderUpsertWithoutCommentsInput = {
@@ -32359,7 +32471,7 @@ export namespace Prisma {
     commentToDelivery?: StringFieldUpdateOperationsInput | string
   }
 
-  export type MasterJobsCreateWithoutMastersInput = {
+  export type MasterJobsCreateWithoutMasterInput = {
     id?: string
     minWorkingHour: number
     workingHours: number
@@ -32371,7 +32483,7 @@ export namespace Prisma {
     level: LevelCreateNestedOneWithoutMasterJobsInput
   }
 
-  export type MasterJobsUncheckedCreateWithoutMastersInput = {
+  export type MasterJobsUncheckedCreateWithoutMasterInput = {
     id?: string
     toolID: string
     productID: string
@@ -32383,9 +32495,14 @@ export namespace Prisma {
     experience: string
   }
 
-  export type MasterJobsCreateOrConnectWithoutMastersInput = {
+  export type MasterJobsCreateOrConnectWithoutMasterInput = {
     where: MasterJobsWhereUniqueInput
-    create: XOR<MasterJobsCreateWithoutMastersInput, MasterJobsUncheckedCreateWithoutMastersInput>
+    create: XOR<MasterJobsCreateWithoutMasterInput, MasterJobsUncheckedCreateWithoutMasterInput>
+  }
+
+  export type MasterJobsCreateManyMasterInputEnvelope = {
+    data: MasterJobsCreateManyMasterInput | MasterJobsCreateManyMasterInput[]
+    skipDuplicates?: boolean
   }
 
   export type CommentCreateWithoutMasterInput = {
@@ -32412,39 +32529,36 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type MasterJobsUpsertWithoutMastersInput = {
-    update: XOR<MasterJobsUpdateWithoutMastersInput, MasterJobsUncheckedUpdateWithoutMastersInput>
-    create: XOR<MasterJobsCreateWithoutMastersInput, MasterJobsUncheckedCreateWithoutMastersInput>
-    where?: MasterJobsWhereInput
+  export type MasterJobsUpsertWithWhereUniqueWithoutMasterInput = {
+    where: MasterJobsWhereUniqueInput
+    update: XOR<MasterJobsUpdateWithoutMasterInput, MasterJobsUncheckedUpdateWithoutMasterInput>
+    create: XOR<MasterJobsCreateWithoutMasterInput, MasterJobsUncheckedCreateWithoutMasterInput>
   }
 
-  export type MasterJobsUpdateToOneWithWhereWithoutMastersInput = {
-    where?: MasterJobsWhereInput
-    data: XOR<MasterJobsUpdateWithoutMastersInput, MasterJobsUncheckedUpdateWithoutMastersInput>
+  export type MasterJobsUpdateWithWhereUniqueWithoutMasterInput = {
+    where: MasterJobsWhereUniqueInput
+    data: XOR<MasterJobsUpdateWithoutMasterInput, MasterJobsUncheckedUpdateWithoutMasterInput>
   }
 
-  export type MasterJobsUpdateWithoutMastersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    minWorkingHour?: IntFieldUpdateOperationsInput | number
-    workingHours?: IntFieldUpdateOperationsInput | number
-    priceHourly?: IntFieldUpdateOperationsInput | number
-    priceDaily?: IntFieldUpdateOperationsInput | number
-    experience?: StringFieldUpdateOperationsInput | string
-    tool?: ToolUpdateOneRequiredWithoutMasterJobsNestedInput
-    product?: ProductUpdateOneRequiredWithoutMasterJobsNestedInput
-    level?: LevelUpdateOneRequiredWithoutMasterJobsNestedInput
+  export type MasterJobsUpdateManyWithWhereWithoutMasterInput = {
+    where: MasterJobsScalarWhereInput
+    data: XOR<MasterJobsUpdateManyMutationInput, MasterJobsUncheckedUpdateManyWithoutMasterInput>
   }
 
-  export type MasterJobsUncheckedUpdateWithoutMastersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    toolID?: StringFieldUpdateOperationsInput | string
-    productID?: StringFieldUpdateOperationsInput | string
-    minWorkingHour?: IntFieldUpdateOperationsInput | number
-    workingHours?: IntFieldUpdateOperationsInput | number
-    levelID?: StringFieldUpdateOperationsInput | string
-    priceHourly?: IntFieldUpdateOperationsInput | number
-    priceDaily?: IntFieldUpdateOperationsInput | number
-    experience?: StringFieldUpdateOperationsInput | string
+  export type MasterJobsScalarWhereInput = {
+    AND?: MasterJobsScalarWhereInput | MasterJobsScalarWhereInput[]
+    OR?: MasterJobsScalarWhereInput[]
+    NOT?: MasterJobsScalarWhereInput | MasterJobsScalarWhereInput[]
+    id?: StringFilter<"MasterJobs"> | string
+    toolID?: StringFilter<"MasterJobs"> | string
+    productID?: StringFilter<"MasterJobs"> | string
+    minWorkingHour?: IntFilter<"MasterJobs"> | number
+    workingHours?: IntFilter<"MasterJobs"> | number
+    levelID?: StringFilter<"MasterJobs"> | string
+    priceHourly?: IntFilter<"MasterJobs"> | number
+    priceDaily?: IntFilter<"MasterJobs"> | number
+    experience?: StringFilter<"MasterJobs"> | string
+    masterID?: StringFilter<"MasterJobs"> | string
   }
 
   export type CommentUpsertWithWhereUniqueWithoutMasterInput = {
@@ -32515,6 +32629,9 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
+    minWorkingHours: string
+    hourlyPrice: number
+    dailyPrice: number
     baskets?: BasketCreateNestedManyWithoutProductInput
     orders?: OrderCreateNestedManyWithoutProductInput
     levels?: ProductLevelCreateNestedManyWithoutProductInput
@@ -32528,6 +32645,9 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
+    minWorkingHours: string
+    hourlyPrice: number
+    dailyPrice: number
     baskets?: BasketUncheckedCreateNestedManyWithoutProductInput
     orders?: OrderUncheckedCreateNestedManyWithoutProductInput
     levels?: ProductLevelUncheckedCreateNestedManyWithoutProductInput
@@ -32593,11 +32713,6 @@ export namespace Prisma {
   export type MasterCreateOrConnectWithoutMasterJobsInput = {
     where: MasterWhereUniqueInput
     create: XOR<MasterCreateWithoutMasterJobsInput, MasterUncheckedCreateWithoutMasterJobsInput>
-  }
-
-  export type MasterCreateManyMasterJobsInputEnvelope = {
-    data: MasterCreateManyMasterJobsInput | MasterCreateManyMasterJobsInput[]
-    skipDuplicates?: boolean
   }
 
   export type ToolUpsertWithoutMasterJobsInput = {
@@ -32669,6 +32784,9 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
+    minWorkingHours?: StringFieldUpdateOperationsInput | string
+    hourlyPrice?: IntFieldUpdateOperationsInput | number
+    dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUpdateManyWithoutProductNestedInput
     orders?: OrderUpdateManyWithoutProductNestedInput
     levels?: ProductLevelUpdateManyWithoutProductNestedInput
@@ -32682,6 +32800,9 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
+    minWorkingHours?: StringFieldUpdateOperationsInput | string
+    hourlyPrice?: IntFieldUpdateOperationsInput | number
+    dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUncheckedUpdateManyWithoutProductNestedInput
     orders?: OrderUncheckedUpdateManyWithoutProductNestedInput
     levels?: ProductLevelUncheckedUpdateManyWithoutProductNestedInput
@@ -32717,37 +32838,43 @@ export namespace Prisma {
     products?: ProductLevelUncheckedUpdateManyWithoutLevelNestedInput
   }
 
-  export type MasterUpsertWithWhereUniqueWithoutMasterJobsInput = {
-    where: MasterWhereUniqueInput
+  export type MasterUpsertWithoutMasterJobsInput = {
     update: XOR<MasterUpdateWithoutMasterJobsInput, MasterUncheckedUpdateWithoutMasterJobsInput>
     create: XOR<MasterCreateWithoutMasterJobsInput, MasterUncheckedCreateWithoutMasterJobsInput>
+    where?: MasterWhereInput
   }
 
-  export type MasterUpdateWithWhereUniqueWithoutMasterJobsInput = {
-    where: MasterWhereUniqueInput
+  export type MasterUpdateToOneWithWhereWithoutMasterJobsInput = {
+    where?: MasterWhereInput
     data: XOR<MasterUpdateWithoutMasterJobsInput, MasterUncheckedUpdateWithoutMasterJobsInput>
   }
 
-  export type MasterUpdateManyWithWhereWithoutMasterJobsInput = {
-    where: MasterScalarWhereInput
-    data: XOR<MasterUpdateManyMutationInput, MasterUncheckedUpdateManyWithoutMasterJobsInput>
+  export type MasterUpdateWithoutMasterJobsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nameRu?: StringFieldUpdateOperationsInput | string
+    nameUz?: StringFieldUpdateOperationsInput | string
+    nameEn?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    phone?: StringFieldUpdateOperationsInput | string
+    dob?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    passportImage?: StringFieldUpdateOperationsInput | string
+    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    comments?: CommentUpdateManyWithoutMasterNestedInput
   }
 
-  export type MasterScalarWhereInput = {
-    AND?: MasterScalarWhereInput | MasterScalarWhereInput[]
-    OR?: MasterScalarWhereInput[]
-    NOT?: MasterScalarWhereInput | MasterScalarWhereInput[]
-    id?: StringFilter<"Master"> | string
-    nameRu?: StringFilter<"Master"> | string
-    nameUz?: StringFilter<"Master"> | string
-    nameEn?: StringFilter<"Master"> | string
-    isActive?: BoolFilter<"Master"> | boolean
-    phone?: StringFilter<"Master"> | string
-    dob?: StringFilter<"Master"> | string
-    image?: StringFilter<"Master"> | string
-    passportImage?: StringFilter<"Master"> | string
-    rating?: IntNullableFilter<"Master"> | number | null
-    masterJobsID?: StringFilter<"Master"> | string
+  export type MasterUncheckedUpdateWithoutMasterJobsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nameRu?: StringFieldUpdateOperationsInput | string
+    nameUz?: StringFieldUpdateOperationsInput | string
+    nameEn?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    phone?: StringFieldUpdateOperationsInput | string
+    dob?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    passportImage?: StringFieldUpdateOperationsInput | string
+    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    comments?: CommentUncheckedUpdateManyWithoutMasterNestedInput
   }
 
   export type BasketCreateWithoutProductInput = {
@@ -32835,7 +32962,7 @@ export namespace Prisma {
     experience: string
     tool: ToolCreateNestedOneWithoutMasterJobsInput
     level: LevelCreateNestedOneWithoutMasterJobsInput
-    masters?: MasterCreateNestedManyWithoutMasterJobsInput
+    master: MasterCreateNestedOneWithoutMasterJobsInput
   }
 
   export type MasterJobsUncheckedCreateWithoutProductInput = {
@@ -32847,7 +32974,7 @@ export namespace Prisma {
     priceHourly: number
     priceDaily: number
     experience: string
-    masters?: MasterUncheckedCreateNestedManyWithoutMasterJobsInput
+    masterID: string
   }
 
   export type MasterJobsCreateOrConnectWithoutProductInput = {
@@ -32973,21 +33100,6 @@ export namespace Prisma {
     data: XOR<MasterJobsUpdateManyMutationInput, MasterJobsUncheckedUpdateManyWithoutProductInput>
   }
 
-  export type MasterJobsScalarWhereInput = {
-    AND?: MasterJobsScalarWhereInput | MasterJobsScalarWhereInput[]
-    OR?: MasterJobsScalarWhereInput[]
-    NOT?: MasterJobsScalarWhereInput | MasterJobsScalarWhereInput[]
-    id?: StringFilter<"MasterJobs"> | string
-    toolID?: StringFilter<"MasterJobs"> | string
-    productID?: StringFilter<"MasterJobs"> | string
-    minWorkingHour?: IntFilter<"MasterJobs"> | number
-    workingHours?: IntFilter<"MasterJobs"> | number
-    levelID?: StringFilter<"MasterJobs"> | string
-    priceHourly?: IntFilter<"MasterJobs"> | number
-    priceDaily?: IntFilter<"MasterJobs"> | number
-    experience?: StringFilter<"MasterJobs"> | string
-  }
-
   export type ProductLevelUpsertWithWhereUniqueWithoutProductInput = {
     where: ProductLevelWhereUniqueInput
     update: XOR<ProductLevelUpdateWithoutProductInput, ProductLevelUncheckedUpdateWithoutProductInput>
@@ -33101,7 +33213,7 @@ export namespace Prisma {
     experience: string
     tool: ToolCreateNestedOneWithoutMasterJobsInput
     product: ProductCreateNestedOneWithoutMasterJobsInput
-    masters?: MasterCreateNestedManyWithoutMasterJobsInput
+    master: MasterCreateNestedOneWithoutMasterJobsInput
   }
 
   export type MasterJobsUncheckedCreateWithoutLevelInput = {
@@ -33113,7 +33225,7 @@ export namespace Prisma {
     priceHourly: number
     priceDaily: number
     experience: string
-    masters?: MasterUncheckedCreateNestedManyWithoutMasterJobsInput
+    masterID: string
   }
 
   export type MasterJobsCreateOrConnectWithoutLevelInput = {
@@ -33314,7 +33426,7 @@ export namespace Prisma {
     experience: string
     product: ProductCreateNestedOneWithoutMasterJobsInput
     level: LevelCreateNestedOneWithoutMasterJobsInput
-    masters?: MasterCreateNestedManyWithoutMasterJobsInput
+    master: MasterCreateNestedOneWithoutMasterJobsInput
   }
 
   export type MasterJobsUncheckedCreateWithoutToolInput = {
@@ -33326,7 +33438,7 @@ export namespace Prisma {
     priceHourly: number
     priceDaily: number
     experience: string
-    masters?: MasterUncheckedCreateNestedManyWithoutMasterJobsInput
+    masterID: string
   }
 
   export type MasterJobsCreateOrConnectWithoutToolInput = {
@@ -33489,6 +33601,9 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
+    minWorkingHours: string
+    hourlyPrice: number
+    dailyPrice: number
     baskets?: BasketCreateNestedManyWithoutProductInput
     orders?: OrderCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsCreateNestedManyWithoutProductInput
@@ -33502,6 +33617,9 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
+    minWorkingHours: string
+    hourlyPrice: number
+    dailyPrice: number
     baskets?: BasketUncheckedCreateNestedManyWithoutProductInput
     orders?: OrderUncheckedCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutProductInput
@@ -33554,6 +33672,9 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
+    minWorkingHours?: StringFieldUpdateOperationsInput | string
+    hourlyPrice?: IntFieldUpdateOperationsInput | number
+    dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUpdateManyWithoutProductNestedInput
     orders?: OrderUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUpdateManyWithoutProductNestedInput
@@ -33567,6 +33688,9 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
+    minWorkingHours?: StringFieldUpdateOperationsInput | string
+    hourlyPrice?: IntFieldUpdateOperationsInput | number
+    dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUncheckedUpdateManyWithoutProductNestedInput
     orders?: OrderUncheckedUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUncheckedUpdateManyWithoutProductNestedInput
@@ -33609,6 +33733,9 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
+    minWorkingHours: string
+    hourlyPrice: number
+    dailyPrice: number
     baskets?: BasketCreateNestedManyWithoutProductInput
     orders?: OrderCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsCreateNestedManyWithoutProductInput
@@ -33622,6 +33749,9 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
+    minWorkingHours: string
+    hourlyPrice: number
+    dailyPrice: number
     baskets?: BasketUncheckedCreateNestedManyWithoutProductInput
     orders?: OrderUncheckedCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutProductInput
@@ -33696,6 +33826,9 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
+    minWorkingHours?: StringFieldUpdateOperationsInput | string
+    hourlyPrice?: IntFieldUpdateOperationsInput | number
+    dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUpdateManyWithoutProductNestedInput
     orders?: OrderUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUpdateManyWithoutProductNestedInput
@@ -33709,6 +33842,9 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
+    minWorkingHours?: StringFieldUpdateOperationsInput | string
+    hourlyPrice?: IntFieldUpdateOperationsInput | number
+    dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUncheckedUpdateManyWithoutProductNestedInput
     orders?: OrderUncheckedUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUncheckedUpdateManyWithoutProductNestedInput
@@ -34106,11 +34242,59 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type MasterJobsCreateManyMasterInput = {
+    id?: string
+    toolID: string
+    productID: string
+    minWorkingHour: number
+    workingHours: number
+    levelID: string
+    priceHourly: number
+    priceDaily: number
+    experience: string
+  }
+
   export type CommentCreateManyMasterInput = {
     id?: string
     message: string
     star: number
     orderID: string
+  }
+
+  export type MasterJobsUpdateWithoutMasterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    minWorkingHour?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
+    priceHourly?: IntFieldUpdateOperationsInput | number
+    priceDaily?: IntFieldUpdateOperationsInput | number
+    experience?: StringFieldUpdateOperationsInput | string
+    tool?: ToolUpdateOneRequiredWithoutMasterJobsNestedInput
+    product?: ProductUpdateOneRequiredWithoutMasterJobsNestedInput
+    level?: LevelUpdateOneRequiredWithoutMasterJobsNestedInput
+  }
+
+  export type MasterJobsUncheckedUpdateWithoutMasterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    toolID?: StringFieldUpdateOperationsInput | string
+    productID?: StringFieldUpdateOperationsInput | string
+    minWorkingHour?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
+    levelID?: StringFieldUpdateOperationsInput | string
+    priceHourly?: IntFieldUpdateOperationsInput | number
+    priceDaily?: IntFieldUpdateOperationsInput | number
+    experience?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MasterJobsUncheckedUpdateManyWithoutMasterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    toolID?: StringFieldUpdateOperationsInput | string
+    productID?: StringFieldUpdateOperationsInput | string
+    minWorkingHour?: IntFieldUpdateOperationsInput | number
+    workingHours?: IntFieldUpdateOperationsInput | number
+    levelID?: StringFieldUpdateOperationsInput | string
+    priceHourly?: IntFieldUpdateOperationsInput | number
+    priceDaily?: IntFieldUpdateOperationsInput | number
+    experience?: StringFieldUpdateOperationsInput | string
   }
 
   export type CommentUpdateWithoutMasterInput = {
@@ -34132,60 +34316,6 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     star?: IntFieldUpdateOperationsInput | number
     orderID?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type MasterCreateManyMasterJobsInput = {
-    id?: string
-    nameRu: string
-    nameUz: string
-    nameEn: string
-    isActive: boolean
-    phone: string
-    dob: string
-    image: string
-    passportImage: string
-    rating?: number | null
-  }
-
-  export type MasterUpdateWithoutMasterJobsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nameRu?: StringFieldUpdateOperationsInput | string
-    nameUz?: StringFieldUpdateOperationsInput | string
-    nameEn?: StringFieldUpdateOperationsInput | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    phone?: StringFieldUpdateOperationsInput | string
-    dob?: StringFieldUpdateOperationsInput | string
-    image?: StringFieldUpdateOperationsInput | string
-    passportImage?: StringFieldUpdateOperationsInput | string
-    rating?: NullableIntFieldUpdateOperationsInput | number | null
-    comments?: CommentUpdateManyWithoutMasterNestedInput
-  }
-
-  export type MasterUncheckedUpdateWithoutMasterJobsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nameRu?: StringFieldUpdateOperationsInput | string
-    nameUz?: StringFieldUpdateOperationsInput | string
-    nameEn?: StringFieldUpdateOperationsInput | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    phone?: StringFieldUpdateOperationsInput | string
-    dob?: StringFieldUpdateOperationsInput | string
-    image?: StringFieldUpdateOperationsInput | string
-    passportImage?: StringFieldUpdateOperationsInput | string
-    rating?: NullableIntFieldUpdateOperationsInput | number | null
-    comments?: CommentUncheckedUpdateManyWithoutMasterNestedInput
-  }
-
-  export type MasterUncheckedUpdateManyWithoutMasterJobsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nameRu?: StringFieldUpdateOperationsInput | string
-    nameUz?: StringFieldUpdateOperationsInput | string
-    nameEn?: StringFieldUpdateOperationsInput | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    phone?: StringFieldUpdateOperationsInput | string
-    dob?: StringFieldUpdateOperationsInput | string
-    image?: StringFieldUpdateOperationsInput | string
-    passportImage?: StringFieldUpdateOperationsInput | string
-    rating?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type BasketCreateManyProductInput = {
@@ -34224,6 +34354,7 @@ export namespace Prisma {
     priceHourly: number
     priceDaily: number
     experience: string
+    masterID: string
   }
 
   export type ProductLevelCreateManyProductInput = {
@@ -34328,7 +34459,7 @@ export namespace Prisma {
     experience?: StringFieldUpdateOperationsInput | string
     tool?: ToolUpdateOneRequiredWithoutMasterJobsNestedInput
     level?: LevelUpdateOneRequiredWithoutMasterJobsNestedInput
-    masters?: MasterUpdateManyWithoutMasterJobsNestedInput
+    master?: MasterUpdateOneRequiredWithoutMasterJobsNestedInput
   }
 
   export type MasterJobsUncheckedUpdateWithoutProductInput = {
@@ -34340,7 +34471,7 @@ export namespace Prisma {
     priceHourly?: IntFieldUpdateOperationsInput | number
     priceDaily?: IntFieldUpdateOperationsInput | number
     experience?: StringFieldUpdateOperationsInput | string
-    masters?: MasterUncheckedUpdateManyWithoutMasterJobsNestedInput
+    masterID?: StringFieldUpdateOperationsInput | string
   }
 
   export type MasterJobsUncheckedUpdateManyWithoutProductInput = {
@@ -34352,6 +34483,7 @@ export namespace Prisma {
     priceHourly?: IntFieldUpdateOperationsInput | number
     priceDaily?: IntFieldUpdateOperationsInput | number
     experience?: StringFieldUpdateOperationsInput | string
+    masterID?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProductLevelUpdateWithoutProductInput = {
@@ -34414,6 +34546,7 @@ export namespace Prisma {
     priceHourly: number
     priceDaily: number
     experience: string
+    masterID: string
   }
 
   export type ProductLevelCreateManyLevelInput = {
@@ -34495,7 +34628,7 @@ export namespace Prisma {
     experience?: StringFieldUpdateOperationsInput | string
     tool?: ToolUpdateOneRequiredWithoutMasterJobsNestedInput
     product?: ProductUpdateOneRequiredWithoutMasterJobsNestedInput
-    masters?: MasterUpdateManyWithoutMasterJobsNestedInput
+    master?: MasterUpdateOneRequiredWithoutMasterJobsNestedInput
   }
 
   export type MasterJobsUncheckedUpdateWithoutLevelInput = {
@@ -34507,7 +34640,7 @@ export namespace Prisma {
     priceHourly?: IntFieldUpdateOperationsInput | number
     priceDaily?: IntFieldUpdateOperationsInput | number
     experience?: StringFieldUpdateOperationsInput | string
-    masters?: MasterUncheckedUpdateManyWithoutMasterJobsNestedInput
+    masterID?: StringFieldUpdateOperationsInput | string
   }
 
   export type MasterJobsUncheckedUpdateManyWithoutLevelInput = {
@@ -34519,6 +34652,7 @@ export namespace Prisma {
     priceHourly?: IntFieldUpdateOperationsInput | number
     priceDaily?: IntFieldUpdateOperationsInput | number
     experience?: StringFieldUpdateOperationsInput | string
+    masterID?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProductLevelUpdateWithoutLevelInput = {
@@ -34566,6 +34700,7 @@ export namespace Prisma {
     priceHourly: number
     priceDaily: number
     experience: string
+    masterID: string
   }
 
   export type ProductToolCreateManyToolInput = {
@@ -34647,7 +34782,7 @@ export namespace Prisma {
     experience?: StringFieldUpdateOperationsInput | string
     product?: ProductUpdateOneRequiredWithoutMasterJobsNestedInput
     level?: LevelUpdateOneRequiredWithoutMasterJobsNestedInput
-    masters?: MasterUpdateManyWithoutMasterJobsNestedInput
+    master?: MasterUpdateOneRequiredWithoutMasterJobsNestedInput
   }
 
   export type MasterJobsUncheckedUpdateWithoutToolInput = {
@@ -34659,7 +34794,7 @@ export namespace Prisma {
     priceHourly?: IntFieldUpdateOperationsInput | number
     priceDaily?: IntFieldUpdateOperationsInput | number
     experience?: StringFieldUpdateOperationsInput | string
-    masters?: MasterUncheckedUpdateManyWithoutMasterJobsNestedInput
+    masterID?: StringFieldUpdateOperationsInput | string
   }
 
   export type MasterJobsUncheckedUpdateManyWithoutToolInput = {
@@ -34671,6 +34806,7 @@ export namespace Prisma {
     priceHourly?: IntFieldUpdateOperationsInput | number
     priceDaily?: IntFieldUpdateOperationsInput | number
     experience?: StringFieldUpdateOperationsInput | string
+    masterID?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProductToolUpdateWithoutToolInput = {

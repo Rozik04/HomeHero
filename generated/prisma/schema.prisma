@@ -162,9 +162,8 @@ model Master {
   image         String
   passportImage String
   rating        Int?
-  masterJobsID  String
 
-  masterJobs MasterJobs @relation(fields: [masterJobsID], references: [id])
+  masterJobs MasterJobs[]
   comments   Comment[]
 }
 
@@ -178,11 +177,12 @@ model MasterJobs {
   priceHourly    Int
   priceDaily     Int
   experience     String
+  masterID       String
 
-  tool    Tool     @relation(fields: [toolID], references: [id])
-  product Product  @relation(fields: [productID], references: [id])
-  level   Level    @relation(fields: [levelID], references: [id])
-  masters Master[]
+  tool    Tool    @relation(fields: [toolID], references: [id])
+  product Product @relation(fields: [productID], references: [id])
+  level   Level   @relation(fields: [levelID], references: [id])
+  master  Master  @relation(fields: [masterID], references: [id])
 }
 
 model GeneralInfo {
@@ -247,12 +247,15 @@ model Partner {
 }
 
 model Product {
-  id       String  @id @default(uuid())
-  isActive Boolean
-  nameRu   String
-  nameUz   String
-  nameEn   String
-  image    String
+  id              String  @id @default(uuid())
+  isActive        Boolean
+  nameRu          String
+  nameUz          String
+  nameEn          String
+  image           String
+  minWorkingHours String
+  hourlyPrice     Int
+  dailyPrice      Int
 
   baskets    Basket[]
   orders     Order[]
