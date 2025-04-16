@@ -1,11 +1,13 @@
 import {
     IsBoolean,
+    IsDecimal,
     IsInt,
     IsNotEmpty,
     IsOptional,
     IsString,
     IsUUID,
   } from 'class-validator';
+import { Decimal } from 'generated/prisma/runtime/library';
   
   export class CreateMasterDto {
     @IsString()
@@ -40,9 +42,9 @@ import {
     @IsNotEmpty()
     passportImage: string;
   
-    @IsInt()
+    @IsDecimal()
     @IsOptional()
-    rating?: number;
+    rating?: Decimal;
   
   }
   

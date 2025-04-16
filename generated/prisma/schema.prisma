@@ -63,8 +63,9 @@ model User {
   passportSeries String?
   inn            String?
 
-  region  Region?  @relation(fields: [regionID], references: [id])
-  baskets Basket[]
+  region   Region?   @relation(fields: [regionID], references: [id])
+  baskets  Basket[]
+  comments Comment[]
 }
 
 model Region {
@@ -104,13 +105,15 @@ model Order {
   withDelivery      Boolean
   status            OrderStatus
   commentToDelivery String?
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
 
   items    OrderItem[]
   comments Comment[]
 }
 
 model OrderItem {
-  id           String @id @default(uuid())
+  id           String   @id @default(uuid())
   orderID      String
   productID    String
   toolID       String
@@ -119,6 +122,7 @@ model OrderItem {
   count        Int
   workingHours Int
   totalPrice   Int?
+  createdAt    DateTime @default(now())
 
   order   Order   @relation(fields: [orderID], references: [id])
   product Product @relation(fields: [productID], references: [id])
@@ -154,18 +158,20 @@ model Size {
 }
 
 model Comment {
-  id       String @id @default(uuid())
+  id       String  @id @default(uuid())
   message  String
   star     Int
   masterID String
   orderID  String
+  userID   String?
 
+  user   User?  @relation(fields: [userID], references: [id])
   master Master @relation(fields: [masterID], references: [id])
   order  Order  @relation(fields: [orderID], references: [id])
 }
 
 model Master {
-  id            String  @id @default(uuid())
+  id            String   @id @default(uuid())
   nameRu        String
   nameUz        String
   nameEn        String
@@ -174,7 +180,7 @@ model Master {
   dob           String
   image         String
   passportImage String
-  rating        Int?
+  rating        Decimal?
 
   masterJobs MasterJobs[]
   comments   Comment[]

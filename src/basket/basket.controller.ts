@@ -11,8 +11,8 @@ import { UserRole } from 'src/utils/enums';
 export class BasketController {
   constructor(private readonly basketService: BasketService) {}
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
   @Post()
   create(@Body() createBasketDto: CreateBasketDto, @Request() req) {
     let userId = req.user.id;

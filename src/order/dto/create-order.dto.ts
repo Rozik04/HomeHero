@@ -13,55 +13,7 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { OrderStatus, PaymentType } from 'src/utils/enums';
-
-export class CreateOrderItemDto {
-  @IsString()
-  @IsNotEmpty()
-  orderID: string;
-
-  @IsString()
-  @IsNotEmpty()
-  productID: string;
-
-  @IsString()
-  @IsNotEmpty()
-  toolID: string;
-
-  @IsString()
-  @IsNotEmpty()
-  levelID: string;
-
-  @IsInt()
-  @Min(1)
-  timeUnit: number; 
-
-
-  @IsInt()
-  @Min(0)
-  count: number;
-
-  @IsInt()
-  @Min(0)
-  workingHours: number; 
-
-  @IsInt()
-  @IsOptional()
-  totalPrice?: number;
-
-
-  @IsString()
-  @IsOptional()
-  product?: any;
-
-  @IsString()
-  @IsOptional()
-  tool?: any;
-
-  @IsString()
-  @IsOptional()
-  level?: any;
-}
-
+import { CreateOrderItemDto } from 'src/order-item/dto/create-order-item.dto';
 export class CreateOrderWithItemsDto {
   @IsString()
   @IsNotEmpty()
@@ -95,8 +47,5 @@ export class CreateOrderWithItemsDto {
   @IsOptional()
   commentToDelivery?: string;
 
-  @IsArray()
-  @ValidateNested({ each: true })
-  @Type(() => CreateOrderItemDto)
-  items: CreateOrderItemDto[];
+
 }

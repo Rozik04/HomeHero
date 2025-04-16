@@ -7,8 +7,12 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class CommentService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createCommentDto: CreateCommentDto) {
-    let data = await this.prisma.comment.create({ data: { ...createCommentDto } });
+  async create(createCommentDto: CreateCommentDto, userId:string) {
+    let data = await this.prisma.comment.create({ data: { ...createCommentDto, userID:userId} });
+    let masterStars = await this.prisma.comment.findMany({where:{masterID:createCommentDto.masterID}});
+    let countOfStars =  masterStars.length;
+    let totalStars = masterStars.reduce((sum, comment) => sum + comment.star, 0);
+    await this.prisma.master.update({where:{id:createCommentDto.masterID},data:{rating:totalStars/countOfStars}});
     return { data };
   }
 

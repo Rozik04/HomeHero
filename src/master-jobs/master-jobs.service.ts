@@ -24,6 +24,7 @@ export class MasterJobsService {
     let allMasterJobs = await this.prisma.masterJobs.findMany({include:{
       level:{select:{nameEn:true,nameRu:true,nameUz:true}},
       product:{select:{nameEn:true,nameRu:true,nameUz:true}},
+      master:{select:{nameUz:true,phone:true,isActive:true}}
     }});
     if(!allMasterJobs.length){
       throw new BadRequestException("Not found jobs");

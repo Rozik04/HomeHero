@@ -1,5 +1,6 @@
-import { BadGatewayException, BadRequestException, Injectable } from '@nestjs/common';
-import { CreateOrderWithItemsDto, CreateOrderItemDto } from './dto/create-order.dto';
+import { BadGatewayException, BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { CreateOrderWithItemsDto } from './dto/create-order.dto';
+import { CreateOrderItemDto } from 'src/order-item/dto/create-order-item.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
@@ -17,40 +18,7 @@ export class OrderService {
       withDelivery,
       status,
       commentToDelivery,
-      items,
     } = createOrderDto;
-  
-    for (const item of items) {
-      const checkLevel = await this.prisma.product.findFirst({
-        where: {
-          id: item.productID,
-          levels: {
-            some: { levelID: item.levelID },
-          },
-        },
-      });
-  
-      if (!checkLevel) {
-        throw new BadRequestException(
-          `LevelID: ${item.levelID} is not linked to ProductID: ${item.productID}`
-        );
-      }
-  
-      const checkTool = await this.prisma.product.findFirst({
-        where: {
-          id: item.productID,
-          tools: {
-            some: { toolID: item.toolID },
-          },
-        },
-      });
-  
-      if (!checkTool) {
-        throw new BadRequestException(
-          `ToolID: ${item.toolID} is not linked to ProductID: ${item.productID}`
-        );
-      }
-    }
   
     const order = await this.prisma.order.create({
       data: {
@@ -62,29 +30,14 @@ export class OrderService {
         withDelivery,
         status,
         commentToDelivery,
-        items: {
-          create: items.map((item: CreateOrderItemDto) => ({
-            orderID: item.orderID,
-            productID: item.productID,
-            toolID: item.toolID,
-            levelID: item.levelID,
-            timeUnit: item.timeUnit,
-            count: item.count,
-            workingHours: item.workingHours,
-            totalPrice: item.totalPrice,
-          })),
-        },
-      },
-      include: {
-        items: true,
       },
     });
   
-    return order;
+    return order; // Bu yerda order.id ni controllerda ishlatish uchun qaytarish mumkin
   }
   
   async findAll() {
-    let alldata = await this.prisma.order.findMany();
+    let alldata = await this.prisma.order.findMany({include:{comments:{select:{user:{select:{id:true, nameUz:true}},message:true}}}});
     if (!alldata.length) {
       throw new BadRequestException("No orders found");
     }
@@ -92,65 +45,39 @@ export class OrderService {
   }
 
   async findOne(id: string) {
-    let isOrderExists = await this.prisma.order.findFirst({ where: { id } });
+    let isOrderExists = await this.prisma.order.findFirst({ where:{id}, include:{comments:{select:{user:{select:{id:true, nameUz:true}},message:true}}}});
     if (!isOrderExists) {
       throw new BadRequestException("Order not found");
     }
     return { Order: isOrderExists };
   }
 
-  async update(id: string, updateOrderDto: CreateOrderWithItemsDto) {
-  const {
-    locationLat,
-    locationLong,
-    address,
-    deliveryDate,
-    paymentType,
-    withDelivery,
-    status,
-    commentToDelivery,
-    items,
-  } = updateOrderDto;
-
-  // 1. Oldingi itemslarni o'chirib tashlash
-  await this.prisma.orderItem.deleteMany({
-    where: {
-      orderID: id,
-    },
-  });
-
-  // 2. Orderni yangilash va yangi itemslarni qo‘shish
-  const updatedOrder = await this.prisma.order.update({
-    where: { id },
-    data: {
-      locationLat,
-      locationLong,
-      address,
-      deliveryDate,
-      paymentType,
-      withDelivery,
-      status,
-      commentToDelivery,
-      items: {
-        create: items.map((item: CreateOrderItemDto) => ({
-          productID: item.productID,
-          toolID: item.toolID,
-          levelID: item.levelID,
-          timeUnit: item.timeUnit,
-          count: item.count,
-          workingHours: item.workingHours,
-          totalPrice: item.totalPrice,
-        })),
+  async update(orderID: string, updateOrderDto: Partial<CreateOrderWithItemsDto>) {
+    const existingOrder = await this.prisma.order.findUnique({
+      where: { id: orderID },
+    });
+  
+    if (!existingOrder) {
+      throw new NotFoundException(`Order with ID ${orderID} not found`);
+    }
+  
+    const updatedOrder = await this.prisma.order.update({
+      where: { id: orderID },
+      data: {
+        locationLat: updateOrderDto.locationLat,
+        locationLong: updateOrderDto.locationLong,
+        address: updateOrderDto.address,
+        deliveryDate: updateOrderDto.deliveryDate,
+        paymentType: updateOrderDto.paymentType,
+        withDelivery: updateOrderDto.withDelivery,
+        status: updateOrderDto.status,
+        commentToDelivery: updateOrderDto.commentToDelivery,
       },
-    },
-    include: {
-      items: true,
-    },
-  });
-
-  return updatedOrder;
+    });
+  
+    return updatedOrder;
   }
-
+  
   async remove(id: string) {
     let isOrderExists = await this.prisma.order.findFirst({ where: { id } });
     if (!isOrderExists) {

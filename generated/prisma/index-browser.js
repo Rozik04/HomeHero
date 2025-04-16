@@ -163,7 +163,9 @@ exports.Prisma.OrderScalarFieldEnum = {
   paymentType: 'paymentType',
   withDelivery: 'withDelivery',
   status: 'status',
-  commentToDelivery: 'commentToDelivery'
+  commentToDelivery: 'commentToDelivery',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.OrderItemScalarFieldEnum = {
@@ -175,7 +177,8 @@ exports.Prisma.OrderItemScalarFieldEnum = {
   timeUnit: 'timeUnit',
   count: 'count',
   workingHours: 'workingHours',
-  totalPrice: 'totalPrice'
+  totalPrice: 'totalPrice',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.BrandScalarFieldEnum = {
@@ -204,7 +207,8 @@ exports.Prisma.CommentScalarFieldEnum = {
   message: 'message',
   star: 'star',
   masterID: 'masterID',
-  orderID: 'orderID'
+  orderID: 'orderID',
+  userID: 'userID'
 };
 
 exports.Prisma.MasterScalarFieldEnum = {

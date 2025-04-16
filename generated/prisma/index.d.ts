@@ -2762,10 +2762,12 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     baskets: number
+    comments: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     baskets?: boolean | UserCountOutputTypeCountBasketsArgs
+    comments?: boolean | UserCountOutputTypeCountCommentsArgs
   }
 
   // Custom InputTypes
@@ -2784,6 +2786,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountBasketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BasketWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommentWhereInput
   }
 
 
@@ -3416,6 +3425,7 @@ export namespace Prisma {
     inn?: boolean
     region?: boolean | User$regionArgs<ExtArgs>
     baskets?: boolean | User$basketsArgs<ExtArgs>
+    comments?: boolean | User$commentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -3476,6 +3486,7 @@ export namespace Prisma {
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     region?: boolean | User$regionArgs<ExtArgs>
     baskets?: boolean | User$basketsArgs<ExtArgs>
+    comments?: boolean | User$commentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3490,6 +3501,7 @@ export namespace Prisma {
     objects: {
       region: Prisma.$RegionPayload<ExtArgs> | null
       baskets: Prisma.$BasketPayload<ExtArgs>[]
+      comments: Prisma.$CommentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3902,6 +3914,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     region<T extends User$regionArgs<ExtArgs> = {}>(args?: Subset<T, User$regionArgs<ExtArgs>>): Prisma__RegionClient<$Result.GetResult<Prisma.$RegionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     baskets<T extends User$basketsArgs<ExtArgs> = {}>(args?: Subset<T, User$basketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BasketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    comments<T extends User$commentsArgs<ExtArgs> = {}>(args?: Subset<T, User$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4381,6 +4394,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: BasketScalarFieldEnum | BasketScalarFieldEnum[]
+  }
+
+  /**
+   * User.comments
+   */
+  export type User$commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    where?: CommentWhereInput
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    cursor?: CommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
   }
 
   /**
@@ -6679,6 +6716,8 @@ export namespace Prisma {
     withDelivery: boolean | null
     status: $Enums.OrderStatus | null
     commentToDelivery: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type OrderMaxAggregateOutputType = {
@@ -6692,6 +6731,8 @@ export namespace Prisma {
     withDelivery: boolean | null
     status: $Enums.OrderStatus | null
     commentToDelivery: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type OrderCountAggregateOutputType = {
@@ -6705,6 +6746,8 @@ export namespace Prisma {
     withDelivery: number
     status: number
     commentToDelivery: number
+    createdAt: number
+    updatedAt: number
     _all: number
   }
 
@@ -6720,6 +6763,8 @@ export namespace Prisma {
     withDelivery?: true
     status?: true
     commentToDelivery?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type OrderMaxAggregateInputType = {
@@ -6733,6 +6778,8 @@ export namespace Prisma {
     withDelivery?: true
     status?: true
     commentToDelivery?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type OrderCountAggregateInputType = {
@@ -6746,6 +6793,8 @@ export namespace Prisma {
     withDelivery?: true
     status?: true
     commentToDelivery?: true
+    createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -6832,6 +6881,8 @@ export namespace Prisma {
     withDelivery: boolean
     status: $Enums.OrderStatus
     commentToDelivery: string | null
+    createdAt: Date
+    updatedAt: Date
     _count: OrderCountAggregateOutputType | null
     _min: OrderMinAggregateOutputType | null
     _max: OrderMaxAggregateOutputType | null
@@ -6862,6 +6913,8 @@ export namespace Prisma {
     withDelivery?: boolean
     status?: boolean
     commentToDelivery?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     items?: boolean | Order$itemsArgs<ExtArgs>
     comments?: boolean | Order$commentsArgs<ExtArgs>
     _count?: boolean | OrderCountOutputTypeDefaultArgs<ExtArgs>
@@ -6878,6 +6931,8 @@ export namespace Prisma {
     withDelivery?: boolean
     status?: boolean
     commentToDelivery?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }, ExtArgs["result"]["order"]>
 
   export type OrderSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6891,6 +6946,8 @@ export namespace Prisma {
     withDelivery?: boolean
     status?: boolean
     commentToDelivery?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }, ExtArgs["result"]["order"]>
 
   export type OrderSelectScalar = {
@@ -6904,9 +6961,11 @@ export namespace Prisma {
     withDelivery?: boolean
     status?: boolean
     commentToDelivery?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "locationLat" | "locationLong" | "address" | "orderDate" | "deliveryDate" | "paymentType" | "withDelivery" | "status" | "commentToDelivery", ExtArgs["result"]["order"]>
+  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "locationLat" | "locationLong" | "address" | "orderDate" | "deliveryDate" | "paymentType" | "withDelivery" | "status" | "commentToDelivery" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
   export type OrderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     items?: boolean | Order$itemsArgs<ExtArgs>
     comments?: boolean | Order$commentsArgs<ExtArgs>
@@ -6932,6 +6991,8 @@ export namespace Prisma {
       withDelivery: boolean
       status: $Enums.OrderStatus
       commentToDelivery: string | null
+      createdAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["order"]>
     composites: {}
   }
@@ -7367,6 +7428,8 @@ export namespace Prisma {
     readonly withDelivery: FieldRef<"Order", 'Boolean'>
     readonly status: FieldRef<"Order", 'OrderStatus'>
     readonly commentToDelivery: FieldRef<"Order", 'String'>
+    readonly createdAt: FieldRef<"Order", 'DateTime'>
+    readonly updatedAt: FieldRef<"Order", 'DateTime'>
   }
     
 
@@ -7857,6 +7920,7 @@ export namespace Prisma {
     count: number | null
     workingHours: number | null
     totalPrice: number | null
+    createdAt: Date | null
   }
 
   export type OrderItemMaxAggregateOutputType = {
@@ -7869,6 +7933,7 @@ export namespace Prisma {
     count: number | null
     workingHours: number | null
     totalPrice: number | null
+    createdAt: Date | null
   }
 
   export type OrderItemCountAggregateOutputType = {
@@ -7881,6 +7946,7 @@ export namespace Prisma {
     count: number
     workingHours: number
     totalPrice: number
+    createdAt: number
     _all: number
   }
 
@@ -7909,6 +7975,7 @@ export namespace Prisma {
     count?: true
     workingHours?: true
     totalPrice?: true
+    createdAt?: true
   }
 
   export type OrderItemMaxAggregateInputType = {
@@ -7921,6 +7988,7 @@ export namespace Prisma {
     count?: true
     workingHours?: true
     totalPrice?: true
+    createdAt?: true
   }
 
   export type OrderItemCountAggregateInputType = {
@@ -7933,6 +8001,7 @@ export namespace Prisma {
     count?: true
     workingHours?: true
     totalPrice?: true
+    createdAt?: true
     _all?: true
   }
 
@@ -8032,6 +8101,7 @@ export namespace Prisma {
     count: number
     workingHours: number
     totalPrice: number | null
+    createdAt: Date
     _count: OrderItemCountAggregateOutputType | null
     _avg: OrderItemAvgAggregateOutputType | null
     _sum: OrderItemSumAggregateOutputType | null
@@ -8063,6 +8133,7 @@ export namespace Prisma {
     count?: boolean
     workingHours?: boolean
     totalPrice?: boolean
+    createdAt?: boolean
     order?: boolean | OrderDefaultArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     tool?: boolean | ToolDefaultArgs<ExtArgs>
@@ -8079,6 +8150,7 @@ export namespace Prisma {
     count?: boolean
     workingHours?: boolean
     totalPrice?: boolean
+    createdAt?: boolean
     order?: boolean | OrderDefaultArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     tool?: boolean | ToolDefaultArgs<ExtArgs>
@@ -8095,6 +8167,7 @@ export namespace Prisma {
     count?: boolean
     workingHours?: boolean
     totalPrice?: boolean
+    createdAt?: boolean
     order?: boolean | OrderDefaultArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     tool?: boolean | ToolDefaultArgs<ExtArgs>
@@ -8111,9 +8184,10 @@ export namespace Prisma {
     count?: boolean
     workingHours?: boolean
     totalPrice?: boolean
+    createdAt?: boolean
   }
 
-  export type OrderItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orderID" | "productID" | "toolID" | "levelID" | "timeUnit" | "count" | "workingHours" | "totalPrice", ExtArgs["result"]["orderItem"]>
+  export type OrderItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orderID" | "productID" | "toolID" | "levelID" | "timeUnit" | "count" | "workingHours" | "totalPrice" | "createdAt", ExtArgs["result"]["orderItem"]>
   export type OrderItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     order?: boolean | OrderDefaultArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
@@ -8151,6 +8225,7 @@ export namespace Prisma {
       count: number
       workingHours: number
       totalPrice: number | null
+      createdAt: Date
     }, ExtArgs["result"]["orderItem"]>
     composites: {}
   }
@@ -8587,6 +8662,7 @@ export namespace Prisma {
     readonly count: FieldRef<"OrderItem", 'Int'>
     readonly workingHours: FieldRef<"OrderItem", 'Int'>
     readonly totalPrice: FieldRef<"OrderItem", 'Int'>
+    readonly createdAt: FieldRef<"OrderItem", 'DateTime'>
   }
     
 
@@ -12198,6 +12274,7 @@ export namespace Prisma {
     star: number | null
     masterID: string | null
     orderID: string | null
+    userID: string | null
   }
 
   export type CommentMaxAggregateOutputType = {
@@ -12206,6 +12283,7 @@ export namespace Prisma {
     star: number | null
     masterID: string | null
     orderID: string | null
+    userID: string | null
   }
 
   export type CommentCountAggregateOutputType = {
@@ -12214,6 +12292,7 @@ export namespace Prisma {
     star: number
     masterID: number
     orderID: number
+    userID: number
     _all: number
   }
 
@@ -12232,6 +12311,7 @@ export namespace Prisma {
     star?: true
     masterID?: true
     orderID?: true
+    userID?: true
   }
 
   export type CommentMaxAggregateInputType = {
@@ -12240,6 +12320,7 @@ export namespace Prisma {
     star?: true
     masterID?: true
     orderID?: true
+    userID?: true
   }
 
   export type CommentCountAggregateInputType = {
@@ -12248,6 +12329,7 @@ export namespace Prisma {
     star?: true
     masterID?: true
     orderID?: true
+    userID?: true
     _all?: true
   }
 
@@ -12343,6 +12425,7 @@ export namespace Prisma {
     star: number
     masterID: string
     orderID: string
+    userID: string | null
     _count: CommentCountAggregateOutputType | null
     _avg: CommentAvgAggregateOutputType | null
     _sum: CommentSumAggregateOutputType | null
@@ -12370,6 +12453,8 @@ export namespace Prisma {
     star?: boolean
     masterID?: boolean
     orderID?: boolean
+    userID?: boolean
+    user?: boolean | Comment$userArgs<ExtArgs>
     master?: boolean | MasterDefaultArgs<ExtArgs>
     order?: boolean | OrderDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["comment"]>
@@ -12380,6 +12465,8 @@ export namespace Prisma {
     star?: boolean
     masterID?: boolean
     orderID?: boolean
+    userID?: boolean
+    user?: boolean | Comment$userArgs<ExtArgs>
     master?: boolean | MasterDefaultArgs<ExtArgs>
     order?: boolean | OrderDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["comment"]>
@@ -12390,6 +12477,8 @@ export namespace Prisma {
     star?: boolean
     masterID?: boolean
     orderID?: boolean
+    userID?: boolean
+    user?: boolean | Comment$userArgs<ExtArgs>
     master?: boolean | MasterDefaultArgs<ExtArgs>
     order?: boolean | OrderDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["comment"]>
@@ -12400,18 +12489,22 @@ export namespace Prisma {
     star?: boolean
     masterID?: boolean
     orderID?: boolean
+    userID?: boolean
   }
 
-  export type CommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "message" | "star" | "masterID" | "orderID", ExtArgs["result"]["comment"]>
+  export type CommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "message" | "star" | "masterID" | "orderID" | "userID", ExtArgs["result"]["comment"]>
   export type CommentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | Comment$userArgs<ExtArgs>
     master?: boolean | MasterDefaultArgs<ExtArgs>
     order?: boolean | OrderDefaultArgs<ExtArgs>
   }
   export type CommentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | Comment$userArgs<ExtArgs>
     master?: boolean | MasterDefaultArgs<ExtArgs>
     order?: boolean | OrderDefaultArgs<ExtArgs>
   }
   export type CommentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | Comment$userArgs<ExtArgs>
     master?: boolean | MasterDefaultArgs<ExtArgs>
     order?: boolean | OrderDefaultArgs<ExtArgs>
   }
@@ -12419,6 +12512,7 @@ export namespace Prisma {
   export type $CommentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Comment"
     objects: {
+      user: Prisma.$UserPayload<ExtArgs> | null
       master: Prisma.$MasterPayload<ExtArgs>
       order: Prisma.$OrderPayload<ExtArgs>
     }
@@ -12428,6 +12522,7 @@ export namespace Prisma {
       star: number
       masterID: string
       orderID: string
+      userID: string | null
     }, ExtArgs["result"]["comment"]>
     composites: {}
   }
@@ -12822,6 +12917,7 @@ export namespace Prisma {
    */
   export interface Prisma__CommentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends Comment$userArgs<ExtArgs> = {}>(args?: Subset<T, Comment$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     master<T extends MasterDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MasterDefaultArgs<ExtArgs>>): Prisma__MasterClient<$Result.GetResult<Prisma.$MasterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     order<T extends OrderDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrderDefaultArgs<ExtArgs>>): Prisma__OrderClient<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -12858,6 +12954,7 @@ export namespace Prisma {
     readonly star: FieldRef<"Comment", 'Int'>
     readonly masterID: FieldRef<"Comment", 'String'>
     readonly orderID: FieldRef<"Comment", 'String'>
+    readonly userID: FieldRef<"Comment", 'String'>
   }
     
 
@@ -13254,6 +13351,25 @@ export namespace Prisma {
   }
 
   /**
+   * Comment.user
+   */
+  export type Comment$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
    * Comment without action
    */
   export type CommentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13285,11 +13401,11 @@ export namespace Prisma {
   }
 
   export type MasterAvgAggregateOutputType = {
-    rating: number | null
+    rating: Decimal | null
   }
 
   export type MasterSumAggregateOutputType = {
-    rating: number | null
+    rating: Decimal | null
   }
 
   export type MasterMinAggregateOutputType = {
@@ -13302,7 +13418,7 @@ export namespace Prisma {
     dob: string | null
     image: string | null
     passportImage: string | null
-    rating: number | null
+    rating: Decimal | null
   }
 
   export type MasterMaxAggregateOutputType = {
@@ -13315,7 +13431,7 @@ export namespace Prisma {
     dob: string | null
     image: string | null
     passportImage: string | null
-    rating: number | null
+    rating: Decimal | null
   }
 
   export type MasterCountAggregateOutputType = {
@@ -13477,7 +13593,7 @@ export namespace Prisma {
     dob: string
     image: string
     passportImage: string
-    rating: number | null
+    rating: Decimal | null
     _count: MasterCountAggregateOutputType | null
     _avg: MasterAvgAggregateOutputType | null
     _sum: MasterSumAggregateOutputType | null
@@ -13579,7 +13695,7 @@ export namespace Prisma {
       dob: string
       image: string
       passportImage: string
-      rating: number | null
+      rating: Prisma.Decimal | null
     }, ExtArgs["result"]["master"]>
     composites: {}
   }
@@ -14014,7 +14130,7 @@ export namespace Prisma {
     readonly dob: FieldRef<"Master", 'String'>
     readonly image: FieldRef<"Master", 'String'>
     readonly passportImage: FieldRef<"Master", 'String'>
-    readonly rating: FieldRef<"Master", 'Int'>
+    readonly rating: FieldRef<"Master", 'Decimal'>
   }
     
 
@@ -26832,7 +26948,9 @@ export namespace Prisma {
     paymentType: 'paymentType',
     withDelivery: 'withDelivery',
     status: 'status',
-    commentToDelivery: 'commentToDelivery'
+    commentToDelivery: 'commentToDelivery',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
   export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
@@ -26847,7 +26965,8 @@ export namespace Prisma {
     timeUnit: 'timeUnit',
     count: 'count',
     workingHours: 'workingHours',
-    totalPrice: 'totalPrice'
+    totalPrice: 'totalPrice',
+    createdAt: 'createdAt'
   };
 
   export type OrderItemScalarFieldEnum = (typeof OrderItemScalarFieldEnum)[keyof typeof OrderItemScalarFieldEnum]
@@ -26888,7 +27007,8 @@ export namespace Prisma {
     message: 'message',
     star: 'star',
     masterID: 'masterID',
-    orderID: 'orderID'
+    orderID: 'orderID',
+    userID: 'userID'
   };
 
   export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
@@ -27201,6 +27321,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Decimal'
+   */
+  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal[]'
+   */
+  export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
+
+
+  /**
    * Reference to a field of type 'ShowCaseType'
    */
   export type EnumShowCaseTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShowCaseType'>
@@ -27251,6 +27385,7 @@ export namespace Prisma {
     inn?: StringNullableFilter<"User"> | string | null
     region?: XOR<RegionNullableScalarRelationFilter, RegionWhereInput> | null
     baskets?: BasketListRelationFilter
+    comments?: CommentListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -27270,6 +27405,7 @@ export namespace Prisma {
     inn?: SortOrderInput | SortOrder
     region?: RegionOrderByWithRelationInput
     baskets?: BasketOrderByRelationAggregateInput
+    comments?: CommentOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -27292,6 +27428,7 @@ export namespace Prisma {
     inn?: StringNullableFilter<"User"> | string | null
     region?: XOR<RegionNullableScalarRelationFilter, RegionWhereInput> | null
     baskets?: BasketListRelationFilter
+    comments?: CommentListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -27484,6 +27621,8 @@ export namespace Prisma {
     withDelivery?: BoolFilter<"Order"> | boolean
     status?: EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
     commentToDelivery?: StringNullableFilter<"Order"> | string | null
+    createdAt?: DateTimeFilter<"Order"> | Date | string
+    updatedAt?: DateTimeFilter<"Order"> | Date | string
     items?: OrderItemListRelationFilter
     comments?: CommentListRelationFilter
   }
@@ -27499,6 +27638,8 @@ export namespace Prisma {
     withDelivery?: SortOrder
     status?: SortOrder
     commentToDelivery?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     items?: OrderItemOrderByRelationAggregateInput
     comments?: CommentOrderByRelationAggregateInput
   }
@@ -27517,6 +27658,8 @@ export namespace Prisma {
     withDelivery?: BoolFilter<"Order"> | boolean
     status?: EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
     commentToDelivery?: StringNullableFilter<"Order"> | string | null
+    createdAt?: DateTimeFilter<"Order"> | Date | string
+    updatedAt?: DateTimeFilter<"Order"> | Date | string
     items?: OrderItemListRelationFilter
     comments?: CommentListRelationFilter
   }, "id">
@@ -27532,6 +27675,8 @@ export namespace Prisma {
     withDelivery?: SortOrder
     status?: SortOrder
     commentToDelivery?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: OrderCountOrderByAggregateInput
     _max?: OrderMaxOrderByAggregateInput
     _min?: OrderMinOrderByAggregateInput
@@ -27551,6 +27696,8 @@ export namespace Prisma {
     withDelivery?: BoolWithAggregatesFilter<"Order"> | boolean
     status?: EnumOrderStatusWithAggregatesFilter<"Order"> | $Enums.OrderStatus
     commentToDelivery?: StringNullableWithAggregatesFilter<"Order"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string
   }
 
   export type OrderItemWhereInput = {
@@ -27566,6 +27713,7 @@ export namespace Prisma {
     count?: IntFilter<"OrderItem"> | number
     workingHours?: IntFilter<"OrderItem"> | number
     totalPrice?: IntNullableFilter<"OrderItem"> | number | null
+    createdAt?: DateTimeFilter<"OrderItem"> | Date | string
     order?: XOR<OrderScalarRelationFilter, OrderWhereInput>
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
     tool?: XOR<ToolScalarRelationFilter, ToolWhereInput>
@@ -27582,6 +27730,7 @@ export namespace Prisma {
     count?: SortOrder
     workingHours?: SortOrder
     totalPrice?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
     order?: OrderOrderByWithRelationInput
     product?: ProductOrderByWithRelationInput
     tool?: ToolOrderByWithRelationInput
@@ -27601,6 +27750,7 @@ export namespace Prisma {
     count?: IntFilter<"OrderItem"> | number
     workingHours?: IntFilter<"OrderItem"> | number
     totalPrice?: IntNullableFilter<"OrderItem"> | number | null
+    createdAt?: DateTimeFilter<"OrderItem"> | Date | string
     order?: XOR<OrderScalarRelationFilter, OrderWhereInput>
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
     tool?: XOR<ToolScalarRelationFilter, ToolWhereInput>
@@ -27617,6 +27767,7 @@ export namespace Prisma {
     count?: SortOrder
     workingHours?: SortOrder
     totalPrice?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
     _count?: OrderItemCountOrderByAggregateInput
     _avg?: OrderItemAvgOrderByAggregateInput
     _max?: OrderItemMaxOrderByAggregateInput
@@ -27637,6 +27788,7 @@ export namespace Prisma {
     count?: IntWithAggregatesFilter<"OrderItem"> | number
     workingHours?: IntWithAggregatesFilter<"OrderItem"> | number
     totalPrice?: IntNullableWithAggregatesFilter<"OrderItem"> | number | null
+    createdAt?: DateTimeWithAggregatesFilter<"OrderItem"> | Date | string
   }
 
   export type BrandWhereInput = {
@@ -27798,6 +27950,8 @@ export namespace Prisma {
     star?: IntFilter<"Comment"> | number
     masterID?: StringFilter<"Comment"> | string
     orderID?: StringFilter<"Comment"> | string
+    userID?: StringNullableFilter<"Comment"> | string | null
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     master?: XOR<MasterScalarRelationFilter, MasterWhereInput>
     order?: XOR<OrderScalarRelationFilter, OrderWhereInput>
   }
@@ -27808,6 +27962,8 @@ export namespace Prisma {
     star?: SortOrder
     masterID?: SortOrder
     orderID?: SortOrder
+    userID?: SortOrderInput | SortOrder
+    user?: UserOrderByWithRelationInput
     master?: MasterOrderByWithRelationInput
     order?: OrderOrderByWithRelationInput
   }
@@ -27821,6 +27977,8 @@ export namespace Prisma {
     star?: IntFilter<"Comment"> | number
     masterID?: StringFilter<"Comment"> | string
     orderID?: StringFilter<"Comment"> | string
+    userID?: StringNullableFilter<"Comment"> | string | null
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     master?: XOR<MasterScalarRelationFilter, MasterWhereInput>
     order?: XOR<OrderScalarRelationFilter, OrderWhereInput>
   }, "id">
@@ -27831,6 +27989,7 @@ export namespace Prisma {
     star?: SortOrder
     masterID?: SortOrder
     orderID?: SortOrder
+    userID?: SortOrderInput | SortOrder
     _count?: CommentCountOrderByAggregateInput
     _avg?: CommentAvgOrderByAggregateInput
     _max?: CommentMaxOrderByAggregateInput
@@ -27847,6 +28006,7 @@ export namespace Prisma {
     star?: IntWithAggregatesFilter<"Comment"> | number
     masterID?: StringWithAggregatesFilter<"Comment"> | string
     orderID?: StringWithAggregatesFilter<"Comment"> | string
+    userID?: StringNullableWithAggregatesFilter<"Comment"> | string | null
   }
 
   export type MasterWhereInput = {
@@ -27862,7 +28022,7 @@ export namespace Prisma {
     dob?: StringFilter<"Master"> | string
     image?: StringFilter<"Master"> | string
     passportImage?: StringFilter<"Master"> | string
-    rating?: IntNullableFilter<"Master"> | number | null
+    rating?: DecimalNullableFilter<"Master"> | Decimal | DecimalJsLike | number | string | null
     masterJobs?: MasterJobsListRelationFilter
     comments?: CommentListRelationFilter
   }
@@ -27895,7 +28055,7 @@ export namespace Prisma {
     dob?: StringFilter<"Master"> | string
     image?: StringFilter<"Master"> | string
     passportImage?: StringFilter<"Master"> | string
-    rating?: IntNullableFilter<"Master"> | number | null
+    rating?: DecimalNullableFilter<"Master"> | Decimal | DecimalJsLike | number | string | null
     masterJobs?: MasterJobsListRelationFilter
     comments?: CommentListRelationFilter
   }, "id">
@@ -27931,7 +28091,7 @@ export namespace Prisma {
     dob?: StringWithAggregatesFilter<"Master"> | string
     image?: StringWithAggregatesFilter<"Master"> | string
     passportImage?: StringWithAggregatesFilter<"Master"> | string
-    rating?: IntNullableWithAggregatesFilter<"Master"> | number | null
+    rating?: DecimalNullableWithAggregatesFilter<"Master"> | Decimal | DecimalJsLike | number | string | null
   }
 
   export type MasterJobsWhereInput = {
@@ -28777,6 +28937,7 @@ export namespace Prisma {
     inn?: string | null
     region?: RegionCreateNestedOneWithoutUsersInput
     baskets?: BasketCreateNestedManyWithoutUserInput
+    comments?: CommentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -28795,6 +28956,7 @@ export namespace Prisma {
     passportSeries?: string | null
     inn?: string | null
     baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+    comments?: CommentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -28813,6 +28975,7 @@ export namespace Prisma {
     inn?: NullableStringFieldUpdateOperationsInput | string | null
     region?: RegionUpdateOneWithoutUsersNestedInput
     baskets?: BasketUpdateManyWithoutUserNestedInput
+    comments?: CommentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -28831,6 +28994,7 @@ export namespace Prisma {
     passportSeries?: NullableStringFieldUpdateOperationsInput | string | null
     inn?: NullableStringFieldUpdateOperationsInput | string | null
     baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -29027,6 +29191,8 @@ export namespace Prisma {
     withDelivery: boolean
     status: $Enums.OrderStatus
     commentToDelivery?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     items?: OrderItemCreateNestedManyWithoutOrderInput
     comments?: CommentCreateNestedManyWithoutOrderInput
   }
@@ -29042,6 +29208,8 @@ export namespace Prisma {
     withDelivery: boolean
     status: $Enums.OrderStatus
     commentToDelivery?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     items?: OrderItemUncheckedCreateNestedManyWithoutOrderInput
     comments?: CommentUncheckedCreateNestedManyWithoutOrderInput
   }
@@ -29057,6 +29225,8 @@ export namespace Prisma {
     withDelivery?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     commentToDelivery?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: OrderItemUpdateManyWithoutOrderNestedInput
     comments?: CommentUpdateManyWithoutOrderNestedInput
   }
@@ -29072,6 +29242,8 @@ export namespace Prisma {
     withDelivery?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     commentToDelivery?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: OrderItemUncheckedUpdateManyWithoutOrderNestedInput
     comments?: CommentUncheckedUpdateManyWithoutOrderNestedInput
   }
@@ -29087,6 +29259,8 @@ export namespace Prisma {
     withDelivery: boolean
     status: $Enums.OrderStatus
     commentToDelivery?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type OrderUpdateManyMutationInput = {
@@ -29100,6 +29274,8 @@ export namespace Prisma {
     withDelivery?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     commentToDelivery?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type OrderUncheckedUpdateManyInput = {
@@ -29113,6 +29289,8 @@ export namespace Prisma {
     withDelivery?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     commentToDelivery?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type OrderItemCreateInput = {
@@ -29121,6 +29299,7 @@ export namespace Prisma {
     count: number
     workingHours: number
     totalPrice?: number | null
+    createdAt?: Date | string
     order: OrderCreateNestedOneWithoutItemsInput
     product: ProductCreateNestedOneWithoutOrderItemsInput
     tool: ToolCreateNestedOneWithoutOrderItemsInput
@@ -29137,6 +29316,7 @@ export namespace Prisma {
     count: number
     workingHours: number
     totalPrice?: number | null
+    createdAt?: Date | string
   }
 
   export type OrderItemUpdateInput = {
@@ -29145,6 +29325,7 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     order?: OrderUpdateOneRequiredWithoutItemsNestedInput
     product?: ProductUpdateOneRequiredWithoutOrderItemsNestedInput
     tool?: ToolUpdateOneRequiredWithoutOrderItemsNestedInput
@@ -29161,6 +29342,7 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type OrderItemCreateManyInput = {
@@ -29173,6 +29355,7 @@ export namespace Prisma {
     count: number
     workingHours: number
     totalPrice?: number | null
+    createdAt?: Date | string
   }
 
   export type OrderItemUpdateManyMutationInput = {
@@ -29181,6 +29364,7 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type OrderItemUncheckedUpdateManyInput = {
@@ -29193,6 +29377,7 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BrandCreateInput = {
@@ -29358,6 +29543,7 @@ export namespace Prisma {
     id?: string
     message: string
     star: number
+    user?: UserCreateNestedOneWithoutCommentsInput
     master: MasterCreateNestedOneWithoutCommentsInput
     order: OrderCreateNestedOneWithoutCommentsInput
   }
@@ -29368,12 +29554,14 @@ export namespace Prisma {
     star: number
     masterID: string
     orderID: string
+    userID?: string | null
   }
 
   export type CommentUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     star?: IntFieldUpdateOperationsInput | number
+    user?: UserUpdateOneWithoutCommentsNestedInput
     master?: MasterUpdateOneRequiredWithoutCommentsNestedInput
     order?: OrderUpdateOneRequiredWithoutCommentsNestedInput
   }
@@ -29384,6 +29572,7 @@ export namespace Prisma {
     star?: IntFieldUpdateOperationsInput | number
     masterID?: StringFieldUpdateOperationsInput | string
     orderID?: StringFieldUpdateOperationsInput | string
+    userID?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CommentCreateManyInput = {
@@ -29392,6 +29581,7 @@ export namespace Prisma {
     star: number
     masterID: string
     orderID: string
+    userID?: string | null
   }
 
   export type CommentUpdateManyMutationInput = {
@@ -29406,6 +29596,7 @@ export namespace Prisma {
     star?: IntFieldUpdateOperationsInput | number
     masterID?: StringFieldUpdateOperationsInput | string
     orderID?: StringFieldUpdateOperationsInput | string
+    userID?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MasterCreateInput = {
@@ -29418,7 +29609,7 @@ export namespace Prisma {
     dob: string
     image: string
     passportImage: string
-    rating?: number | null
+    rating?: Decimal | DecimalJsLike | number | string | null
     masterJobs?: MasterJobsCreateNestedManyWithoutMasterInput
     comments?: CommentCreateNestedManyWithoutMasterInput
   }
@@ -29433,7 +29624,7 @@ export namespace Prisma {
     dob: string
     image: string
     passportImage: string
-    rating?: number | null
+    rating?: Decimal | DecimalJsLike | number | string | null
     masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutMasterInput
     comments?: CommentUncheckedCreateNestedManyWithoutMasterInput
   }
@@ -29448,7 +29639,7 @@ export namespace Prisma {
     dob?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
-    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     masterJobs?: MasterJobsUpdateManyWithoutMasterNestedInput
     comments?: CommentUpdateManyWithoutMasterNestedInput
   }
@@ -29463,7 +29654,7 @@ export namespace Prisma {
     dob?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
-    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     masterJobs?: MasterJobsUncheckedUpdateManyWithoutMasterNestedInput
     comments?: CommentUncheckedUpdateManyWithoutMasterNestedInput
   }
@@ -29478,7 +29669,7 @@ export namespace Prisma {
     dob: string
     image: string
     passportImage: string
-    rating?: number | null
+    rating?: Decimal | DecimalJsLike | number | string | null
   }
 
   export type MasterUpdateManyMutationInput = {
@@ -29491,7 +29682,7 @@ export namespace Prisma {
     dob?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
-    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
   export type MasterUncheckedUpdateManyInput = {
@@ -29504,7 +29695,7 @@ export namespace Prisma {
     dob?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
-    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
   export type MasterJobsCreateInput = {
@@ -30464,12 +30655,22 @@ export namespace Prisma {
     none?: BasketWhereInput
   }
 
+  export type CommentListRelationFilter = {
+    every?: CommentWhereInput
+    some?: CommentWhereInput
+    none?: CommentWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
   export type BasketOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CommentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -30771,17 +30972,7 @@ export namespace Prisma {
     none?: OrderItemWhereInput
   }
 
-  export type CommentListRelationFilter = {
-    every?: CommentWhereInput
-    some?: CommentWhereInput
-    none?: CommentWhereInput
-  }
-
   export type OrderItemOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type CommentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -30796,6 +30987,8 @@ export namespace Prisma {
     withDelivery?: SortOrder
     status?: SortOrder
     commentToDelivery?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type OrderMaxOrderByAggregateInput = {
@@ -30809,6 +31002,8 @@ export namespace Prisma {
     withDelivery?: SortOrder
     status?: SortOrder
     commentToDelivery?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type OrderMinOrderByAggregateInput = {
@@ -30822,6 +31017,8 @@ export namespace Prisma {
     withDelivery?: SortOrder
     status?: SortOrder
     commentToDelivery?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -30881,6 +31078,7 @@ export namespace Prisma {
     count?: SortOrder
     workingHours?: SortOrder
     totalPrice?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type OrderItemAvgOrderByAggregateInput = {
@@ -30900,6 +31098,7 @@ export namespace Prisma {
     count?: SortOrder
     workingHours?: SortOrder
     totalPrice?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type OrderItemMinOrderByAggregateInput = {
@@ -30912,6 +31111,7 @@ export namespace Prisma {
     count?: SortOrder
     workingHours?: SortOrder
     totalPrice?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type OrderItemSumOrderByAggregateInput = {
@@ -31005,6 +31205,7 @@ export namespace Prisma {
     star?: SortOrder
     masterID?: SortOrder
     orderID?: SortOrder
+    userID?: SortOrder
   }
 
   export type CommentAvgOrderByAggregateInput = {
@@ -31017,6 +31218,7 @@ export namespace Prisma {
     star?: SortOrder
     masterID?: SortOrder
     orderID?: SortOrder
+    userID?: SortOrder
   }
 
   export type CommentMinOrderByAggregateInput = {
@@ -31025,10 +31227,22 @@ export namespace Prisma {
     star?: SortOrder
     masterID?: SortOrder
     orderID?: SortOrder
+    userID?: SortOrder
   }
 
   export type CommentSumOrderByAggregateInput = {
     star?: SortOrder
+  }
+
+  export type DecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
   }
 
   export type MasterJobsListRelationFilter = {
@@ -31086,6 +31300,22 @@ export namespace Prisma {
 
   export type MasterSumOrderByAggregateInput = {
     rating?: SortOrder
+  }
+
+  export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
   export type MasterJobsCountOrderByAggregateInput = {
@@ -31568,11 +31798,25 @@ export namespace Prisma {
     connect?: BasketWhereUniqueInput | BasketWhereUniqueInput[]
   }
 
+  export type CommentCreateNestedManyWithoutUserInput = {
+    create?: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput> | CommentCreateWithoutUserInput[] | CommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutUserInput | CommentCreateOrConnectWithoutUserInput[]
+    createMany?: CommentCreateManyUserInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
   export type BasketUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<BasketCreateWithoutUserInput, BasketUncheckedCreateWithoutUserInput> | BasketCreateWithoutUserInput[] | BasketUncheckedCreateWithoutUserInput[]
     connectOrCreate?: BasketCreateOrConnectWithoutUserInput | BasketCreateOrConnectWithoutUserInput[]
     createMany?: BasketCreateManyUserInputEnvelope
     connect?: BasketWhereUniqueInput | BasketWhereUniqueInput[]
+  }
+
+  export type CommentUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput> | CommentCreateWithoutUserInput[] | CommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutUserInput | CommentCreateOrConnectWithoutUserInput[]
+    createMany?: CommentCreateManyUserInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -31615,6 +31859,20 @@ export namespace Prisma {
     deleteMany?: BasketScalarWhereInput | BasketScalarWhereInput[]
   }
 
+  export type CommentUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput> | CommentCreateWithoutUserInput[] | CommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutUserInput | CommentCreateOrConnectWithoutUserInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutUserInput | CommentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CommentCreateManyUserInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutUserInput | CommentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutUserInput | CommentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
   export type BasketUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<BasketCreateWithoutUserInput, BasketUncheckedCreateWithoutUserInput> | BasketCreateWithoutUserInput[] | BasketUncheckedCreateWithoutUserInput[]
     connectOrCreate?: BasketCreateOrConnectWithoutUserInput | BasketCreateOrConnectWithoutUserInput[]
@@ -31627,6 +31885,20 @@ export namespace Prisma {
     update?: BasketUpdateWithWhereUniqueWithoutUserInput | BasketUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: BasketUpdateManyWithWhereWithoutUserInput | BasketUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: BasketScalarWhereInput | BasketScalarWhereInput[]
+  }
+
+  export type CommentUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput> | CommentCreateWithoutUserInput[] | CommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutUserInput | CommentCreateOrConnectWithoutUserInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutUserInput | CommentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CommentCreateManyUserInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutUserInput | CommentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutUserInput | CommentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
   }
 
   export type UserCreateNestedManyWithoutRegionInput = {
@@ -32027,6 +32299,12 @@ export namespace Prisma {
     deleteMany?: ToolScalarWhereInput | ToolScalarWhereInput[]
   }
 
+  export type UserCreateNestedOneWithoutCommentsInput = {
+    create?: XOR<UserCreateWithoutCommentsInput, UserUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCommentsInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type MasterCreateNestedOneWithoutCommentsInput = {
     create?: XOR<MasterCreateWithoutCommentsInput, MasterUncheckedCreateWithoutCommentsInput>
     connectOrCreate?: MasterCreateOrConnectWithoutCommentsInput
@@ -32037,6 +32315,16 @@ export namespace Prisma {
     create?: XOR<OrderCreateWithoutCommentsInput, OrderUncheckedCreateWithoutCommentsInput>
     connectOrCreate?: OrderCreateOrConnectWithoutCommentsInput
     connect?: OrderWhereUniqueInput
+  }
+
+  export type UserUpdateOneWithoutCommentsNestedInput = {
+    create?: XOR<UserCreateWithoutCommentsInput, UserUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCommentsInput
+    upsert?: UserUpsertWithoutCommentsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCommentsInput, UserUpdateWithoutCommentsInput>, UserUncheckedUpdateWithoutCommentsInput>
   }
 
   export type MasterUpdateOneRequiredWithoutCommentsNestedInput = {
@@ -32081,6 +32369,14 @@ export namespace Prisma {
     connectOrCreate?: CommentCreateOrConnectWithoutMasterInput | CommentCreateOrConnectWithoutMasterInput[]
     createMany?: CommentCreateManyMasterInputEnvelope
     connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
+  export type NullableDecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string | null
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
   }
 
   export type MasterJobsUpdateManyWithoutMasterNestedInput = {
@@ -33087,6 +33383,33 @@ export namespace Prisma {
     _max?: NestedEnumOrderStatusFilter<$PrismaModel>
   }
 
+  export type NestedDecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
   export type NestedEnumShowCaseTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.ShowCaseType | EnumShowCaseTypeFieldRefInput<$PrismaModel>
     in?: $Enums.ShowCaseType[] | ListEnumShowCaseTypeFieldRefInput<$PrismaModel>
@@ -33155,6 +33478,32 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type CommentCreateWithoutUserInput = {
+    id?: string
+    message: string
+    star: number
+    master: MasterCreateNestedOneWithoutCommentsInput
+    order: OrderCreateNestedOneWithoutCommentsInput
+  }
+
+  export type CommentUncheckedCreateWithoutUserInput = {
+    id?: string
+    message: string
+    star: number
+    masterID: string
+    orderID: string
+  }
+
+  export type CommentCreateOrConnectWithoutUserInput = {
+    where: CommentWhereUniqueInput
+    create: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput>
+  }
+
+  export type CommentCreateManyUserInputEnvelope = {
+    data: CommentCreateManyUserInput | CommentCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type RegionUpsertWithoutUsersInput = {
     update: XOR<RegionUpdateWithoutUsersInput, RegionUncheckedUpdateWithoutUsersInput>
     create: XOR<RegionCreateWithoutUsersInput, RegionUncheckedCreateWithoutUsersInput>
@@ -33211,6 +33560,34 @@ export namespace Prisma {
     totalPrice?: IntNullableFilter<"Basket"> | number | null
   }
 
+  export type CommentUpsertWithWhereUniqueWithoutUserInput = {
+    where: CommentWhereUniqueInput
+    update: XOR<CommentUpdateWithoutUserInput, CommentUncheckedUpdateWithoutUserInput>
+    create: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput>
+  }
+
+  export type CommentUpdateWithWhereUniqueWithoutUserInput = {
+    where: CommentWhereUniqueInput
+    data: XOR<CommentUpdateWithoutUserInput, CommentUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CommentUpdateManyWithWhereWithoutUserInput = {
+    where: CommentScalarWhereInput
+    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type CommentScalarWhereInput = {
+    AND?: CommentScalarWhereInput | CommentScalarWhereInput[]
+    OR?: CommentScalarWhereInput[]
+    NOT?: CommentScalarWhereInput | CommentScalarWhereInput[]
+    id?: StringFilter<"Comment"> | string
+    message?: StringFilter<"Comment"> | string
+    star?: IntFilter<"Comment"> | number
+    masterID?: StringFilter<"Comment"> | string
+    orderID?: StringFilter<"Comment"> | string
+    userID?: StringNullableFilter<"Comment"> | string | null
+  }
+
   export type UserCreateWithoutRegionInput = {
     id?: string
     nameRu: string
@@ -33226,6 +33603,7 @@ export namespace Prisma {
     passportSeries?: string | null
     inn?: string | null
     baskets?: BasketCreateNestedManyWithoutUserInput
+    comments?: CommentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRegionInput = {
@@ -33243,6 +33621,7 @@ export namespace Prisma {
     passportSeries?: string | null
     inn?: string | null
     baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+    comments?: CommentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRegionInput = {
@@ -33306,6 +33685,7 @@ export namespace Prisma {
     passportSeries?: string | null
     inn?: string | null
     region?: RegionCreateNestedOneWithoutUsersInput
+    comments?: CommentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBasketsInput = {
@@ -33323,6 +33703,7 @@ export namespace Prisma {
     location: string
     passportSeries?: string | null
     inn?: string | null
+    comments?: CommentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBasketsInput = {
@@ -33465,6 +33846,7 @@ export namespace Prisma {
     passportSeries?: NullableStringFieldUpdateOperationsInput | string | null
     inn?: NullableStringFieldUpdateOperationsInput | string | null
     region?: RegionUpdateOneWithoutUsersNestedInput
+    comments?: CommentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBasketsInput = {
@@ -33482,6 +33864,7 @@ export namespace Prisma {
     location?: StringFieldUpdateOperationsInput | string
     passportSeries?: NullableStringFieldUpdateOperationsInput | string | null
     inn?: NullableStringFieldUpdateOperationsInput | string | null
+    comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProductUpsertWithoutBasketsInput = {
@@ -33617,6 +34000,7 @@ export namespace Prisma {
     count: number
     workingHours: number
     totalPrice?: number | null
+    createdAt?: Date | string
     product: ProductCreateNestedOneWithoutOrderItemsInput
     tool: ToolCreateNestedOneWithoutOrderItemsInput
     level: LevelCreateNestedOneWithoutOrderItemsInput
@@ -33631,6 +34015,7 @@ export namespace Prisma {
     count: number
     workingHours: number
     totalPrice?: number | null
+    createdAt?: Date | string
   }
 
   export type OrderItemCreateOrConnectWithoutOrderInput = {
@@ -33647,6 +34032,7 @@ export namespace Prisma {
     id?: string
     message: string
     star: number
+    user?: UserCreateNestedOneWithoutCommentsInput
     master: MasterCreateNestedOneWithoutCommentsInput
   }
 
@@ -33655,6 +34041,7 @@ export namespace Prisma {
     message: string
     star: number
     masterID: string
+    userID?: string | null
   }
 
   export type CommentCreateOrConnectWithoutOrderInput = {
@@ -33696,6 +34083,7 @@ export namespace Prisma {
     count?: IntFilter<"OrderItem"> | number
     workingHours?: IntFilter<"OrderItem"> | number
     totalPrice?: IntNullableFilter<"OrderItem"> | number | null
+    createdAt?: DateTimeFilter<"OrderItem"> | Date | string
   }
 
   export type CommentUpsertWithWhereUniqueWithoutOrderInput = {
@@ -33714,17 +34102,6 @@ export namespace Prisma {
     data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyWithoutOrderInput>
   }
 
-  export type CommentScalarWhereInput = {
-    AND?: CommentScalarWhereInput | CommentScalarWhereInput[]
-    OR?: CommentScalarWhereInput[]
-    NOT?: CommentScalarWhereInput | CommentScalarWhereInput[]
-    id?: StringFilter<"Comment"> | string
-    message?: StringFilter<"Comment"> | string
-    star?: IntFilter<"Comment"> | number
-    masterID?: StringFilter<"Comment"> | string
-    orderID?: StringFilter<"Comment"> | string
-  }
-
   export type OrderCreateWithoutItemsInput = {
     id?: string
     locationLat: string
@@ -33736,6 +34113,8 @@ export namespace Prisma {
     withDelivery: boolean
     status: $Enums.OrderStatus
     commentToDelivery?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     comments?: CommentCreateNestedManyWithoutOrderInput
   }
 
@@ -33750,6 +34129,8 @@ export namespace Prisma {
     withDelivery: boolean
     status: $Enums.OrderStatus
     commentToDelivery?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     comments?: CommentUncheckedCreateNestedManyWithoutOrderInput
   }
 
@@ -33889,6 +34270,8 @@ export namespace Prisma {
     withDelivery?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     commentToDelivery?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentUpdateManyWithoutOrderNestedInput
   }
 
@@ -33903,6 +34286,8 @@ export namespace Prisma {
     withDelivery?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     commentToDelivery?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentUncheckedUpdateManyWithoutOrderNestedInput
   }
 
@@ -34258,6 +34643,47 @@ export namespace Prisma {
     data: XOR<ToolUpdateManyMutationInput, ToolUncheckedUpdateManyWithoutSizeInput>
   }
 
+  export type UserCreateWithoutCommentsInput = {
+    id?: string
+    nameRu: string
+    nameUz: string
+    nameEn: string
+    email: string
+    password: string
+    phone: string
+    image: string
+    role: $Enums.UserRole
+    status: $Enums.UserStatus
+    location: string
+    passportSeries?: string | null
+    inn?: string | null
+    region?: RegionCreateNestedOneWithoutUsersInput
+    baskets?: BasketCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutCommentsInput = {
+    id?: string
+    nameRu: string
+    nameUz: string
+    nameEn: string
+    email: string
+    password: string
+    phone: string
+    image: string
+    role: $Enums.UserRole
+    status: $Enums.UserStatus
+    regionID?: string | null
+    location: string
+    passportSeries?: string | null
+    inn?: string | null
+    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutCommentsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCommentsInput, UserUncheckedCreateWithoutCommentsInput>
+  }
+
   export type MasterCreateWithoutCommentsInput = {
     id?: string
     nameRu: string
@@ -34268,7 +34694,7 @@ export namespace Prisma {
     dob: string
     image: string
     passportImage: string
-    rating?: number | null
+    rating?: Decimal | DecimalJsLike | number | string | null
     masterJobs?: MasterJobsCreateNestedManyWithoutMasterInput
   }
 
@@ -34282,7 +34708,7 @@ export namespace Prisma {
     dob: string
     image: string
     passportImage: string
-    rating?: number | null
+    rating?: Decimal | DecimalJsLike | number | string | null
     masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutMasterInput
   }
 
@@ -34302,6 +34728,8 @@ export namespace Prisma {
     withDelivery: boolean
     status: $Enums.OrderStatus
     commentToDelivery?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     items?: OrderItemCreateNestedManyWithoutOrderInput
   }
 
@@ -34316,12 +34744,61 @@ export namespace Prisma {
     withDelivery: boolean
     status: $Enums.OrderStatus
     commentToDelivery?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     items?: OrderItemUncheckedCreateNestedManyWithoutOrderInput
   }
 
   export type OrderCreateOrConnectWithoutCommentsInput = {
     where: OrderWhereUniqueInput
     create: XOR<OrderCreateWithoutCommentsInput, OrderUncheckedCreateWithoutCommentsInput>
+  }
+
+  export type UserUpsertWithoutCommentsInput = {
+    update: XOR<UserUpdateWithoutCommentsInput, UserUncheckedUpdateWithoutCommentsInput>
+    create: XOR<UserCreateWithoutCommentsInput, UserUncheckedCreateWithoutCommentsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCommentsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCommentsInput, UserUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type UserUpdateWithoutCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nameRu?: StringFieldUpdateOperationsInput | string
+    nameUz?: StringFieldUpdateOperationsInput | string
+    nameEn?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    location?: StringFieldUpdateOperationsInput | string
+    passportSeries?: NullableStringFieldUpdateOperationsInput | string | null
+    inn?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: RegionUpdateOneWithoutUsersNestedInput
+    baskets?: BasketUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nameRu?: StringFieldUpdateOperationsInput | string
+    nameUz?: StringFieldUpdateOperationsInput | string
+    nameEn?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    regionID?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: StringFieldUpdateOperationsInput | string
+    passportSeries?: NullableStringFieldUpdateOperationsInput | string | null
+    inn?: NullableStringFieldUpdateOperationsInput | string | null
+    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MasterUpsertWithoutCommentsInput = {
@@ -34345,7 +34822,7 @@ export namespace Prisma {
     dob?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
-    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     masterJobs?: MasterJobsUpdateManyWithoutMasterNestedInput
   }
 
@@ -34359,7 +34836,7 @@ export namespace Prisma {
     dob?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
-    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     masterJobs?: MasterJobsUncheckedUpdateManyWithoutMasterNestedInput
   }
 
@@ -34385,6 +34862,8 @@ export namespace Prisma {
     withDelivery?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     commentToDelivery?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: OrderItemUpdateManyWithoutOrderNestedInput
   }
 
@@ -34399,6 +34878,8 @@ export namespace Prisma {
     withDelivery?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     commentToDelivery?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: OrderItemUncheckedUpdateManyWithoutOrderNestedInput
   }
 
@@ -34440,6 +34921,7 @@ export namespace Prisma {
     id?: string
     message: string
     star: number
+    user?: UserCreateNestedOneWithoutCommentsInput
     order: OrderCreateNestedOneWithoutCommentsInput
   }
 
@@ -34448,6 +34930,7 @@ export namespace Prisma {
     message: string
     star: number
     orderID: string
+    userID?: string | null
   }
 
   export type CommentCreateOrConnectWithoutMasterInput = {
@@ -34627,7 +35110,7 @@ export namespace Prisma {
     dob: string
     image: string
     passportImage: string
-    rating?: number | null
+    rating?: Decimal | DecimalJsLike | number | string | null
     comments?: CommentCreateNestedManyWithoutMasterInput
   }
 
@@ -34641,7 +35124,7 @@ export namespace Prisma {
     dob: string
     image: string
     passportImage: string
-    rating?: number | null
+    rating?: Decimal | DecimalJsLike | number | string | null
     comments?: CommentUncheckedCreateNestedManyWithoutMasterInput
   }
 
@@ -34798,7 +35281,7 @@ export namespace Prisma {
     dob?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
-    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     comments?: CommentUpdateManyWithoutMasterNestedInput
   }
 
@@ -34812,7 +35295,7 @@ export namespace Prisma {
     dob?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
-    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     comments?: CommentUncheckedUpdateManyWithoutMasterNestedInput
   }
 
@@ -34854,6 +35337,7 @@ export namespace Prisma {
     count: number
     workingHours: number
     totalPrice?: number | null
+    createdAt?: Date | string
     order: OrderCreateNestedOneWithoutItemsInput
     tool: ToolCreateNestedOneWithoutOrderItemsInput
     level: LevelCreateNestedOneWithoutOrderItemsInput
@@ -34868,6 +35352,7 @@ export namespace Prisma {
     count: number
     workingHours: number
     totalPrice?: number | null
+    createdAt?: Date | string
   }
 
   export type OrderItemCreateOrConnectWithoutProductInput = {
@@ -35058,6 +35543,7 @@ export namespace Prisma {
     count: number
     workingHours: number
     totalPrice?: number | null
+    createdAt?: Date | string
     order: OrderCreateNestedOneWithoutItemsInput
     product: ProductCreateNestedOneWithoutOrderItemsInput
     tool: ToolCreateNestedOneWithoutOrderItemsInput
@@ -35072,6 +35558,7 @@ export namespace Prisma {
     count: number
     workingHours: number
     totalPrice?: number | null
+    createdAt?: Date | string
   }
 
   export type OrderItemCreateOrConnectWithoutLevelInput = {
@@ -35297,6 +35784,7 @@ export namespace Prisma {
     count: number
     workingHours: number
     totalPrice?: number | null
+    createdAt?: Date | string
     order: OrderCreateNestedOneWithoutItemsInput
     product: ProductCreateNestedOneWithoutOrderItemsInput
     level: LevelCreateNestedOneWithoutOrderItemsInput
@@ -35311,6 +35799,7 @@ export namespace Prisma {
     count: number
     workingHours: number
     totalPrice?: number | null
+    createdAt?: Date | string
   }
 
   export type OrderItemCreateOrConnectWithoutToolInput = {
@@ -35875,6 +36364,14 @@ export namespace Prisma {
     totalPrice?: number | null
   }
 
+  export type CommentCreateManyUserInput = {
+    id?: string
+    message: string
+    star: number
+    masterID: string
+    orderID: string
+  }
+
   export type BasketUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     timeUnit?: IntFieldUpdateOperationsInput | number
@@ -35908,6 +36405,30 @@ export namespace Prisma {
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
+  export type CommentUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    star?: IntFieldUpdateOperationsInput | number
+    master?: MasterUpdateOneRequiredWithoutCommentsNestedInput
+    order?: OrderUpdateOneRequiredWithoutCommentsNestedInput
+  }
+
+  export type CommentUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    star?: IntFieldUpdateOperationsInput | number
+    masterID?: StringFieldUpdateOperationsInput | string
+    orderID?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CommentUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    star?: IntFieldUpdateOperationsInput | number
+    masterID?: StringFieldUpdateOperationsInput | string
+    orderID?: StringFieldUpdateOperationsInput | string
+  }
+
   export type UserCreateManyRegionInput = {
     id?: string
     nameRu: string
@@ -35939,6 +36460,7 @@ export namespace Prisma {
     passportSeries?: NullableStringFieldUpdateOperationsInput | string | null
     inn?: NullableStringFieldUpdateOperationsInput | string | null
     baskets?: BasketUpdateManyWithoutUserNestedInput
+    comments?: CommentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRegionInput = {
@@ -35956,6 +36478,7 @@ export namespace Prisma {
     passportSeries?: NullableStringFieldUpdateOperationsInput | string | null
     inn?: NullableStringFieldUpdateOperationsInput | string | null
     baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutRegionInput = {
@@ -35983,6 +36506,7 @@ export namespace Prisma {
     count: number
     workingHours: number
     totalPrice?: number | null
+    createdAt?: Date | string
   }
 
   export type CommentCreateManyOrderInput = {
@@ -35990,6 +36514,7 @@ export namespace Prisma {
     message: string
     star: number
     masterID: string
+    userID?: string | null
   }
 
   export type OrderItemUpdateWithoutOrderInput = {
@@ -35998,6 +36523,7 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     product?: ProductUpdateOneRequiredWithoutOrderItemsNestedInput
     tool?: ToolUpdateOneRequiredWithoutOrderItemsNestedInput
     level?: LevelUpdateOneRequiredWithoutOrderItemsNestedInput
@@ -36012,6 +36538,7 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type OrderItemUncheckedUpdateManyWithoutOrderInput = {
@@ -36023,12 +36550,14 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CommentUpdateWithoutOrderInput = {
     id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     star?: IntFieldUpdateOperationsInput | number
+    user?: UserUpdateOneWithoutCommentsNestedInput
     master?: MasterUpdateOneRequiredWithoutCommentsNestedInput
   }
 
@@ -36037,6 +36566,7 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     star?: IntFieldUpdateOperationsInput | number
     masterID?: StringFieldUpdateOperationsInput | string
+    userID?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CommentUncheckedUpdateManyWithoutOrderInput = {
@@ -36044,6 +36574,7 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     star?: IntFieldUpdateOperationsInput | number
     masterID?: StringFieldUpdateOperationsInput | string
+    userID?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ToolCreateManyBrandInput = {
@@ -36291,6 +36822,7 @@ export namespace Prisma {
     message: string
     star: number
     orderID: string
+    userID?: string | null
   }
 
   export type MasterJobsUpdateWithoutMasterInput = {
@@ -36333,6 +36865,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     star?: IntFieldUpdateOperationsInput | number
+    user?: UserUpdateOneWithoutCommentsNestedInput
     order?: OrderUpdateOneRequiredWithoutCommentsNestedInput
   }
 
@@ -36341,6 +36874,7 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     star?: IntFieldUpdateOperationsInput | number
     orderID?: StringFieldUpdateOperationsInput | string
+    userID?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CommentUncheckedUpdateManyWithoutMasterInput = {
@@ -36348,6 +36882,7 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     star?: IntFieldUpdateOperationsInput | number
     orderID?: StringFieldUpdateOperationsInput | string
+    userID?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BasketCreateManyProductInput = {
@@ -36370,6 +36905,7 @@ export namespace Prisma {
     count: number
     workingHours: number
     totalPrice?: number | null
+    createdAt?: Date | string
   }
 
   export type MasterJobsCreateManyProductInput = {
@@ -36433,6 +36969,7 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     order?: OrderUpdateOneRequiredWithoutItemsNestedInput
     tool?: ToolUpdateOneRequiredWithoutOrderItemsNestedInput
     level?: LevelUpdateOneRequiredWithoutOrderItemsNestedInput
@@ -36447,6 +36984,7 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type OrderItemUncheckedUpdateManyWithoutProductInput = {
@@ -36458,6 +36996,7 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MasterJobsUpdateWithoutProductInput = {
@@ -36535,6 +37074,7 @@ export namespace Prisma {
     count: number
     workingHours: number
     totalPrice?: number | null
+    createdAt?: Date | string
   }
 
   export type MasterJobsCreateManyLevelInput = {
@@ -36571,6 +37111,7 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     order?: OrderUpdateOneRequiredWithoutItemsNestedInput
     product?: ProductUpdateOneRequiredWithoutOrderItemsNestedInput
     tool?: ToolUpdateOneRequiredWithoutOrderItemsNestedInput
@@ -36585,6 +37126,7 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type OrderItemUncheckedUpdateManyWithoutLevelInput = {
@@ -36596,6 +37138,7 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MasterJobsUpdateWithoutLevelInput = {
@@ -36691,6 +37234,7 @@ export namespace Prisma {
     count: number
     workingHours: number
     totalPrice?: number | null
+    createdAt?: Date | string
   }
 
   export type MasterJobsCreateManyToolInput = {
@@ -36727,6 +37271,7 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     order?: OrderUpdateOneRequiredWithoutItemsNestedInput
     product?: ProductUpdateOneRequiredWithoutOrderItemsNestedInput
     level?: LevelUpdateOneRequiredWithoutOrderItemsNestedInput
@@ -36741,6 +37286,7 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type OrderItemUncheckedUpdateManyWithoutToolInput = {
@@ -36752,6 +37298,7 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MasterJobsUpdateWithoutToolInput = {

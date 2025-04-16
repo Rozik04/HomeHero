@@ -70,6 +70,7 @@ model User {
 
   region    Region? @relation(fields: [regionID], references: [id])
   baskets   Basket[]
+  comments  Comment[]
 }
 
 
@@ -111,8 +112,10 @@ model Order {
   withDelivery      Boolean
   status            OrderStatus
   commentToDelivery String?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
 
-  items             OrderItem[]  
+  items             OrderItem[]
   comments          Comment[]   
 }
 
@@ -127,6 +130,7 @@ model OrderItem {
   count           Int
   workingHours    Int
   totalPrice      Int?
+  createdAt       DateTime @default(now())
 
   order           Order    @relation(fields: [orderID], references: [id])
   product         Product  @relation(fields: [productID], references: [id])
@@ -174,7 +178,9 @@ model Comment {
   star     Int
   masterID String
   orderID  String
+  userID   String?
 
+  user     User?   @relation(fields: [userID], references: [id])
   master   Master @relation(fields: [masterID], references: [id])
   order    Order  @relation(fields: [orderID], references: [id])
 }
@@ -187,10 +193,10 @@ model Master {
   nameEn        String
   isActive      Boolean
   phone         String
-  dob          String
+  dob           String
   image         String
   passportImage String
-  rating          Int?
+  rating        Decimal?
 
   masterJobs    MasterJobs[]
   comments      Comment[]

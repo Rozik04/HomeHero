@@ -1,46 +1,44 @@
 import {
-    IsString,
-    IsNotEmpty,
-    IsInt,
-    IsOptional,
-    Min
-  } from 'class-validator';
-  
-  export class CreateOrderItemDto {
-    @IsString()
-    @IsNotEmpty()
-    orderID: string;
-  
-    @IsString()
-    @IsNotEmpty()
-    productID: string;
-  
-    @IsString()
-    @IsNotEmpty()
-    toolID: string;
-  
-    @IsString()
-    @IsNotEmpty()
-    levelID: string;
-  
-    @IsInt()
-    @Min(1)
-    quantity: number;
-  
-    @IsInt()
-    @Min(0)
-    toolCount: number;
-  
-    @IsInt()
-    @Min(0)
-    minWorkingHours: number;
-  
-    @IsString()
-    @IsNotEmpty()
-    measure: string;
-  
-    @IsInt()
-    @IsOptional()
-    totalPrice?: number;
-  }
-  
+  IsString,
+  IsNotEmpty,
+  IsBoolean,
+  IsOptional,
+  IsISO8601,
+  IsEnum,
+  IsInt,
+  Min,
+  ValidateNested,
+  IsArray
+} from 'class-validator';
+
+export class CreateOrderItemDto {
+  @IsString()
+  @IsNotEmpty()
+  productID: string;
+
+  @IsString()
+  @IsNotEmpty()
+  toolID: string;
+
+  @IsString()
+  @IsNotEmpty()
+  levelID: string;
+
+  @IsInt()
+  @Min(1)
+  timeUnit: number; 
+
+
+  @IsInt()
+  @Min(0)
+  count: number;
+
+  @IsInt()
+  @Min(0)
+  workingHours: number; 
+
+  @IsInt()
+  @IsOptional()
+  totalPrice?: number;
+
+}
