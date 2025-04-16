@@ -11,8 +11,8 @@ import { UserRole } from 'src/utils/enums';
 export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
   @Post()
   create(@Request() req, @Body() createCommentDto: CreateCommentDto) {
     let userId = req.user.id;

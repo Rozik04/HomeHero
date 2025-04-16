@@ -11,6 +11,8 @@ async function bootstrap() {
     .setDescription('The "Home Hero" management API')
     .setVersion('1.0')
     .addTag('exam')
+    .addSecurityRequirements("bearer",['bearer'])
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

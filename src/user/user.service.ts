@@ -11,11 +11,14 @@ import { promises as fs} from 'fs';
 import * as path from 'path';
 import { UserRole } from 'src/utils/enums';
 import { Request, Response } from 'express';
+import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { CreateOtpDto, loginDto, newPasswordDto, otpToResetPassword, verifyOtpDto } from 'src/utils/createOtp.dto';
 dotenv.config()
 
 let otpVerifiedUsers: Record<string, boolean> = {};
 let storeOtp: {[key:string]:string}={};
 
+@ApiTags('users')
 @Injectable()
 export class UserService {
   constructor(private readonly prisma: PrismaService, private readonly jwt: JwtService){}
@@ -28,7 +31,11 @@ export class UserService {
     }
   }) 
 
-  async sendOtp(data:{email:string}):Promise<{otp: string}>{
+  @ApiOperation({ summary: 'Send OTP to user email' })
+  @ApiBody({type: CreateOtpDto})
+  @ApiResponse({ status: 201, description: 'OTP sent successfully' })
+  @ApiResponse({ status: 500, description: 'Failed to send OTP' })
+  async sendOtp(data:CreateOtpDto):Promise<{otp: string}>{
     let {email} =  data;
     
     let otp = generateOtp()
@@ -52,7 +59,11 @@ export class UserService {
   }
   }
 
-  async verifyOtp(data:{email: string, otp: string}){
+  @ApiOperation({ summary: 'Verify OTP' })
+  @ApiBody({ type: verifyOtpDto })
+  @ApiResponse({ status: 200, description: 'Otp verified successfully!' })
+  @ApiResponse({ status: 400, description: 'Wrong OTP' })
+  async verifyOtp(data:verifyOtpDto){
     let {email, otp} = data;    
     if (storeOtp[email] === otp) {
       await this.prisma.user.update({where:{email},data:{status:"active"}})
@@ -63,6 +74,10 @@ export class UserService {
     return {error:"Wrong otp!"}; 
   }
 
+  @ApiOperation({ summary: 'Register user' })
+  @ApiBody({ type: CreateUserDto })
+  @ApiResponse({ status: 201, description: 'User registered successfully' })
+  @ApiResponse({ status: 400, description: 'Invalid data or unverified email' })
   async register(createUserDto: CreateUserDto){    
     let isUserExists = await this.prisma.user.findFirst({where:{email:createUserDto.email}});
     if(!isUserExists||isUserExists.status!='active'){
@@ -89,7 +104,11 @@ export class UserService {
     return {"Registered successfully":newUser}
   }
 
-  async login(data:{email:string, password:string}){
+  @ApiOperation({ summary: 'Login user' })
+  @ApiBody({type: loginDto })
+  @ApiResponse({ status: 200, description: 'User logged in successfully' })
+  @ApiResponse({ status: 400, description: 'Invalid email or password' })
+  async login(data:loginDto){
     let {email, password} = data;
     let isUserExists = await this.prisma.user.findFirst({where:{email}});
     if(!isUserExists){
@@ -108,7 +127,9 @@ export class UserService {
     
   }
 
-
+  @ApiOperation({ summary: 'Get all users' })
+  @ApiResponse({ status: 200, description: 'All users fetched successfully' })
+  @ApiResponse({ status: 400, description: 'No users found' })
   async findAll(){
     let isUsersExist = await this.prisma.user.findMany({include:{region:{select:{nameUz:true, nameRu:true, nameEn:true},},},}); 
     if(!isUsersExist.length){
@@ -117,6 +138,10 @@ export class UserService {
     return {"All users": isUsersExist}
   }
 
+  @ApiOperation({ summary: 'Get user by ID' })
+  @ApiParam({ name: 'id', type: String })
+  @ApiResponse({ status: 200, description: 'User found' })
+@ApiResponse({ status: 404, description: 'User not found' })
   async findOne(id: string){
     let isUserExists = await this.prisma.user.findFirst({where:{id},include:{region:{select:{nameUz:true, nameRu:true, nameEn:true}}}});
     if(!isUserExists){
@@ -125,6 +150,10 @@ export class UserService {
     return {User:isUserExists}
   }
 
+  @ApiOperation({ summary: 'Update user by ID' })
+  @ApiParam({ name: 'id', type: String })
+  @ApiBody({ type: UpdateUserDto })
+  @ApiResponse({ status: 200, description: 'User updated successfully' })
   async update(id: string, updateUserDto: UpdateUserDto){
     let isUserExists = await this.prisma.user.findFirst({where:{id}});
     if(!isUserExists){
@@ -138,6 +167,8 @@ export class UserService {
     return {"Updated user": updatedUser}
   }
 
+
+  @ApiParam({ name: 'id', type: String })
   async updateImage(id: string, image:Express.Multer.File){
     let isUserExists = await this.prisma.user.findFirst({where:{id}});
     if(!isUserExists){
@@ -149,6 +180,9 @@ export class UserService {
     return {"Updated image": image.filename}
   }
 
+  @ApiOperation({ summary: 'Delete user by ID' })
+  @ApiParam({ name: 'id', type: String })
+  @ApiResponse({ status: 200, description: 'User deleted successfully' })
   async remove(id: string){
     let isUserExists = await this.prisma.user.findFirst({where:{id}});
     if(!isUserExists){
@@ -166,6 +200,11 @@ try {
     return {"Deleted user":deletedUser}
   }
 
+
+  @ApiOperation({ summary: 'Send OTP for password reset' })
+  @ApiParam({ name: 'userId', type: String })
+  @ApiResponse({ status: 200, description: 'OTP sent to email successfully' })
+  @ApiResponse({ status: 400, description: 'User not found or failed to send OTP' })
   async sendOtpToReset(userId:string){
     let data = await this.prisma.user.findFirst({where:{id:userId}});
     if(!data){
@@ -193,7 +232,11 @@ try {
   }
   }
 
-  async verifyOtpToReset(data:{otp: string}, userId:string){
+  @ApiOperation({ summary: 'Verify OTP to reset password' })
+  @ApiBody({type:otpToResetPassword})
+  @ApiResponse({ status: 200, description: 'Otp verified successfully' })
+  @ApiResponse({ status: 400, description: 'User not found or wrong OTP' })
+  async verifyOtpToReset(data:otpToResetPassword, userId:string){
     let{otp} = data;
     let isUserExists = await this.prisma.user.findFirst({where:{id:userId}});
     if(!isUserExists){
@@ -208,7 +251,11 @@ try {
     return {error:"Wrong otp!"}; 
   }
 
-  async resetPassword(data:{newPassword:string}, userId:string){
+  @ApiOperation({ summary: 'Reset password after OTP verification' })
+  @ApiBody({type:newPasswordDto})
+  @ApiResponse({ status: 200, description: 'Password changed successfully' })
+  @ApiResponse({ status: 400, description: 'OTP not verified or error occurred' })
+  async resetPassword(data:newPasswordDto, userId:string){
     let {newPassword} = data;
     if (!otpVerifiedUsers[userId]) {
       throw new BadRequestException("You are not allowed to reset password without OTP verification!");
