@@ -33,10 +33,8 @@ export class ShowCaseService {
   @ApiResponse({ status: 400, description: 'No showcases found.' })
   async findAll() {
     const allShowCases = await this.prisma.showCase.findMany();
-    if (!allShowCases.length) {
-      throw new BadRequestException('No ShowCases found');
-    }
-    return { ShowCases: allShowCases };
+
+    return  allShowCases ;
   }
 
   @ApiOperation({ summary: 'Get a showcase by ID' })

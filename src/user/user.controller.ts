@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, UseGuards, Request, Req, Res } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, UseGuards, Request, Req, Res, Query } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -9,7 +9,7 @@ import { JwtRoleGuard } from 'src/utils/role.guard';
 import { Roles } from 'src/utils/role.decorator';
 import { UserRole } from 'src/utils/enums';
 import { CreateOtpDto, loginDto, newPasswordDto, otpToResetPassword, verifyOtpDto } from 'src/utils/createOtp.dto';
-import { ApiBody, ApiConsumes, ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
+import { ApiBody, ApiConsumes, ApiOperation, ApiParam, ApiQuery, ApiResponse } from '@nestjs/swagger';
 
 @Controller('user')
 export class UserController {
@@ -66,16 +66,24 @@ login(@Body() data:loginDto){
   }
 
   
-@UseGuards(JwtAuthGuard, JwtRoleGuard)
-@Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+// @UseGuards(JwtAuthGuard, JwtRoleGuard)
+// @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
 @Get()
-findAll() {
-    return this.userService.findAll();
-  }
+@ApiOperation({ summary: 'Get all users' })
+@ApiQuery({ name: 'search', required: false, type: String, description: 'Search by name or email' })
+@ApiQuery({ name: 'sortBy', required: false, enum: ['name', 'email'], description: 'Field to sort by' })
+@ApiQuery({ name: 'order', required: false, enum: ['asc', 'desc'], description: 'Sort order' })
+@ApiQuery({ name: 'page', required: false, type: Number, description: 'Page number' })
+@ApiQuery({ name: 'limit', required: false, type: Number, description: 'Number of items per page' })
+@ApiResponse({ status: 200, description: 'All users fetched successfully' })
+@ApiResponse({ status: 400, description: 'No users found' })
+findAll(@Query() query: any) {
+  return this.userService.findAll(query);
+}
 
   
-@UseGuards(JwtAuthGuard, JwtRoleGuard)
-@Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+// @UseGuards(JwtAuthGuard, JwtRoleGuard)
+// @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
 @Get(':id')
 findOne(@Param('id') id: string) {
     return this.userService.findOne(id);
@@ -120,8 +128,8 @@ updateImage(@Param('id') id:string, @UploadedFile() image: Express.Multer.File){
   }
 
 
-@UseGuards(JwtAuthGuard, JwtRoleGuard)
-@Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+// @UseGuards(JwtAuthGuard, JwtRoleGuard)
+// @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
 @Delete(':id')
 remove(@Param('id') id: string) {
     return this.userService.remove(id);

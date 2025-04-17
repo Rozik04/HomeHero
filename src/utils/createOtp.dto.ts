@@ -2,7 +2,7 @@ import { IsNotEmpty, IsEmail } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateOtpDto {
-  @ApiProperty({description: 'Email to which OTP will be sent',example: 'user@example.com'})
+  @ApiProperty({description: 'Email to which OTP will be sent',example: 'yusupovruzimuhammad4@gmail.com'})
   @IsNotEmpty()
   @IsEmail()
   email: string;
@@ -10,7 +10,7 @@ export class CreateOtpDto {
 
 
 export class verifyOtpDto {
-    @ApiProperty({description: 'Email to which OTP has been sent',example: 'user@example.com'})
+    @ApiProperty({description: 'Email to which OTP has been sent',example: 'yusupovruzimuhammad4@gmail.com'})
     @IsNotEmpty()
     @IsEmail()
     email: string;
@@ -22,7 +22,7 @@ export class verifyOtpDto {
 }
 
 export class loginDto {
-    @ApiProperty({description: 'Enter your email',example: 'user@example.com'})
+    @ApiProperty({description: 'Enter your email',example: 'yusupovruzimuhammad4@gmail.com'})
     @IsNotEmpty()
     @IsEmail()
     email: string;

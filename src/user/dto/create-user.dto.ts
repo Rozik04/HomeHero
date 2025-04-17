@@ -18,12 +18,12 @@ export class CreateUserDto {
   @IsString()
   nameEn: string;
 
-  @ApiProperty({ example: 'ali@example.com', description: 'User\'s email address' })
+  @ApiProperty({ example: 'yusupovruzimuhammad4@gmail.com', description: 'User\'s email address' })
   @IsNotEmpty()
   @IsEmail()
   email: string;
 
-  @ApiProperty({ example: 'password123', description: 'User\'s password' })
+  @ApiProperty({ example: 'password1234', description: 'User\'s password' })
   @IsNotEmpty()
   @IsString()
   password: string;

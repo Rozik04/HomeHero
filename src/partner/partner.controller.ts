@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, UseInterceptors, UploadedFile, BadRequestException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, UseInterceptors, UploadedFile, BadRequestException, Query } from '@nestjs/common';
 import { PartnerService } from './partner.service';
 import { CreatePartnerDto } from './dto/create-partner.dto';
 import { UpdatePartnerDto } from './dto/update-partner.dto';
@@ -8,7 +8,7 @@ import { Roles } from 'src/utils/role.decorator';
 import { UserRole } from 'src/utils/enums';
 import { multerPar } from 'src/utils/multer';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBody, ApiConsumes, ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
+import { ApiBody, ApiConsumes, ApiOperation, ApiParam, ApiQuery, ApiResponse } from '@nestjs/swagger';
 
 @Controller('partner')
 export class PartnerController {
@@ -52,8 +52,16 @@ export class PartnerController {
   // @UseGuards(JwtAuthGuard, JwtRoleGuard)
   // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
   @Get()
-  findAll() {
-    return this.partnerService.findAll();
+  @ApiOperation({ summary: 'Get all partners with search, sort, and pagination' })
+  @ApiQuery({ name: 'search', required: false, description: 'Search by name (Ru, Uz, En)' })
+  @ApiQuery({ name: 'sortBy', required: false, enum: ['nameRu', 'nameUz', 'nameEn'], description: 'Sort by field' })
+  @ApiQuery({ name: 'order', required: false, enum: ['asc', 'desc'], description: 'Sort order' })
+  @ApiQuery({ name: 'page', required: false, description: 'Page number (default 1)' })
+  @ApiQuery({ name: 'limit', required: false, description: 'Items per page (default 10)' })
+  @ApiResponse({ status: 200, description: 'List of all partners.' })
+  @ApiResponse({ status: 400, description: 'No partners found.' })
+  async findAll(@Query() query: any) {
+    return this.partnerService.findAll(query);
   }
 
   // @UseGuards(JwtAuthGuard, JwtRoleGuard)

@@ -47,17 +47,17 @@ export class CreateToolDto {
   @ApiProperty({ description: 'The ID of the brand', example: 'brand-uuid-123' })
   @IsString()
   @IsNotEmpty()
-  brandID: string;
+  brandID?: string;
 
   @ApiProperty({ description: 'The ID of the capacity', example: 'capacity-uuid-456' })
   @IsString()
   @IsNotEmpty()
-  capacityID: string;
+  capacityID?: string;
 
   @ApiProperty({ description: 'The ID of the size', example: 'size-uuid-789' })
   @IsString()
   @IsNotEmpty()
-  sizeID: string;
+  sizeID?: string;
 
   @ApiProperty({ description: 'Image filename or path', example: 'tool-image.jpg' })
   @IsString()

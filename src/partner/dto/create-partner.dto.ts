@@ -27,6 +27,11 @@ export class CreatePartnerDto {
   @IsNotEmpty()
   phone: string;
 
+  @ApiProperty({ description: 'The link of partner', example: 'http://localhost:3000/api' })
+  @IsString()
+  @IsNotEmpty()
+  link: string;
+
   @ApiProperty({ description: 'Hamkorning manzili', example: 'Toshkent shahri, Yakkasaroy tumani' })
   @IsString()
   @IsNotEmpty()

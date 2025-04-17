@@ -46,17 +46,17 @@ export class UpdateToolDto {
   @ApiProperty({ description: 'ID of the brand', example: 'brand123' })
   @IsString()
   @IsOptional()
-  brandID: string;
+  brandID?: string;
 
   @ApiProperty({ description: 'ID of the capacity', example: 'capacity456' })
   @IsString()
   @IsOptional()
-  capacityID: string;
+  capacityID?: string;
 
   @ApiProperty({ description: 'ID of the size', example: 'size789' })
   @IsString()
   @IsOptional()
-  sizeID: string;
+  sizeID?: string;
 
   @ApiProperty({ description: 'Image filename of the tool', example: 'tool.jpg' })
   @IsString()

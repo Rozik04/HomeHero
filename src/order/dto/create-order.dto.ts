@@ -5,9 +5,13 @@ import {
   IsOptional,
   IsISO8601,
   IsEnum,
+  ValidateNested,
+  IsArray,
 } from 'class-validator';
+import { Type } from 'class-transformer';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { OrderStatus, PaymentType } from 'src/utils/enums';
+import { CreateOrderItemDto } from 'src/order-item/dto/create-order-item.dto';
 
 export class CreateOrderWithItemsDto {
   @ApiProperty({
@@ -75,4 +79,14 @@ export class CreateOrderWithItemsDto {
   @IsString()
   @IsOptional()
   commentToDelivery?: string;
+
+  @ApiProperty({
+    description: 'List of order items',
+    type: [CreateOrderItemDto],
+  })
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreateOrderItemDto)
+  @IsNotEmpty()
+  orderItems: CreateOrderItemDto[];
 }

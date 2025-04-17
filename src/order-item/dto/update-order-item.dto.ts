@@ -34,11 +34,15 @@ import {
     @IsOptional()
     timeUnit?: number;
   
-    @ApiProperty({ description: 'The quantity of the product for this order item', example: 10, required: false })
+    @ApiProperty({ description: 'The quantity of the product for this order item', example: 10 })
     @IsInt()
     @Min(0)
-    @IsOptional()
-    count?: number;
+    countOfProduct: number;
+  
+    @ApiProperty({ description: 'The quantity of the tool for this order item', example: 10 })
+    @IsInt()
+    @Min(0)
+    countOfTool: number;
   
     @ApiProperty({ description: 'The working hours for this order item', example: 15, required: false })
     @IsInt()

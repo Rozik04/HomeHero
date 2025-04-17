@@ -29,21 +29,6 @@ export class UpdateProductDto extends PartialType(CreateProductDto) {
   @IsBoolean()
   isActive?: boolean;
 
-  @ApiProperty({ description: 'Number of working hours available for the product', example: 5, required: false })
-  @IsOptional()
-  @IsNumber()
-  workingHours?: number;
-
-  @ApiProperty({ description: 'Rental price per hour', example: 25000, required: false })
-  @IsOptional()
-  @IsNumber()
-  hourlyPrice?: number;
-
-  @ApiProperty({ description: 'Rental price per day', example: 100000, required: false })
-  @IsOptional()
-  @IsNumber()
-  dailyPrice?: number;
-
   @ApiProperty({
     description: 'List of level IDs associated with the product (UUID format)',
     example: ['fd8b21d0-b3e4-4c2a-8dc1-61f4f3fc3a92'],

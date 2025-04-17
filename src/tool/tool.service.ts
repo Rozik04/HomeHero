@@ -6,6 +6,7 @@ import { generateOtp } from 'src/utils/util.functions';
 import { promises as fs } from 'fs';
 import * as path from 'path';
 import { ApiTags, ApiOperation, ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger';
+import { Prisma } from 'generated/prisma';
 
 @ApiTags('tools')
 @Injectable()
@@ -23,20 +24,54 @@ export class ToolService {
   }
 
   @ApiOperation({ summary: 'Get all tools' })
-  @ApiResponse({ status: 200, description: 'List of all tools.' })
-  @ApiResponse({ status: 400, description: 'No tools found.' })
-  async findAll() {
-    let allTools = await this.prisma.tool.findMany({
-      include: {
-        size: { select: { nameEn: true, nameRu: true, nameUz: true } },
-        brand: { select: { nameEn: true, nameRu: true, nameUz: true } },
-        capacity: { select: { nameEn: true, nameRu: true, nameUz: true } },
+  async findAll(query: any) {
+    const {
+      search,
+      sortBy = 'nameEn',
+      order = 'asc',
+      page = 1,
+      limit = 10,
+    } = query;
+
+    const where: Prisma.ToolWhereInput = search
+      ? {
+          OR: [
+            {
+              nameRu: { contains: search, mode: Prisma.QueryMode.insensitive },
+            },
+            {
+              nameUz: { contains: search, mode: Prisma.QueryMode.insensitive },
+            },
+            {
+              nameEn: { contains: search, mode: Prisma.QueryMode.insensitive },
+            },
+          ],
+        }
+      : {};
+
+    const [data, total] = await Promise.all([
+      this.prisma.tool.findMany({
+        where,
+        include: {
+          size: { select: { nameEn: true, nameRu: true, nameUz: true } },
+          brand: { select: { nameEn: true, nameRu: true, nameUz: true } },
+          capacity: { select: { nameEn: true, nameRu: true, nameUz: true } },
+        },
+        orderBy: { [sortBy]: order },
+        skip: (Number(page) - 1) * Number(limit),
+        take: Number(limit),
+      }),
+      this.prisma.tool.count({ where }),
+    ]);
+
+    return {
+      data,
+      meta: {
+        total,
+        page: Number(page),
+        lastPage: Math.ceil(total / Number(limit)),
       },
-    });
-    if (!allTools.length) {
-      throw new BadRequestException('Not found tools');
-    }
-    return { allTools };
+    };
   }
 
   @ApiOperation({ summary: 'Get a tool by ID' })

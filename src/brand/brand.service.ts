@@ -3,6 +3,7 @@ import { CreateBrandDto } from './dto/create-brand.dto';
 import { UpdateBrandDto } from './dto/update-brand.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Prisma } from 'generated/prisma';
 
 @ApiTags('brands')
 @Injectable()
@@ -19,28 +20,79 @@ export class BrandService {
   }
 
 
-  @ApiOperation({ summary: 'Get all brands' })
-  @ApiResponse({ status: 200, description: 'List of all brands.' })
-  @ApiResponse({ status: 400, description: 'No brands found.' })
-  async findAll() {
-    let alldata = await this.prisma.brand.findMany();
-    if (!alldata.length) {
-      throw new BadRequestException("No brands found");
-    }
-    return { alldata };
+  async findAll(query: any) {
+    const {
+      search,
+      sortBy = 'nameUz',
+      order = 'asc',
+      page = 1,
+      limit = 10,
+    } = query;
+
+    const where: Prisma.SizeWhereInput = search
+      ? {
+          OR: [
+            {
+              nameUz: {
+                contains: search,
+                mode: Prisma.QueryMode.insensitive,
+              },
+            },
+            {
+              nameRu: {
+                contains: search,
+                mode: Prisma.QueryMode.insensitive,
+              },
+            },
+            {
+              nameEn: {
+                contains: search,
+                mode: Prisma.QueryMode.insensitive,
+              },
+            },
+          ],
+        }
+      : {};
+
+      const skip = (page - 1) * limit;
+
+      const [alldata, total] = await Promise.all([
+        this.prisma.size.findMany({
+          where,
+          orderBy: { [sortBy]: order },
+          skip: Number(skip),
+          take: Number(limit),
+        }),
+        this.prisma.size.count({ where }),
+      ]);
+  
+      if (!alldata.length) {
+        throw new BadRequestException('No sizes found');
+      }
+  
+      return {
+        data: alldata,
+        meta: {
+          total,
+          page: Number(page),
+          lastPage: Math.ceil(total / limit),
+        },
+      };
   }
+
 
   @ApiOperation({ summary: 'Get a brand by ID' })
   @ApiParam({ name: 'id', type: String, description: 'Brand ID' })
   @ApiResponse({ status: 200, description: 'The brand with the given ID.' })
-  @ApiResponse({ status: 400, description: 'Brand not found.' })
+  @ApiResponse({ status: 400, description: 'brand not found.' })
   async findOne(id: string) {
-    let isBrandExists = await this.prisma.brand.findFirst({ where: { id } });
-    if (!isBrandExists) {
-      throw new BadRequestException("Brand not found");
+    let isbrandExists = await this.prisma.brand.findFirst({ where: { id } });
+    if (!isbrandExists) {
+      throw new BadRequestException("brand not found");
     }
-    return { Brand: isBrandExists };
+    return { brand: isbrandExists };
   }
+
 
   @ApiOperation({ summary: 'Update a brand by ID' })
   @ApiParam({ name: 'id', type: String, description: 'Brand ID' })

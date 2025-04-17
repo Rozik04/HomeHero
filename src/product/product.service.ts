@@ -5,6 +5,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { promises as fs } from 'fs';
 import * as path from 'path';
 import { ApiTags, ApiOperation, ApiBody, ApiParam, ApiResponse } from '@nestjs/swagger';
+import { Prisma } from 'generated/prisma';
 
 @ApiTags('products')
 @Injectable()
@@ -15,8 +16,19 @@ export class ProductService {
   @ApiBody({ type: CreateProductDto })
   @ApiResponse({ status: 201, description: 'The product has been successfully created.' })
   @ApiResponse({ status: 400, description: 'Bad request.' })
-  async create(createProductDto: CreateProductDto) {
-    const { nameRu, nameUz, nameEn, image, isActive, levelIDs, toolIDs, workingHours, dailyPrice, hourlyPrice } = createProductDto;
+  async create(dto: CreateProductDto) {
+    const {
+      nameRu,
+      nameUz,
+      nameEn,
+      image,
+      isActive,
+      levelIDs,
+      toolIDs,
+      workingHours,
+      hourlyPrice,
+      dailyPrice,
+    } = dto;
 
     const product = await this.prisma.product.create({
       data: {
@@ -25,68 +37,114 @@ export class ProductService {
         nameEn,
         image,
         isActive,
-        workingHours,
-        dailyPrice,
-        hourlyPrice
       },
     });
 
-    if (levelIDs && levelIDs.length > 0) {
-      await this.prisma.productLevel.createMany({
-        data: levelIDs.map((levelID) => ({
-          productID: product.id,
-          levelID,
-        })),
-        skipDuplicates: true,
-      });
-    }
+    const productID = product.id;
 
-    if (toolIDs && toolIDs.length > 0) {
-      await this.prisma.productTool.createMany({
-        data: toolIDs.map((toolID) => ({
-          productID: product.id,
-          toolID,
-        })),
-        skipDuplicates: true,
-      });
-    }
+    await Promise.all(
+      levelIDs.map((levelID) =>
+        this.prisma.productLevel.create({
+          data: {
+            productID,
+            levelID,
+            workingHours,
+            hourlyPrice,
+            dailyPrice,
+          },
+        }),
+      ),
+    );
 
-    return product;
+    await Promise.all(
+      toolIDs.map((toolID) =>
+        this.prisma.productTool.create({
+          data: {
+            productID,
+            toolID,
+          },
+        }),
+      ),
+    );
+
+    return product
+    
   }
 
-  @ApiOperation({ summary: 'Get all products' })
-  @ApiResponse({ status: 200, description: 'List of all products.' })
-  async findAll() {
-    const products = await this.prisma.product.findMany({
-      include: {
-        levels: {
-          include: {
-            level: true,
-          },
-        },
-        tools: {
-          include: {
-            tool: true,
-          },
-        },
-      },
-    });
+  async findAll(query: any) {
+    const {
+      search,
+      sortBy = 'nameRu',
+      order = 'asc',
+      page = 1,
+      limit = 10,
+    } = query;
 
-    return products.map((product) => ({
+    const skip = (Number(page) - 1) * Number(limit);
+
+    const where: Prisma.ProductWhereInput = search
+      ? {
+          OR: [
+            {
+              nameRu: {
+                contains: search,
+                mode: Prisma.QueryMode.insensitive,
+              },
+            },
+            {
+              nameUz: {
+                contains: search,
+                mode: Prisma.QueryMode.insensitive,
+              },
+            },
+            {
+              nameEn: {
+                contains: search,
+                mode: Prisma.QueryMode.insensitive,
+              },
+            },
+          ],
+        }
+      : {};
+
+    const [products, total] = await Promise.all([
+      this.prisma.product.findMany({
+        where,
+        include: {
+          levels: {
+            include: {
+              level: true,
+            },
+          },
+          tools: {
+            include: {
+              tool: true,
+            },
+          },
+        },
+        orderBy: { [sortBy]: order },
+        skip,
+        take: Number(limit),
+      }),
+      this.prisma.product.count({ where }),
+    ]);
+
+    const mapped = products.map((product) => ({
       id: product.id,
       nameRu: product.nameRu,
       nameUz: product.nameUz,
       nameEn: product.nameEn,
       image: product.image,
       isActive: product.isActive,
-
       levels: product.levels.map((item) => ({
         id: item.level.id,
         nameRu: item.level.nameRu,
         nameUz: item.level.nameUz,
         nameEn: item.level.nameEn,
+        dailyPrice: item.dailyPrice,
+        workingHours: item.workingHours,
+        hourlyPrice: item.hourlyPrice,
       })),
-
       tools: product.tools.map((item) => ({
         id: item.tool.id,
         nameRu: item.tool.nameRu,
@@ -100,6 +158,15 @@ export class ProductService {
         image: item.tool.image,
       })),
     }));
+
+    return {
+      data: mapped,
+      meta: {
+        total,
+        page: Number(page),
+        lastPage: Math.ceil(total / limit),
+      },
+    };
   }
 
   @ApiOperation({ summary: 'Get a product by ID' })

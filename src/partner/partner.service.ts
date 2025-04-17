@@ -11,6 +11,7 @@ import {
   ApiBody,
   ApiResponse,
 } from '@nestjs/swagger';
+import { Prisma } from 'generated/prisma';
 
 @ApiTags('partners')
 @Injectable()
@@ -26,15 +27,42 @@ export class PartnerService {
     return { data };
   }
 
-  @ApiOperation({ summary: 'Get all partners' })
-  @ApiResponse({ status: 200, description: 'List of all partners.' })
-  @ApiResponse({ status: 400, description: 'No partners found.' })
-  async findAll() {
-    let alldata = await this.prisma.partner.findMany();
+
+  async findAll(query: any) {
+    const { search, sortBy = 'nameRu', order = 'asc', page = 1, limit = 10 } = query;
+
+    const where: Prisma.PartnerWhereInput = search
+      ? {
+          OR: [
+            { nameRu: { contains: search, mode: Prisma.QueryMode.insensitive } },
+            { nameUz: { contains: search, mode: Prisma.QueryMode.insensitive } },
+            { nameEn: { contains: search, mode: Prisma.QueryMode.insensitive } },
+          ],
+        }
+      : {};
+
+    const [alldata, total] = await this.prisma.$transaction([
+      this.prisma.partner.findMany({
+        where,
+        orderBy: { [sortBy]: order },
+        skip: (Number(page) - 1) * Number(limit),
+        take: Number(limit),
+      }),
+      this.prisma.partner.count({ where }),
+    ]);
+
     if (!alldata.length) {
-      throw new BadRequestException("No partners found");
+      throw new BadRequestException('No partners found');
     }
-    return { alldata };
+
+    return {
+      data: alldata,
+      meta: {
+        total,
+        page: Number(page),
+        lastPage: Math.ceil(total / Number(limit)),
+      },
+    };
   }
 
   @ApiOperation({ summary: 'Get a partner by ID' })

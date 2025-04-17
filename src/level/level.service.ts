@@ -3,6 +3,7 @@ import { CreateLevelDto } from './dto/create-level.dto';
 import { UpdateLevelDto } from './dto/update-level.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Prisma } from 'generated/prisma';
 
 @ApiTags('levels')
 @Injectable()
@@ -18,15 +19,64 @@ export class LevelService {
     return { data };
   }
 
-  @ApiOperation({ summary: 'Get all levels' })
-  @ApiResponse({ status: 200, description: 'List of all levels.' })
-  @ApiResponse({ status: 400, description: 'No levels found.' })
-  async findAll() {
-    let alldata = await this.prisma.level.findMany();
-    if (!alldata.length) {
-      throw new BadRequestException("No levels found");
+  async findAll(query: any) {
+    const {
+      search = '',
+      sortBy = 'nameUz',
+      order = 'asc',
+      page = 1,
+      limit = 10,
+    } = query;
+
+    const where: Prisma.LevelWhereInput = search
+      ? {
+          OR: [
+            {
+              nameUz: {
+                contains: search,
+                mode: Prisma.QueryMode.insensitive,
+              },
+            },
+            {
+              nameRu: {
+                contains: search,
+                mode: Prisma.QueryMode.insensitive,
+              },
+            },
+            {
+              nameEn: {
+                contains: search,
+                mode: Prisma.QueryMode.insensitive,
+              },
+            },
+          ],
+        }
+      : {};
+
+    const [data, total] = await Promise.all([
+      this.prisma.level.findMany({
+        where,
+        orderBy: {
+          [sortBy]: order,
+        },
+        skip: (page - 1) * limit,
+        take: Number(limit),
+      }),
+      this.prisma.level.count({ where }),
+    ]);
+
+    if (!data.length) {
+      throw new BadRequestException('No levels found');
     }
-    return { alldata };
+
+    return {
+      data,
+      meta: {
+        total,
+        page: Number(page),
+        lastPage: Math.ceil(total / limit),
+      },
+    };
   }
 
   @ApiOperation({ summary: 'Get a level by ID' })

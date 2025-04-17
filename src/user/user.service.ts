@@ -13,6 +13,7 @@ import { UserRole } from 'src/utils/enums';
 import { Request, Response } from 'express';
 import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateOtpDto, loginDto, newPasswordDto, otpToResetPassword, verifyOtpDto } from 'src/utils/createOtp.dto';
+import { Prisma } from 'generated/prisma';
 dotenv.config()
 
 let otpVerifiedUsers: Record<string, boolean> = {};
@@ -127,21 +128,77 @@ export class UserService {
     
   }
 
-  @ApiOperation({ summary: 'Get all users' })
-  @ApiResponse({ status: 200, description: 'All users fetched successfully' })
-  @ApiResponse({ status: 400, description: 'No users found' })
-  async findAll(){
-    let isUsersExist = await this.prisma.user.findMany({include:{region:{select:{nameUz:true, nameRu:true, nameEn:true},},},}); 
-    if(!isUsersExist.length){
-      throw new BadRequestException("No users found!")
-    }
-    return {"All users": isUsersExist}
+  async findAll(query: any) {
+    const {
+      search,
+      sortBy = 'nameUz',
+      order = 'asc',
+      page = 1,
+      limit = 10,
+    } = query;
+
+    const skip = (page - 1) * limit;
+
+    const where: Prisma.UserWhereInput = search
+      ? {
+          OR: [
+            {
+              nameUz: {
+                contains: search,
+                mode: Prisma.QueryMode.insensitive,
+              },
+              nameEn: {
+                contains: search,
+                mode: Prisma.QueryMode.insensitive,
+              },
+              nameRu: {
+                contains: search,
+                mode: Prisma.QueryMode.insensitive,
+              },
+            },
+            {
+              email: {
+                contains: search,
+                mode: Prisma.QueryMode.insensitive,
+              },
+            },
+          ],
+        }
+      : {};
+
+    const [users, total] = await Promise.all([
+      this.prisma.user.findMany({
+        where,
+        orderBy: { [sortBy]: order },
+        skip: Number(skip),
+        take: Number(limit),
+        include: {
+          region: {
+            select: {
+              nameUz: true,
+              nameRu: true,
+              nameEn: true,
+            },
+          },
+        },
+      }),
+      this.prisma.user.count({ where }),
+    ]);
+
+    return {
+      data: users,
+      meta: {
+        total,
+        page: Number(page),
+        lastPage: Math.ceil(total / limit),
+      },
+    };
   }
 
   @ApiOperation({ summary: 'Get user by ID' })
   @ApiParam({ name: 'id', type: String })
   @ApiResponse({ status: 200, description: 'User found' })
-@ApiResponse({ status: 404, description: 'User not found' })
+  @ApiResponse({ status: 404, description: 'User not found' })
   async findOne(id: string){
     let isUserExists = await this.prisma.user.findFirst({where:{id},include:{region:{select:{nameUz:true, nameRu:true, nameEn:true}}}});
     if(!isUserExists){

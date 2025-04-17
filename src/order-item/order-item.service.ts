@@ -49,7 +49,8 @@ export class OrderItemService {
         toolID: item.toolID,
         levelID: item.levelID,
         timeUnit: item.timeUnit,
-        count: item.count,
+        countOfProduct: item.countOfProduct,
+        countOfTool: item.countOfTool,
         workingHours: item.workingHours,
       })),
     });

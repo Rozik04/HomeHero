@@ -7898,14 +7898,16 @@ export namespace Prisma {
 
   export type OrderItemAvgAggregateOutputType = {
     timeUnit: number | null
-    count: number | null
+    countOfTool: number | null
+    countOfProduct: number | null
     workingHours: number | null
     totalPrice: number | null
   }
 
   export type OrderItemSumAggregateOutputType = {
     timeUnit: number | null
-    count: number | null
+    countOfTool: number | null
+    countOfProduct: number | null
     workingHours: number | null
     totalPrice: number | null
   }
@@ -7917,7 +7919,8 @@ export namespace Prisma {
     toolID: string | null
     levelID: string | null
     timeUnit: number | null
-    count: number | null
+    countOfTool: number | null
+    countOfProduct: number | null
     workingHours: number | null
     totalPrice: number | null
     createdAt: Date | null
@@ -7930,7 +7933,8 @@ export namespace Prisma {
     toolID: string | null
     levelID: string | null
     timeUnit: number | null
-    count: number | null
+    countOfTool: number | null
+    countOfProduct: number | null
     workingHours: number | null
     totalPrice: number | null
     createdAt: Date | null
@@ -7943,7 +7947,8 @@ export namespace Prisma {
     toolID: number
     levelID: number
     timeUnit: number
-    count: number
+    countOfTool: number
+    countOfProduct: number
     workingHours: number
     totalPrice: number
     createdAt: number
@@ -7953,14 +7958,16 @@ export namespace Prisma {
 
   export type OrderItemAvgAggregateInputType = {
     timeUnit?: true
-    count?: true
+    countOfTool?: true
+    countOfProduct?: true
     workingHours?: true
     totalPrice?: true
   }
 
   export type OrderItemSumAggregateInputType = {
     timeUnit?: true
-    count?: true
+    countOfTool?: true
+    countOfProduct?: true
     workingHours?: true
     totalPrice?: true
   }
@@ -7972,7 +7979,8 @@ export namespace Prisma {
     toolID?: true
     levelID?: true
     timeUnit?: true
-    count?: true
+    countOfTool?: true
+    countOfProduct?: true
     workingHours?: true
     totalPrice?: true
     createdAt?: true
@@ -7985,7 +7993,8 @@ export namespace Prisma {
     toolID?: true
     levelID?: true
     timeUnit?: true
-    count?: true
+    countOfTool?: true
+    countOfProduct?: true
     workingHours?: true
     totalPrice?: true
     createdAt?: true
@@ -7998,7 +8007,8 @@ export namespace Prisma {
     toolID?: true
     levelID?: true
     timeUnit?: true
-    count?: true
+    countOfTool?: true
+    countOfProduct?: true
     workingHours?: true
     totalPrice?: true
     createdAt?: true
@@ -8094,11 +8104,12 @@ export namespace Prisma {
   export type OrderItemGroupByOutputType = {
     id: string
     orderID: string
-    productID: string
-    toolID: string
-    levelID: string
-    timeUnit: number
-    count: number
+    productID: string | null
+    toolID: string | null
+    levelID: string | null
+    timeUnit: number | null
+    countOfTool: number
+    countOfProduct: number
     workingHours: number
     totalPrice: number | null
     createdAt: Date
@@ -8130,14 +8141,15 @@ export namespace Prisma {
     toolID?: boolean
     levelID?: boolean
     timeUnit?: boolean
-    count?: boolean
+    countOfTool?: boolean
+    countOfProduct?: boolean
     workingHours?: boolean
     totalPrice?: boolean
     createdAt?: boolean
     order?: boolean | OrderDefaultArgs<ExtArgs>
-    product?: boolean | ProductDefaultArgs<ExtArgs>
-    tool?: boolean | ToolDefaultArgs<ExtArgs>
-    level?: boolean | LevelDefaultArgs<ExtArgs>
+    product?: boolean | OrderItem$productArgs<ExtArgs>
+    tool?: boolean | OrderItem$toolArgs<ExtArgs>
+    level?: boolean | OrderItem$levelArgs<ExtArgs>
   }, ExtArgs["result"]["orderItem"]>
 
   export type OrderItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -8147,14 +8159,15 @@ export namespace Prisma {
     toolID?: boolean
     levelID?: boolean
     timeUnit?: boolean
-    count?: boolean
+    countOfTool?: boolean
+    countOfProduct?: boolean
     workingHours?: boolean
     totalPrice?: boolean
     createdAt?: boolean
     order?: boolean | OrderDefaultArgs<ExtArgs>
-    product?: boolean | ProductDefaultArgs<ExtArgs>
-    tool?: boolean | ToolDefaultArgs<ExtArgs>
-    level?: boolean | LevelDefaultArgs<ExtArgs>
+    product?: boolean | OrderItem$productArgs<ExtArgs>
+    tool?: boolean | OrderItem$toolArgs<ExtArgs>
+    level?: boolean | OrderItem$levelArgs<ExtArgs>
   }, ExtArgs["result"]["orderItem"]>
 
   export type OrderItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -8164,14 +8177,15 @@ export namespace Prisma {
     toolID?: boolean
     levelID?: boolean
     timeUnit?: boolean
-    count?: boolean
+    countOfTool?: boolean
+    countOfProduct?: boolean
     workingHours?: boolean
     totalPrice?: boolean
     createdAt?: boolean
     order?: boolean | OrderDefaultArgs<ExtArgs>
-    product?: boolean | ProductDefaultArgs<ExtArgs>
-    tool?: boolean | ToolDefaultArgs<ExtArgs>
-    level?: boolean | LevelDefaultArgs<ExtArgs>
+    product?: boolean | OrderItem$productArgs<ExtArgs>
+    tool?: boolean | OrderItem$toolArgs<ExtArgs>
+    level?: boolean | OrderItem$levelArgs<ExtArgs>
   }, ExtArgs["result"]["orderItem"]>
 
   export type OrderItemSelectScalar = {
@@ -8181,48 +8195,50 @@ export namespace Prisma {
     toolID?: boolean
     levelID?: boolean
     timeUnit?: boolean
-    count?: boolean
+    countOfTool?: boolean
+    countOfProduct?: boolean
     workingHours?: boolean
     totalPrice?: boolean
     createdAt?: boolean
   }
 
-  export type OrderItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orderID" | "productID" | "toolID" | "levelID" | "timeUnit" | "count" | "workingHours" | "totalPrice" | "createdAt", ExtArgs["result"]["orderItem"]>
+  export type OrderItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orderID" | "productID" | "toolID" | "levelID" | "timeUnit" | "countOfTool" | "countOfProduct" | "workingHours" | "totalPrice" | "createdAt", ExtArgs["result"]["orderItem"]>
   export type OrderItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     order?: boolean | OrderDefaultArgs<ExtArgs>
-    product?: boolean | ProductDefaultArgs<ExtArgs>
-    tool?: boolean | ToolDefaultArgs<ExtArgs>
-    level?: boolean | LevelDefaultArgs<ExtArgs>
+    product?: boolean | OrderItem$productArgs<ExtArgs>
+    tool?: boolean | OrderItem$toolArgs<ExtArgs>
+    level?: boolean | OrderItem$levelArgs<ExtArgs>
   }
   export type OrderItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     order?: boolean | OrderDefaultArgs<ExtArgs>
-    product?: boolean | ProductDefaultArgs<ExtArgs>
-    tool?: boolean | ToolDefaultArgs<ExtArgs>
-    level?: boolean | LevelDefaultArgs<ExtArgs>
+    product?: boolean | OrderItem$productArgs<ExtArgs>
+    tool?: boolean | OrderItem$toolArgs<ExtArgs>
+    level?: boolean | OrderItem$levelArgs<ExtArgs>
   }
   export type OrderItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     order?: boolean | OrderDefaultArgs<ExtArgs>
-    product?: boolean | ProductDefaultArgs<ExtArgs>
-    tool?: boolean | ToolDefaultArgs<ExtArgs>
-    level?: boolean | LevelDefaultArgs<ExtArgs>
+    product?: boolean | OrderItem$productArgs<ExtArgs>
+    tool?: boolean | OrderItem$toolArgs<ExtArgs>
+    level?: boolean | OrderItem$levelArgs<ExtArgs>
   }
 
   export type $OrderItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "OrderItem"
     objects: {
       order: Prisma.$OrderPayload<ExtArgs>
-      product: Prisma.$ProductPayload<ExtArgs>
-      tool: Prisma.$ToolPayload<ExtArgs>
-      level: Prisma.$LevelPayload<ExtArgs>
+      product: Prisma.$ProductPayload<ExtArgs> | null
+      tool: Prisma.$ToolPayload<ExtArgs> | null
+      level: Prisma.$LevelPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       orderID: string
-      productID: string
-      toolID: string
-      levelID: string
-      timeUnit: number
-      count: number
+      productID: string | null
+      toolID: string | null
+      levelID: string | null
+      timeUnit: number | null
+      countOfTool: number
+      countOfProduct: number
       workingHours: number
       totalPrice: number | null
       createdAt: Date
@@ -8621,9 +8637,9 @@ export namespace Prisma {
   export interface Prisma__OrderItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     order<T extends OrderDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrderDefaultArgs<ExtArgs>>): Prisma__OrderClient<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    tool<T extends ToolDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ToolDefaultArgs<ExtArgs>>): Prisma__ToolClient<$Result.GetResult<Prisma.$ToolPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    level<T extends LevelDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LevelDefaultArgs<ExtArgs>>): Prisma__LevelClient<$Result.GetResult<Prisma.$LevelPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    product<T extends OrderItem$productArgs<ExtArgs> = {}>(args?: Subset<T, OrderItem$productArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    tool<T extends OrderItem$toolArgs<ExtArgs> = {}>(args?: Subset<T, OrderItem$toolArgs<ExtArgs>>): Prisma__ToolClient<$Result.GetResult<Prisma.$ToolPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    level<T extends OrderItem$levelArgs<ExtArgs> = {}>(args?: Subset<T, OrderItem$levelArgs<ExtArgs>>): Prisma__LevelClient<$Result.GetResult<Prisma.$LevelPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8659,7 +8675,8 @@ export namespace Prisma {
     readonly toolID: FieldRef<"OrderItem", 'String'>
     readonly levelID: FieldRef<"OrderItem", 'String'>
     readonly timeUnit: FieldRef<"OrderItem", 'Int'>
-    readonly count: FieldRef<"OrderItem", 'Int'>
+    readonly countOfTool: FieldRef<"OrderItem", 'Int'>
+    readonly countOfProduct: FieldRef<"OrderItem", 'Int'>
     readonly workingHours: FieldRef<"OrderItem", 'Int'>
     readonly totalPrice: FieldRef<"OrderItem", 'Int'>
     readonly createdAt: FieldRef<"OrderItem", 'DateTime'>
@@ -9056,6 +9073,63 @@ export namespace Prisma {
      * Limit how many OrderItems to delete.
      */
     limit?: number
+  }
+
+  /**
+   * OrderItem.product
+   */
+  export type OrderItem$productArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Product
+     */
+    omit?: ProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductInclude<ExtArgs> | null
+    where?: ProductWhereInput
+  }
+
+  /**
+   * OrderItem.tool
+   */
+  export type OrderItem$toolArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tool
+     */
+    select?: ToolSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tool
+     */
+    omit?: ToolOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ToolInclude<ExtArgs> | null
+    where?: ToolWhereInput
+  }
+
+  /**
+   * OrderItem.level
+   */
+  export type OrderItem$levelArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Level
+     */
+    select?: LevelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Level
+     */
+    omit?: LevelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LevelInclude<ExtArgs> | null
+    where?: LevelWhereInput
   }
 
   /**
@@ -19970,6 +20044,7 @@ export namespace Prisma {
     nameEn: string | null
     image: string | null
     phone: string | null
+    link: string | null
     address: string | null
     status: boolean | null
     paymentTerms: string | null
@@ -19984,6 +20059,7 @@ export namespace Prisma {
     nameEn: string | null
     image: string | null
     phone: string | null
+    link: string | null
     address: string | null
     status: boolean | null
     paymentTerms: string | null
@@ -19998,6 +20074,7 @@ export namespace Prisma {
     nameEn: number
     image: number
     phone: number
+    link: number
     address: number
     status: number
     paymentTerms: number
@@ -20014,6 +20091,7 @@ export namespace Prisma {
     nameEn?: true
     image?: true
     phone?: true
+    link?: true
     address?: true
     status?: true
     paymentTerms?: true
@@ -20028,6 +20106,7 @@ export namespace Prisma {
     nameEn?: true
     image?: true
     phone?: true
+    link?: true
     address?: true
     status?: true
     paymentTerms?: true
@@ -20042,6 +20121,7 @@ export namespace Prisma {
     nameEn?: true
     image?: true
     phone?: true
+    link?: true
     address?: true
     status?: true
     paymentTerms?: true
@@ -20129,6 +20209,7 @@ export namespace Prisma {
     nameEn: string
     image: string
     phone: string
+    link: string
     address: string
     status: boolean
     paymentTerms: string
@@ -20160,6 +20241,7 @@ export namespace Prisma {
     nameEn?: boolean
     image?: boolean
     phone?: boolean
+    link?: boolean
     address?: boolean
     status?: boolean
     paymentTerms?: boolean
@@ -20174,6 +20256,7 @@ export namespace Prisma {
     nameEn?: boolean
     image?: boolean
     phone?: boolean
+    link?: boolean
     address?: boolean
     status?: boolean
     paymentTerms?: boolean
@@ -20188,6 +20271,7 @@ export namespace Prisma {
     nameEn?: boolean
     image?: boolean
     phone?: boolean
+    link?: boolean
     address?: boolean
     status?: boolean
     paymentTerms?: boolean
@@ -20202,6 +20286,7 @@ export namespace Prisma {
     nameEn?: boolean
     image?: boolean
     phone?: boolean
+    link?: boolean
     address?: boolean
     status?: boolean
     paymentTerms?: boolean
@@ -20209,7 +20294,7 @@ export namespace Prisma {
     agreementEnd?: boolean
   }
 
-  export type PartnerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nameRu" | "nameUz" | "nameEn" | "image" | "phone" | "address" | "status" | "paymentTerms" | "agreementStart" | "agreementEnd", ExtArgs["result"]["partner"]>
+  export type PartnerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nameRu" | "nameUz" | "nameEn" | "image" | "phone" | "link" | "address" | "status" | "paymentTerms" | "agreementStart" | "agreementEnd", ExtArgs["result"]["partner"]>
 
   export type $PartnerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Partner"
@@ -20221,6 +20306,7 @@ export namespace Prisma {
       nameEn: string
       image: string
       phone: string
+      link: string
       address: string
       status: boolean
       paymentTerms: string
@@ -20655,6 +20741,7 @@ export namespace Prisma {
     readonly nameEn: FieldRef<"Partner", 'String'>
     readonly image: FieldRef<"Partner", 'String'>
     readonly phone: FieldRef<"Partner", 'String'>
+    readonly link: FieldRef<"Partner", 'String'>
     readonly address: FieldRef<"Partner", 'String'>
     readonly status: FieldRef<"Partner", 'Boolean'>
     readonly paymentTerms: FieldRef<"Partner", 'String'>
@@ -21032,22 +21119,8 @@ export namespace Prisma {
 
   export type AggregateProduct = {
     _count: ProductCountAggregateOutputType | null
-    _avg: ProductAvgAggregateOutputType | null
-    _sum: ProductSumAggregateOutputType | null
     _min: ProductMinAggregateOutputType | null
     _max: ProductMaxAggregateOutputType | null
-  }
-
-  export type ProductAvgAggregateOutputType = {
-    workingHours: number | null
-    hourlyPrice: number | null
-    dailyPrice: number | null
-  }
-
-  export type ProductSumAggregateOutputType = {
-    workingHours: number | null
-    hourlyPrice: number | null
-    dailyPrice: number | null
   }
 
   export type ProductMinAggregateOutputType = {
@@ -21057,9 +21130,6 @@ export namespace Prisma {
     nameUz: string | null
     nameEn: string | null
     image: string | null
-    workingHours: number | null
-    hourlyPrice: number | null
-    dailyPrice: number | null
   }
 
   export type ProductMaxAggregateOutputType = {
@@ -21069,9 +21139,6 @@ export namespace Prisma {
     nameUz: string | null
     nameEn: string | null
     image: string | null
-    workingHours: number | null
-    hourlyPrice: number | null
-    dailyPrice: number | null
   }
 
   export type ProductCountAggregateOutputType = {
@@ -21081,24 +21148,9 @@ export namespace Prisma {
     nameUz: number
     nameEn: number
     image: number
-    workingHours: number
-    hourlyPrice: number
-    dailyPrice: number
     _all: number
   }
 
-
-  export type ProductAvgAggregateInputType = {
-    workingHours?: true
-    hourlyPrice?: true
-    dailyPrice?: true
-  }
-
-  export type ProductSumAggregateInputType = {
-    workingHours?: true
-    hourlyPrice?: true
-    dailyPrice?: true
-  }
 
   export type ProductMinAggregateInputType = {
     id?: true
@@ -21107,9 +21159,6 @@ export namespace Prisma {
     nameUz?: true
     nameEn?: true
     image?: true
-    workingHours?: true
-    hourlyPrice?: true
-    dailyPrice?: true
   }
 
   export type ProductMaxAggregateInputType = {
@@ -21119,9 +21168,6 @@ export namespace Prisma {
     nameUz?: true
     nameEn?: true
     image?: true
-    workingHours?: true
-    hourlyPrice?: true
-    dailyPrice?: true
   }
 
   export type ProductCountAggregateInputType = {
@@ -21131,9 +21177,6 @@ export namespace Prisma {
     nameUz?: true
     nameEn?: true
     image?: true
-    workingHours?: true
-    hourlyPrice?: true
-    dailyPrice?: true
     _all?: true
   }
 
@@ -21175,18 +21218,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: ProductAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: ProductSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: ProductMinAggregateInputType
@@ -21217,8 +21248,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ProductCountAggregateInputType | true
-    _avg?: ProductAvgAggregateInputType
-    _sum?: ProductSumAggregateInputType
     _min?: ProductMinAggregateInputType
     _max?: ProductMaxAggregateInputType
   }
@@ -21230,12 +21259,7 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
-    workingHours: number
-    hourlyPrice: number
-    dailyPrice: number
     _count: ProductCountAggregateOutputType | null
-    _avg: ProductAvgAggregateOutputType | null
-    _sum: ProductSumAggregateOutputType | null
     _min: ProductMinAggregateOutputType | null
     _max: ProductMaxAggregateOutputType | null
   }
@@ -21261,9 +21285,6 @@ export namespace Prisma {
     nameUz?: boolean
     nameEn?: boolean
     image?: boolean
-    workingHours?: boolean
-    hourlyPrice?: boolean
-    dailyPrice?: boolean
     baskets?: boolean | Product$basketsArgs<ExtArgs>
     orderItems?: boolean | Product$orderItemsArgs<ExtArgs>
     masterJobs?: boolean | Product$masterJobsArgs<ExtArgs>
@@ -21279,9 +21300,6 @@ export namespace Prisma {
     nameUz?: boolean
     nameEn?: boolean
     image?: boolean
-    workingHours?: boolean
-    hourlyPrice?: boolean
-    dailyPrice?: boolean
   }, ExtArgs["result"]["product"]>
 
   export type ProductSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -21291,9 +21309,6 @@ export namespace Prisma {
     nameUz?: boolean
     nameEn?: boolean
     image?: boolean
-    workingHours?: boolean
-    hourlyPrice?: boolean
-    dailyPrice?: boolean
   }, ExtArgs["result"]["product"]>
 
   export type ProductSelectScalar = {
@@ -21303,12 +21318,9 @@ export namespace Prisma {
     nameUz?: boolean
     nameEn?: boolean
     image?: boolean
-    workingHours?: boolean
-    hourlyPrice?: boolean
-    dailyPrice?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "isActive" | "nameRu" | "nameUz" | "nameEn" | "image" | "workingHours" | "hourlyPrice" | "dailyPrice", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "isActive" | "nameRu" | "nameUz" | "nameEn" | "image", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     baskets?: boolean | Product$basketsArgs<ExtArgs>
     orderItems?: boolean | Product$orderItemsArgs<ExtArgs>
@@ -21336,9 +21348,6 @@ export namespace Prisma {
       nameUz: string
       nameEn: string
       image: string
-      workingHours: number
-      hourlyPrice: number
-      dailyPrice: number
     }, ExtArgs["result"]["product"]>
     composites: {}
   }
@@ -21773,9 +21782,6 @@ export namespace Prisma {
     readonly nameUz: FieldRef<"Product", 'String'>
     readonly nameEn: FieldRef<"Product", 'String'>
     readonly image: FieldRef<"Product", 'String'>
-    readonly workingHours: FieldRef<"Product", 'Int'>
-    readonly hourlyPrice: FieldRef<"Product", 'Int'>
-    readonly dailyPrice: FieldRef<"Product", 'Int'>
   }
     
 
@@ -23683,9 +23689,9 @@ export namespace Prisma {
     price: number
     quantity: number
     code: string | null
-    brandID: string
-    capacityID: string
-    sizeID: string
+    brandID: string | null
+    capacityID: string | null
+    sizeID: string | null
     image: string
     isActive: boolean
     _count: ToolCountAggregateOutputType | null
@@ -23725,9 +23731,9 @@ export namespace Prisma {
     sizeID?: boolean
     image?: boolean
     isActive?: boolean
-    brand?: boolean | BrandDefaultArgs<ExtArgs>
-    capacity?: boolean | CapacityDefaultArgs<ExtArgs>
-    size?: boolean | SizeDefaultArgs<ExtArgs>
+    brand?: boolean | Tool$brandArgs<ExtArgs>
+    capacity?: boolean | Tool$capacityArgs<ExtArgs>
+    size?: boolean | Tool$sizeArgs<ExtArgs>
     orderItems?: boolean | Tool$orderItemsArgs<ExtArgs>
     masterJobs?: boolean | Tool$masterJobsArgs<ExtArgs>
     baskets?: boolean | Tool$basketsArgs<ExtArgs>
@@ -23751,9 +23757,9 @@ export namespace Prisma {
     sizeID?: boolean
     image?: boolean
     isActive?: boolean
-    brand?: boolean | BrandDefaultArgs<ExtArgs>
-    capacity?: boolean | CapacityDefaultArgs<ExtArgs>
-    size?: boolean | SizeDefaultArgs<ExtArgs>
+    brand?: boolean | Tool$brandArgs<ExtArgs>
+    capacity?: boolean | Tool$capacityArgs<ExtArgs>
+    size?: boolean | Tool$sizeArgs<ExtArgs>
   }, ExtArgs["result"]["tool"]>
 
   export type ToolSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -23772,9 +23778,9 @@ export namespace Prisma {
     sizeID?: boolean
     image?: boolean
     isActive?: boolean
-    brand?: boolean | BrandDefaultArgs<ExtArgs>
-    capacity?: boolean | CapacityDefaultArgs<ExtArgs>
-    size?: boolean | SizeDefaultArgs<ExtArgs>
+    brand?: boolean | Tool$brandArgs<ExtArgs>
+    capacity?: boolean | Tool$capacityArgs<ExtArgs>
+    size?: boolean | Tool$sizeArgs<ExtArgs>
   }, ExtArgs["result"]["tool"]>
 
   export type ToolSelectScalar = {
@@ -23797,9 +23803,9 @@ export namespace Prisma {
 
   export type ToolOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nameRu" | "nameUz" | "nameEn" | "descriptionRu" | "descriptionUz" | "descriptionEn" | "price" | "quantity" | "code" | "brandID" | "capacityID" | "sizeID" | "image" | "isActive", ExtArgs["result"]["tool"]>
   export type ToolInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    brand?: boolean | BrandDefaultArgs<ExtArgs>
-    capacity?: boolean | CapacityDefaultArgs<ExtArgs>
-    size?: boolean | SizeDefaultArgs<ExtArgs>
+    brand?: boolean | Tool$brandArgs<ExtArgs>
+    capacity?: boolean | Tool$capacityArgs<ExtArgs>
+    size?: boolean | Tool$sizeArgs<ExtArgs>
     orderItems?: boolean | Tool$orderItemsArgs<ExtArgs>
     masterJobs?: boolean | Tool$masterJobsArgs<ExtArgs>
     baskets?: boolean | Tool$basketsArgs<ExtArgs>
@@ -23807,22 +23813,22 @@ export namespace Prisma {
     _count?: boolean | ToolCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ToolIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    brand?: boolean | BrandDefaultArgs<ExtArgs>
-    capacity?: boolean | CapacityDefaultArgs<ExtArgs>
-    size?: boolean | SizeDefaultArgs<ExtArgs>
+    brand?: boolean | Tool$brandArgs<ExtArgs>
+    capacity?: boolean | Tool$capacityArgs<ExtArgs>
+    size?: boolean | Tool$sizeArgs<ExtArgs>
   }
   export type ToolIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    brand?: boolean | BrandDefaultArgs<ExtArgs>
-    capacity?: boolean | CapacityDefaultArgs<ExtArgs>
-    size?: boolean | SizeDefaultArgs<ExtArgs>
+    brand?: boolean | Tool$brandArgs<ExtArgs>
+    capacity?: boolean | Tool$capacityArgs<ExtArgs>
+    size?: boolean | Tool$sizeArgs<ExtArgs>
   }
 
   export type $ToolPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Tool"
     objects: {
-      brand: Prisma.$BrandPayload<ExtArgs>
-      capacity: Prisma.$CapacityPayload<ExtArgs>
-      size: Prisma.$SizePayload<ExtArgs>
+      brand: Prisma.$BrandPayload<ExtArgs> | null
+      capacity: Prisma.$CapacityPayload<ExtArgs> | null
+      size: Prisma.$SizePayload<ExtArgs> | null
       orderItems: Prisma.$OrderItemPayload<ExtArgs>[]
       masterJobs: Prisma.$MasterJobsPayload<ExtArgs>[]
       baskets: Prisma.$BasketPayload<ExtArgs>[]
@@ -23839,9 +23845,9 @@ export namespace Prisma {
       price: number
       quantity: number
       code: string | null
-      brandID: string
-      capacityID: string
-      sizeID: string
+      brandID: string | null
+      capacityID: string | null
+      sizeID: string | null
       image: string
       isActive: boolean
     }, ExtArgs["result"]["tool"]>
@@ -24238,9 +24244,9 @@ export namespace Prisma {
    */
   export interface Prisma__ToolClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    brand<T extends BrandDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BrandDefaultArgs<ExtArgs>>): Prisma__BrandClient<$Result.GetResult<Prisma.$BrandPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    capacity<T extends CapacityDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CapacityDefaultArgs<ExtArgs>>): Prisma__CapacityClient<$Result.GetResult<Prisma.$CapacityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    size<T extends SizeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SizeDefaultArgs<ExtArgs>>): Prisma__SizeClient<$Result.GetResult<Prisma.$SizePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    brand<T extends Tool$brandArgs<ExtArgs> = {}>(args?: Subset<T, Tool$brandArgs<ExtArgs>>): Prisma__BrandClient<$Result.GetResult<Prisma.$BrandPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    capacity<T extends Tool$capacityArgs<ExtArgs> = {}>(args?: Subset<T, Tool$capacityArgs<ExtArgs>>): Prisma__CapacityClient<$Result.GetResult<Prisma.$CapacityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    size<T extends Tool$sizeArgs<ExtArgs> = {}>(args?: Subset<T, Tool$sizeArgs<ExtArgs>>): Prisma__SizeClient<$Result.GetResult<Prisma.$SizePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     orderItems<T extends Tool$orderItemsArgs<ExtArgs> = {}>(args?: Subset<T, Tool$orderItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     masterJobs<T extends Tool$masterJobsArgs<ExtArgs> = {}>(args?: Subset<T, Tool$masterJobsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterJobsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     baskets<T extends Tool$basketsArgs<ExtArgs> = {}>(args?: Subset<T, Tool$basketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BasketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -24685,6 +24691,63 @@ export namespace Prisma {
   }
 
   /**
+   * Tool.brand
+   */
+  export type Tool$brandArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Brand
+     */
+    select?: BrandSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Brand
+     */
+    omit?: BrandOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BrandInclude<ExtArgs> | null
+    where?: BrandWhereInput
+  }
+
+  /**
+   * Tool.capacity
+   */
+  export type Tool$capacityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Capacity
+     */
+    select?: CapacitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Capacity
+     */
+    omit?: CapacityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CapacityInclude<ExtArgs> | null
+    where?: CapacityWhereInput
+  }
+
+  /**
+   * Tool.size
+   */
+  export type Tool$sizeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Size
+     */
+    select?: SizeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Size
+     */
+    omit?: SizeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SizeInclude<ExtArgs> | null
+    where?: SizeWhereInput
+  }
+
+  /**
    * Tool.orderItems
    */
   export type Tool$orderItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -24805,45 +24868,89 @@ export namespace Prisma {
 
   export type AggregateProductLevel = {
     _count: ProductLevelCountAggregateOutputType | null
+    _avg: ProductLevelAvgAggregateOutputType | null
+    _sum: ProductLevelSumAggregateOutputType | null
     _min: ProductLevelMinAggregateOutputType | null
     _max: ProductLevelMaxAggregateOutputType | null
+  }
+
+  export type ProductLevelAvgAggregateOutputType = {
+    workingHours: number | null
+    hourlyPrice: number | null
+    dailyPrice: number | null
+  }
+
+  export type ProductLevelSumAggregateOutputType = {
+    workingHours: number | null
+    hourlyPrice: number | null
+    dailyPrice: number | null
   }
 
   export type ProductLevelMinAggregateOutputType = {
     id: string | null
     productID: string | null
+    workingHours: number | null
+    hourlyPrice: number | null
+    dailyPrice: number | null
     levelID: string | null
   }
 
   export type ProductLevelMaxAggregateOutputType = {
     id: string | null
     productID: string | null
+    workingHours: number | null
+    hourlyPrice: number | null
+    dailyPrice: number | null
     levelID: string | null
   }
 
   export type ProductLevelCountAggregateOutputType = {
     id: number
     productID: number
+    workingHours: number
+    hourlyPrice: number
+    dailyPrice: number
     levelID: number
     _all: number
   }
 
 
+  export type ProductLevelAvgAggregateInputType = {
+    workingHours?: true
+    hourlyPrice?: true
+    dailyPrice?: true
+  }
+
+  export type ProductLevelSumAggregateInputType = {
+    workingHours?: true
+    hourlyPrice?: true
+    dailyPrice?: true
+  }
+
   export type ProductLevelMinAggregateInputType = {
     id?: true
     productID?: true
+    workingHours?: true
+    hourlyPrice?: true
+    dailyPrice?: true
     levelID?: true
   }
 
   export type ProductLevelMaxAggregateInputType = {
     id?: true
     productID?: true
+    workingHours?: true
+    hourlyPrice?: true
+    dailyPrice?: true
     levelID?: true
   }
 
   export type ProductLevelCountAggregateInputType = {
     id?: true
     productID?: true
+    workingHours?: true
+    hourlyPrice?: true
+    dailyPrice?: true
     levelID?: true
     _all?: true
   }
@@ -24886,6 +24993,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: ProductLevelAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ProductLevelSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ProductLevelMinAggregateInputType
@@ -24916,6 +25035,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ProductLevelCountAggregateInputType | true
+    _avg?: ProductLevelAvgAggregateInputType
+    _sum?: ProductLevelSumAggregateInputType
     _min?: ProductLevelMinAggregateInputType
     _max?: ProductLevelMaxAggregateInputType
   }
@@ -24923,8 +25044,13 @@ export namespace Prisma {
   export type ProductLevelGroupByOutputType = {
     id: string
     productID: string
+    workingHours: number | null
+    hourlyPrice: number | null
+    dailyPrice: number | null
     levelID: string
     _count: ProductLevelCountAggregateOutputType | null
+    _avg: ProductLevelAvgAggregateOutputType | null
+    _sum: ProductLevelSumAggregateOutputType | null
     _min: ProductLevelMinAggregateOutputType | null
     _max: ProductLevelMaxAggregateOutputType | null
   }
@@ -24946,6 +25072,9 @@ export namespace Prisma {
   export type ProductLevelSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     productID?: boolean
+    workingHours?: boolean
+    hourlyPrice?: boolean
+    dailyPrice?: boolean
     levelID?: boolean
     product?: boolean | ProductDefaultArgs<ExtArgs>
     level?: boolean | LevelDefaultArgs<ExtArgs>
@@ -24954,6 +25083,9 @@ export namespace Prisma {
   export type ProductLevelSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     productID?: boolean
+    workingHours?: boolean
+    hourlyPrice?: boolean
+    dailyPrice?: boolean
     levelID?: boolean
     product?: boolean | ProductDefaultArgs<ExtArgs>
     level?: boolean | LevelDefaultArgs<ExtArgs>
@@ -24962,6 +25094,9 @@ export namespace Prisma {
   export type ProductLevelSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     productID?: boolean
+    workingHours?: boolean
+    hourlyPrice?: boolean
+    dailyPrice?: boolean
     levelID?: boolean
     product?: boolean | ProductDefaultArgs<ExtArgs>
     level?: boolean | LevelDefaultArgs<ExtArgs>
@@ -24970,10 +25105,13 @@ export namespace Prisma {
   export type ProductLevelSelectScalar = {
     id?: boolean
     productID?: boolean
+    workingHours?: boolean
+    hourlyPrice?: boolean
+    dailyPrice?: boolean
     levelID?: boolean
   }
 
-  export type ProductLevelOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "productID" | "levelID", ExtArgs["result"]["productLevel"]>
+  export type ProductLevelOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "productID" | "workingHours" | "hourlyPrice" | "dailyPrice" | "levelID", ExtArgs["result"]["productLevel"]>
   export type ProductLevelInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     product?: boolean | ProductDefaultArgs<ExtArgs>
     level?: boolean | LevelDefaultArgs<ExtArgs>
@@ -24996,6 +25134,9 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       productID: string
+      workingHours: number | null
+      hourlyPrice: number | null
+      dailyPrice: number | null
       levelID: string
     }, ExtArgs["result"]["productLevel"]>
     composites: {}
@@ -25424,6 +25565,9 @@ export namespace Prisma {
   interface ProductLevelFieldRefs {
     readonly id: FieldRef<"ProductLevel", 'String'>
     readonly productID: FieldRef<"ProductLevel", 'String'>
+    readonly workingHours: FieldRef<"ProductLevel", 'Int'>
+    readonly hourlyPrice: FieldRef<"ProductLevel", 'Int'>
+    readonly dailyPrice: FieldRef<"ProductLevel", 'Int'>
     readonly levelID: FieldRef<"ProductLevel", 'String'>
   }
     
@@ -26963,7 +27107,8 @@ export namespace Prisma {
     toolID: 'toolID',
     levelID: 'levelID',
     timeUnit: 'timeUnit',
-    count: 'count',
+    countOfTool: 'countOfTool',
+    countOfProduct: 'countOfProduct',
     workingHours: 'workingHours',
     totalPrice: 'totalPrice',
     createdAt: 'createdAt'
@@ -27112,6 +27257,7 @@ export namespace Prisma {
     nameEn: 'nameEn',
     image: 'image',
     phone: 'phone',
+    link: 'link',
     address: 'address',
     status: 'status',
     paymentTerms: 'paymentTerms',
@@ -27128,10 +27274,7 @@ export namespace Prisma {
     nameRu: 'nameRu',
     nameUz: 'nameUz',
     nameEn: 'nameEn',
-    image: 'image',
-    workingHours: 'workingHours',
-    hourlyPrice: 'hourlyPrice',
-    dailyPrice: 'dailyPrice'
+    image: 'image'
   };
 
   export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
@@ -27171,6 +27314,9 @@ export namespace Prisma {
   export const ProductLevelScalarFieldEnum: {
     id: 'id',
     productID: 'productID',
+    workingHours: 'workingHours',
+    hourlyPrice: 'hourlyPrice',
+    dailyPrice: 'dailyPrice',
     levelID: 'levelID'
   };
 
@@ -27706,28 +27852,30 @@ export namespace Prisma {
     NOT?: OrderItemWhereInput | OrderItemWhereInput[]
     id?: StringFilter<"OrderItem"> | string
     orderID?: StringFilter<"OrderItem"> | string
-    productID?: StringFilter<"OrderItem"> | string
-    toolID?: StringFilter<"OrderItem"> | string
-    levelID?: StringFilter<"OrderItem"> | string
-    timeUnit?: IntFilter<"OrderItem"> | number
-    count?: IntFilter<"OrderItem"> | number
+    productID?: StringNullableFilter<"OrderItem"> | string | null
+    toolID?: StringNullableFilter<"OrderItem"> | string | null
+    levelID?: StringNullableFilter<"OrderItem"> | string | null
+    timeUnit?: IntNullableFilter<"OrderItem"> | number | null
+    countOfTool?: IntFilter<"OrderItem"> | number
+    countOfProduct?: IntFilter<"OrderItem"> | number
     workingHours?: IntFilter<"OrderItem"> | number
     totalPrice?: IntNullableFilter<"OrderItem"> | number | null
     createdAt?: DateTimeFilter<"OrderItem"> | Date | string
     order?: XOR<OrderScalarRelationFilter, OrderWhereInput>
-    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
-    tool?: XOR<ToolScalarRelationFilter, ToolWhereInput>
-    level?: XOR<LevelScalarRelationFilter, LevelWhereInput>
+    product?: XOR<ProductNullableScalarRelationFilter, ProductWhereInput> | null
+    tool?: XOR<ToolNullableScalarRelationFilter, ToolWhereInput> | null
+    level?: XOR<LevelNullableScalarRelationFilter, LevelWhereInput> | null
   }
 
   export type OrderItemOrderByWithRelationInput = {
     id?: SortOrder
     orderID?: SortOrder
-    productID?: SortOrder
-    toolID?: SortOrder
-    levelID?: SortOrder
-    timeUnit?: SortOrder
-    count?: SortOrder
+    productID?: SortOrderInput | SortOrder
+    toolID?: SortOrderInput | SortOrder
+    levelID?: SortOrderInput | SortOrder
+    timeUnit?: SortOrderInput | SortOrder
+    countOfTool?: SortOrder
+    countOfProduct?: SortOrder
     workingHours?: SortOrder
     totalPrice?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -27743,28 +27891,30 @@ export namespace Prisma {
     OR?: OrderItemWhereInput[]
     NOT?: OrderItemWhereInput | OrderItemWhereInput[]
     orderID?: StringFilter<"OrderItem"> | string
-    productID?: StringFilter<"OrderItem"> | string
-    toolID?: StringFilter<"OrderItem"> | string
-    levelID?: StringFilter<"OrderItem"> | string
-    timeUnit?: IntFilter<"OrderItem"> | number
-    count?: IntFilter<"OrderItem"> | number
+    productID?: StringNullableFilter<"OrderItem"> | string | null
+    toolID?: StringNullableFilter<"OrderItem"> | string | null
+    levelID?: StringNullableFilter<"OrderItem"> | string | null
+    timeUnit?: IntNullableFilter<"OrderItem"> | number | null
+    countOfTool?: IntFilter<"OrderItem"> | number
+    countOfProduct?: IntFilter<"OrderItem"> | number
     workingHours?: IntFilter<"OrderItem"> | number
     totalPrice?: IntNullableFilter<"OrderItem"> | number | null
     createdAt?: DateTimeFilter<"OrderItem"> | Date | string
     order?: XOR<OrderScalarRelationFilter, OrderWhereInput>
-    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
-    tool?: XOR<ToolScalarRelationFilter, ToolWhereInput>
-    level?: XOR<LevelScalarRelationFilter, LevelWhereInput>
+    product?: XOR<ProductNullableScalarRelationFilter, ProductWhereInput> | null
+    tool?: XOR<ToolNullableScalarRelationFilter, ToolWhereInput> | null
+    level?: XOR<LevelNullableScalarRelationFilter, LevelWhereInput> | null
   }, "id">
 
   export type OrderItemOrderByWithAggregationInput = {
     id?: SortOrder
     orderID?: SortOrder
-    productID?: SortOrder
-    toolID?: SortOrder
-    levelID?: SortOrder
-    timeUnit?: SortOrder
-    count?: SortOrder
+    productID?: SortOrderInput | SortOrder
+    toolID?: SortOrderInput | SortOrder
+    levelID?: SortOrderInput | SortOrder
+    timeUnit?: SortOrderInput | SortOrder
+    countOfTool?: SortOrder
+    countOfProduct?: SortOrder
     workingHours?: SortOrder
     totalPrice?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -27781,11 +27931,12 @@ export namespace Prisma {
     NOT?: OrderItemScalarWhereWithAggregatesInput | OrderItemScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"OrderItem"> | string
     orderID?: StringWithAggregatesFilter<"OrderItem"> | string
-    productID?: StringWithAggregatesFilter<"OrderItem"> | string
-    toolID?: StringWithAggregatesFilter<"OrderItem"> | string
-    levelID?: StringWithAggregatesFilter<"OrderItem"> | string
-    timeUnit?: IntWithAggregatesFilter<"OrderItem"> | number
-    count?: IntWithAggregatesFilter<"OrderItem"> | number
+    productID?: StringNullableWithAggregatesFilter<"OrderItem"> | string | null
+    toolID?: StringNullableWithAggregatesFilter<"OrderItem"> | string | null
+    levelID?: StringNullableWithAggregatesFilter<"OrderItem"> | string | null
+    timeUnit?: IntNullableWithAggregatesFilter<"OrderItem"> | number | null
+    countOfTool?: IntWithAggregatesFilter<"OrderItem"> | number
+    countOfProduct?: IntWithAggregatesFilter<"OrderItem"> | number
     workingHours?: IntWithAggregatesFilter<"OrderItem"> | number
     totalPrice?: IntNullableWithAggregatesFilter<"OrderItem"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"OrderItem"> | Date | string
@@ -28478,6 +28629,7 @@ export namespace Prisma {
     nameEn?: StringFilter<"Partner"> | string
     image?: StringFilter<"Partner"> | string
     phone?: StringFilter<"Partner"> | string
+    link?: StringFilter<"Partner"> | string
     address?: StringFilter<"Partner"> | string
     status?: BoolFilter<"Partner"> | boolean
     paymentTerms?: StringFilter<"Partner"> | string
@@ -28492,6 +28644,7 @@ export namespace Prisma {
     nameEn?: SortOrder
     image?: SortOrder
     phone?: SortOrder
+    link?: SortOrder
     address?: SortOrder
     status?: SortOrder
     paymentTerms?: SortOrder
@@ -28509,6 +28662,7 @@ export namespace Prisma {
     nameEn?: StringFilter<"Partner"> | string
     image?: StringFilter<"Partner"> | string
     phone?: StringFilter<"Partner"> | string
+    link?: StringFilter<"Partner"> | string
     address?: StringFilter<"Partner"> | string
     status?: BoolFilter<"Partner"> | boolean
     paymentTerms?: StringFilter<"Partner"> | string
@@ -28523,6 +28677,7 @@ export namespace Prisma {
     nameEn?: SortOrder
     image?: SortOrder
     phone?: SortOrder
+    link?: SortOrder
     address?: SortOrder
     status?: SortOrder
     paymentTerms?: SortOrder
@@ -28543,6 +28698,7 @@ export namespace Prisma {
     nameEn?: StringWithAggregatesFilter<"Partner"> | string
     image?: StringWithAggregatesFilter<"Partner"> | string
     phone?: StringWithAggregatesFilter<"Partner"> | string
+    link?: StringWithAggregatesFilter<"Partner"> | string
     address?: StringWithAggregatesFilter<"Partner"> | string
     status?: BoolWithAggregatesFilter<"Partner"> | boolean
     paymentTerms?: StringWithAggregatesFilter<"Partner"> | string
@@ -28560,9 +28716,6 @@ export namespace Prisma {
     nameUz?: StringFilter<"Product"> | string
     nameEn?: StringFilter<"Product"> | string
     image?: StringFilter<"Product"> | string
-    workingHours?: IntFilter<"Product"> | number
-    hourlyPrice?: IntFilter<"Product"> | number
-    dailyPrice?: IntFilter<"Product"> | number
     baskets?: BasketListRelationFilter
     orderItems?: OrderItemListRelationFilter
     masterJobs?: MasterJobsListRelationFilter
@@ -28577,9 +28730,6 @@ export namespace Prisma {
     nameUz?: SortOrder
     nameEn?: SortOrder
     image?: SortOrder
-    workingHours?: SortOrder
-    hourlyPrice?: SortOrder
-    dailyPrice?: SortOrder
     baskets?: BasketOrderByRelationAggregateInput
     orderItems?: OrderItemOrderByRelationAggregateInput
     masterJobs?: MasterJobsOrderByRelationAggregateInput
@@ -28597,9 +28747,6 @@ export namespace Prisma {
     nameUz?: StringFilter<"Product"> | string
     nameEn?: StringFilter<"Product"> | string
     image?: StringFilter<"Product"> | string
-    workingHours?: IntFilter<"Product"> | number
-    hourlyPrice?: IntFilter<"Product"> | number
-    dailyPrice?: IntFilter<"Product"> | number
     baskets?: BasketListRelationFilter
     orderItems?: OrderItemListRelationFilter
     masterJobs?: MasterJobsListRelationFilter
@@ -28614,14 +28761,9 @@ export namespace Prisma {
     nameUz?: SortOrder
     nameEn?: SortOrder
     image?: SortOrder
-    workingHours?: SortOrder
-    hourlyPrice?: SortOrder
-    dailyPrice?: SortOrder
     _count?: ProductCountOrderByAggregateInput
-    _avg?: ProductAvgOrderByAggregateInput
     _max?: ProductMaxOrderByAggregateInput
     _min?: ProductMinOrderByAggregateInput
-    _sum?: ProductSumOrderByAggregateInput
   }
 
   export type ProductScalarWhereWithAggregatesInput = {
@@ -28634,9 +28776,6 @@ export namespace Prisma {
     nameUz?: StringWithAggregatesFilter<"Product"> | string
     nameEn?: StringWithAggregatesFilter<"Product"> | string
     image?: StringWithAggregatesFilter<"Product"> | string
-    workingHours?: IntWithAggregatesFilter<"Product"> | number
-    hourlyPrice?: IntWithAggregatesFilter<"Product"> | number
-    dailyPrice?: IntWithAggregatesFilter<"Product"> | number
   }
 
   export type LevelWhereInput = {
@@ -28712,14 +28851,14 @@ export namespace Prisma {
     price?: IntFilter<"Tool"> | number
     quantity?: IntFilter<"Tool"> | number
     code?: StringNullableFilter<"Tool"> | string | null
-    brandID?: StringFilter<"Tool"> | string
-    capacityID?: StringFilter<"Tool"> | string
-    sizeID?: StringFilter<"Tool"> | string
+    brandID?: StringNullableFilter<"Tool"> | string | null
+    capacityID?: StringNullableFilter<"Tool"> | string | null
+    sizeID?: StringNullableFilter<"Tool"> | string | null
     image?: StringFilter<"Tool"> | string
     isActive?: BoolFilter<"Tool"> | boolean
-    brand?: XOR<BrandScalarRelationFilter, BrandWhereInput>
-    capacity?: XOR<CapacityScalarRelationFilter, CapacityWhereInput>
-    size?: XOR<SizeScalarRelationFilter, SizeWhereInput>
+    brand?: XOR<BrandNullableScalarRelationFilter, BrandWhereInput> | null
+    capacity?: XOR<CapacityNullableScalarRelationFilter, CapacityWhereInput> | null
+    size?: XOR<SizeNullableScalarRelationFilter, SizeWhereInput> | null
     orderItems?: OrderItemListRelationFilter
     masterJobs?: MasterJobsListRelationFilter
     baskets?: BasketListRelationFilter
@@ -28737,9 +28876,9 @@ export namespace Prisma {
     price?: SortOrder
     quantity?: SortOrder
     code?: SortOrderInput | SortOrder
-    brandID?: SortOrder
-    capacityID?: SortOrder
-    sizeID?: SortOrder
+    brandID?: SortOrderInput | SortOrder
+    capacityID?: SortOrderInput | SortOrder
+    sizeID?: SortOrderInput | SortOrder
     image?: SortOrder
     isActive?: SortOrder
     brand?: BrandOrderByWithRelationInput
@@ -28765,14 +28904,14 @@ export namespace Prisma {
     descriptionEn?: StringFilter<"Tool"> | string
     price?: IntFilter<"Tool"> | number
     quantity?: IntFilter<"Tool"> | number
-    brandID?: StringFilter<"Tool"> | string
-    capacityID?: StringFilter<"Tool"> | string
-    sizeID?: StringFilter<"Tool"> | string
+    brandID?: StringNullableFilter<"Tool"> | string | null
+    capacityID?: StringNullableFilter<"Tool"> | string | null
+    sizeID?: StringNullableFilter<"Tool"> | string | null
     image?: StringFilter<"Tool"> | string
     isActive?: BoolFilter<"Tool"> | boolean
-    brand?: XOR<BrandScalarRelationFilter, BrandWhereInput>
-    capacity?: XOR<CapacityScalarRelationFilter, CapacityWhereInput>
-    size?: XOR<SizeScalarRelationFilter, SizeWhereInput>
+    brand?: XOR<BrandNullableScalarRelationFilter, BrandWhereInput> | null
+    capacity?: XOR<CapacityNullableScalarRelationFilter, CapacityWhereInput> | null
+    size?: XOR<SizeNullableScalarRelationFilter, SizeWhereInput> | null
     orderItems?: OrderItemListRelationFilter
     masterJobs?: MasterJobsListRelationFilter
     baskets?: BasketListRelationFilter
@@ -28790,9 +28929,9 @@ export namespace Prisma {
     price?: SortOrder
     quantity?: SortOrder
     code?: SortOrderInput | SortOrder
-    brandID?: SortOrder
-    capacityID?: SortOrder
-    sizeID?: SortOrder
+    brandID?: SortOrderInput | SortOrder
+    capacityID?: SortOrderInput | SortOrder
+    sizeID?: SortOrderInput | SortOrder
     image?: SortOrder
     isActive?: SortOrder
     _count?: ToolCountOrderByAggregateInput
@@ -28816,9 +28955,9 @@ export namespace Prisma {
     price?: IntWithAggregatesFilter<"Tool"> | number
     quantity?: IntWithAggregatesFilter<"Tool"> | number
     code?: StringNullableWithAggregatesFilter<"Tool"> | string | null
-    brandID?: StringWithAggregatesFilter<"Tool"> | string
-    capacityID?: StringWithAggregatesFilter<"Tool"> | string
-    sizeID?: StringWithAggregatesFilter<"Tool"> | string
+    brandID?: StringNullableWithAggregatesFilter<"Tool"> | string | null
+    capacityID?: StringNullableWithAggregatesFilter<"Tool"> | string | null
+    sizeID?: StringNullableWithAggregatesFilter<"Tool"> | string | null
     image?: StringWithAggregatesFilter<"Tool"> | string
     isActive?: BoolWithAggregatesFilter<"Tool"> | boolean
   }
@@ -28829,6 +28968,9 @@ export namespace Prisma {
     NOT?: ProductLevelWhereInput | ProductLevelWhereInput[]
     id?: StringFilter<"ProductLevel"> | string
     productID?: StringFilter<"ProductLevel"> | string
+    workingHours?: IntNullableFilter<"ProductLevel"> | number | null
+    hourlyPrice?: IntNullableFilter<"ProductLevel"> | number | null
+    dailyPrice?: IntNullableFilter<"ProductLevel"> | number | null
     levelID?: StringFilter<"ProductLevel"> | string
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
     level?: XOR<LevelScalarRelationFilter, LevelWhereInput>
@@ -28837,6 +28979,9 @@ export namespace Prisma {
   export type ProductLevelOrderByWithRelationInput = {
     id?: SortOrder
     productID?: SortOrder
+    workingHours?: SortOrderInput | SortOrder
+    hourlyPrice?: SortOrderInput | SortOrder
+    dailyPrice?: SortOrderInput | SortOrder
     levelID?: SortOrder
     product?: ProductOrderByWithRelationInput
     level?: LevelOrderByWithRelationInput
@@ -28849,6 +28994,9 @@ export namespace Prisma {
     OR?: ProductLevelWhereInput[]
     NOT?: ProductLevelWhereInput | ProductLevelWhereInput[]
     productID?: StringFilter<"ProductLevel"> | string
+    workingHours?: IntNullableFilter<"ProductLevel"> | number | null
+    hourlyPrice?: IntNullableFilter<"ProductLevel"> | number | null
+    dailyPrice?: IntNullableFilter<"ProductLevel"> | number | null
     levelID?: StringFilter<"ProductLevel"> | string
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
     level?: XOR<LevelScalarRelationFilter, LevelWhereInput>
@@ -28857,10 +29005,15 @@ export namespace Prisma {
   export type ProductLevelOrderByWithAggregationInput = {
     id?: SortOrder
     productID?: SortOrder
+    workingHours?: SortOrderInput | SortOrder
+    hourlyPrice?: SortOrderInput | SortOrder
+    dailyPrice?: SortOrderInput | SortOrder
     levelID?: SortOrder
     _count?: ProductLevelCountOrderByAggregateInput
+    _avg?: ProductLevelAvgOrderByAggregateInput
     _max?: ProductLevelMaxOrderByAggregateInput
     _min?: ProductLevelMinOrderByAggregateInput
+    _sum?: ProductLevelSumOrderByAggregateInput
   }
 
   export type ProductLevelScalarWhereWithAggregatesInput = {
@@ -28869,6 +29022,9 @@ export namespace Prisma {
     NOT?: ProductLevelScalarWhereWithAggregatesInput | ProductLevelScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"ProductLevel"> | string
     productID?: StringWithAggregatesFilter<"ProductLevel"> | string
+    workingHours?: IntNullableWithAggregatesFilter<"ProductLevel"> | number | null
+    hourlyPrice?: IntNullableWithAggregatesFilter<"ProductLevel"> | number | null
+    dailyPrice?: IntNullableWithAggregatesFilter<"ProductLevel"> | number | null
     levelID?: StringWithAggregatesFilter<"ProductLevel"> | string
   }
 
@@ -29295,25 +29451,27 @@ export namespace Prisma {
 
   export type OrderItemCreateInput = {
     id?: string
-    timeUnit: number
-    count: number
+    timeUnit?: number | null
+    countOfTool: number
+    countOfProduct: number
     workingHours: number
     totalPrice?: number | null
     createdAt?: Date | string
     order: OrderCreateNestedOneWithoutItemsInput
-    product: ProductCreateNestedOneWithoutOrderItemsInput
-    tool: ToolCreateNestedOneWithoutOrderItemsInput
-    level: LevelCreateNestedOneWithoutOrderItemsInput
+    product?: ProductCreateNestedOneWithoutOrderItemsInput
+    tool?: ToolCreateNestedOneWithoutOrderItemsInput
+    level?: LevelCreateNestedOneWithoutOrderItemsInput
   }
 
   export type OrderItemUncheckedCreateInput = {
     id?: string
     orderID: string
-    productID: string
-    toolID: string
-    levelID: string
-    timeUnit: number
-    count: number
+    productID?: string | null
+    toolID?: string | null
+    levelID?: string | null
+    timeUnit?: number | null
+    countOfTool: number
+    countOfProduct: number
     workingHours: number
     totalPrice?: number | null
     createdAt?: Date | string
@@ -29321,25 +29479,27 @@ export namespace Prisma {
 
   export type OrderItemUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    timeUnit?: IntFieldUpdateOperationsInput | number
-    count?: IntFieldUpdateOperationsInput | number
+    timeUnit?: NullableIntFieldUpdateOperationsInput | number | null
+    countOfTool?: IntFieldUpdateOperationsInput | number
+    countOfProduct?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     order?: OrderUpdateOneRequiredWithoutItemsNestedInput
-    product?: ProductUpdateOneRequiredWithoutOrderItemsNestedInput
-    tool?: ToolUpdateOneRequiredWithoutOrderItemsNestedInput
-    level?: LevelUpdateOneRequiredWithoutOrderItemsNestedInput
+    product?: ProductUpdateOneWithoutOrderItemsNestedInput
+    tool?: ToolUpdateOneWithoutOrderItemsNestedInput
+    level?: LevelUpdateOneWithoutOrderItemsNestedInput
   }
 
   export type OrderItemUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     orderID?: StringFieldUpdateOperationsInput | string
-    productID?: StringFieldUpdateOperationsInput | string
-    toolID?: StringFieldUpdateOperationsInput | string
-    levelID?: StringFieldUpdateOperationsInput | string
-    timeUnit?: IntFieldUpdateOperationsInput | number
-    count?: IntFieldUpdateOperationsInput | number
+    productID?: NullableStringFieldUpdateOperationsInput | string | null
+    toolID?: NullableStringFieldUpdateOperationsInput | string | null
+    levelID?: NullableStringFieldUpdateOperationsInput | string | null
+    timeUnit?: NullableIntFieldUpdateOperationsInput | number | null
+    countOfTool?: IntFieldUpdateOperationsInput | number
+    countOfProduct?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29348,11 +29508,12 @@ export namespace Prisma {
   export type OrderItemCreateManyInput = {
     id?: string
     orderID: string
-    productID: string
-    toolID: string
-    levelID: string
-    timeUnit: number
-    count: number
+    productID?: string | null
+    toolID?: string | null
+    levelID?: string | null
+    timeUnit?: number | null
+    countOfTool: number
+    countOfProduct: number
     workingHours: number
     totalPrice?: number | null
     createdAt?: Date | string
@@ -29360,8 +29521,9 @@ export namespace Prisma {
 
   export type OrderItemUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    timeUnit?: IntFieldUpdateOperationsInput | number
-    count?: IntFieldUpdateOperationsInput | number
+    timeUnit?: NullableIntFieldUpdateOperationsInput | number | null
+    countOfTool?: IntFieldUpdateOperationsInput | number
+    countOfProduct?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29370,11 +29532,12 @@ export namespace Prisma {
   export type OrderItemUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     orderID?: StringFieldUpdateOperationsInput | string
-    productID?: StringFieldUpdateOperationsInput | string
-    toolID?: StringFieldUpdateOperationsInput | string
-    levelID?: StringFieldUpdateOperationsInput | string
-    timeUnit?: IntFieldUpdateOperationsInput | number
-    count?: IntFieldUpdateOperationsInput | number
+    productID?: NullableStringFieldUpdateOperationsInput | string | null
+    toolID?: NullableStringFieldUpdateOperationsInput | string | null
+    levelID?: NullableStringFieldUpdateOperationsInput | string | null
+    timeUnit?: NullableIntFieldUpdateOperationsInput | number | null
+    countOfTool?: IntFieldUpdateOperationsInput | number
+    countOfProduct?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -30121,6 +30284,7 @@ export namespace Prisma {
     nameEn: string
     image: string
     phone: string
+    link: string
     address: string
     status: boolean
     paymentTerms: string
@@ -30135,6 +30299,7 @@ export namespace Prisma {
     nameEn: string
     image: string
     phone: string
+    link: string
     address: string
     status: boolean
     paymentTerms: string
@@ -30149,6 +30314,7 @@ export namespace Prisma {
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
+    link?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     status?: BoolFieldUpdateOperationsInput | boolean
     paymentTerms?: StringFieldUpdateOperationsInput | string
@@ -30163,6 +30329,7 @@ export namespace Prisma {
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
+    link?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     status?: BoolFieldUpdateOperationsInput | boolean
     paymentTerms?: StringFieldUpdateOperationsInput | string
@@ -30177,6 +30344,7 @@ export namespace Prisma {
     nameEn: string
     image: string
     phone: string
+    link: string
     address: string
     status: boolean
     paymentTerms: string
@@ -30191,6 +30359,7 @@ export namespace Prisma {
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
+    link?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     status?: BoolFieldUpdateOperationsInput | boolean
     paymentTerms?: StringFieldUpdateOperationsInput | string
@@ -30205,6 +30374,7 @@ export namespace Prisma {
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
+    link?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     status?: BoolFieldUpdateOperationsInput | boolean
     paymentTerms?: StringFieldUpdateOperationsInput | string
@@ -30219,9 +30389,6 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
-    workingHours: number
-    hourlyPrice: number
-    dailyPrice: number
     baskets?: BasketCreateNestedManyWithoutProductInput
     orderItems?: OrderItemCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsCreateNestedManyWithoutProductInput
@@ -30236,9 +30403,6 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
-    workingHours: number
-    hourlyPrice: number
-    dailyPrice: number
     baskets?: BasketUncheckedCreateNestedManyWithoutProductInput
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutProductInput
@@ -30253,9 +30417,6 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    workingHours?: IntFieldUpdateOperationsInput | number
-    hourlyPrice?: IntFieldUpdateOperationsInput | number
-    dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUpdateManyWithoutProductNestedInput
     orderItems?: OrderItemUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUpdateManyWithoutProductNestedInput
@@ -30270,9 +30431,6 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    workingHours?: IntFieldUpdateOperationsInput | number
-    hourlyPrice?: IntFieldUpdateOperationsInput | number
-    dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUncheckedUpdateManyWithoutProductNestedInput
     orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUncheckedUpdateManyWithoutProductNestedInput
@@ -30287,9 +30445,6 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
-    workingHours: number
-    hourlyPrice: number
-    dailyPrice: number
   }
 
   export type ProductUpdateManyMutationInput = {
@@ -30299,9 +30454,6 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    workingHours?: IntFieldUpdateOperationsInput | number
-    hourlyPrice?: IntFieldUpdateOperationsInput | number
-    dailyPrice?: IntFieldUpdateOperationsInput | number
   }
 
   export type ProductUncheckedUpdateManyInput = {
@@ -30311,9 +30463,6 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    workingHours?: IntFieldUpdateOperationsInput | number
-    hourlyPrice?: IntFieldUpdateOperationsInput | number
-    dailyPrice?: IntFieldUpdateOperationsInput | number
   }
 
   export type LevelCreateInput = {
@@ -30394,9 +30543,9 @@ export namespace Prisma {
     code?: string | null
     image: string
     isActive: boolean
-    brand: BrandCreateNestedOneWithoutToolsInput
-    capacity: CapacityCreateNestedOneWithoutToolsInput
-    size: SizeCreateNestedOneWithoutToolsInput
+    brand?: BrandCreateNestedOneWithoutToolsInput
+    capacity?: CapacityCreateNestedOneWithoutToolsInput
+    size?: SizeCreateNestedOneWithoutToolsInput
     orderItems?: OrderItemCreateNestedManyWithoutToolInput
     masterJobs?: MasterJobsCreateNestedManyWithoutToolInput
     baskets?: BasketCreateNestedManyWithoutToolInput
@@ -30414,9 +30563,9 @@ export namespace Prisma {
     price: number
     quantity: number
     code?: string | null
-    brandID: string
-    capacityID: string
-    sizeID: string
+    brandID?: string | null
+    capacityID?: string | null
+    sizeID?: string | null
     image: string
     isActive: boolean
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutToolInput
@@ -30438,9 +30587,9 @@ export namespace Prisma {
     code?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    brand?: BrandUpdateOneRequiredWithoutToolsNestedInput
-    capacity?: CapacityUpdateOneRequiredWithoutToolsNestedInput
-    size?: SizeUpdateOneRequiredWithoutToolsNestedInput
+    brand?: BrandUpdateOneWithoutToolsNestedInput
+    capacity?: CapacityUpdateOneWithoutToolsNestedInput
+    size?: SizeUpdateOneWithoutToolsNestedInput
     orderItems?: OrderItemUpdateManyWithoutToolNestedInput
     masterJobs?: MasterJobsUpdateManyWithoutToolNestedInput
     baskets?: BasketUpdateManyWithoutToolNestedInput
@@ -30458,9 +30607,9 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     code?: NullableStringFieldUpdateOperationsInput | string | null
-    brandID?: StringFieldUpdateOperationsInput | string
-    capacityID?: StringFieldUpdateOperationsInput | string
-    sizeID?: StringFieldUpdateOperationsInput | string
+    brandID?: NullableStringFieldUpdateOperationsInput | string | null
+    capacityID?: NullableStringFieldUpdateOperationsInput | string | null
+    sizeID?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     orderItems?: OrderItemUncheckedUpdateManyWithoutToolNestedInput
@@ -30480,9 +30629,9 @@ export namespace Prisma {
     price: number
     quantity: number
     code?: string | null
-    brandID: string
-    capacityID: string
-    sizeID: string
+    brandID?: string | null
+    capacityID?: string | null
+    sizeID?: string | null
     image: string
     isActive: boolean
   }
@@ -30513,15 +30662,18 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     code?: NullableStringFieldUpdateOperationsInput | string | null
-    brandID?: StringFieldUpdateOperationsInput | string
-    capacityID?: StringFieldUpdateOperationsInput | string
-    sizeID?: StringFieldUpdateOperationsInput | string
+    brandID?: NullableStringFieldUpdateOperationsInput | string | null
+    capacityID?: NullableStringFieldUpdateOperationsInput | string | null
+    sizeID?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ProductLevelCreateInput = {
     id?: string
+    workingHours?: number | null
+    hourlyPrice?: number | null
+    dailyPrice?: number | null
     product: ProductCreateNestedOneWithoutLevelsInput
     level: LevelCreateNestedOneWithoutProductsInput
   }
@@ -30529,11 +30681,17 @@ export namespace Prisma {
   export type ProductLevelUncheckedCreateInput = {
     id?: string
     productID: string
+    workingHours?: number | null
+    hourlyPrice?: number | null
+    dailyPrice?: number | null
     levelID: string
   }
 
   export type ProductLevelUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    workingHours?: NullableIntFieldUpdateOperationsInput | number | null
+    hourlyPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    dailyPrice?: NullableIntFieldUpdateOperationsInput | number | null
     product?: ProductUpdateOneRequiredWithoutLevelsNestedInput
     level?: LevelUpdateOneRequiredWithoutProductsNestedInput
   }
@@ -30541,22 +30699,34 @@ export namespace Prisma {
   export type ProductLevelUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     productID?: StringFieldUpdateOperationsInput | string
+    workingHours?: NullableIntFieldUpdateOperationsInput | number | null
+    hourlyPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    dailyPrice?: NullableIntFieldUpdateOperationsInput | number | null
     levelID?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProductLevelCreateManyInput = {
     id?: string
     productID: string
+    workingHours?: number | null
+    hourlyPrice?: number | null
+    dailyPrice?: number | null
     levelID: string
   }
 
   export type ProductLevelUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    workingHours?: NullableIntFieldUpdateOperationsInput | number | null
+    hourlyPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    dailyPrice?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ProductLevelUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     productID?: StringFieldUpdateOperationsInput | string
+    workingHours?: NullableIntFieldUpdateOperationsInput | number | null
+    hourlyPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    dailyPrice?: NullableIntFieldUpdateOperationsInput | number | null
     levelID?: StringFieldUpdateOperationsInput | string
   }
 
@@ -31068,6 +31238,21 @@ export namespace Prisma {
     isNot?: OrderWhereInput
   }
 
+  export type ProductNullableScalarRelationFilter = {
+    is?: ProductWhereInput | null
+    isNot?: ProductWhereInput | null
+  }
+
+  export type ToolNullableScalarRelationFilter = {
+    is?: ToolWhereInput | null
+    isNot?: ToolWhereInput | null
+  }
+
+  export type LevelNullableScalarRelationFilter = {
+    is?: LevelWhereInput | null
+    isNot?: LevelWhereInput | null
+  }
+
   export type OrderItemCountOrderByAggregateInput = {
     id?: SortOrder
     orderID?: SortOrder
@@ -31075,7 +31260,8 @@ export namespace Prisma {
     toolID?: SortOrder
     levelID?: SortOrder
     timeUnit?: SortOrder
-    count?: SortOrder
+    countOfTool?: SortOrder
+    countOfProduct?: SortOrder
     workingHours?: SortOrder
     totalPrice?: SortOrder
     createdAt?: SortOrder
@@ -31083,7 +31269,8 @@ export namespace Prisma {
 
   export type OrderItemAvgOrderByAggregateInput = {
     timeUnit?: SortOrder
-    count?: SortOrder
+    countOfTool?: SortOrder
+    countOfProduct?: SortOrder
     workingHours?: SortOrder
     totalPrice?: SortOrder
   }
@@ -31095,7 +31282,8 @@ export namespace Prisma {
     toolID?: SortOrder
     levelID?: SortOrder
     timeUnit?: SortOrder
-    count?: SortOrder
+    countOfTool?: SortOrder
+    countOfProduct?: SortOrder
     workingHours?: SortOrder
     totalPrice?: SortOrder
     createdAt?: SortOrder
@@ -31108,7 +31296,8 @@ export namespace Prisma {
     toolID?: SortOrder
     levelID?: SortOrder
     timeUnit?: SortOrder
-    count?: SortOrder
+    countOfTool?: SortOrder
+    countOfProduct?: SortOrder
     workingHours?: SortOrder
     totalPrice?: SortOrder
     createdAt?: SortOrder
@@ -31116,7 +31305,8 @@ export namespace Prisma {
 
   export type OrderItemSumOrderByAggregateInput = {
     timeUnit?: SortOrder
-    count?: SortOrder
+    countOfTool?: SortOrder
+    countOfProduct?: SortOrder
     workingHours?: SortOrder
     totalPrice?: SortOrder
   }
@@ -31536,6 +31726,7 @@ export namespace Prisma {
     nameEn?: SortOrder
     image?: SortOrder
     phone?: SortOrder
+    link?: SortOrder
     address?: SortOrder
     status?: SortOrder
     paymentTerms?: SortOrder
@@ -31550,6 +31741,7 @@ export namespace Prisma {
     nameEn?: SortOrder
     image?: SortOrder
     phone?: SortOrder
+    link?: SortOrder
     address?: SortOrder
     status?: SortOrder
     paymentTerms?: SortOrder
@@ -31564,6 +31756,7 @@ export namespace Prisma {
     nameEn?: SortOrder
     image?: SortOrder
     phone?: SortOrder
+    link?: SortOrder
     address?: SortOrder
     status?: SortOrder
     paymentTerms?: SortOrder
@@ -31598,15 +31791,6 @@ export namespace Prisma {
     nameUz?: SortOrder
     nameEn?: SortOrder
     image?: SortOrder
-    workingHours?: SortOrder
-    hourlyPrice?: SortOrder
-    dailyPrice?: SortOrder
-  }
-
-  export type ProductAvgOrderByAggregateInput = {
-    workingHours?: SortOrder
-    hourlyPrice?: SortOrder
-    dailyPrice?: SortOrder
   }
 
   export type ProductMaxOrderByAggregateInput = {
@@ -31616,9 +31800,6 @@ export namespace Prisma {
     nameUz?: SortOrder
     nameEn?: SortOrder
     image?: SortOrder
-    workingHours?: SortOrder
-    hourlyPrice?: SortOrder
-    dailyPrice?: SortOrder
   }
 
   export type ProductMinOrderByAggregateInput = {
@@ -31628,15 +31809,6 @@ export namespace Prisma {
     nameUz?: SortOrder
     nameEn?: SortOrder
     image?: SortOrder
-    workingHours?: SortOrder
-    hourlyPrice?: SortOrder
-    dailyPrice?: SortOrder
-  }
-
-  export type ProductSumOrderByAggregateInput = {
-    workingHours?: SortOrder
-    hourlyPrice?: SortOrder
-    dailyPrice?: SortOrder
   }
 
   export type LevelCountOrderByAggregateInput = {
@@ -31660,19 +31832,19 @@ export namespace Prisma {
     nameEn?: SortOrder
   }
 
-  export type BrandScalarRelationFilter = {
-    is?: BrandWhereInput
-    isNot?: BrandWhereInput
+  export type BrandNullableScalarRelationFilter = {
+    is?: BrandWhereInput | null
+    isNot?: BrandWhereInput | null
   }
 
-  export type CapacityScalarRelationFilter = {
-    is?: CapacityWhereInput
-    isNot?: CapacityWhereInput
+  export type CapacityNullableScalarRelationFilter = {
+    is?: CapacityWhereInput | null
+    isNot?: CapacityWhereInput | null
   }
 
-  export type SizeScalarRelationFilter = {
-    is?: SizeWhereInput
-    isNot?: SizeWhereInput
+  export type SizeNullableScalarRelationFilter = {
+    is?: SizeWhereInput | null
+    isNot?: SizeWhereInput | null
   }
 
   export type ToolCountOrderByAggregateInput = {
@@ -31747,19 +31919,40 @@ export namespace Prisma {
   export type ProductLevelCountOrderByAggregateInput = {
     id?: SortOrder
     productID?: SortOrder
+    workingHours?: SortOrder
+    hourlyPrice?: SortOrder
+    dailyPrice?: SortOrder
     levelID?: SortOrder
+  }
+
+  export type ProductLevelAvgOrderByAggregateInput = {
+    workingHours?: SortOrder
+    hourlyPrice?: SortOrder
+    dailyPrice?: SortOrder
   }
 
   export type ProductLevelMaxOrderByAggregateInput = {
     id?: SortOrder
     productID?: SortOrder
+    workingHours?: SortOrder
+    hourlyPrice?: SortOrder
+    dailyPrice?: SortOrder
     levelID?: SortOrder
   }
 
   export type ProductLevelMinOrderByAggregateInput = {
     id?: SortOrder
     productID?: SortOrder
+    workingHours?: SortOrder
+    hourlyPrice?: SortOrder
+    dailyPrice?: SortOrder
     levelID?: SortOrder
+  }
+
+  export type ProductLevelSumOrderByAggregateInput = {
+    workingHours?: SortOrder
+    hourlyPrice?: SortOrder
+    dailyPrice?: SortOrder
   }
 
   export type ProductToolProductIDToolIDCompoundUniqueInput = {
@@ -32149,26 +32342,32 @@ export namespace Prisma {
     update?: XOR<XOR<OrderUpdateToOneWithWhereWithoutItemsInput, OrderUpdateWithoutItemsInput>, OrderUncheckedUpdateWithoutItemsInput>
   }
 
-  export type ProductUpdateOneRequiredWithoutOrderItemsNestedInput = {
+  export type ProductUpdateOneWithoutOrderItemsNestedInput = {
     create?: XOR<ProductCreateWithoutOrderItemsInput, ProductUncheckedCreateWithoutOrderItemsInput>
     connectOrCreate?: ProductCreateOrConnectWithoutOrderItemsInput
     upsert?: ProductUpsertWithoutOrderItemsInput
+    disconnect?: ProductWhereInput | boolean
+    delete?: ProductWhereInput | boolean
     connect?: ProductWhereUniqueInput
     update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutOrderItemsInput, ProductUpdateWithoutOrderItemsInput>, ProductUncheckedUpdateWithoutOrderItemsInput>
   }
 
-  export type ToolUpdateOneRequiredWithoutOrderItemsNestedInput = {
+  export type ToolUpdateOneWithoutOrderItemsNestedInput = {
     create?: XOR<ToolCreateWithoutOrderItemsInput, ToolUncheckedCreateWithoutOrderItemsInput>
     connectOrCreate?: ToolCreateOrConnectWithoutOrderItemsInput
     upsert?: ToolUpsertWithoutOrderItemsInput
+    disconnect?: ToolWhereInput | boolean
+    delete?: ToolWhereInput | boolean
     connect?: ToolWhereUniqueInput
     update?: XOR<XOR<ToolUpdateToOneWithWhereWithoutOrderItemsInput, ToolUpdateWithoutOrderItemsInput>, ToolUncheckedUpdateWithoutOrderItemsInput>
   }
 
-  export type LevelUpdateOneRequiredWithoutOrderItemsNestedInput = {
+  export type LevelUpdateOneWithoutOrderItemsNestedInput = {
     create?: XOR<LevelCreateWithoutOrderItemsInput, LevelUncheckedCreateWithoutOrderItemsInput>
     connectOrCreate?: LevelCreateOrConnectWithoutOrderItemsInput
     upsert?: LevelUpsertWithoutOrderItemsInput
+    disconnect?: LevelWhereInput | boolean
+    delete?: LevelWhereInput | boolean
     connect?: LevelWhereUniqueInput
     update?: XOR<XOR<LevelUpdateToOneWithWhereWithoutOrderItemsInput, LevelUpdateWithoutOrderItemsInput>, LevelUncheckedUpdateWithoutOrderItemsInput>
   }
@@ -32947,26 +33146,32 @@ export namespace Prisma {
     connect?: ProductToolWhereUniqueInput | ProductToolWhereUniqueInput[]
   }
 
-  export type BrandUpdateOneRequiredWithoutToolsNestedInput = {
+  export type BrandUpdateOneWithoutToolsNestedInput = {
     create?: XOR<BrandCreateWithoutToolsInput, BrandUncheckedCreateWithoutToolsInput>
     connectOrCreate?: BrandCreateOrConnectWithoutToolsInput
     upsert?: BrandUpsertWithoutToolsInput
+    disconnect?: BrandWhereInput | boolean
+    delete?: BrandWhereInput | boolean
     connect?: BrandWhereUniqueInput
     update?: XOR<XOR<BrandUpdateToOneWithWhereWithoutToolsInput, BrandUpdateWithoutToolsInput>, BrandUncheckedUpdateWithoutToolsInput>
   }
 
-  export type CapacityUpdateOneRequiredWithoutToolsNestedInput = {
+  export type CapacityUpdateOneWithoutToolsNestedInput = {
     create?: XOR<CapacityCreateWithoutToolsInput, CapacityUncheckedCreateWithoutToolsInput>
     connectOrCreate?: CapacityCreateOrConnectWithoutToolsInput
     upsert?: CapacityUpsertWithoutToolsInput
+    disconnect?: CapacityWhereInput | boolean
+    delete?: CapacityWhereInput | boolean
     connect?: CapacityWhereUniqueInput
     update?: XOR<XOR<CapacityUpdateToOneWithWhereWithoutToolsInput, CapacityUpdateWithoutToolsInput>, CapacityUncheckedUpdateWithoutToolsInput>
   }
 
-  export type SizeUpdateOneRequiredWithoutToolsNestedInput = {
+  export type SizeUpdateOneWithoutToolsNestedInput = {
     create?: XOR<SizeCreateWithoutToolsInput, SizeUncheckedCreateWithoutToolsInput>
     connectOrCreate?: SizeCreateOrConnectWithoutToolsInput
     upsert?: SizeUpsertWithoutToolsInput
+    disconnect?: SizeWhereInput | boolean
+    delete?: SizeWhereInput | boolean
     connect?: SizeWhereUniqueInput
     update?: XOR<XOR<SizeUpdateToOneWithWhereWithoutToolsInput, SizeUpdateWithoutToolsInput>, SizeUncheckedUpdateWithoutToolsInput>
   }
@@ -33718,9 +33923,6 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
-    workingHours: number
-    hourlyPrice: number
-    dailyPrice: number
     orderItems?: OrderItemCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsCreateNestedManyWithoutProductInput
     levels?: ProductLevelCreateNestedManyWithoutProductInput
@@ -33734,9 +33936,6 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
-    workingHours: number
-    hourlyPrice: number
-    dailyPrice: number
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutProductInput
     levels?: ProductLevelUncheckedCreateNestedManyWithoutProductInput
@@ -33761,9 +33960,9 @@ export namespace Prisma {
     code?: string | null
     image: string
     isActive: boolean
-    brand: BrandCreateNestedOneWithoutToolsInput
-    capacity: CapacityCreateNestedOneWithoutToolsInput
-    size: SizeCreateNestedOneWithoutToolsInput
+    brand?: BrandCreateNestedOneWithoutToolsInput
+    capacity?: CapacityCreateNestedOneWithoutToolsInput
+    size?: SizeCreateNestedOneWithoutToolsInput
     orderItems?: OrderItemCreateNestedManyWithoutToolInput
     masterJobs?: MasterJobsCreateNestedManyWithoutToolInput
     products?: ProductToolCreateNestedManyWithoutToolInput
@@ -33780,9 +33979,9 @@ export namespace Prisma {
     price: number
     quantity: number
     code?: string | null
-    brandID: string
-    capacityID: string
-    sizeID: string
+    brandID?: string | null
+    capacityID?: string | null
+    sizeID?: string | null
     image: string
     isActive: boolean
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutToolInput
@@ -33885,9 +34084,6 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    workingHours?: IntFieldUpdateOperationsInput | number
-    hourlyPrice?: IntFieldUpdateOperationsInput | number
-    dailyPrice?: IntFieldUpdateOperationsInput | number
     orderItems?: OrderItemUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUpdateManyWithoutProductNestedInput
     levels?: ProductLevelUpdateManyWithoutProductNestedInput
@@ -33901,9 +34097,6 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    workingHours?: IntFieldUpdateOperationsInput | number
-    hourlyPrice?: IntFieldUpdateOperationsInput | number
-    dailyPrice?: IntFieldUpdateOperationsInput | number
     orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUncheckedUpdateManyWithoutProductNestedInput
     levels?: ProductLevelUncheckedUpdateManyWithoutProductNestedInput
@@ -33934,9 +34127,9 @@ export namespace Prisma {
     code?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    brand?: BrandUpdateOneRequiredWithoutToolsNestedInput
-    capacity?: CapacityUpdateOneRequiredWithoutToolsNestedInput
-    size?: SizeUpdateOneRequiredWithoutToolsNestedInput
+    brand?: BrandUpdateOneWithoutToolsNestedInput
+    capacity?: CapacityUpdateOneWithoutToolsNestedInput
+    size?: SizeUpdateOneWithoutToolsNestedInput
     orderItems?: OrderItemUpdateManyWithoutToolNestedInput
     masterJobs?: MasterJobsUpdateManyWithoutToolNestedInput
     products?: ProductToolUpdateManyWithoutToolNestedInput
@@ -33953,9 +34146,9 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     code?: NullableStringFieldUpdateOperationsInput | string | null
-    brandID?: StringFieldUpdateOperationsInput | string
-    capacityID?: StringFieldUpdateOperationsInput | string
-    sizeID?: StringFieldUpdateOperationsInput | string
+    brandID?: NullableStringFieldUpdateOperationsInput | string | null
+    capacityID?: NullableStringFieldUpdateOperationsInput | string | null
+    sizeID?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     orderItems?: OrderItemUncheckedUpdateManyWithoutToolNestedInput
@@ -33996,23 +34189,25 @@ export namespace Prisma {
 
   export type OrderItemCreateWithoutOrderInput = {
     id?: string
-    timeUnit: number
-    count: number
+    timeUnit?: number | null
+    countOfTool: number
+    countOfProduct: number
     workingHours: number
     totalPrice?: number | null
     createdAt?: Date | string
-    product: ProductCreateNestedOneWithoutOrderItemsInput
-    tool: ToolCreateNestedOneWithoutOrderItemsInput
-    level: LevelCreateNestedOneWithoutOrderItemsInput
+    product?: ProductCreateNestedOneWithoutOrderItemsInput
+    tool?: ToolCreateNestedOneWithoutOrderItemsInput
+    level?: LevelCreateNestedOneWithoutOrderItemsInput
   }
 
   export type OrderItemUncheckedCreateWithoutOrderInput = {
     id?: string
-    productID: string
-    toolID: string
-    levelID: string
-    timeUnit: number
-    count: number
+    productID?: string | null
+    toolID?: string | null
+    levelID?: string | null
+    timeUnit?: number | null
+    countOfTool: number
+    countOfProduct: number
     workingHours: number
     totalPrice?: number | null
     createdAt?: Date | string
@@ -34076,11 +34271,12 @@ export namespace Prisma {
     NOT?: OrderItemScalarWhereInput | OrderItemScalarWhereInput[]
     id?: StringFilter<"OrderItem"> | string
     orderID?: StringFilter<"OrderItem"> | string
-    productID?: StringFilter<"OrderItem"> | string
-    toolID?: StringFilter<"OrderItem"> | string
-    levelID?: StringFilter<"OrderItem"> | string
-    timeUnit?: IntFilter<"OrderItem"> | number
-    count?: IntFilter<"OrderItem"> | number
+    productID?: StringNullableFilter<"OrderItem"> | string | null
+    toolID?: StringNullableFilter<"OrderItem"> | string | null
+    levelID?: StringNullableFilter<"OrderItem"> | string | null
+    timeUnit?: IntNullableFilter<"OrderItem"> | number | null
+    countOfTool?: IntFilter<"OrderItem"> | number
+    countOfProduct?: IntFilter<"OrderItem"> | number
     workingHours?: IntFilter<"OrderItem"> | number
     totalPrice?: IntNullableFilter<"OrderItem"> | number | null
     createdAt?: DateTimeFilter<"OrderItem"> | Date | string
@@ -34146,9 +34342,6 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
-    workingHours: number
-    hourlyPrice: number
-    dailyPrice: number
     baskets?: BasketCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsCreateNestedManyWithoutProductInput
     levels?: ProductLevelCreateNestedManyWithoutProductInput
@@ -34162,9 +34355,6 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
-    workingHours: number
-    hourlyPrice: number
-    dailyPrice: number
     baskets?: BasketUncheckedCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutProductInput
     levels?: ProductLevelUncheckedCreateNestedManyWithoutProductInput
@@ -34189,9 +34379,9 @@ export namespace Prisma {
     code?: string | null
     image: string
     isActive: boolean
-    brand: BrandCreateNestedOneWithoutToolsInput
-    capacity: CapacityCreateNestedOneWithoutToolsInput
-    size: SizeCreateNestedOneWithoutToolsInput
+    brand?: BrandCreateNestedOneWithoutToolsInput
+    capacity?: CapacityCreateNestedOneWithoutToolsInput
+    size?: SizeCreateNestedOneWithoutToolsInput
     masterJobs?: MasterJobsCreateNestedManyWithoutToolInput
     baskets?: BasketCreateNestedManyWithoutToolInput
     products?: ProductToolCreateNestedManyWithoutToolInput
@@ -34208,9 +34398,9 @@ export namespace Prisma {
     price: number
     quantity: number
     code?: string | null
-    brandID: string
-    capacityID: string
-    sizeID: string
+    brandID?: string | null
+    capacityID?: string | null
+    sizeID?: string | null
     image: string
     isActive: boolean
     masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutToolInput
@@ -34309,9 +34499,6 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    workingHours?: IntFieldUpdateOperationsInput | number
-    hourlyPrice?: IntFieldUpdateOperationsInput | number
-    dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUpdateManyWithoutProductNestedInput
     levels?: ProductLevelUpdateManyWithoutProductNestedInput
@@ -34325,9 +34512,6 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    workingHours?: IntFieldUpdateOperationsInput | number
-    hourlyPrice?: IntFieldUpdateOperationsInput | number
-    dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUncheckedUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUncheckedUpdateManyWithoutProductNestedInput
     levels?: ProductLevelUncheckedUpdateManyWithoutProductNestedInput
@@ -34358,9 +34542,9 @@ export namespace Prisma {
     code?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    brand?: BrandUpdateOneRequiredWithoutToolsNestedInput
-    capacity?: CapacityUpdateOneRequiredWithoutToolsNestedInput
-    size?: SizeUpdateOneRequiredWithoutToolsNestedInput
+    brand?: BrandUpdateOneWithoutToolsNestedInput
+    capacity?: CapacityUpdateOneWithoutToolsNestedInput
+    size?: SizeUpdateOneWithoutToolsNestedInput
     masterJobs?: MasterJobsUpdateManyWithoutToolNestedInput
     baskets?: BasketUpdateManyWithoutToolNestedInput
     products?: ProductToolUpdateManyWithoutToolNestedInput
@@ -34377,9 +34561,9 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     code?: NullableStringFieldUpdateOperationsInput | string | null
-    brandID?: StringFieldUpdateOperationsInput | string
-    capacityID?: StringFieldUpdateOperationsInput | string
-    sizeID?: StringFieldUpdateOperationsInput | string
+    brandID?: NullableStringFieldUpdateOperationsInput | string | null
+    capacityID?: NullableStringFieldUpdateOperationsInput | string | null
+    sizeID?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     masterJobs?: MasterJobsUncheckedUpdateManyWithoutToolNestedInput
@@ -34431,8 +34615,8 @@ export namespace Prisma {
     code?: string | null
     image: string
     isActive: boolean
-    capacity: CapacityCreateNestedOneWithoutToolsInput
-    size: SizeCreateNestedOneWithoutToolsInput
+    capacity?: CapacityCreateNestedOneWithoutToolsInput
+    size?: SizeCreateNestedOneWithoutToolsInput
     orderItems?: OrderItemCreateNestedManyWithoutToolInput
     masterJobs?: MasterJobsCreateNestedManyWithoutToolInput
     baskets?: BasketCreateNestedManyWithoutToolInput
@@ -34450,8 +34634,8 @@ export namespace Prisma {
     price: number
     quantity: number
     code?: string | null
-    capacityID: string
-    sizeID: string
+    capacityID?: string | null
+    sizeID?: string | null
     image: string
     isActive: boolean
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutToolInput
@@ -34500,9 +34684,9 @@ export namespace Prisma {
     price?: IntFilter<"Tool"> | number
     quantity?: IntFilter<"Tool"> | number
     code?: StringNullableFilter<"Tool"> | string | null
-    brandID?: StringFilter<"Tool"> | string
-    capacityID?: StringFilter<"Tool"> | string
-    sizeID?: StringFilter<"Tool"> | string
+    brandID?: StringNullableFilter<"Tool"> | string | null
+    capacityID?: StringNullableFilter<"Tool"> | string | null
+    sizeID?: StringNullableFilter<"Tool"> | string | null
     image?: StringFilter<"Tool"> | string
     isActive?: BoolFilter<"Tool"> | boolean
   }
@@ -34520,8 +34704,8 @@ export namespace Prisma {
     code?: string | null
     image: string
     isActive: boolean
-    brand: BrandCreateNestedOneWithoutToolsInput
-    size: SizeCreateNestedOneWithoutToolsInput
+    brand?: BrandCreateNestedOneWithoutToolsInput
+    size?: SizeCreateNestedOneWithoutToolsInput
     orderItems?: OrderItemCreateNestedManyWithoutToolInput
     masterJobs?: MasterJobsCreateNestedManyWithoutToolInput
     baskets?: BasketCreateNestedManyWithoutToolInput
@@ -34539,8 +34723,8 @@ export namespace Prisma {
     price: number
     quantity: number
     code?: string | null
-    brandID: string
-    sizeID: string
+    brandID?: string | null
+    sizeID?: string | null
     image: string
     isActive: boolean
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutToolInput
@@ -34588,8 +34772,8 @@ export namespace Prisma {
     code?: string | null
     image: string
     isActive: boolean
-    brand: BrandCreateNestedOneWithoutToolsInput
-    capacity: CapacityCreateNestedOneWithoutToolsInput
+    brand?: BrandCreateNestedOneWithoutToolsInput
+    capacity?: CapacityCreateNestedOneWithoutToolsInput
     orderItems?: OrderItemCreateNestedManyWithoutToolInput
     masterJobs?: MasterJobsCreateNestedManyWithoutToolInput
     baskets?: BasketCreateNestedManyWithoutToolInput
@@ -34607,8 +34791,8 @@ export namespace Prisma {
     price: number
     quantity: number
     code?: string | null
-    brandID: string
-    capacityID: string
+    brandID?: string | null
+    capacityID?: string | null
     image: string
     isActive: boolean
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutToolInput
@@ -35004,9 +35188,9 @@ export namespace Prisma {
     code?: string | null
     image: string
     isActive: boolean
-    brand: BrandCreateNestedOneWithoutToolsInput
-    capacity: CapacityCreateNestedOneWithoutToolsInput
-    size: SizeCreateNestedOneWithoutToolsInput
+    brand?: BrandCreateNestedOneWithoutToolsInput
+    capacity?: CapacityCreateNestedOneWithoutToolsInput
+    size?: SizeCreateNestedOneWithoutToolsInput
     orderItems?: OrderItemCreateNestedManyWithoutToolInput
     baskets?: BasketCreateNestedManyWithoutToolInput
     products?: ProductToolCreateNestedManyWithoutToolInput
@@ -35023,9 +35207,9 @@ export namespace Prisma {
     price: number
     quantity: number
     code?: string | null
-    brandID: string
-    capacityID: string
-    sizeID: string
+    brandID?: string | null
+    capacityID?: string | null
+    sizeID?: string | null
     image: string
     isActive: boolean
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutToolInput
@@ -35045,9 +35229,6 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
-    workingHours: number
-    hourlyPrice: number
-    dailyPrice: number
     baskets?: BasketCreateNestedManyWithoutProductInput
     orderItems?: OrderItemCreateNestedManyWithoutProductInput
     levels?: ProductLevelCreateNestedManyWithoutProductInput
@@ -35061,9 +35242,6 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
-    workingHours: number
-    hourlyPrice: number
-    dailyPrice: number
     baskets?: BasketUncheckedCreateNestedManyWithoutProductInput
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
     levels?: ProductLevelUncheckedCreateNestedManyWithoutProductInput
@@ -35157,9 +35335,9 @@ export namespace Prisma {
     code?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    brand?: BrandUpdateOneRequiredWithoutToolsNestedInput
-    capacity?: CapacityUpdateOneRequiredWithoutToolsNestedInput
-    size?: SizeUpdateOneRequiredWithoutToolsNestedInput
+    brand?: BrandUpdateOneWithoutToolsNestedInput
+    capacity?: CapacityUpdateOneWithoutToolsNestedInput
+    size?: SizeUpdateOneWithoutToolsNestedInput
     orderItems?: OrderItemUpdateManyWithoutToolNestedInput
     baskets?: BasketUpdateManyWithoutToolNestedInput
     products?: ProductToolUpdateManyWithoutToolNestedInput
@@ -35176,9 +35354,9 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     code?: NullableStringFieldUpdateOperationsInput | string | null
-    brandID?: StringFieldUpdateOperationsInput | string
-    capacityID?: StringFieldUpdateOperationsInput | string
-    sizeID?: StringFieldUpdateOperationsInput | string
+    brandID?: NullableStringFieldUpdateOperationsInput | string | null
+    capacityID?: NullableStringFieldUpdateOperationsInput | string | null
+    sizeID?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     orderItems?: OrderItemUncheckedUpdateManyWithoutToolNestedInput
@@ -35204,9 +35382,6 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    workingHours?: IntFieldUpdateOperationsInput | number
-    hourlyPrice?: IntFieldUpdateOperationsInput | number
-    dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUpdateManyWithoutProductNestedInput
     orderItems?: OrderItemUpdateManyWithoutProductNestedInput
     levels?: ProductLevelUpdateManyWithoutProductNestedInput
@@ -35220,9 +35395,6 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    workingHours?: IntFieldUpdateOperationsInput | number
-    hourlyPrice?: IntFieldUpdateOperationsInput | number
-    dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUncheckedUpdateManyWithoutProductNestedInput
     orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
     levels?: ProductLevelUncheckedUpdateManyWithoutProductNestedInput
@@ -35333,23 +35505,25 @@ export namespace Prisma {
 
   export type OrderItemCreateWithoutProductInput = {
     id?: string
-    timeUnit: number
-    count: number
+    timeUnit?: number | null
+    countOfTool: number
+    countOfProduct: number
     workingHours: number
     totalPrice?: number | null
     createdAt?: Date | string
     order: OrderCreateNestedOneWithoutItemsInput
-    tool: ToolCreateNestedOneWithoutOrderItemsInput
-    level: LevelCreateNestedOneWithoutOrderItemsInput
+    tool?: ToolCreateNestedOneWithoutOrderItemsInput
+    level?: LevelCreateNestedOneWithoutOrderItemsInput
   }
 
   export type OrderItemUncheckedCreateWithoutProductInput = {
     id?: string
     orderID: string
-    toolID: string
-    levelID: string
-    timeUnit: number
-    count: number
+    toolID?: string | null
+    levelID?: string | null
+    timeUnit?: number | null
+    countOfTool: number
+    countOfProduct: number
     workingHours: number
     totalPrice?: number | null
     createdAt?: Date | string
@@ -35401,11 +35575,17 @@ export namespace Prisma {
 
   export type ProductLevelCreateWithoutProductInput = {
     id?: string
+    workingHours?: number | null
+    hourlyPrice?: number | null
+    dailyPrice?: number | null
     level: LevelCreateNestedOneWithoutProductsInput
   }
 
   export type ProductLevelUncheckedCreateWithoutProductInput = {
     id?: string
+    workingHours?: number | null
+    hourlyPrice?: number | null
+    dailyPrice?: number | null
     levelID: string
   }
 
@@ -35509,6 +35689,9 @@ export namespace Prisma {
     NOT?: ProductLevelScalarWhereInput | ProductLevelScalarWhereInput[]
     id?: StringFilter<"ProductLevel"> | string
     productID?: StringFilter<"ProductLevel"> | string
+    workingHours?: IntNullableFilter<"ProductLevel"> | number | null
+    hourlyPrice?: IntNullableFilter<"ProductLevel"> | number | null
+    dailyPrice?: IntNullableFilter<"ProductLevel"> | number | null
     levelID?: StringFilter<"ProductLevel"> | string
   }
 
@@ -35539,23 +35722,25 @@ export namespace Prisma {
 
   export type OrderItemCreateWithoutLevelInput = {
     id?: string
-    timeUnit: number
-    count: number
+    timeUnit?: number | null
+    countOfTool: number
+    countOfProduct: number
     workingHours: number
     totalPrice?: number | null
     createdAt?: Date | string
     order: OrderCreateNestedOneWithoutItemsInput
-    product: ProductCreateNestedOneWithoutOrderItemsInput
-    tool: ToolCreateNestedOneWithoutOrderItemsInput
+    product?: ProductCreateNestedOneWithoutOrderItemsInput
+    tool?: ToolCreateNestedOneWithoutOrderItemsInput
   }
 
   export type OrderItemUncheckedCreateWithoutLevelInput = {
     id?: string
     orderID: string
-    productID: string
-    toolID: string
-    timeUnit: number
-    count: number
+    productID?: string | null
+    toolID?: string | null
+    timeUnit?: number | null
+    countOfTool: number
+    countOfProduct: number
     workingHours: number
     totalPrice?: number | null
     createdAt?: Date | string
@@ -35607,12 +35792,18 @@ export namespace Prisma {
 
   export type ProductLevelCreateWithoutLevelInput = {
     id?: string
+    workingHours?: number | null
+    hourlyPrice?: number | null
+    dailyPrice?: number | null
     product: ProductCreateNestedOneWithoutLevelsInput
   }
 
   export type ProductLevelUncheckedCreateWithoutLevelInput = {
     id?: string
     productID: string
+    workingHours?: number | null
+    hourlyPrice?: number | null
+    dailyPrice?: number | null
   }
 
   export type ProductLevelCreateOrConnectWithoutLevelInput = {
@@ -35780,23 +35971,25 @@ export namespace Prisma {
 
   export type OrderItemCreateWithoutToolInput = {
     id?: string
-    timeUnit: number
-    count: number
+    timeUnit?: number | null
+    countOfTool: number
+    countOfProduct: number
     workingHours: number
     totalPrice?: number | null
     createdAt?: Date | string
     order: OrderCreateNestedOneWithoutItemsInput
-    product: ProductCreateNestedOneWithoutOrderItemsInput
-    level: LevelCreateNestedOneWithoutOrderItemsInput
+    product?: ProductCreateNestedOneWithoutOrderItemsInput
+    level?: LevelCreateNestedOneWithoutOrderItemsInput
   }
 
   export type OrderItemUncheckedCreateWithoutToolInput = {
     id?: string
     orderID: string
-    productID: string
-    levelID: string
-    timeUnit: number
-    count: number
+    productID?: string | null
+    levelID?: string | null
+    timeUnit?: number | null
+    countOfTool: number
+    countOfProduct: number
     workingHours: number
     totalPrice?: number | null
     createdAt?: Date | string
@@ -36044,9 +36237,6 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
-    workingHours: number
-    hourlyPrice: number
-    dailyPrice: number
     baskets?: BasketCreateNestedManyWithoutProductInput
     orderItems?: OrderItemCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsCreateNestedManyWithoutProductInput
@@ -36060,9 +36250,6 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
-    workingHours: number
-    hourlyPrice: number
-    dailyPrice: number
     baskets?: BasketUncheckedCreateNestedManyWithoutProductInput
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutProductInput
@@ -36117,9 +36304,6 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    workingHours?: IntFieldUpdateOperationsInput | number
-    hourlyPrice?: IntFieldUpdateOperationsInput | number
-    dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUpdateManyWithoutProductNestedInput
     orderItems?: OrderItemUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUpdateManyWithoutProductNestedInput
@@ -36133,9 +36317,6 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    workingHours?: IntFieldUpdateOperationsInput | number
-    hourlyPrice?: IntFieldUpdateOperationsInput | number
-    dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUncheckedUpdateManyWithoutProductNestedInput
     orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUncheckedUpdateManyWithoutProductNestedInput
@@ -36180,9 +36361,6 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
-    workingHours: number
-    hourlyPrice: number
-    dailyPrice: number
     baskets?: BasketCreateNestedManyWithoutProductInput
     orderItems?: OrderItemCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsCreateNestedManyWithoutProductInput
@@ -36196,9 +36374,6 @@ export namespace Prisma {
     nameUz: string
     nameEn: string
     image: string
-    workingHours: number
-    hourlyPrice: number
-    dailyPrice: number
     baskets?: BasketUncheckedCreateNestedManyWithoutProductInput
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
     masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutProductInput
@@ -36223,9 +36398,9 @@ export namespace Prisma {
     code?: string | null
     image: string
     isActive: boolean
-    brand: BrandCreateNestedOneWithoutToolsInput
-    capacity: CapacityCreateNestedOneWithoutToolsInput
-    size: SizeCreateNestedOneWithoutToolsInput
+    brand?: BrandCreateNestedOneWithoutToolsInput
+    capacity?: CapacityCreateNestedOneWithoutToolsInput
+    size?: SizeCreateNestedOneWithoutToolsInput
     orderItems?: OrderItemCreateNestedManyWithoutToolInput
     masterJobs?: MasterJobsCreateNestedManyWithoutToolInput
     baskets?: BasketCreateNestedManyWithoutToolInput
@@ -36242,9 +36417,9 @@ export namespace Prisma {
     price: number
     quantity: number
     code?: string | null
-    brandID: string
-    capacityID: string
-    sizeID: string
+    brandID?: string | null
+    capacityID?: string | null
+    sizeID?: string | null
     image: string
     isActive: boolean
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutToolInput
@@ -36275,9 +36450,6 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    workingHours?: IntFieldUpdateOperationsInput | number
-    hourlyPrice?: IntFieldUpdateOperationsInput | number
-    dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUpdateManyWithoutProductNestedInput
     orderItems?: OrderItemUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUpdateManyWithoutProductNestedInput
@@ -36291,9 +36463,6 @@ export namespace Prisma {
     nameUz?: StringFieldUpdateOperationsInput | string
     nameEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
-    workingHours?: IntFieldUpdateOperationsInput | number
-    hourlyPrice?: IntFieldUpdateOperationsInput | number
-    dailyPrice?: IntFieldUpdateOperationsInput | number
     baskets?: BasketUncheckedUpdateManyWithoutProductNestedInput
     orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
     masterJobs?: MasterJobsUncheckedUpdateManyWithoutProductNestedInput
@@ -36324,9 +36493,9 @@ export namespace Prisma {
     code?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    brand?: BrandUpdateOneRequiredWithoutToolsNestedInput
-    capacity?: CapacityUpdateOneRequiredWithoutToolsNestedInput
-    size?: SizeUpdateOneRequiredWithoutToolsNestedInput
+    brand?: BrandUpdateOneWithoutToolsNestedInput
+    capacity?: CapacityUpdateOneWithoutToolsNestedInput
+    size?: SizeUpdateOneWithoutToolsNestedInput
     orderItems?: OrderItemUpdateManyWithoutToolNestedInput
     masterJobs?: MasterJobsUpdateManyWithoutToolNestedInput
     baskets?: BasketUpdateManyWithoutToolNestedInput
@@ -36343,9 +36512,9 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     code?: NullableStringFieldUpdateOperationsInput | string | null
-    brandID?: StringFieldUpdateOperationsInput | string
-    capacityID?: StringFieldUpdateOperationsInput | string
-    sizeID?: StringFieldUpdateOperationsInput | string
+    brandID?: NullableStringFieldUpdateOperationsInput | string | null
+    capacityID?: NullableStringFieldUpdateOperationsInput | string | null
+    sizeID?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     orderItems?: OrderItemUncheckedUpdateManyWithoutToolNestedInput
@@ -36499,11 +36668,12 @@ export namespace Prisma {
 
   export type OrderItemCreateManyOrderInput = {
     id?: string
-    productID: string
-    toolID: string
-    levelID: string
-    timeUnit: number
-    count: number
+    productID?: string | null
+    toolID?: string | null
+    levelID?: string | null
+    timeUnit?: number | null
+    countOfTool: number
+    countOfProduct: number
     workingHours: number
     totalPrice?: number | null
     createdAt?: Date | string
@@ -36519,23 +36689,25 @@ export namespace Prisma {
 
   export type OrderItemUpdateWithoutOrderInput = {
     id?: StringFieldUpdateOperationsInput | string
-    timeUnit?: IntFieldUpdateOperationsInput | number
-    count?: IntFieldUpdateOperationsInput | number
+    timeUnit?: NullableIntFieldUpdateOperationsInput | number | null
+    countOfTool?: IntFieldUpdateOperationsInput | number
+    countOfProduct?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    product?: ProductUpdateOneRequiredWithoutOrderItemsNestedInput
-    tool?: ToolUpdateOneRequiredWithoutOrderItemsNestedInput
-    level?: LevelUpdateOneRequiredWithoutOrderItemsNestedInput
+    product?: ProductUpdateOneWithoutOrderItemsNestedInput
+    tool?: ToolUpdateOneWithoutOrderItemsNestedInput
+    level?: LevelUpdateOneWithoutOrderItemsNestedInput
   }
 
   export type OrderItemUncheckedUpdateWithoutOrderInput = {
     id?: StringFieldUpdateOperationsInput | string
-    productID?: StringFieldUpdateOperationsInput | string
-    toolID?: StringFieldUpdateOperationsInput | string
-    levelID?: StringFieldUpdateOperationsInput | string
-    timeUnit?: IntFieldUpdateOperationsInput | number
-    count?: IntFieldUpdateOperationsInput | number
+    productID?: NullableStringFieldUpdateOperationsInput | string | null
+    toolID?: NullableStringFieldUpdateOperationsInput | string | null
+    levelID?: NullableStringFieldUpdateOperationsInput | string | null
+    timeUnit?: NullableIntFieldUpdateOperationsInput | number | null
+    countOfTool?: IntFieldUpdateOperationsInput | number
+    countOfProduct?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36543,11 +36715,12 @@ export namespace Prisma {
 
   export type OrderItemUncheckedUpdateManyWithoutOrderInput = {
     id?: StringFieldUpdateOperationsInput | string
-    productID?: StringFieldUpdateOperationsInput | string
-    toolID?: StringFieldUpdateOperationsInput | string
-    levelID?: StringFieldUpdateOperationsInput | string
-    timeUnit?: IntFieldUpdateOperationsInput | number
-    count?: IntFieldUpdateOperationsInput | number
+    productID?: NullableStringFieldUpdateOperationsInput | string | null
+    toolID?: NullableStringFieldUpdateOperationsInput | string | null
+    levelID?: NullableStringFieldUpdateOperationsInput | string | null
+    timeUnit?: NullableIntFieldUpdateOperationsInput | number | null
+    countOfTool?: IntFieldUpdateOperationsInput | number
+    countOfProduct?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36588,8 +36761,8 @@ export namespace Prisma {
     price: number
     quantity: number
     code?: string | null
-    capacityID: string
-    sizeID: string
+    capacityID?: string | null
+    sizeID?: string | null
     image: string
     isActive: boolean
   }
@@ -36607,8 +36780,8 @@ export namespace Prisma {
     code?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    capacity?: CapacityUpdateOneRequiredWithoutToolsNestedInput
-    size?: SizeUpdateOneRequiredWithoutToolsNestedInput
+    capacity?: CapacityUpdateOneWithoutToolsNestedInput
+    size?: SizeUpdateOneWithoutToolsNestedInput
     orderItems?: OrderItemUpdateManyWithoutToolNestedInput
     masterJobs?: MasterJobsUpdateManyWithoutToolNestedInput
     baskets?: BasketUpdateManyWithoutToolNestedInput
@@ -36626,8 +36799,8 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     code?: NullableStringFieldUpdateOperationsInput | string | null
-    capacityID?: StringFieldUpdateOperationsInput | string
-    sizeID?: StringFieldUpdateOperationsInput | string
+    capacityID?: NullableStringFieldUpdateOperationsInput | string | null
+    sizeID?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     orderItems?: OrderItemUncheckedUpdateManyWithoutToolNestedInput
@@ -36647,8 +36820,8 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     code?: NullableStringFieldUpdateOperationsInput | string | null
-    capacityID?: StringFieldUpdateOperationsInput | string
-    sizeID?: StringFieldUpdateOperationsInput | string
+    capacityID?: NullableStringFieldUpdateOperationsInput | string | null
+    sizeID?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
   }
@@ -36664,8 +36837,8 @@ export namespace Prisma {
     price: number
     quantity: number
     code?: string | null
-    brandID: string
-    sizeID: string
+    brandID?: string | null
+    sizeID?: string | null
     image: string
     isActive: boolean
   }
@@ -36683,8 +36856,8 @@ export namespace Prisma {
     code?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    brand?: BrandUpdateOneRequiredWithoutToolsNestedInput
-    size?: SizeUpdateOneRequiredWithoutToolsNestedInput
+    brand?: BrandUpdateOneWithoutToolsNestedInput
+    size?: SizeUpdateOneWithoutToolsNestedInput
     orderItems?: OrderItemUpdateManyWithoutToolNestedInput
     masterJobs?: MasterJobsUpdateManyWithoutToolNestedInput
     baskets?: BasketUpdateManyWithoutToolNestedInput
@@ -36702,8 +36875,8 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     code?: NullableStringFieldUpdateOperationsInput | string | null
-    brandID?: StringFieldUpdateOperationsInput | string
-    sizeID?: StringFieldUpdateOperationsInput | string
+    brandID?: NullableStringFieldUpdateOperationsInput | string | null
+    sizeID?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     orderItems?: OrderItemUncheckedUpdateManyWithoutToolNestedInput
@@ -36723,8 +36896,8 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     code?: NullableStringFieldUpdateOperationsInput | string | null
-    brandID?: StringFieldUpdateOperationsInput | string
-    sizeID?: StringFieldUpdateOperationsInput | string
+    brandID?: NullableStringFieldUpdateOperationsInput | string | null
+    sizeID?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
   }
@@ -36740,8 +36913,8 @@ export namespace Prisma {
     price: number
     quantity: number
     code?: string | null
-    brandID: string
-    capacityID: string
+    brandID?: string | null
+    capacityID?: string | null
     image: string
     isActive: boolean
   }
@@ -36759,8 +36932,8 @@ export namespace Prisma {
     code?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    brand?: BrandUpdateOneRequiredWithoutToolsNestedInput
-    capacity?: CapacityUpdateOneRequiredWithoutToolsNestedInput
+    brand?: BrandUpdateOneWithoutToolsNestedInput
+    capacity?: CapacityUpdateOneWithoutToolsNestedInput
     orderItems?: OrderItemUpdateManyWithoutToolNestedInput
     masterJobs?: MasterJobsUpdateManyWithoutToolNestedInput
     baskets?: BasketUpdateManyWithoutToolNestedInput
@@ -36778,8 +36951,8 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     code?: NullableStringFieldUpdateOperationsInput | string | null
-    brandID?: StringFieldUpdateOperationsInput | string
-    capacityID?: StringFieldUpdateOperationsInput | string
+    brandID?: NullableStringFieldUpdateOperationsInput | string | null
+    capacityID?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     orderItems?: OrderItemUncheckedUpdateManyWithoutToolNestedInput
@@ -36799,8 +36972,8 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     code?: NullableStringFieldUpdateOperationsInput | string | null
-    brandID?: StringFieldUpdateOperationsInput | string
-    capacityID?: StringFieldUpdateOperationsInput | string
+    brandID?: NullableStringFieldUpdateOperationsInput | string | null
+    capacityID?: NullableStringFieldUpdateOperationsInput | string | null
     image?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
   }
@@ -36899,10 +37072,11 @@ export namespace Prisma {
   export type OrderItemCreateManyProductInput = {
     id?: string
     orderID: string
-    toolID: string
-    levelID: string
-    timeUnit: number
-    count: number
+    toolID?: string | null
+    levelID?: string | null
+    timeUnit?: number | null
+    countOfTool: number
+    countOfProduct: number
     workingHours: number
     totalPrice?: number | null
     createdAt?: Date | string
@@ -36922,6 +37096,9 @@ export namespace Prisma {
 
   export type ProductLevelCreateManyProductInput = {
     id?: string
+    workingHours?: number | null
+    hourlyPrice?: number | null
+    dailyPrice?: number | null
     levelID: string
   }
 
@@ -36965,23 +37142,25 @@ export namespace Prisma {
 
   export type OrderItemUpdateWithoutProductInput = {
     id?: StringFieldUpdateOperationsInput | string
-    timeUnit?: IntFieldUpdateOperationsInput | number
-    count?: IntFieldUpdateOperationsInput | number
+    timeUnit?: NullableIntFieldUpdateOperationsInput | number | null
+    countOfTool?: IntFieldUpdateOperationsInput | number
+    countOfProduct?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     order?: OrderUpdateOneRequiredWithoutItemsNestedInput
-    tool?: ToolUpdateOneRequiredWithoutOrderItemsNestedInput
-    level?: LevelUpdateOneRequiredWithoutOrderItemsNestedInput
+    tool?: ToolUpdateOneWithoutOrderItemsNestedInput
+    level?: LevelUpdateOneWithoutOrderItemsNestedInput
   }
 
   export type OrderItemUncheckedUpdateWithoutProductInput = {
     id?: StringFieldUpdateOperationsInput | string
     orderID?: StringFieldUpdateOperationsInput | string
-    toolID?: StringFieldUpdateOperationsInput | string
-    levelID?: StringFieldUpdateOperationsInput | string
-    timeUnit?: IntFieldUpdateOperationsInput | number
-    count?: IntFieldUpdateOperationsInput | number
+    toolID?: NullableStringFieldUpdateOperationsInput | string | null
+    levelID?: NullableStringFieldUpdateOperationsInput | string | null
+    timeUnit?: NullableIntFieldUpdateOperationsInput | number | null
+    countOfTool?: IntFieldUpdateOperationsInput | number
+    countOfProduct?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36990,10 +37169,11 @@ export namespace Prisma {
   export type OrderItemUncheckedUpdateManyWithoutProductInput = {
     id?: StringFieldUpdateOperationsInput | string
     orderID?: StringFieldUpdateOperationsInput | string
-    toolID?: StringFieldUpdateOperationsInput | string
-    levelID?: StringFieldUpdateOperationsInput | string
-    timeUnit?: IntFieldUpdateOperationsInput | number
-    count?: IntFieldUpdateOperationsInput | number
+    toolID?: NullableStringFieldUpdateOperationsInput | string | null
+    levelID?: NullableStringFieldUpdateOperationsInput | string | null
+    timeUnit?: NullableIntFieldUpdateOperationsInput | number | null
+    countOfTool?: IntFieldUpdateOperationsInput | number
+    countOfProduct?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -37037,16 +37217,25 @@ export namespace Prisma {
 
   export type ProductLevelUpdateWithoutProductInput = {
     id?: StringFieldUpdateOperationsInput | string
+    workingHours?: NullableIntFieldUpdateOperationsInput | number | null
+    hourlyPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    dailyPrice?: NullableIntFieldUpdateOperationsInput | number | null
     level?: LevelUpdateOneRequiredWithoutProductsNestedInput
   }
 
   export type ProductLevelUncheckedUpdateWithoutProductInput = {
     id?: StringFieldUpdateOperationsInput | string
+    workingHours?: NullableIntFieldUpdateOperationsInput | number | null
+    hourlyPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    dailyPrice?: NullableIntFieldUpdateOperationsInput | number | null
     levelID?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProductLevelUncheckedUpdateManyWithoutProductInput = {
     id?: StringFieldUpdateOperationsInput | string
+    workingHours?: NullableIntFieldUpdateOperationsInput | number | null
+    hourlyPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    dailyPrice?: NullableIntFieldUpdateOperationsInput | number | null
     levelID?: StringFieldUpdateOperationsInput | string
   }
 
@@ -37068,10 +37257,11 @@ export namespace Prisma {
   export type OrderItemCreateManyLevelInput = {
     id?: string
     orderID: string
-    productID: string
-    toolID: string
-    timeUnit: number
-    count: number
+    productID?: string | null
+    toolID?: string | null
+    timeUnit?: number | null
+    countOfTool: number
+    countOfProduct: number
     workingHours: number
     totalPrice?: number | null
     createdAt?: Date | string
@@ -37092,6 +37282,9 @@ export namespace Prisma {
   export type ProductLevelCreateManyLevelInput = {
     id?: string
     productID: string
+    workingHours?: number | null
+    hourlyPrice?: number | null
+    dailyPrice?: number | null
   }
 
   export type BasketCreateManyLevelInput = {
@@ -37107,23 +37300,25 @@ export namespace Prisma {
 
   export type OrderItemUpdateWithoutLevelInput = {
     id?: StringFieldUpdateOperationsInput | string
-    timeUnit?: IntFieldUpdateOperationsInput | number
-    count?: IntFieldUpdateOperationsInput | number
+    timeUnit?: NullableIntFieldUpdateOperationsInput | number | null
+    countOfTool?: IntFieldUpdateOperationsInput | number
+    countOfProduct?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     order?: OrderUpdateOneRequiredWithoutItemsNestedInput
-    product?: ProductUpdateOneRequiredWithoutOrderItemsNestedInput
-    tool?: ToolUpdateOneRequiredWithoutOrderItemsNestedInput
+    product?: ProductUpdateOneWithoutOrderItemsNestedInput
+    tool?: ToolUpdateOneWithoutOrderItemsNestedInput
   }
 
   export type OrderItemUncheckedUpdateWithoutLevelInput = {
     id?: StringFieldUpdateOperationsInput | string
     orderID?: StringFieldUpdateOperationsInput | string
-    productID?: StringFieldUpdateOperationsInput | string
-    toolID?: StringFieldUpdateOperationsInput | string
-    timeUnit?: IntFieldUpdateOperationsInput | number
-    count?: IntFieldUpdateOperationsInput | number
+    productID?: NullableStringFieldUpdateOperationsInput | string | null
+    toolID?: NullableStringFieldUpdateOperationsInput | string | null
+    timeUnit?: NullableIntFieldUpdateOperationsInput | number | null
+    countOfTool?: IntFieldUpdateOperationsInput | number
+    countOfProduct?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -37132,10 +37327,11 @@ export namespace Prisma {
   export type OrderItemUncheckedUpdateManyWithoutLevelInput = {
     id?: StringFieldUpdateOperationsInput | string
     orderID?: StringFieldUpdateOperationsInput | string
-    productID?: StringFieldUpdateOperationsInput | string
-    toolID?: StringFieldUpdateOperationsInput | string
-    timeUnit?: IntFieldUpdateOperationsInput | number
-    count?: IntFieldUpdateOperationsInput | number
+    productID?: NullableStringFieldUpdateOperationsInput | string | null
+    toolID?: NullableStringFieldUpdateOperationsInput | string | null
+    timeUnit?: NullableIntFieldUpdateOperationsInput | number | null
+    countOfTool?: IntFieldUpdateOperationsInput | number
+    countOfProduct?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -37179,17 +37375,26 @@ export namespace Prisma {
 
   export type ProductLevelUpdateWithoutLevelInput = {
     id?: StringFieldUpdateOperationsInput | string
+    workingHours?: NullableIntFieldUpdateOperationsInput | number | null
+    hourlyPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    dailyPrice?: NullableIntFieldUpdateOperationsInput | number | null
     product?: ProductUpdateOneRequiredWithoutLevelsNestedInput
   }
 
   export type ProductLevelUncheckedUpdateWithoutLevelInput = {
     id?: StringFieldUpdateOperationsInput | string
     productID?: StringFieldUpdateOperationsInput | string
+    workingHours?: NullableIntFieldUpdateOperationsInput | number | null
+    hourlyPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    dailyPrice?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ProductLevelUncheckedUpdateManyWithoutLevelInput = {
     id?: StringFieldUpdateOperationsInput | string
     productID?: StringFieldUpdateOperationsInput | string
+    workingHours?: NullableIntFieldUpdateOperationsInput | number | null
+    hourlyPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    dailyPrice?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type BasketUpdateWithoutLevelInput = {
@@ -37228,10 +37433,11 @@ export namespace Prisma {
   export type OrderItemCreateManyToolInput = {
     id?: string
     orderID: string
-    productID: string
-    levelID: string
-    timeUnit: number
-    count: number
+    productID?: string | null
+    levelID?: string | null
+    timeUnit?: number | null
+    countOfTool: number
+    countOfProduct: number
     workingHours: number
     totalPrice?: number | null
     createdAt?: Date | string
@@ -37267,23 +37473,25 @@ export namespace Prisma {
 
   export type OrderItemUpdateWithoutToolInput = {
     id?: StringFieldUpdateOperationsInput | string
-    timeUnit?: IntFieldUpdateOperationsInput | number
-    count?: IntFieldUpdateOperationsInput | number
+    timeUnit?: NullableIntFieldUpdateOperationsInput | number | null
+    countOfTool?: IntFieldUpdateOperationsInput | number
+    countOfProduct?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     order?: OrderUpdateOneRequiredWithoutItemsNestedInput
-    product?: ProductUpdateOneRequiredWithoutOrderItemsNestedInput
-    level?: LevelUpdateOneRequiredWithoutOrderItemsNestedInput
+    product?: ProductUpdateOneWithoutOrderItemsNestedInput
+    level?: LevelUpdateOneWithoutOrderItemsNestedInput
   }
 
   export type OrderItemUncheckedUpdateWithoutToolInput = {
     id?: StringFieldUpdateOperationsInput | string
     orderID?: StringFieldUpdateOperationsInput | string
-    productID?: StringFieldUpdateOperationsInput | string
-    levelID?: StringFieldUpdateOperationsInput | string
-    timeUnit?: IntFieldUpdateOperationsInput | number
-    count?: IntFieldUpdateOperationsInput | number
+    productID?: NullableStringFieldUpdateOperationsInput | string | null
+    levelID?: NullableStringFieldUpdateOperationsInput | string | null
+    timeUnit?: NullableIntFieldUpdateOperationsInput | number | null
+    countOfTool?: IntFieldUpdateOperationsInput | number
+    countOfProduct?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -37292,10 +37500,11 @@ export namespace Prisma {
   export type OrderItemUncheckedUpdateManyWithoutToolInput = {
     id?: StringFieldUpdateOperationsInput | string
     orderID?: StringFieldUpdateOperationsInput | string
-    productID?: StringFieldUpdateOperationsInput | string
-    levelID?: StringFieldUpdateOperationsInput | string
-    timeUnit?: IntFieldUpdateOperationsInput | number
-    count?: IntFieldUpdateOperationsInput | number
+    productID?: NullableStringFieldUpdateOperationsInput | string | null
+    levelID?: NullableStringFieldUpdateOperationsInput | string | null
+    timeUnit?: NullableIntFieldUpdateOperationsInput | number | null
+    countOfTool?: IntFieldUpdateOperationsInput | number
+    countOfProduct?: IntFieldUpdateOperationsInput | number
     workingHours?: IntFieldUpdateOperationsInput | number
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

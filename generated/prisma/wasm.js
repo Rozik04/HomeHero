@@ -175,7 +175,8 @@ exports.Prisma.OrderItemScalarFieldEnum = {
   toolID: 'toolID',
   levelID: 'levelID',
   timeUnit: 'timeUnit',
-  count: 'count',
+  countOfTool: 'countOfTool',
+  countOfProduct: 'countOfProduct',
   workingHours: 'workingHours',
   totalPrice: 'totalPrice',
   createdAt: 'createdAt'
@@ -291,6 +292,7 @@ exports.Prisma.PartnerScalarFieldEnum = {
   nameEn: 'nameEn',
   image: 'image',
   phone: 'phone',
+  link: 'link',
   address: 'address',
   status: 'status',
   paymentTerms: 'paymentTerms',
@@ -304,10 +306,7 @@ exports.Prisma.ProductScalarFieldEnum = {
   nameRu: 'nameRu',
   nameUz: 'nameUz',
   nameEn: 'nameEn',
-  image: 'image',
-  workingHours: 'workingHours',
-  hourlyPrice: 'hourlyPrice',
-  dailyPrice: 'dailyPrice'
+  image: 'image'
 };
 
 exports.Prisma.LevelScalarFieldEnum = {
@@ -338,6 +337,9 @@ exports.Prisma.ToolScalarFieldEnum = {
 exports.Prisma.ProductLevelScalarFieldEnum = {
   id: 'id',
   productID: 'productID',
+  workingHours: 'workingHours',
+  hourlyPrice: 'hourlyPrice',
+  dailyPrice: 'dailyPrice',
   levelID: 'levelID'
 };
 

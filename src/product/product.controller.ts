@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, BadGatewayException, BadRequestException, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, BadGatewayException, BadRequestException, UseGuards, Query } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -8,7 +8,7 @@ import { JwtAuthGuard } from 'src/utils/token.guard';
 import { JwtRoleGuard } from 'src/utils/role.guard';
 import { Roles } from 'src/utils/role.decorator';
 import { UserRole } from 'src/utils/enums';
-import { ApiBody, ApiConsumes, ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
+import { ApiBody, ApiConsumes, ApiOperation, ApiParam, ApiQuery, ApiResponse } from '@nestjs/swagger';
 
 @Controller('product')
 export class ProductController {
@@ -53,8 +53,15 @@ export class ProductController {
   // @UseGuards(JwtAuthGuard, JwtRoleGuard)
   // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
   @Get()
-  findAll() {
-    return this.productService.findAll();
+  @ApiOperation({ summary: 'Get all products with filtering, sorting, pagination' })
+  @ApiQuery({ name: 'search', required: false, type: String, example: 'kompyuter' })
+  @ApiQuery({ name: 'sortBy', required: false, enum: ['nameRu', 'nameUz', 'nameEn'], example: 'nameUz' })
+  @ApiQuery({ name: 'order', required: false, enum: ['asc', 'desc'], example: 'desc' })
+  @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })
+  @ApiQuery({ name: 'limit', required: false, type: Number, example: 10 })
+  @ApiResponse({ status: 200, description: 'List of all products with metadata.' })
+  async findAll(@Query() query: any) {
+    return this.productService.findAll(query);
   }
 
   // @UseGuards(JwtAuthGuard, JwtRoleGuard)

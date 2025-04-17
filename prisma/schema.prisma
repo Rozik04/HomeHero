@@ -123,19 +123,20 @@ model Order {
 model OrderItem {
   id              String   @id @default(uuid())
   orderID         String
-  productID       String
-  toolID          String
-  levelID         String
-  timeUnit        Int
-  count           Int
+  productID       String?
+  toolID          String?
+  levelID         String?
+  timeUnit        Int?
+  countOfTool     Int
+  countOfProduct  Int
   workingHours    Int
   totalPrice      Int?
   createdAt       DateTime @default(now())
 
-  order           Order    @relation(fields: [orderID], references: [id])
-  product         Product  @relation(fields: [productID], references: [id])
-  tool            Tool     @relation(fields: [toolID], references: [id])
-  level           Level    @relation(fields: [levelID], references: [id])
+  order           Order  @relation(fields: [orderID], references: [id])
+  product         Product ? @relation(fields: [productID], references: [id])
+  tool            Tool?     @relation(fields: [toolID], references: [id])
+  level           Level?   @relation(fields: [levelID], references: [id])
 }
 
 
@@ -218,7 +219,7 @@ model MasterJobs {
   tool            Tool     @relation(fields: [toolID], references: [id])
   product         Product  @relation(fields: [productID], references: [id])
   level           Level    @relation(fields: [levelID], references: [id])
-  master           Master    @relation(fields: [masterID], references: [id])
+  master          Master  @relation(fields: [masterID], references: [id])
 }
 
 
@@ -282,6 +283,7 @@ model Partner {
   nameEn         String
   image          String
   phone          String
+  link           String
   address        String
   status         Boolean
   paymentTerms   String
@@ -297,9 +299,7 @@ model Product {
   nameUz          String
   nameEn          String
   image           String
-  workingHours    Int
-  hourlyPrice     Int
-  dailyPrice      Int
+
 
   baskets         Basket[] 
   orderItems      OrderItem[]   
@@ -333,15 +333,15 @@ model Tool {
   price          Int
   quantity       Int
   code           String? @unique
-  brandID        String
-  capacityID     String
-  sizeID         String
+  brandID        String?
+  capacityID     String?
+  sizeID         String?
   image          String
   isActive       Boolean
 
-  brand          Brand     @relation(fields: [brandID], references: [id])
-  capacity       Capacity  @relation(fields: [capacityID], references: [id])
-  size           Size      @relation(fields: [sizeID], references: [id])
+  brand          Brand  ?   @relation(fields: [brandID], references: [id])
+  capacity       Capacity?  @relation(fields: [capacityID], references: [id])
+  size           Size    ?  @relation(fields: [sizeID], references: [id])
   orderItems     OrderItem[]
   masterJobs     MasterJobs[]
   baskets        Basket[]
@@ -353,6 +353,9 @@ model ProductLevel {
   id         String   @id @default(uuid())
   product    Product  @relation(fields: [productID], references: [id])
   productID  String
+  workingHours    Int?
+  hourlyPrice     Int?
+  dailyPrice      Int?
   level      Level    @relation(fields: [levelID], references: [id])
   levelID    String
 

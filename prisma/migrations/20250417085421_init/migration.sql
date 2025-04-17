@@ -80,11 +80,12 @@ CREATE TABLE "Order" (
 CREATE TABLE "OrderItem" (
     "id" TEXT NOT NULL,
     "orderID" TEXT NOT NULL,
-    "productID" TEXT NOT NULL,
-    "toolID" TEXT NOT NULL,
-    "levelID" TEXT NOT NULL,
-    "timeUnit" INTEGER NOT NULL,
-    "count" INTEGER NOT NULL,
+    "productID" TEXT,
+    "toolID" TEXT,
+    "levelID" TEXT,
+    "timeUnit" INTEGER,
+    "countOfTool" INTEGER NOT NULL,
+    "countOfProduct" INTEGER NOT NULL,
     "workingHours" INTEGER NOT NULL,
     "totalPrice" INTEGER,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -233,6 +234,7 @@ CREATE TABLE "Partner" (
     "nameEn" TEXT NOT NULL,
     "image" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
+    "link" TEXT NOT NULL,
     "address" TEXT NOT NULL,
     "status" BOOLEAN NOT NULL,
     "paymentTerms" TEXT NOT NULL,
@@ -250,9 +252,6 @@ CREATE TABLE "Product" (
     "nameUz" TEXT NOT NULL,
     "nameEn" TEXT NOT NULL,
     "image" TEXT NOT NULL,
-    "workingHours" INTEGER NOT NULL,
-    "hourlyPrice" INTEGER NOT NULL,
-    "dailyPrice" INTEGER NOT NULL,
 
     CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
 );
@@ -279,9 +278,9 @@ CREATE TABLE "Tool" (
     "price" INTEGER NOT NULL,
     "quantity" INTEGER NOT NULL,
     "code" TEXT,
-    "brandID" TEXT NOT NULL,
-    "capacityID" TEXT NOT NULL,
-    "sizeID" TEXT NOT NULL,
+    "brandID" TEXT,
+    "capacityID" TEXT,
+    "sizeID" TEXT,
     "image" TEXT NOT NULL,
     "isActive" BOOLEAN NOT NULL,
 
@@ -292,6 +291,9 @@ CREATE TABLE "Tool" (
 CREATE TABLE "ProductLevel" (
     "id" TEXT NOT NULL,
     "productID" TEXT NOT NULL,
+    "workingHours" INTEGER,
+    "hourlyPrice" INTEGER,
+    "dailyPrice" INTEGER,
     "levelID" TEXT NOT NULL,
 
     CONSTRAINT "ProductLevel_pkey" PRIMARY KEY ("id")
@@ -337,13 +339,13 @@ ALTER TABLE "Basket" ADD CONSTRAINT "Basket_levelID_fkey" FOREIGN KEY ("levelID"
 ALTER TABLE "OrderItem" ADD CONSTRAINT "OrderItem_orderID_fkey" FOREIGN KEY ("orderID") REFERENCES "Order"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "OrderItem" ADD CONSTRAINT "OrderItem_productID_fkey" FOREIGN KEY ("productID") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "OrderItem" ADD CONSTRAINT "OrderItem_productID_fkey" FOREIGN KEY ("productID") REFERENCES "Product"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "OrderItem" ADD CONSTRAINT "OrderItem_toolID_fkey" FOREIGN KEY ("toolID") REFERENCES "Tool"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "OrderItem" ADD CONSTRAINT "OrderItem_toolID_fkey" FOREIGN KEY ("toolID") REFERENCES "Tool"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "OrderItem" ADD CONSTRAINT "OrderItem_levelID_fkey" FOREIGN KEY ("levelID") REFERENCES "Level"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "OrderItem" ADD CONSTRAINT "OrderItem_levelID_fkey" FOREIGN KEY ("levelID") REFERENCES "Level"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Comment" ADD CONSTRAINT "Comment_userID_fkey" FOREIGN KEY ("userID") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
@@ -367,13 +369,13 @@ ALTER TABLE "MasterJobs" ADD CONSTRAINT "MasterJobs_levelID_fkey" FOREIGN KEY ("
 ALTER TABLE "MasterJobs" ADD CONSTRAINT "MasterJobs_masterID_fkey" FOREIGN KEY ("masterID") REFERENCES "Master"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Tool" ADD CONSTRAINT "Tool_brandID_fkey" FOREIGN KEY ("brandID") REFERENCES "Brand"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Tool" ADD CONSTRAINT "Tool_brandID_fkey" FOREIGN KEY ("brandID") REFERENCES "Brand"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Tool" ADD CONSTRAINT "Tool_capacityID_fkey" FOREIGN KEY ("capacityID") REFERENCES "Capacity"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Tool" ADD CONSTRAINT "Tool_capacityID_fkey" FOREIGN KEY ("capacityID") REFERENCES "Capacity"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Tool" ADD CONSTRAINT "Tool_sizeID_fkey" FOREIGN KEY ("sizeID") REFERENCES "Size"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Tool" ADD CONSTRAINT "Tool_sizeID_fkey" FOREIGN KEY ("sizeID") REFERENCES "Size"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "ProductLevel" ADD CONSTRAINT "ProductLevel_productID_fkey" FOREIGN KEY ("productID") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

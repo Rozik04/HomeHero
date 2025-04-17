@@ -46,7 +46,7 @@ export class MasterJobsService {
     let created = await this.prisma.masterJobs.create({
       data: { ...createMasterJobDto },
     });
-    return { created };
+    return created ;
   }
 
   @ApiOperation({ summary: 'Get all master jobs' })
@@ -60,10 +60,8 @@ export class MasterJobsService {
         master: { select: { nameUz: true, phone: true, isActive: true } },
       },
     });
-    if (!allMasterJobs.length) {
-      throw new BadRequestException('Not found jobs');
-    }
-    return { All: allMasterJobs };
+
+    return  allMasterJobs ;
   }
 
   @ApiOperation({ summary: 'Get a master job by ID' })

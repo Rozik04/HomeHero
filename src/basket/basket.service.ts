@@ -56,7 +56,7 @@ export class BasketService {
     let data = await this.prisma.basket.create({
       data: { ...createBasketDto, userID: userId },
     });
-    return { data };
+    return  data ;
   }
 
   @ApiOperation({ summary: 'Get all basket items' })
@@ -64,10 +64,8 @@ export class BasketService {
   @ApiResponse({ status: 400, description: 'No baskets found.' })
   async findAll() {
     let alldata = await this.prisma.basket.findMany();
-    if (!alldata.length) {
-      throw new BadRequestException('No baskets found');
-    }
-    return { alldata };
+
+    return  alldata ;
   }
 
   @ApiOperation({ summary: 'Get a basket item by ID' })
@@ -102,7 +100,7 @@ export class BasketService {
       where: { id },
       data: { ...updateBasketDto },
     });
-    return { Updated: updatedBasket };
+    return  updatedBasket ;
   }
 
   @ApiOperation({ summary: 'Delete a basket item by ID' })
@@ -118,6 +116,6 @@ export class BasketService {
       throw new BadRequestException('Basket not found');
     }
     let deletedBasket = await this.prisma.basket.delete({ where: { id } });
-    return { Deleted: deletedBasket };
+    return  deletedBasket ;
   }
 }

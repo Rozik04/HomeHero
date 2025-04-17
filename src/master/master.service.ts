@@ -5,6 +5,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { promises as fs } from "fs";
 import * as path from 'path';
 import { ApiTags, ApiOperation, ApiParam, ApiBody, ApiResponse } from '@nestjs/swagger';
+import { Prisma } from 'generated/prisma';
 
 @ApiTags('masters')
 @Injectable()
@@ -17,18 +18,51 @@ export class MasterService {
   @ApiResponse({ status: 400, description: 'Bad request.' })
   async create(createMasterDto: CreateMasterDto) {
     let created = await this.prisma.master.create({ data: { ...createMasterDto } });
-    return { created };
+    return  created ;
   }
 
   @ApiOperation({ summary: 'Get all masters' })
   @ApiResponse({ status: 200, description: 'List of all masters.' })
   @ApiResponse({ status: 400, description: 'No masters found.' })
-  async findAll() {
-    let allmasters = await this.prisma.master.findMany();
-    if (!allmasters.length) {
-      throw new BadRequestException("Not found masters");
-    }
-    return { Master: allmasters };
+  async findAll(query: any) {
+    const {
+      search,
+      sortBy = 'nameUz',
+      order = 'asc',
+      page = 1,
+      limit = 10,
+    } = query;
+
+    const where: Prisma.MasterWhereInput = search
+      ? {
+          OR: [
+            { nameUz: { contains: search, mode: Prisma.QueryMode.insensitive } },
+            { nameRu: { contains: search, mode: Prisma.QueryMode.insensitive } },
+            { nameEn: {contains: search, mode: Prisma.QueryMode.insensitive   }}
+          ],
+        }
+      : {};
+
+    const [data, total] = await Promise.all([
+      this.prisma.master.findMany({
+        where,
+        orderBy: {
+          [sortBy]: order,
+        },
+        skip: (page - 1) * limit,
+        take: +limit,
+      }),
+      this.prisma.master.count({ where }),
+    ]);
+
+    return {
+      data,
+      meta: {
+        total,
+        page: +page,
+        lastPage: Math.ceil(total / limit),
+      },
+    };
   }
 
   @ApiOperation({ summary: 'Get a master by ID' })

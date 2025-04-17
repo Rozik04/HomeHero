@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, BadRequestException, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, BadRequestException, UseGuards, Query } from '@nestjs/common';
 import { ToolService } from './tool.service';
 import { CreateToolDto } from './dto/create-tool.dto';
 import { UpdateToolDto } from './dto/update-tool.dto';
@@ -8,7 +8,7 @@ import { JwtAuthGuard } from 'src/utils/token.guard';
 import { JwtRoleGuard } from 'src/utils/role.guard';
 import { Roles } from 'src/utils/role.decorator';
 import { UserRole } from 'src/utils/enums';
-import { ApiBody, ApiConsumes, ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
+import { ApiBody, ApiConsumes, ApiOperation, ApiParam, ApiQuery, ApiResponse } from '@nestjs/swagger';
 
 @Controller('tool')
 export class ToolController {
@@ -52,8 +52,15 @@ export class ToolController {
   // @UseGuards(JwtAuthGuard, JwtRoleGuard)
   // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
   @Get()
-  findAll() {
-    return this.toolService.findAll();
+  @ApiOperation({ summary: 'Get all tools' })
+  @ApiResponse({ status: 200, description: 'List of all tools.' })
+  @ApiQuery({ name: 'search', required: false, type: String })
+  @ApiQuery({ name: 'sortBy', required: false, enum: ['nameEn', 'nameRu', 'nameUz'], example: 'nameEn' })
+  @ApiQuery({ name: 'order', required: false, enum: ['asc', 'desc'], example: 'asc' })
+  @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })
+  @ApiQuery({ name: 'limit', required: false, type: Number, example: 10 })
+  findAll(@Query() query: any) {
+    return this.toolService.findAll(query);
   }
 
   // @UseGuards(JwtAuthGuard, JwtRoleGuard)

@@ -1,17 +1,8 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiParam,
-  ApiBody,
-} from '@nestjs/swagger';
+import {BadRequestException,Injectable,NotFoundException,} from '@nestjs/common';
+import {ApiTags,ApiOperation,ApiResponse,ApiParam,ApiBody,} from '@nestjs/swagger';
 import { CreateOrderWithItemsDto } from './dto/create-order.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { Prisma } from 'generated/prisma';
 
 @ApiTags('orders')
 @Injectable()
@@ -22,7 +13,7 @@ export class OrderService {
   @ApiBody({ type: CreateOrderWithItemsDto })
   @ApiResponse({ status: 201, description: 'The order has been successfully created.' })
   @ApiResponse({ status: 400, description: 'Bad request.' })
-  async create(createOrderDto: CreateOrderWithItemsDto) {
+  async create(dto: CreateOrderWithItemsDto) {
     const {
       locationLat,
       locationLong,
@@ -32,29 +23,83 @@ export class OrderService {
       withDelivery,
       status,
       commentToDelivery,
-    } = createOrderDto;
-  
-    const order = await this.prisma.order.create({
+      orderItems,
+    } = dto;
+
+    const createdOrder = await this.prisma.order.create({
       data: {
         locationLat,
         locationLong,
         address,
-        deliveryDate,
+        deliveryDate: new Date(deliveryDate),
         paymentType,
         withDelivery,
         status,
         commentToDelivery,
       },
     });
-  
-    return order;
+
+    for (const item of orderItems) {
+      if (item.toolID && item.countOfTool) {
+        await this.prisma.tool.update({
+          where: { id: item.toolID },
+          data: {
+            quantity: {
+              decrement: item.countOfTool,
+            },
+          },
+        });
+      }
+
+      await this.prisma.orderItem.create({
+        data: {
+          orderID: createdOrder.id,
+          productID: item.productID,
+          toolID: item.toolID,
+          levelID: item.levelID,
+          timeUnit: item.timeUnit,
+          countOfProduct: item.countOfProduct,
+          countOfTool: item.countOfTool,
+          workingHours: item.workingHours,
+          totalPrice: item.totalPrice ?? null,
+        },
+      });
+    }
+
+    return this.prisma.order.findUnique({
+      where: { id: createdOrder.id },
+      include: { items: true },
+    });
   }
 
-  @ApiOperation({ summary: 'Get all orders' })
-  @ApiResponse({ status: 200, description: 'List of all orders.' })
-  @ApiResponse({ status: 400, description: 'No orders found.' })
-  async findAll() {
-    let alldata = await this.prisma.order.findMany({
+  async findAll(query: any) {
+    const {
+      search,
+      sortBy = 'createdAt',
+      sortOrder = 'desc',
+      page = 1,
+      limit = 10,
+    } = query;
+  
+    const take = parseInt(limit);
+    const skip = (parseInt(page) - 1) * take;
+  
+    const where = search
+      ? {
+          address: {
+            contains: search,
+            mode: Prisma.QueryMode.insensitive, 
+          },
+        }
+      : {};
+  
+    const orders = await this.prisma.order.findMany({
+      where,
+      orderBy: {
+        [sortBy]: sortOrder,
+      },
+      skip,
+      take,
       include: {
         comments: {
           select: {
@@ -64,11 +109,17 @@ export class OrderService {
         },
       },
     });
-    if (!alldata.length) {
-      throw new BadRequestException('No orders found');
-    }
-    return { alldata };
+  
+    const total = await this.prisma.order.count({ where });
+  
+    return {
+      total,
+      page: parseInt(page),
+      limit: take,
+      data: orders,
+    };
   }
+  
 
   @ApiOperation({ summary: 'Get an order by ID' })
   @ApiParam({ name: 'id', type: String, description: 'Order ID' })
@@ -94,34 +145,86 @@ export class OrderService {
 
   @ApiOperation({ summary: 'Update an order by ID' })
   @ApiParam({ name: 'orderID', type: String, description: 'Order ID' })
-  @ApiBody({ type: CreateOrderWithItemsDto }) // yoki UpdateOrderDto bo'lsa, o'shani kiriting
+  @ApiBody({ type: CreateOrderWithItemsDto }) 
   @ApiResponse({ status: 200, description: 'The order has been successfully updated.' })
   @ApiResponse({ status: 404, description: 'Order not found.' })
-  async update(orderID: string, updateOrderDto: Partial<CreateOrderWithItemsDto>) {
-    const existingOrder = await this.prisma.order.findUnique({
-      where: { id: orderID },
+  async update(orderId: string, dto: CreateOrderWithItemsDto) {
+    const {
+      locationLat,
+      locationLong,
+      address,
+      deliveryDate,
+      paymentType,
+      withDelivery,
+      status,
+      commentToDelivery,
+      orderItems,
+    } = dto;
+  
+    await this.prisma.orderItem.deleteMany({
+      where: { orderID: orderId },
     });
 
-    if (!existingOrder) {
-      throw new NotFoundException(`Order with ID ${orderID} not found`);
-    }
-
-    const updatedOrder = await this.prisma.order.update({
-      where: { id: orderID },
+    await this.prisma.order.update({
+      where: { id: orderId },
       data: {
-        locationLat: updateOrderDto.locationLat,
-        locationLong: updateOrderDto.locationLong,
-        address: updateOrderDto.address,
-        deliveryDate: updateOrderDto.deliveryDate,
-        paymentType: updateOrderDto.paymentType,
-        withDelivery: updateOrderDto.withDelivery,
-        status: updateOrderDto.status,
-        commentToDelivery: updateOrderDto.commentToDelivery,
+        locationLat,
+        locationLong,
+        address,
+        deliveryDate: new Date(deliveryDate),
+        paymentType,
+        withDelivery,
+        status,
+        commentToDelivery,
       },
     });
-
-    return updatedOrder;
+  
+    for (const item of orderItems) {
+      const {
+        productID,
+        toolID,
+        levelID,
+        timeUnit,
+        countOfProduct,
+        countOfTool,
+        workingHours,
+        totalPrice,
+      } = item;
+  
+      if (toolID && countOfTool) {
+        await this.prisma.tool.update({
+          where: { id: toolID },
+          data: {
+            quantity: {
+              decrement: countOfTool,
+            },
+          },
+        });
+      }
+  
+      await this.prisma.orderItem.create({
+        data: {
+          orderID: orderId,
+          productID,
+          toolID,
+          levelID,
+          timeUnit,
+          countOfProduct,
+          countOfTool,
+          workingHours,
+          totalPrice: totalPrice ?? null,
+        },
+      });
+    }
+  
+    return this.prisma.order.findUnique({
+      where: { id: orderId },
+      include: {
+        items: true,
+      },
+    });
   }
+  
 
   @ApiOperation({ summary: 'Delete an order by ID' })
   @ApiParam({ name: 'id', type: String, description: 'Order ID' })
@@ -133,6 +236,6 @@ export class OrderService {
       throw new BadRequestException('Order not found');
     }
     let deletedOrder = await this.prisma.order.delete({ where: { id } });
-    return { Deleted: deletedOrder };
+    return  deletedOrder ;
   }
 }

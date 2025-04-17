@@ -3,6 +3,7 @@ import { CreateSizeDto } from './dto/create-size.dto';
 import { UpdateSizeDto } from './dto/update-size.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Prisma } from 'generated/prisma';
 
 @ApiTags('sizes')
 @Injectable()
@@ -18,15 +19,64 @@ export class SizeService {
     return { data };
   }
 
-  @ApiOperation({ summary: 'Get all sizes' })
-  @ApiResponse({ status: 200, description: 'List of all sizes.' })
-  @ApiResponse({ status: 400, description: 'No sizes found.' })
-  async findAll() {
-    let alldata = await this.prisma.size.findMany();
+  async findAll(query: any) {
+    const {
+      search,
+      sort = 'nameUz',
+      order = 'asc',
+      page = 1,
+      limit = 10,
+    } = query;
+
+    const where: Prisma.SizeWhereInput = search
+      ? {
+          OR: [
+            {
+              nameUz: {
+                contains: search,
+                mode: Prisma.QueryMode.insensitive,
+              },
+            },
+            {
+              nameRu: {
+                contains: search,
+                mode: Prisma.QueryMode.insensitive,
+              },
+            },
+            {
+              nameEn: {
+                contains: search,
+                mode: Prisma.QueryMode.insensitive,
+              },
+            },
+          ],
+        }
+      : {};
+
+    const skip = (page - 1) * limit;
+
+    const [alldata, total] = await Promise.all([
+      this.prisma.size.findMany({
+        where,
+        orderBy: { [sort]: order },
+        skip: Number(skip),
+        take: Number(limit),
+      }),
+      this.prisma.size.count({ where }),
+    ]);
+
     if (!alldata.length) {
-      throw new BadRequestException("No sizes found");
+      throw new BadRequestException('No sizes found');
     }
-    return { alldata };
+
+    return {
+      data: alldata,
+      meta: {
+        total,
+        page: Number(page),
+        lastPage: Math.ceil(total / limit),
+      },
+    };
   }
 
   @ApiOperation({ summary: 'Get a size by ID' })

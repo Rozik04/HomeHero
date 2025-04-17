@@ -2,7 +2,8 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateRegionDto } from './dto/create-region.dto';
 import { UpdateRegionDto } from './dto/update-region.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Prisma } from 'generated/prisma';
 
 @ApiTags('regions')
 @Injectable()
@@ -15,18 +16,49 @@ export class RegionService {
   @ApiResponse({ status: 400, description: 'Bad request.' })
   async create(createRegionDto: CreateRegionDto) {
     let data = await this.prisma.region.create({ data: { ...createRegionDto } });
-    return { data };
+    return  data ;
   }
 
-  @ApiOperation({ summary: 'Get all regions' })
-  @ApiResponse({ status: 200, description: 'List of all regions.' })
-  @ApiResponse({ status: 400, description: 'No regions found.' })
-  async findAll() {
-    let alldata = await this.prisma.region.findMany();
-    if (!alldata.length) {
-      throw new BadRequestException("No regions found");
-    }
-    return { alldata };
+
+  async findAll(query: any) {
+    const {
+      search,
+      sortBy = 'nameRu',
+      order = 'asc',
+      page = 1,
+      limit = 10,
+    } = query;
+
+    const where: Prisma.RegionWhereInput = search
+      ? {
+          OR: [
+            { nameRu: { contains: search, mode: Prisma.QueryMode.insensitive } },
+            { nameUz: { contains: search, mode: Prisma.QueryMode.insensitive } },
+            { nameEn: { contains: search, mode: Prisma.QueryMode.insensitive } },
+          ],
+        }
+      : {};
+
+    const skip = (Number(page) - 1) * Number(limit);
+
+    const [data, total] = await Promise.all([
+      this.prisma.region.findMany({
+        where,
+        orderBy: { [sortBy]: order },
+        skip,
+        take: Number(limit),
+      }),
+      this.prisma.region.count({ where }),
+    ]);
+
+    return {
+      data,
+      meta: {
+        total,
+        page: Number(page),
+        lastPage: Math.ceil(total / Number(limit)),
+      },
+    };
   }
 
   @ApiOperation({ summary: 'Get a region by ID' })
