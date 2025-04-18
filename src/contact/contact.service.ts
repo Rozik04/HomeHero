@@ -24,7 +24,7 @@ export class ContactService {
   @ApiResponse({ status: 400, description: 'Bad request.' })
   async create(createContactDto: CreateContactDto) {
     let data = await this.prisma.contact.create({ data: { ...createContactDto } });
-    return { data };
+    return data ;
   }
 
   @ApiOperation({ summary: 'Get all contacts' })
@@ -32,10 +32,7 @@ export class ContactService {
   @ApiResponse({ status: 400, description: 'No contacts found.' })
   async findAll() {
     let alldata = await this.prisma.contact.findMany();
-    if (!alldata.length) {
-      throw new BadRequestException('No contacts found');
-    }
-    return { alldata };
+    return  alldata ;
   }
 
   @ApiOperation({ summary: 'Get a contact by ID' })
@@ -47,7 +44,7 @@ export class ContactService {
     if (!isContactExists) {
       throw new BadRequestException('Contact not found');
     }
-    return { Contact: isContactExists };
+    return  isContactExists ;
   }
 
   @ApiOperation({ summary: 'Update a contact by ID' })
@@ -64,7 +61,7 @@ export class ContactService {
       where: { id },
       data: { ...updateContactDto },
     });
-    return { Updated: updatedContact };
+    return  updatedContact ;
   }
 
   @ApiOperation({ summary: 'Delete a contact by ID' })
@@ -77,6 +74,6 @@ export class ContactService {
       throw new BadRequestException('Contact not found');
     }
     let deletedContact = await this.prisma.contact.delete({ where: { id } });
-    return { Deleted: deletedContact };
+    return  deletedContact ;
   }
 }

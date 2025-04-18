@@ -24,7 +24,7 @@ export class PartnerService {
   @ApiResponse({ status: 400, description: 'Bad request.' })
   async create(createPartnerDto: CreatePartnerDto) {
     let data = await this.prisma.partner.create({ data: { ...createPartnerDto, agreementStart:new Date(), agreementEnd:new Date(createPartnerDto.agreementEnd) } });
-    return { data };
+    return  data ;
   }
 
 
@@ -51,10 +51,6 @@ export class PartnerService {
       this.prisma.partner.count({ where }),
     ]);
 
-    if (!alldata.length) {
-      throw new BadRequestException('No partners found');
-    }
-
     return {
       data: alldata,
       meta: {
@@ -74,7 +70,7 @@ export class PartnerService {
     if (!isPartnerExists) {
       throw new BadRequestException("Partner not found");
     }
-    return { Partner: isPartnerExists };
+    return isPartnerExists ;
   }
 
   @ApiOperation({ summary: 'Update a partner by ID' })
@@ -91,7 +87,7 @@ export class PartnerService {
       where: { id },
       data: { ...updatePartnerDto, agreementStart:new Date()},
     });
-    return { Updated: updatedPartner };
+    return  updatedPartner;
   }
 
   @ApiOperation({ summary: 'Delete a partner by ID' })
@@ -108,7 +104,7 @@ export class PartnerService {
       fs.unlink(filepath);
     }
     let deletedPartner = await this.prisma.partner.delete({ where: { id } });
-    return { Deleted: deletedPartner };
+    return deletedPartner;
   }
 
   @ApiOperation({ summary: 'Update image of a partner' })

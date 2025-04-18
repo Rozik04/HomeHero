@@ -53,6 +53,10 @@ export class BasketService {
       );
     }
 
+    if(createBasketDto.timeUnit=='hour'&&createBasketDto.measure){
+      throw new BadRequestException("When working hourly, the measure is not selected.")
+    }
+
     let data = await this.prisma.basket.create({
       data: { ...createBasketDto, userID: userId },
     });
@@ -80,7 +84,7 @@ export class BasketService {
     if (!isBasketExists) {
       throw new BadRequestException('Basket not found');
     }
-    return { Basket: isBasketExists };
+    return isBasketExists ;
   }
 
   @ApiOperation({ summary: 'Update a basket item by ID' })
@@ -95,6 +99,9 @@ export class BasketService {
     let isBasketExists = await this.prisma.basket.findFirst({ where: { id } });
     if (!isBasketExists) {
       throw new BadRequestException('Basket not found');
+    }
+    if(updateBasketDto.timeUnit=='hour'&&updateBasketDto.measure){
+      throw new BadRequestException("When working hourly, the measure is not selected.")
     }
     let updatedBasket = await this.prisma.basket.update({
       where: { id },

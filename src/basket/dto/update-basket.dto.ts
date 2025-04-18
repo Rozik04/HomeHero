@@ -4,8 +4,10 @@ import {
   IsNotEmpty,
   IsOptional,
   IsInt,
-  Min
+  Min,
+  IsEnum
 } from 'class-validator';
+import { TimeUnit } from 'src/utils/enums';
 
 export class UpdateBasketDto {
   @ApiPropertyOptional({
@@ -32,15 +34,14 @@ export class UpdateBasketDto {
   @IsOptional()
   levelID?: string;
 
-  @ApiPropertyOptional({
-    description: 'Vaqt birligi (ixtiyoriy) (1 = kun, 2 = hafta, 3 = oy kabi)',
-    example: 1,
+  @ApiProperty({
+    description: 'Vaqt birligi (day, hour)',
+    example: "day",
     minimum: 1
   })
-  @IsInt()
+  @IsEnum(TimeUnit)
   @Min(1)
-  @IsOptional()
-  timeUnit?: number;
+  timeUnit?: TimeUnit;
 
   @ApiPropertyOptional({
     description: 'Soni (ixtiyoriy), necha dona buyurtma qilinmoqda',
@@ -50,7 +51,27 @@ export class UpdateBasketDto {
   @IsInt()
   @Min(0)
   @IsOptional()
-  count?: number;
+  countOfTool?: number;
+
+  @ApiPropertyOptional({
+    description: 'Soni (ixtiyoriy), necha dona buyurtma qilinmoqda',
+    example: 5,
+    minimum: 0
+  })
+  @IsInt()
+  @Min(0)
+  @IsOptional()
+  countOfProduct?: number;
+
+  @ApiProperty({
+    description: 'Nechi kun kerak? (1,2)',
+    example: 1,
+    minimum: 1
+  })
+  @IsInt()
+  @Min(0)
+  @IsOptional()
+  measure?: number;
 
   @ApiPropertyOptional({
     description: 'Ishlash soatlari soni (ixtiyoriy)',
@@ -60,14 +81,6 @@ export class UpdateBasketDto {
   @IsInt()
   @Min(0)
   @IsOptional()
-  workingHours?: number;
+  workingHours: number;
 
-  @ApiPropertyOptional({
-    description: 'Umumiy narx (ixtiyoriy, avtomatik hisoblanishi mumkin)',
-    example: 150000,
-    minimum: 0
-  })
-  @IsInt()
-  @IsOptional()
-  totalPrice?: number;
 }

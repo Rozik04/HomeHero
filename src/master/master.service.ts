@@ -88,7 +88,7 @@ export class MasterService {
       throw new BadRequestException("Master not found");
     }
     let updated = await this.prisma.master.update({ where: { id }, data: { ...updateMasterDto } });
-    return { updated };
+    return updated ;
   }
 
   @ApiOperation({ summary: 'Delete a master by ID' })
@@ -107,7 +107,7 @@ export class MasterService {
       fs.unlink(filepath2);
     }
     let deletedMaster = await this.prisma.master.delete({ where: { id } });
-    return { Deleted: deletedMaster };
+    return  deletedMaster;
   }
 
   @ApiOperation({ summary: 'Update master profile image' })

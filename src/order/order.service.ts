@@ -13,7 +13,7 @@ export class OrderService {
   @ApiBody({ type: CreateOrderWithItemsDto })
   @ApiResponse({ status: 201, description: 'The order has been successfully created.' })
   @ApiResponse({ status: 400, description: 'Bad request.' })
-  async create(dto: CreateOrderWithItemsDto) {
+  async create(dto: CreateOrderWithItemsDto, userId:string) {
     const {
       locationLat,
       locationLong,
@@ -36,9 +36,12 @@ export class OrderService {
         withDelivery,
         status,
         commentToDelivery,
+        userID: userId
       },
     });
 
+ 
+    
     for (const item of orderItems) {
       if (item.toolID && item.countOfTool) {
         await this.prisma.tool.update({
@@ -51,6 +54,10 @@ export class OrderService {
         });
       }
 
+      if(item.timeUnit=='hour'&&item.measure){
+        throw new BadRequestException("When working hourly, the measure is not selected.")
+      }
+
       await this.prisma.orderItem.create({
         data: {
           orderID: createdOrder.id,
@@ -61,9 +68,10 @@ export class OrderService {
           countOfProduct: item.countOfProduct,
           countOfTool: item.countOfTool,
           workingHours: item.workingHours,
-          totalPrice: item.totalPrice ?? null,
+          totalPrice:  null,
         },
       });
+      await this.prisma.basket.deleteMany({where:{userID:userId}})
     }
 
     return this.prisma.order.findUnique({
@@ -140,7 +148,7 @@ export class OrderService {
     if (!isOrderExists) {
       throw new BadRequestException('Order not found');
     }
-    return { Order: isOrderExists };
+    return isOrderExists;
   }
 
   @ApiOperation({ summary: 'Update an order by ID' })
@@ -188,7 +196,6 @@ export class OrderService {
         countOfProduct,
         countOfTool,
         workingHours,
-        totalPrice,
       } = item;
   
       if (toolID && countOfTool) {
@@ -212,7 +219,7 @@ export class OrderService {
           countOfProduct,
           countOfTool,
           workingHours,
-          totalPrice: totalPrice ?? null,
+          totalPrice: null,
         },
       });
     }

@@ -1,60 +1,56 @@
 import {
   IsString,
   IsNotEmpty,
-  IsBoolean,
   IsOptional,
-  IsISO8601,
   IsEnum,
   IsInt,
   Min,
-  ValidateNested,
-  IsArray
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { TimeUnit } from 'src/utils/enums';
 
 export class CreateOrderItemDto {
-  @ApiProperty({ description: 'The order ID related to the order item', example: 'order-12345' })
-  @IsString()
+  @ApiProperty({ example: 'order-uuid', description: 'Order ID' })
   @IsNotEmpty()
   orderID?: string;
 
-  @ApiProperty({ description: 'The product ID related to the order item', example: 'prod-12345' })
+  @ApiProperty({ example: 'product-uuid', description: 'Product ID' })
   @IsString()
   @IsNotEmpty()
   productID?: string;
 
-  @ApiProperty({ description: 'The tool ID related to the order item', example: 'tool-67890' })
+  @ApiProperty({ example: 'tool-uuid', description: 'Tool ID' })
   @IsString()
   @IsNotEmpty()
   toolID?: string;
 
-  @ApiProperty({ description: 'The level ID related to the order item', example: 'level-111' })
+  @ApiProperty({ example: 'level-uuid', description: 'Level ID' })
   @IsString()
   @IsNotEmpty()
   levelID?: string;
 
-  @ApiProperty({ description: 'Time unit for the order item (e.g., hours, days)', example: 2 })
-  @IsInt()
-  @Min(1)
-  timeUnit?: number;
+  @ApiProperty({ enum: TimeUnit, example: 'day', description: 'Time unit for working hours' })
+  @IsEnum(TimeUnit)
+  timeUnit?: TimeUnit;
 
-  @ApiProperty({ description: 'The quantity of the product for this order item', example: 10 })
-  @IsInt()
-  @Min(0)
-  countOfProduct: number;
-
-  @ApiProperty({ description: 'The quantity of the tool for this order item', example: 10 })
+  @ApiProperty({ example: 1, description: 'Measure (optional)', required: false })
   @IsInt()
   @Min(0)
-  countOfTool: number;
+  @IsOptional()
+  measure?: number;
 
-  @ApiProperty({ description: 'The working hours for this order item', example: 15 })
+  @ApiProperty({ example: 10, description: 'Count of product' })
+  @IsInt()
+  @Min(0)
+  countOfProduct?: number;
+
+  @ApiProperty({ example: 5, description: 'Count of tool' })
+  @IsInt()
+  @Min(0)
+  countOfTool?: number;
+
+  @ApiProperty({ example: 8, description: 'Working hours' })
   @IsInt()
   @Min(0)
   workingHours: number;
-
-  @ApiProperty({ description: 'The total price for this order item, optional field', example: 200, required: false })
-  @IsInt()
-  @IsOptional()
-  totalPrice?: number;
 }

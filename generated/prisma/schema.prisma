@@ -20,6 +20,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum TimeUnit {
+  day
+  hour
+}
+
 enum UserRole {
   admin
   superadmin
@@ -66,6 +71,7 @@ model User {
   region   Region?   @relation(fields: [regionID], references: [id])
   baskets  Basket[]
   comments Comment[]
+  orders   Order[]
 }
 
 model Region {
@@ -75,23 +81,6 @@ model Region {
   nameEn String
 
   users User[]
-}
-
-model Basket {
-  id           String  @id @default(uuid())
-  userID       String?
-  productID    String
-  toolID       String
-  levelID      String
-  timeUnit     Int
-  count        Int?
-  workingHours Int
-  totalPrice   Int?
-
-  user    User?   @relation(fields: [userID], references: [id])
-  product Product @relation(fields: [productID], references: [id])
-  tool    Tool    @relation(fields: [toolID], references: [id])
-  level   Level   @relation(fields: [levelID], references: [id])
 }
 
 model Order {
@@ -105,25 +94,49 @@ model Order {
   withDelivery      Boolean
   status            OrderStatus
   commentToDelivery String?
+  userID            String?
   createdAt         DateTime    @default(now())
   updatedAt         DateTime    @updatedAt
+  users             User?       @relation(fields: [userID], references: [id])
 
-  items    OrderItem[]
-  comments Comment[]
+  orderMaster OderMaster[]
+  items       OrderItem[]
+  comments    Comment[]
+}
+
+model Basket {
+  id             String    @id @default(uuid())
+  userID         String?
+  productID      String?
+  toolID         String?
+  levelID        String?
+  timeUnit       TimeUnit?
+  countOfTool    Int?
+  countOfProduct Int?
+  workingHours   Int
+  measure        Int?
+  totalPrice     Int?
+  createdAt      DateTime  @default(now())
+
+  user    User?    @relation(fields: [userID], references: [id])
+  product Product? @relation(fields: [productID], references: [id])
+  tool    Tool?    @relation(fields: [toolID], references: [id])
+  level   Level?   @relation(fields: [levelID], references: [id])
 }
 
 model OrderItem {
-  id             String   @id @default(uuid())
+  id             String    @id @default(uuid())
   orderID        String
   productID      String?
   toolID         String?
   levelID        String?
-  timeUnit       Int?
-  countOfTool    Int
-  countOfProduct Int
+  timeUnit       TimeUnit?
+  countOfTool    Int?
+  countOfProduct Int?
   workingHours   Int
+  measure        Int?
   totalPrice     Int?
-  createdAt      DateTime @default(now())
+  createdAt      DateTime  @default(now())
 
   order   Order    @relation(fields: [orderID], references: [id])
   product Product? @relation(fields: [productID], references: [id])
@@ -159,16 +172,31 @@ model Size {
 }
 
 model Comment {
-  id       String  @id @default(uuid())
-  message  String
-  star     Int
-  masterID String
-  orderID  String
-  userID   String?
+  id      String  @id @default(uuid())
+  message String
+  orderID String
+  userID  String?
 
-  user   User?  @relation(fields: [userID], references: [id])
-  master Master @relation(fields: [masterID], references: [id])
-  order  Order  @relation(fields: [orderID], references: [id])
+  user    User?           @relation(fields: [userID], references: [id])
+  order   Order           @relation(fields: [orderID], references: [id])
+  ratings CommentRating[]
+}
+
+model CommentRating {
+  id        String @id @default(uuid())
+  star      Int
+  masterID  String
+  commentID String
+
+  master  Master  @relation(fields: [masterID], references: [id])
+  comment Comment @relation(fields: [commentID], references: [id])
+}
+
+model OderMaster {
+  id           String @id @default(uuid())
+  orderID      String
+  masterID     String
+  orderMasters Order  @relation(fields: [orderID], references: [id])
 }
 
 model Master {
@@ -184,20 +212,19 @@ model Master {
   rating        Decimal?
 
   masterJobs MasterJobs[]
-  comments   Comment[]
+  ratings    CommentRating[]
 }
 
 model MasterJobs {
-  id             String @id @default(uuid())
-  toolID         String
-  productID      String
-  minWorkingHour Int
-  workingHours   Int
-  levelID        String
-  priceHourly    Int
-  priceDaily     Int
-  experience     String
-  masterID       String
+  id           String @id @default(uuid())
+  toolID       String
+  productID    String
+  workingHours Int
+  levelID      String
+  priceHourly  Int
+  priceDaily   Int
+  experience   String
+  masterID     String
 
   tool    Tool    @relation(fields: [toolID], references: [id])
   product Product @relation(fields: [productID], references: [id])
@@ -295,21 +322,23 @@ model Level {
 }
 
 model Tool {
-  id            String  @id @default(uuid())
+  id            String @id @default(uuid())
   nameRu        String
   nameUz        String
   nameEn        String
   descriptionRu String
   descriptionUz String
   descriptionEn String
-  price         Int
-  quantity      Int
-  code          String? @unique
-  brandID       String?
-  capacityID    String?
-  sizeID        String?
-  image         String
-  isActive      Boolean
+  hourlyPrice   Int?
+  dailyPrice    Int?
+
+  quantity   Int
+  code       String? @unique
+  brandID    String?
+  capacityID String?
+  sizeID     String?
+  image      String
+  isActive   Boolean
 
   brand      Brand?        @relation(fields: [brandID], references: [id])
   capacity   Capacity?     @relation(fields: [capacityID], references: [id])

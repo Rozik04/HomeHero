@@ -35,7 +35,12 @@ export class UpdateToolDto {
   @ApiProperty({ description: 'Price of the tool', example: 120000 })
   @IsInt()
   @IsOptional()
-  price: number;
+  dailyPrice?: number;
+
+  @ApiProperty({ description: 'Price of the tool', example: 120000 })
+  @IsInt()
+  @IsOptional()
+  hourlyPrice?: number;
 
   @ApiProperty({ description: 'Available quantity of the tool', example: 50 })
   @IsInt()

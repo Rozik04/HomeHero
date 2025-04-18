@@ -25,7 +25,7 @@ export class ShowCaseService {
     const created = await this.prisma.showCase.create({
       data: { ...createShowCaseDto },
     });
-    return { created };
+    return  created ;
   }
 
   @ApiOperation({ summary: 'Get all showcases' })
@@ -48,7 +48,7 @@ export class ShowCaseService {
     if (!isShowCaseExists) {
       throw new BadRequestException('ShowCase not found');
     }
-    return { found: isShowCaseExists };
+    return  isShowCaseExists;
   }
 
   @ApiOperation({ summary: 'Update a showcase by ID' })
@@ -67,7 +67,7 @@ export class ShowCaseService {
       where: { id },
       data: { ...updateShowCaseDto },
     });
-    return { updated };
+    return updated ;
   }
 
   @ApiOperation({ summary: 'Delete a showcase by ID' })
@@ -90,7 +90,7 @@ export class ShowCaseService {
     const deleted = await this.prisma.showCase.delete({
       where: { id },
     });
-    return { deleted };
+    return  deleted ;
   }
 
   @ApiOperation({ summary: 'Update image of a showcase' })

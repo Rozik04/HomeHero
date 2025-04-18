@@ -15,10 +15,18 @@ enum ShowCaseType {
   card
 }
 
+
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+
+ enum TimeUnit {
+    day
+    hour 
+  }
 
 
 enum UserRole {
@@ -71,6 +79,7 @@ model User {
   region    Region? @relation(fields: [regionID], references: [id])
   baskets   Basket[]
   comments  Comment[]
+  orders    Order[]
 }
 
 
@@ -83,22 +92,7 @@ model Region {
   users   User[]
 }
 
-model Basket {
-  id              String   @id @default(uuid())
-  userID          String?
-  productID       String
-  toolID          String
-  levelID         String
-  timeUnit        Int
-  count           Int?
-  workingHours    Int
-  totalPrice      Int?
 
-  user            User?     @relation(fields: [userID], references: [id])
-  product         Product  @relation(fields: [productID], references: [id])
-  tool            Tool     @relation(fields: [toolID], references: [id])
-  level           Level    @relation(fields: [levelID], references: [id])
-}
 
 
 model Order {
@@ -112,11 +106,35 @@ model Order {
   withDelivery      Boolean
   status            OrderStatus
   commentToDelivery String?
+  userID            String?
   createdAt         DateTime      @default(now())
   updatedAt         DateTime      @updatedAt
+  users             User?  @relation(fields: [userID], references: [id])
 
+  orderMaster       OderMaster[]
   items             OrderItem[]
   comments          Comment[]   
+}
+
+
+model Basket {
+  id              String   @id @default(uuid())
+  userID          String?
+  productID       String?
+  toolID          String?
+  levelID         String?
+  timeUnit        TimeUnit?
+  countOfTool     Int?
+  countOfProduct  Int?
+  workingHours    Int
+  measure         Int?
+  totalPrice      Int?
+  createdAt       DateTime @default(now())
+
+  user            User?     @relation(fields: [userID], references: [id])
+  product         Product?  @relation(fields: [productID], references: [id])
+  tool            Tool ?    @relation(fields: [toolID], references: [id])
+  level           Level  ?  @relation(fields: [levelID], references: [id])
 }
 
 
@@ -126,10 +144,11 @@ model OrderItem {
   productID       String?
   toolID          String?
   levelID         String?
-  timeUnit        Int?
-  countOfTool     Int
-  countOfProduct  Int
+  timeUnit        TimeUnit?
+  countOfTool     Int?
+  countOfProduct  Int?
   workingHours    Int
+  measure         Int?
   totalPrice      Int?
   createdAt       DateTime @default(now())
 
@@ -174,16 +193,32 @@ model Size {
 
 
 model Comment {
-  id       String @id @default(uuid())
+  id       String  @id @default(uuid())
   message  String
-  star     Int
-  masterID String
   orderID  String
   userID   String?
 
   user     User?   @relation(fields: [userID], references: [id])
-  master   Master @relation(fields: [masterID], references: [id])
-  order    Order  @relation(fields: [orderID], references: [id])
+  order    Order   @relation(fields: [orderID], references: [id])
+  ratings  CommentRating[]
+}
+
+model CommentRating {
+  id         String   @id @default(uuid())
+  star       Int
+  masterID   String
+  commentID  String
+
+  master     Master   @relation(fields: [masterID], references: [id])
+  comment    Comment  @relation(fields: [commentID], references: [id])
+}
+
+
+model OderMaster {
+  id         String   @id @default(uuid())
+  orderID    String
+  masterID   String
+  orderMasters     Order @relation(fields: [orderID], references: [id])
 }
 
 
@@ -200,7 +235,7 @@ model Master {
   rating        Decimal?
 
   masterJobs    MasterJobs[]
-  comments      Comment[]
+  ratings      CommentRating[]
 }
 
 
@@ -208,7 +243,6 @@ model MasterJobs {
   id              String   @id @default(uuid())
   toolID          String
   productID       String  
-  minWorkingHour  Int
   workingHours    Int
   levelID         String
   priceHourly     Int
@@ -330,7 +364,9 @@ model Tool {
   descriptionRu  String
   descriptionUz  String
   descriptionEn  String
-  price          Int
+  hourlyPrice    Int?
+  dailyPrice     Int?
+
   quantity       Int
   code           String? @unique
   brandID        String?

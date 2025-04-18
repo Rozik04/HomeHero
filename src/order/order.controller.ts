@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query, Request } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { CreateOrderWithItemsDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
@@ -12,11 +12,12 @@ import { ApiOperation, ApiQuery, ApiResponse } from '@nestjs/swagger';
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
   @Post()
-  create(@Body() createOrderDto: CreateOrderWithItemsDto) {
-    return this.orderService.create(createOrderDto);
+  create(@Request() req, @Body() createOrderDto: CreateOrderWithItemsDto) {
+    let UserId = req.user.id;
+    return this.orderService.create(createOrderDto,UserId);
   }
 
   // @UseGuards(JwtAuthGuard, JwtRoleGuard)

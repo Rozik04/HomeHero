@@ -73,7 +73,7 @@ export class MasterJobsService {
     if (!isJobExists) {
       throw new BadRequestException('Job not found');
     }
-    return { found: isJobExists };
+    return  isJobExists;
   }
 
   @ApiOperation({ summary: 'Update a master job by ID' })
@@ -112,7 +112,7 @@ export class MasterJobsService {
       where: { id },
       data: { ...updateMasterJobDto },
     });
-    return { updated };
+    return  updated;
   }
 
   @ApiOperation({ summary: 'Delete a master job by ID' })
@@ -126,6 +126,6 @@ export class MasterJobsService {
     }
 
     let deleted = await this.prisma.masterJobs.delete({ where: { id } });
-    return { deleted };
+    return  deleted;
   }
 }

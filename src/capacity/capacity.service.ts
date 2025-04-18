@@ -16,7 +16,7 @@ export class CapacityService {
   @ApiResponse({ status: 400, description: 'Bad request.' })
   async create(createCapacityDto: CreateCapacityDto) {
     let data = await this.prisma.capacity.create({ data: { ...createCapacityDto } });
-    return { data };
+    return  data ;
   }
 
   async findAll(query: any) {
@@ -50,9 +50,7 @@ export class CapacityService {
       this.prisma.capacity.count({ where }),
     ]);
 
-    if (!data.length) {
-      throw new BadRequestException('No capacities found');
-    }
+
 
     return {
       data,
@@ -73,7 +71,7 @@ export class CapacityService {
     if (!isCapacityExists) {
       throw new BadRequestException("Capacity not found");
     }
-    return { Capacity: isCapacityExists };
+    return  isCapacityExists ;
   }
 
   @ApiOperation({ summary: 'Update a capacity by ID' })
@@ -90,7 +88,7 @@ export class CapacityService {
       where: { id },
       data: { ...updateCapacityDto },
     });
-    return { Updated: updatedCapacity };
+    return  updatedCapacity ;
   }
 
   @ApiOperation({ summary: 'Delete a capacity by ID' })
@@ -103,6 +101,6 @@ export class CapacityService {
       throw new BadRequestException("Capacity not found");
     }
     let deletedCapacity = await this.prisma.capacity.delete({ where: { id } });
-    return { Deleted: deletedCapacity };
+    return  deletedCapacity ;
   }
 }

@@ -138,6 +138,7 @@ export class ProductService {
       isActive: product.isActive,
       levels: product.levels.map((item) => ({
         id: item.level.id,
+        productId: item.productID,
         nameRu: item.level.nameRu,
         nameUz: item.level.nameUz,
         nameEn: item.level.nameEn,
@@ -146,6 +147,7 @@ export class ProductService {
         hourlyPrice: item.hourlyPrice,
       })),
       tools: product.tools.map((item) => ({
+        productId:item.productID,
         id: item.tool.id,
         nameRu: item.tool.nameRu,
         nameUz: item.tool.nameUz,
@@ -153,7 +155,8 @@ export class ProductService {
         descriptionRu: item.tool.descriptionRu,
         descriptionUz: item.tool.descriptionUz,
         descriptionEn: item.tool.descriptionEn,
-        price: item.tool.price,
+        dailyprice: item.tool.dailyPrice || null,
+        hourlyprice: item.tool.hourlyPrice || null,
         quantity: item.tool.quantity,
         image: item.tool.image,
       })),
@@ -178,7 +181,7 @@ export class ProductService {
     if (!isProducExists) {
       throw new BadRequestException("Product not found");
     }
-    return { product: isProducExists };
+    return isProducExists;
   }
 
   @ApiOperation({ summary: 'Update a product by ID' })
@@ -195,7 +198,7 @@ export class ProductService {
       where: { id },
       data: { ...updateProductDto },
     });
-    return { Updated: updatedProduct };
+    return  updatedProduct;
   }
 
   @ApiOperation({ summary: 'Delete a product by ID' })
@@ -212,7 +215,7 @@ export class ProductService {
       fs.unlink(filepath);
     }
     let deletedProduct = await this.prisma.product.delete({ where: { id } });
-    return { Deleted: deletedProduct };
+    return  deletedProduct ;
   }
 
   async updateImage(id: string, image: Express.Multer.File) {

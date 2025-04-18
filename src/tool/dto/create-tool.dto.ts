@@ -34,7 +34,11 @@ export class CreateToolDto {
 
   @ApiProperty({ description: 'The price of the tool', example: 15000 })
   @IsInt()
-  price: number;
+  dailyPrice?: number;
+
+  @ApiProperty({ description: 'The price of the tool', example: 15000 })
+  @IsInt()
+  hourlyPrice?: number;
 
   @ApiProperty({ description: 'The quantity available', example: 100 })
   @IsInt()

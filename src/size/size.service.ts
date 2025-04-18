@@ -16,7 +16,7 @@ export class SizeService {
   @ApiResponse({ status: 400, description: 'Bad request.' })
   async create(createSizeDto: CreateSizeDto) {
     let data = await this.prisma.size.create({ data: { ...createSizeDto } });
-    return { data };
+    return  data ;
   }
 
   async findAll(query: any) {
@@ -65,10 +65,6 @@ export class SizeService {
       this.prisma.size.count({ where }),
     ]);
 
-    if (!alldata.length) {
-      throw new BadRequestException('No sizes found');
-    }
-
     return {
       data: alldata,
       meta: {
@@ -88,7 +84,7 @@ export class SizeService {
     if (!isSizeExists) {
       throw new BadRequestException("Size not found");
     }
-    return { Size: isSizeExists };
+    return isSizeExists ;
   }
 
   @ApiOperation({ summary: 'Update a size by ID' })
@@ -105,7 +101,7 @@ export class SizeService {
       where: { id },
       data: { ...updateSizeDto },
     });
-    return { Updated: updatedSize };
+    return  updatedSize;
   }
 
   @ApiOperation({ summary: 'Delete a size by ID' })
@@ -118,6 +114,6 @@ export class SizeService {
       throw new BadRequestException("Size not found");
     }
     let deletedSize = await this.prisma.size.delete({ where: { id } });
-    return { Deleted: deletedSize };
+    return  deletedSize ;
   }
 }

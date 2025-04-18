@@ -7,11 +7,6 @@ export class CreateMasterJobDto {
   @IsNotEmpty()
   toolID: string;
 
-  @ApiProperty({ description: 'Minimum working hours required', example: 2 })
-  @IsInt()
-  @IsNotEmpty()
-  minWorkingHour: number;
-
   @ApiProperty({ description: 'Total working hours', example: 5 })
   @IsInt()
   @IsNotEmpty()

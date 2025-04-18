@@ -70,7 +70,7 @@ export class RegionService {
     if (!isRegionExists) {
       throw new BadRequestException("Region not found");
     }
-    return { Region: isRegionExists };
+    return  isRegionExists;
   }
 
   @ApiOperation({ summary: 'Update a region by ID' })
@@ -87,7 +87,7 @@ export class RegionService {
       where: { id },
       data: { ...updateRegionDto },
     });
-    return { Updated: updatedRegion };
+    return updatedRegion ;
   }
 
   @ApiOperation({ summary: 'Delete a region by ID' })
@@ -100,6 +100,6 @@ export class RegionService {
       throw new BadRequestException("Region not found");
     }
     let deletedRegion = await this.prisma.region.delete({ where: { id } });
-    return { Deleted: deletedRegion };
+    return deletedRegion;
   }
 }

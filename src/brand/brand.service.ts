@@ -16,7 +16,7 @@ export class BrandService {
   @ApiResponse({ status: 400, description: 'Bad request.' })
   async create(createBrandDto: CreateBrandDto) {
     let data = await this.prisma.brand.create({ data: { ...createBrandDto } });
-    return { data };
+    return  data ;
   }
 
 
@@ -29,7 +29,7 @@ export class BrandService {
       limit = 10,
     } = query;
 
-    const where: Prisma.SizeWhereInput = search
+    const where: Prisma.BrandWhereInput = search
       ? {
           OR: [
             {
@@ -57,18 +57,14 @@ export class BrandService {
       const skip = (page - 1) * limit;
 
       const [alldata, total] = await Promise.all([
-        this.prisma.size.findMany({
+        this.prisma.brand.findMany({
           where,
           orderBy: { [sortBy]: order },
           skip: Number(skip),
           take: Number(limit),
         }),
-        this.prisma.size.count({ where }),
+        this.prisma.brand.count({ where }),
       ]);
-  
-      if (!alldata.length) {
-        throw new BadRequestException('No sizes found');
-      }
   
       return {
         data: alldata,
@@ -108,7 +104,7 @@ export class BrandService {
       where: { id },
       data: { ...updateBrandDto },
     });
-    return { Updated: updatedBrand };
+    return updatedBrand ;
   }
 
   @ApiOperation({ summary: 'Delete a brand by ID' })
@@ -121,6 +117,6 @@ export class BrandService {
       throw new BadRequestException("Brand not found");
     }
     let deletedBrand = await this.prisma.brand.delete({ where: { id } });
-    return { Deleted: deletedBrand };
+    return deletedBrand ;
   }
 }

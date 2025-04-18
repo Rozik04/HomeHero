@@ -141,18 +141,6 @@ exports.Prisma.RegionScalarFieldEnum = {
   nameEn: 'nameEn'
 };
 
-exports.Prisma.BasketScalarFieldEnum = {
-  id: 'id',
-  userID: 'userID',
-  productID: 'productID',
-  toolID: 'toolID',
-  levelID: 'levelID',
-  timeUnit: 'timeUnit',
-  count: 'count',
-  workingHours: 'workingHours',
-  totalPrice: 'totalPrice'
-};
-
 exports.Prisma.OrderScalarFieldEnum = {
   id: 'id',
   locationLat: 'locationLat',
@@ -164,8 +152,24 @@ exports.Prisma.OrderScalarFieldEnum = {
   withDelivery: 'withDelivery',
   status: 'status',
   commentToDelivery: 'commentToDelivery',
+  userID: 'userID',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BasketScalarFieldEnum = {
+  id: 'id',
+  userID: 'userID',
+  productID: 'productID',
+  toolID: 'toolID',
+  levelID: 'levelID',
+  timeUnit: 'timeUnit',
+  countOfTool: 'countOfTool',
+  countOfProduct: 'countOfProduct',
+  workingHours: 'workingHours',
+  measure: 'measure',
+  totalPrice: 'totalPrice',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.OrderItemScalarFieldEnum = {
@@ -178,6 +182,7 @@ exports.Prisma.OrderItemScalarFieldEnum = {
   countOfTool: 'countOfTool',
   countOfProduct: 'countOfProduct',
   workingHours: 'workingHours',
+  measure: 'measure',
   totalPrice: 'totalPrice',
   createdAt: 'createdAt'
 };
@@ -206,10 +211,21 @@ exports.Prisma.SizeScalarFieldEnum = {
 exports.Prisma.CommentScalarFieldEnum = {
   id: 'id',
   message: 'message',
-  star: 'star',
-  masterID: 'masterID',
   orderID: 'orderID',
   userID: 'userID'
+};
+
+exports.Prisma.CommentRatingScalarFieldEnum = {
+  id: 'id',
+  star: 'star',
+  masterID: 'masterID',
+  commentID: 'commentID'
+};
+
+exports.Prisma.OderMasterScalarFieldEnum = {
+  id: 'id',
+  orderID: 'orderID',
+  masterID: 'masterID'
 };
 
 exports.Prisma.MasterScalarFieldEnum = {
@@ -229,7 +245,6 @@ exports.Prisma.MasterJobsScalarFieldEnum = {
   id: 'id',
   toolID: 'toolID',
   productID: 'productID',
-  minWorkingHour: 'minWorkingHour',
   workingHours: 'workingHours',
   levelID: 'levelID',
   priceHourly: 'priceHourly',
@@ -324,7 +339,8 @@ exports.Prisma.ToolScalarFieldEnum = {
   descriptionRu: 'descriptionRu',
   descriptionUz: 'descriptionUz',
   descriptionEn: 'descriptionEn',
-  price: 'price',
+  hourlyPrice: 'hourlyPrice',
+  dailyPrice: 'dailyPrice',
   quantity: 'quantity',
   code: 'code',
   brandID: 'brandID',
@@ -389,6 +405,11 @@ exports.OrderStatus = exports.$Enums.OrderStatus = {
   delivered: 'delivered'
 };
 
+exports.TimeUnit = exports.$Enums.TimeUnit = {
+  day: 'day',
+  hour: 'hour'
+};
+
 exports.ShowCaseType = exports.$Enums.ShowCaseType = {
   slider: 'slider',
   banner: 'banner',
@@ -398,13 +419,15 @@ exports.ShowCaseType = exports.$Enums.ShowCaseType = {
 exports.Prisma.ModelName = {
   User: 'User',
   Region: 'Region',
-  Basket: 'Basket',
   Order: 'Order',
+  Basket: 'Basket',
   OrderItem: 'OrderItem',
   Brand: 'Brand',
   Capacity: 'Capacity',
   Size: 'Size',
   Comment: 'Comment',
+  CommentRating: 'CommentRating',
+  OderMaster: 'OderMaster',
   Master: 'Master',
   MasterJobs: 'MasterJobs',
   GeneralInfo: 'GeneralInfo',

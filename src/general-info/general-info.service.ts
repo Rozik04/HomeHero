@@ -24,7 +24,7 @@ export class GeneralInfoService {
   @ApiResponse({ status: 400, description: 'General info was not created.' })
   async create(createGeneralInfoDto: CreateGeneralInfoDto) {
     let data = await this.prisma.generalInfo.create({ data: { ...createGeneralInfoDto } });
-    return { data };
+    return  data;
   }
 
   @ApiOperation({ summary: 'Get all General Info records' })
@@ -32,10 +32,7 @@ export class GeneralInfoService {
   @ApiResponse({ status: 400, description: 'No general info found.' })
   async findAll() {
     let alldata = await this.prisma.generalInfo.findMany();
-    if (!alldata.length) {
-      throw new BadRequestException('No general info found');
-    }
-    return { alldata };
+    return  alldata ;
   }
 
   @ApiOperation({ summary: 'Get a General Info by ID' })
@@ -47,7 +44,7 @@ export class GeneralInfoService {
     if (!isGeneralInfoExists) {
       throw new BadRequestException('General info not found');
     }
-    return { generalInfo: isGeneralInfoExists };
+    return isGeneralInfoExists;
   }
 
   @ApiOperation({ summary: 'Update a General Info by ID' })
@@ -64,7 +61,7 @@ export class GeneralInfoService {
       where: { id },
       data: { ...updateGeneralInfoDto },
     });
-    return { updated: updatedGeneralInfo };
+    return updatedGeneralInfo;
   }
 
   @ApiOperation({ summary: 'Delete a General Info by ID' })
@@ -77,6 +74,6 @@ export class GeneralInfoService {
       throw new BadRequestException('General info not found');
     }
     let deletedGeneralInfo = await this.prisma.generalInfo.delete({ where: { id } });
-    return { deleted: deletedGeneralInfo };
+    return deletedGeneralInfo;
   }
 }

@@ -30,3 +30,8 @@ export enum ShowCaseType {
     delivered = 'delivered'
   }
   
+
+  export enum TimeUnit {
+    day = 'day',
+    hour = 'hour'
+  }

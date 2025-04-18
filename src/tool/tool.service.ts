@@ -20,7 +20,7 @@ export class ToolService {
   async create(createToolDto: CreateToolDto) {
     let toolCode = generateOtp();
     let created = await this.prisma.tool.create({ data: { ...createToolDto, code: toolCode } });
-    return { created };
+    return  created ;
   }
 
   @ApiOperation({ summary: 'Get all tools' })
@@ -90,7 +90,7 @@ export class ToolService {
     if (!isToolExists) {
       throw new BadRequestException('Tool not found');
     }
-    return { found: isToolExists };
+    return  isToolExists ;
   }
 
   @ApiOperation({ summary: 'Update a tool by ID' })
@@ -103,8 +103,11 @@ export class ToolService {
     if (!isToolExists) {
       throw new BadRequestException('Tool not found');
     }
+    if(updateToolDto.dailyPrice||updateToolDto.hourlyPrice){
+      await this.prisma.basket.deleteMany({where:{toolID:isToolExists.id}})
+    }
     let updated = await this.prisma.tool.update({ where: { id }, data: { ...updateToolDto } });
-    return { updated };
+    return  updated ;
   }
 
   @ApiOperation({ summary: 'Delete a tool by ID' })
@@ -121,7 +124,7 @@ export class ToolService {
       fs.unlink(filePath);
     }
     let deleted = await this.prisma.tool.delete({ where: { id } });
-    return { deleted };
+    return  deleted ;
   }
 
 

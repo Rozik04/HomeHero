@@ -24,7 +24,7 @@ export class FaqService {
   @ApiResponse({ status: 400, description: 'FAQ was not created.' })
   async create(createFaqDto: CreateFaqDto) {
     let data = await this.prisma.fAQ.create({ data: { ...createFaqDto } });
-    return { data };
+    return  data ;
   }
 
   @ApiOperation({ summary: 'Get all FAQs' })
@@ -32,10 +32,7 @@ export class FaqService {
   @ApiResponse({ status: 400, description: 'No FAQs found.' })
   async findAll() {
     let allData = await this.prisma.fAQ.findMany();
-    if (!allData.length) {
-      throw new BadRequestException('No FAQs found');
-    }
-    return { allData };
+    return allData ;
   }
 
   @ApiOperation({ summary: 'Get a FAQ by ID' })
@@ -47,7 +44,7 @@ export class FaqService {
     if (!isFaqExists) {
       throw new BadRequestException('FAQ not found');
     }
-    return { FAQ: isFaqExists };
+    return  isFaqExists ;
   }
 
   @ApiOperation({ summary: 'Update a FAQ by ID' })
@@ -64,7 +61,7 @@ export class FaqService {
       where: { id },
       data: { ...updateFaqDto },
     });
-    return { Updated: updatedFaq };
+    return  updatedFaq ;
   }
 
   @ApiOperation({ summary: 'Delete a FAQ by ID' })
@@ -77,6 +74,6 @@ export class FaqService {
       throw new BadRequestException('FAQ not found');
     }
     let deletedFaq = await this.prisma.fAQ.delete({ where: { id } });
-    return { Deleted: deletedFaq };
+    return deletedFaq ;
   }
 }

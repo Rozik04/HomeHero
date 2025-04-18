@@ -22,9 +22,10 @@ import { OrderModule } from './order/order.module';
 import { OrderItemModule } from './order-item/order-item.module';
 import { BasketModule } from './basket/basket.module';
 import { CommentModule } from './comment/comment.module';
+import { OrderMasterModule } from './order-master/order-master.module';
 
 @Module({
-  imports: [PrismaModule, RegionModule, UserModule, BrandModule, SizeModule, CapacityModule, ToolModule, LevelModule, MasterJobsModule, ProductModule, MasterModule, FaqModule, GeneralInfoModule, PartnerModule, ShowCaseModule, SessionModule, ContactModule, OrderModule, OrderItemModule, BasketModule, CommentModule,],
+  imports: [PrismaModule, RegionModule, UserModule, BrandModule, SizeModule, CapacityModule, ToolModule, LevelModule, MasterJobsModule, ProductModule, MasterModule, FaqModule, GeneralInfoModule, PartnerModule, ShowCaseModule, SessionModule, ContactModule, OrderModule, OrderItemModule, BasketModule, CommentModule, OrderMasterModule,],
   controllers: [AppController],
   providers: [AppService],
 })

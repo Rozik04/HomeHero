@@ -16,7 +16,7 @@ export class LevelService {
   @ApiResponse({ status: 400, description: 'Bad request.' })
   async create(createLevelDto: CreateLevelDto) {
     let data = await this.prisma.level.create({ data: { ...createLevelDto } });
-    return { data };
+    return data;
   }
 
   async findAll(query: any) {
@@ -65,9 +65,6 @@ export class LevelService {
       this.prisma.level.count({ where }),
     ]);
 
-    if (!data.length) {
-      throw new BadRequestException('No levels found');
-    }
 
     return {
       data,
@@ -88,7 +85,7 @@ export class LevelService {
     if (!isLevelExists) {
       throw new BadRequestException("Level not found");
     }
-    return { Level: isLevelExists };
+    return  isLevelExists ;
   }
 
   @ApiOperation({ summary: 'Update a level by ID' })
@@ -105,7 +102,7 @@ export class LevelService {
       where: { id },
       data: { ...updateLevelDto },
     });
-    return { Updated: updatedLevel };
+    return updatedLevel ;
   }
 
   @ApiOperation({ summary: 'Delete a level by ID' })
@@ -118,6 +115,6 @@ export class LevelService {
       throw new BadRequestException("Level not found");
     }
     let deletedLevel = await this.prisma.level.delete({ where: { id } });
-    return { Deleted: deletedLevel };
+    return  deletedLevel ;
   }
 }
