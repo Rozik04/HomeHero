@@ -16036,6 +16036,7 @@ export namespace Prisma {
     image: string | null
     passportImage: string | null
     rating: Decimal | null
+    about: string | null
   }
 
   export type MasterMaxAggregateOutputType = {
@@ -16049,6 +16050,7 @@ export namespace Prisma {
     image: string | null
     passportImage: string | null
     rating: Decimal | null
+    about: string | null
   }
 
   export type MasterCountAggregateOutputType = {
@@ -16062,6 +16064,7 @@ export namespace Prisma {
     image: number
     passportImage: number
     rating: number
+    about: number
     _all: number
   }
 
@@ -16085,6 +16088,7 @@ export namespace Prisma {
     image?: true
     passportImage?: true
     rating?: true
+    about?: true
   }
 
   export type MasterMaxAggregateInputType = {
@@ -16098,6 +16102,7 @@ export namespace Prisma {
     image?: true
     passportImage?: true
     rating?: true
+    about?: true
   }
 
   export type MasterCountAggregateInputType = {
@@ -16111,6 +16116,7 @@ export namespace Prisma {
     image?: true
     passportImage?: true
     rating?: true
+    about?: true
     _all?: true
   }
 
@@ -16211,6 +16217,7 @@ export namespace Prisma {
     image: string
     passportImage: string
     rating: Decimal | null
+    about: string
     _count: MasterCountAggregateOutputType | null
     _avg: MasterAvgAggregateOutputType | null
     _sum: MasterSumAggregateOutputType | null
@@ -16243,6 +16250,7 @@ export namespace Prisma {
     image?: boolean
     passportImage?: boolean
     rating?: boolean
+    about?: boolean
     masterJobs?: boolean | Master$masterJobsArgs<ExtArgs>
     ratings?: boolean | Master$ratingsArgs<ExtArgs>
     _count?: boolean | MasterCountOutputTypeDefaultArgs<ExtArgs>
@@ -16259,6 +16267,7 @@ export namespace Prisma {
     image?: boolean
     passportImage?: boolean
     rating?: boolean
+    about?: boolean
   }, ExtArgs["result"]["master"]>
 
   export type MasterSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -16272,6 +16281,7 @@ export namespace Prisma {
     image?: boolean
     passportImage?: boolean
     rating?: boolean
+    about?: boolean
   }, ExtArgs["result"]["master"]>
 
   export type MasterSelectScalar = {
@@ -16285,9 +16295,10 @@ export namespace Prisma {
     image?: boolean
     passportImage?: boolean
     rating?: boolean
+    about?: boolean
   }
 
-  export type MasterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nameRu" | "nameUz" | "nameEn" | "isActive" | "phone" | "dob" | "image" | "passportImage" | "rating", ExtArgs["result"]["master"]>
+  export type MasterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nameRu" | "nameUz" | "nameEn" | "isActive" | "phone" | "dob" | "image" | "passportImage" | "rating" | "about", ExtArgs["result"]["master"]>
   export type MasterInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     masterJobs?: boolean | Master$masterJobsArgs<ExtArgs>
     ratings?: boolean | Master$ratingsArgs<ExtArgs>
@@ -16313,6 +16324,7 @@ export namespace Prisma {
       image: string
       passportImage: string
       rating: Prisma.Decimal | null
+      about: string
     }, ExtArgs["result"]["master"]>
     composites: {}
   }
@@ -16748,6 +16760,7 @@ export namespace Prisma {
     readonly image: FieldRef<"Master", 'String'>
     readonly passportImage: FieldRef<"Master", 'String'>
     readonly rating: FieldRef<"Master", 'Decimal'>
+    readonly about: FieldRef<"Master", 'String'>
   }
     
 
@@ -29734,7 +29747,8 @@ export namespace Prisma {
     dob: 'dob',
     image: 'image',
     passportImage: 'passportImage',
-    rating: 'rating'
+    rating: 'rating',
+    about: 'about'
   };
 
   export type MasterScalarFieldEnum = (typeof MasterScalarFieldEnum)[keyof typeof MasterScalarFieldEnum]
@@ -30875,6 +30889,7 @@ export namespace Prisma {
     image?: StringFilter<"Master"> | string
     passportImage?: StringFilter<"Master"> | string
     rating?: DecimalNullableFilter<"Master"> | Decimal | DecimalJsLike | number | string | null
+    about?: StringFilter<"Master"> | string
     masterJobs?: MasterJobsListRelationFilter
     ratings?: CommentRatingListRelationFilter
   }
@@ -30890,6 +30905,7 @@ export namespace Prisma {
     image?: SortOrder
     passportImage?: SortOrder
     rating?: SortOrderInput | SortOrder
+    about?: SortOrder
     masterJobs?: MasterJobsOrderByRelationAggregateInput
     ratings?: CommentRatingOrderByRelationAggregateInput
   }
@@ -30908,6 +30924,7 @@ export namespace Prisma {
     image?: StringFilter<"Master"> | string
     passportImage?: StringFilter<"Master"> | string
     rating?: DecimalNullableFilter<"Master"> | Decimal | DecimalJsLike | number | string | null
+    about?: StringFilter<"Master"> | string
     masterJobs?: MasterJobsListRelationFilter
     ratings?: CommentRatingListRelationFilter
   }, "id">
@@ -30923,6 +30940,7 @@ export namespace Prisma {
     image?: SortOrder
     passportImage?: SortOrder
     rating?: SortOrderInput | SortOrder
+    about?: SortOrder
     _count?: MasterCountOrderByAggregateInput
     _avg?: MasterAvgOrderByAggregateInput
     _max?: MasterMaxOrderByAggregateInput
@@ -30944,6 +30962,7 @@ export namespace Prisma {
     image?: StringWithAggregatesFilter<"Master"> | string
     passportImage?: StringWithAggregatesFilter<"Master"> | string
     rating?: DecimalNullableWithAggregatesFilter<"Master"> | Decimal | DecimalJsLike | number | string | null
+    about?: StringWithAggregatesFilter<"Master"> | string
   }
 
   export type MasterJobsWhereInput = {
@@ -32595,6 +32614,7 @@ export namespace Prisma {
     image: string
     passportImage: string
     rating?: Decimal | DecimalJsLike | number | string | null
+    about: string
     masterJobs?: MasterJobsCreateNestedManyWithoutMasterInput
     ratings?: CommentRatingCreateNestedManyWithoutMasterInput
   }
@@ -32610,6 +32630,7 @@ export namespace Prisma {
     image: string
     passportImage: string
     rating?: Decimal | DecimalJsLike | number | string | null
+    about: string
     masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutMasterInput
     ratings?: CommentRatingUncheckedCreateNestedManyWithoutMasterInput
   }
@@ -32625,6 +32646,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
     rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    about?: StringFieldUpdateOperationsInput | string
     masterJobs?: MasterJobsUpdateManyWithoutMasterNestedInput
     ratings?: CommentRatingUpdateManyWithoutMasterNestedInput
   }
@@ -32640,6 +32662,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
     rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    about?: StringFieldUpdateOperationsInput | string
     masterJobs?: MasterJobsUncheckedUpdateManyWithoutMasterNestedInput
     ratings?: CommentRatingUncheckedUpdateManyWithoutMasterNestedInput
   }
@@ -32655,6 +32678,7 @@ export namespace Prisma {
     image: string
     passportImage: string
     rating?: Decimal | DecimalJsLike | number | string | null
+    about: string
   }
 
   export type MasterUpdateManyMutationInput = {
@@ -32668,6 +32692,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
     rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    about?: StringFieldUpdateOperationsInput | string
   }
 
   export type MasterUncheckedUpdateManyInput = {
@@ -32681,6 +32706,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
     rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    about?: StringFieldUpdateOperationsInput | string
   }
 
   export type MasterJobsCreateInput = {
@@ -34365,6 +34391,7 @@ export namespace Prisma {
     image?: SortOrder
     passportImage?: SortOrder
     rating?: SortOrder
+    about?: SortOrder
   }
 
   export type MasterAvgOrderByAggregateInput = {
@@ -34382,6 +34409,7 @@ export namespace Prisma {
     image?: SortOrder
     passportImage?: SortOrder
     rating?: SortOrder
+    about?: SortOrder
   }
 
   export type MasterMinOrderByAggregateInput = {
@@ -34395,6 +34423,7 @@ export namespace Prisma {
     image?: SortOrder
     passportImage?: SortOrder
     rating?: SortOrder
+    about?: SortOrder
   }
 
   export type MasterSumOrderByAggregateInput = {
@@ -38440,6 +38469,7 @@ export namespace Prisma {
     image: string
     passportImage: string
     rating?: Decimal | DecimalJsLike | number | string | null
+    about: string
     masterJobs?: MasterJobsCreateNestedManyWithoutMasterInput
   }
 
@@ -38454,6 +38484,7 @@ export namespace Prisma {
     image: string
     passportImage: string
     rating?: Decimal | DecimalJsLike | number | string | null
+    about: string
     masterJobs?: MasterJobsUncheckedCreateNestedManyWithoutMasterInput
   }
 
@@ -38503,6 +38534,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
     rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    about?: StringFieldUpdateOperationsInput | string
     masterJobs?: MasterJobsUpdateManyWithoutMasterNestedInput
   }
 
@@ -38517,6 +38549,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
     rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    about?: StringFieldUpdateOperationsInput | string
     masterJobs?: MasterJobsUncheckedUpdateManyWithoutMasterNestedInput
   }
 
@@ -38850,6 +38883,7 @@ export namespace Prisma {
     image: string
     passportImage: string
     rating?: Decimal | DecimalJsLike | number | string | null
+    about: string
     ratings?: CommentRatingCreateNestedManyWithoutMasterInput
   }
 
@@ -38864,6 +38898,7 @@ export namespace Prisma {
     image: string
     passportImage: string
     rating?: Decimal | DecimalJsLike | number | string | null
+    about: string
     ratings?: CommentRatingUncheckedCreateNestedManyWithoutMasterInput
   }
 
@@ -39017,6 +39052,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
     rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    about?: StringFieldUpdateOperationsInput | string
     ratings?: CommentRatingUpdateManyWithoutMasterNestedInput
   }
 
@@ -39031,6 +39067,7 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     passportImage?: StringFieldUpdateOperationsInput | string
     rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    about?: StringFieldUpdateOperationsInput | string
     ratings?: CommentRatingUncheckedUpdateManyWithoutMasterNestedInput
   }
 

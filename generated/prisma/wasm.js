@@ -238,7 +238,8 @@ exports.Prisma.MasterScalarFieldEnum = {
   dob: 'dob',
   image: 'image',
   passportImage: 'passportImage',
-  rating: 'rating'
+  rating: 'rating',
+  about: 'about'
 };
 
 exports.Prisma.MasterJobsScalarFieldEnum = {

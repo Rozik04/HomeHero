@@ -15,7 +15,7 @@ export class OrderMasterService {
     schema: {example:{createdOrderMasters:[{
     id: 'uuid', orderID: 'uuid', masterID: 'uuid',},],},},})
   @ApiResponse({ status: 400, description: 'Order not found' })
-async create(createOrderMasterDto: CreateOrderMasterDto) {
+    async create(createOrderMasterDto: CreateOrderMasterDto) {
   const { orderId } = createOrderMasterDto;
 
   const order = await this.prisma.order.findFirst({
@@ -78,11 +78,15 @@ async create(createOrderMasterDto: CreateOrderMasterDto) {
   return {
     createdOrderMasters,
   };
-}
+    }
 
 
-  findAll() {
-    return `This action returns all orderMaster`;
+  @ApiOperation({ summary: 'Get all pending accepted orders' })
+  @ApiResponse({ status: 200, description: 'List of all accepted orders.' })
+  @ApiResponse({ status: 400, description: 'No accepted orders found.' })
+  async findAll() {
+    let allData = await this.prisma.oderMaster.findMany();
+    return allData ;
   }
 
   findOne(id: number) {

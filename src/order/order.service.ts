@@ -58,6 +58,7 @@ export class OrderService {
         throw new BadRequestException("When working hourly, the measure is not selected.")
       }
 
+
       await this.prisma.orderItem.create({
         data: {
           orderID: createdOrder.id,
@@ -65,6 +66,7 @@ export class OrderService {
           toolID: item.toolID,
           levelID: item.levelID,
           timeUnit: item.timeUnit,
+          measure: item.measure||null,
           countOfProduct: item.countOfProduct,
           countOfTool: item.countOfTool,
           workingHours: item.workingHours,

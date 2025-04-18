@@ -3,10 +3,11 @@ import { CreateMasterDto } from './create-master.dto';
 import {
     IsBoolean,
     IsDecimal,
+    IsNotEmpty,
     IsOptional,
     IsString,
   } from 'class-validator';
-  import { ApiPropertyOptional } from '@nestjs/swagger';
+  import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
   import { Decimal } from 'generated/prisma/runtime/library';
 
 export class UpdateMasterDto extends PartialType(CreateMasterDto) {
@@ -49,6 +50,11 @@ export class UpdateMasterDto extends PartialType(CreateMasterDto) {
     @IsString()
     @IsOptional()
     passportImage?: string;
+
+    @ApiProperty({ description: 'About master', example: 'Experienced plumber with over 10 years of expertise in residential and commercial plumbing services.', })
+    @IsString()
+    @IsNotEmpty()
+    about: string;
   
 
 }

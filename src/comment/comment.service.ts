@@ -14,6 +14,8 @@ export class CommentService {
   @ApiResponse({ status: 400, description: 'Bad request.' })
   async create(createCommentDto: CreateCommentDto, userId: string) {
     const { message, orderID, ratings } = createCommentDto;
+
+    
   
     const comment = await this.prisma.comment.create({
       data: {
@@ -32,7 +34,17 @@ export class CommentService {
       },
     });
   
-    await this.prisma.order.update({where:{id:orderID},data:{status:'delivered'}})
+    await this.prisma.order.update({where:{id:orderID},data:{status:'delivered'}});
+    await this.prisma.oderMaster.deleteMany({where:{orderID:orderID}});
+
+    for (const rating of ratings) {
+      if (rating.masterID) {
+        await this.prisma.master.update({
+          where: { id: rating.masterID },
+          data: { isActive: true },
+        });
+      }
+    }
 
     const uniqueMasterIDs = [
       ...new Set(ratings.map((rating) => rating.masterID)),

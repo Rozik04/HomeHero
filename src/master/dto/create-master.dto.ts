@@ -49,4 +49,9 @@ export class CreateMasterDto {
   @IsNotEmpty()
   passportImage: string;
 
+  @ApiProperty({ description: 'About master', example: 'Experienced plumber with over 10 years of expertise in residential and commercial plumbing services.', })
+  @IsString()
+  @IsNotEmpty()
+  about: string;
+
 }

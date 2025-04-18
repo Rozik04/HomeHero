@@ -172,6 +172,7 @@ CREATE TABLE "Master" (
     "image" TEXT NOT NULL,
     "passportImage" TEXT NOT NULL,
     "rating" DECIMAL(65,30),
+    "about" TEXT NOT NULL,
 
     CONSTRAINT "Master_pkey" PRIMARY KEY ("id")
 );

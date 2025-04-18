@@ -233,6 +233,7 @@ model Master {
   image         String
   passportImage String
   rating        Decimal?
+  about         String
 
   masterJobs    MasterJobs[]
   ratings      CommentRating[]
