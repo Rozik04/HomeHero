@@ -10,10 +10,12 @@ import { JwtService } from '@nestjs/jwt';
 import { promises as fs} from 'fs';
 import * as path from 'path';
 import { UserRole } from 'src/utils/enums';
-import { Request, Response } from 'express';
+import { Request as Requ, Response } from 'express';
 import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateOtpDto, loginDto, newPasswordDto, otpToResetPassword, verifyOtpDto } from 'src/utils/createOtp.dto';
+import { CreateAdminDto, CreateOtpDto, loginDto, newPasswordDto, otpToResetPassword, RefreshTokenDto, verifyOtpDto } from 'src/utils/createOtp.dto';
+import * as requestIp from 'request-ip';
 import { Prisma } from 'generated/prisma';
+import * as DeviceDetector from 'device-detector-js';
 dotenv.config()
 
 let otpVerifiedUsers: Record<string, boolean> = {};
@@ -31,6 +33,7 @@ export class UserService {
       pass: process.env.PASS
     }
   }) 
+
 
   @ApiOperation({ summary: 'Send OTP to user email' })
   @ApiBody({type: CreateOtpDto})
@@ -60,6 +63,7 @@ export class UserService {
   }
   }
 
+
   @ApiOperation({ summary: 'Verify OTP' })
   @ApiBody({ type: verifyOtpDto })
   @ApiResponse({ status: 200, description: 'Otp verified successfully!' })
@@ -74,6 +78,7 @@ export class UserService {
     }
     return {error:"Wrong otp!"}; 
   }
+
 
   @ApiOperation({ summary: 'Register user' })
   @ApiBody({ type: CreateUserDto })
@@ -97,36 +102,82 @@ export class UserService {
         throw new BadRequestException("Only legal users can enter the documents!")
       } 
     }
-    if([UserRole.admin, UserRole.superadmin, UserRole.vieweradmin].includes(createUserDto.role)){
-      throw new BadRequestException("Registration as an admin is prohibited!")
-    } 
+    // if([UserRole.admin, UserRole.superadmin, UserRole.vieweradmin].includes(createUserDto.role)){
+    //   throw new BadRequestException("Registration as an admin is prohibited!")
+    // } 
 
     let newUser = await this.prisma.user.update({where:{email:createUserDto.email},data:{...createUserDto, password:hash}});
-    return {"Registered successfully":newUser}
+    return newUser
   }
+
 
   @ApiOperation({ summary: 'Login user' })
   @ApiBody({type: loginDto })
   @ApiResponse({ status: 200, description: 'User logged in successfully' })
   @ApiResponse({ status: 400, description: 'Invalid email or password' })
-  async login(data:loginDto){
-    let {email, password} = data;
-    let isUserExists = await this.prisma.user.findFirst({where:{email}});
-    if(!isUserExists){
+  async login(req: Requ, data: loginDto) {
+    let { email, password } = data;
+
+    let isUserExists = await this.prisma.user.findFirst({ where: { email } });
+    if (!isUserExists) {
       throw new BadRequestException("This email not registered yet!");
     }
-    
-    let compPass = await bcrypt.compare(password, isUserExists.password,);
-    
-    if(!compPass){
+
+    let compPass = await bcrypt.compare(password, isUserExists.password);
+    if (!compPass) {
       throw new BadRequestException("Wrong password!");
     }
-    let accessToken = this.jwt.sign({id:isUserExists.id, role:isUserExists.role})
-    const refreshToken = this.jwt.sign({id:isUserExists.id, role:isUserExists.role},{expiresIn:'7d'});
 
-     return {"You are logged in":isUserExists, accessToken, refreshToken}
-    
+    const ip = requestIp.getClientIp(req) || 'Unknown IP';
+    const userAgent = req.headers['user-agent'] || 'Unknown Agent';
+
+    const deviceDetector = new DeviceDetector();
+    const device = deviceDetector.parse(userAgent);
+
+    const sessionData = {
+      userId: isUserExists.id,
+      ipAddress: ip,
+      userAgent: userAgent,
+      device: device.device?.type || 'Unknown',
+      os: device.os?.name || 'Unknown',
+      browser: device.client?.name || 'Unknown',
+    };
+
+    let IsSession = await this.prisma.session.findFirst({where:{userId:isUserExists.id,ipAddress:req.ip}});
+    if(IsSession){
+      throw new BadRequestException("You have already been logged in your account!")
+    }
+    await this.prisma.session.create({ data: sessionData });
+
+    let accessToken = this.jwt.sign({sub: isUserExists.id, role: isUserExists.role},{secret: this.ACCESS_SECRET,expiresIn: '15m' });
+    let refreshToken = this.jwt.sign({sub: isUserExists.id, role: isUserExists.role},{ expiresIn: '7d', secret: this.REFRESH_SECRET, });
+    return { user: isUserExists, accessToken, refreshToken };
   }
+
+
+  private ACCESS_SECRET = process.env.JWTSECRET;
+  private REFRESH_SECRET = process.env.REFRESHSECRET;
+  @ApiOperation({ summary: 'Refresh token' })
+  @ApiBody({type: RefreshTokenDto })
+  @ApiResponse({ status: 200, description: 'New access token generated successfully!' })
+  @ApiResponse({ status: 400, description: 'Error' })
+  async generateNewAccessToken(refreshToken: RefreshTokenDto) {
+    try {
+      const payload = this.jwt.verify(refreshToken.refreshToken, {secret: this.REFRESH_SECRET}) as {sub: string; role: string};
+      const userId = payload.sub;
+      const user = await this.prisma.user.findUnique({where: { id: userId },});
+  
+      if (!user) {
+        throw new UnauthorizedException('User not found');
+      }
+  
+      const newAccessToken = this.jwt.sign({sub: user.id, role: user.role},{secret: this.ACCESS_SECRET, expiresIn: '15m'});
+      return { accessToken: newAccessToken };
+    } catch (error) {
+      throw new UnauthorizedException('Invalid or expired refresh token');
+    }
+  }
+  
 
   async findAll(query: any) {
     const {
@@ -195,6 +246,71 @@ export class UserService {
     };
   }
 
+
+  @ApiOperation({ summary: 'Create admin' })
+  @ApiBody({type: CreateAdminDto })
+  @ApiResponse({ status: 200, description: 'Admin created successfully' })
+  @ApiResponse({ status: 400, description: 'Error' })
+  async createAdmin(adminDto: CreateAdminDto) {
+    const allowedRoles = [UserRole.admin, UserRole.superadmin, UserRole.vieweradmin];
+
+    if (!allowedRoles.includes(adminDto.role)) {
+      throw new BadRequestException("Invalid role. Only admin, superadmin, or vieweradmin roles are allowed.");
+    }
+    const existingUser = await this.prisma.user.findUnique({
+      where: { email: adminDto.email },
+    });
+
+    if (existingUser) {
+      throw new BadRequestException('Bu email orqali foydalanuvchi allaqachon mavjud.')}
+
+      let hash = await bcrypt.hash(adminDto.password, 10)
+
+    const newAdmin = await this.prisma.user.create({
+      data: {
+        nameRu: adminDto.nameRu,
+        nameUz: adminDto.nameUz,
+        nameEn: adminDto.nameEn,
+        email: adminDto.email,
+        password: hash,
+        phone: adminDto.phone,
+        image: adminDto.image,
+        role: adminDto.role,
+        regionID: adminDto.regionID,
+        location: adminDto.location,
+        status: 'active',
+        passportSeries: null,
+        inn: null
+      },
+    });
+
+    return newAdmin;
+  }
+
+
+  @ApiOperation({ summary: 'All sessions' })
+  @ApiResponse({ status: 200, description: 'All sessions' })
+  @ApiResponse({ status: 400, description: 'Error' })
+  async findAllSessions(){
+    let allSessions = await this.prisma.session.findMany();
+    return allSessions;
+  }
+
+
+  @ApiOperation({ summary: 'My profile' })
+  @ApiResponse({ status: 200, description: 'You have logged into your profile' })
+  @ApiResponse({ status: 404, description: "You can'nt logged in your profle" })
+  async myData(req:Requ){
+    let userId = req['user'].id;
+    let isSessionOfUser = await this.prisma.session.findFirst({where:{userId,ipAddress:req.ip}});
+    if(!isSessionOfUser){
+      throw new BadRequestException("You must log in before accessing your profile!")
+    } 
+    let userProfile = await this.prisma.user.findFirst({where:{id:userId}});
+    return userProfile;
+  }
+
+
   @ApiOperation({ summary: 'Get user by ID' })
   @ApiParam({ name: 'id', type: String })
   @ApiResponse({ status: 200, description: 'User found' })
@@ -202,10 +318,25 @@ export class UserService {
   async findOne(id: string){
     let isUserExists = await this.prisma.user.findFirst({where:{id},include:{region:{select:{nameUz:true, nameRu:true, nameEn:true}}}});
     if(!isUserExists){
-      throw new BadRequestException("Not found user!")
+      throw new BadRequestException("User not found")
     }
-    return {User:isUserExists}
+    return isUserExists
   }
+
+
+  @ApiOperation({ summary: 'Logout' })
+  @ApiResponse({ status: 200, description: 'Logged out' })
+  @ApiParam({ name: 'sessionId', type: String })
+  @ApiResponse({ status: 404, description: "You aren't logged out"})
+  async logout( sessionId:string){
+    let isUserExists = await this.prisma.session.findFirst({where:{id:sessionId}});
+    if(!isUserExists){
+      throw new BadRequestException("To log out of the account, you need to log in first.")
+    }
+    await this.prisma.session.delete({where:{id:sessionId}})
+    return {message:"Goodbye! You have successfully logged out."}
+  }
+
 
   @ApiOperation({ summary: 'Update user by ID' })
   @ApiParam({ name: 'id', type: String })
@@ -214,14 +345,20 @@ export class UserService {
   async update(id: string, updateUserDto: UpdateUserDto){
     let isUserExists = await this.prisma.user.findFirst({where:{id}});
     if(!isUserExists){
-      throw new BadRequestException("Not found user");
+      throw new BadRequestException("User not found");
     }
+
+    // if(updateUserDto.role){
+    //   throw new BadRequestException("Update users role not allowed!");
+    // }
+    
     let hashedPass;
     if(isUserExists.password){
       hashedPass = bcrypt.hashSync(isUserExists.password, 10);
     }
+
     let updatedUser = await this.prisma.user.update({where:{id}, data:{...updateUserDto, password:hashedPass}})
-    return {"Updated user": updatedUser}
+    return  updatedUser
   }
 
 
@@ -237,13 +374,14 @@ export class UserService {
     return {"Updated image": image.filename}
   }
 
+  
   @ApiOperation({ summary: 'Delete user by ID' })
   @ApiParam({ name: 'id', type: String })
   @ApiResponse({ status: 200, description: 'User deleted successfully' })
   async remove(id: string){
     let isUserExists = await this.prisma.user.findFirst({where:{id}});
     if(!isUserExists){
-      throw new BadRequestException("Not found user!");
+      throw new BadRequestException("User not found");
     }
 
 try {
@@ -254,7 +392,7 @@ try {
 }
 
     let deletedUser = await this.prisma.user.delete({where:{id}});
-    return {"Deleted user":deletedUser}
+    return deletedUser
   }
 
 
@@ -265,7 +403,7 @@ try {
   async sendOtpToReset(userId:string){
     let data = await this.prisma.user.findFirst({where:{id:userId}});
     if(!data){
-      throw new BadRequestException("User not found!");
+      throw new BadRequestException("User not found");
     }
     let email = data.email;
 
@@ -289,6 +427,7 @@ try {
   }
   }
 
+
   @ApiOperation({ summary: 'Verify OTP to reset password' })
   @ApiBody({type:otpToResetPassword})
   @ApiResponse({ status: 200, description: 'Otp verified successfully' })
@@ -297,7 +436,7 @@ try {
     let{otp} = data;
     let isUserExists = await this.prisma.user.findFirst({where:{id:userId}});
     if(!isUserExists){
-      throw new BadRequestException("User not found!")
+      throw new BadRequestException("User not found")
     }
     let email = isUserExists.email;
     if (storeOtp[email] === otp) {
@@ -308,6 +447,7 @@ try {
     return {error:"Wrong otp!"}; 
   }
 
+  
   @ApiOperation({ summary: 'Reset password after OTP verification' })
   @ApiBody({type:newPasswordDto})
   @ApiResponse({ status: 200, description: 'Password changed successfully' })

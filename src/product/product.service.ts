@@ -23,13 +23,10 @@ export class ProductService {
       nameEn,
       image,
       isActive,
-      levelIDs,
+      levels,
       toolIDs,
-      workingHours,
-      hourlyPrice,
-      dailyPrice,
     } = dto;
-
+  
     const product = await this.prisma.product.create({
       data: {
         nameRu,
@@ -39,23 +36,25 @@ export class ProductService {
         isActive,
       },
     });
-
+  
     const productID = product.id;
-
+  
+    if(levels&&levels.length){
     await Promise.all(
-      levelIDs.map((levelID) =>
+      levels.map((level) =>
         this.prisma.productLevel.create({
           data: {
             productID,
-            levelID,
-            workingHours,
-            hourlyPrice,
-            dailyPrice,
+            levelID: level.levelID,
+            workingHours: level.workingHours,
+            hourlyPrice: level.hourlyPrice,
+            dailyPrice: level.dailyPrice,
           },
-        }),
-      ),
-    );
-
+        })
+      )
+    );}
+  
+    if(toolIDs&&toolIDs.length){
     await Promise.all(
       toolIDs.map((toolID) =>
         this.prisma.productTool.create({
@@ -63,13 +62,13 @@ export class ProductService {
             productID,
             toolID,
           },
-        }),
-      ),
-    );
-
-    return product
-    
+        })
+      )
+    );}
+  
+    return product;
   }
+  
 
   async findAll(query: any) {
     const {
@@ -189,16 +188,53 @@ export class ProductService {
   @ApiBody({ type: UpdateProductDto })
   @ApiResponse({ status: 200, description: 'The product has been successfully updated.' })
   @ApiResponse({ status: 400, description: 'Product not found.' })
-  async update(id: string, updateProductDto: UpdateProductDto) {
-    let isProductExists = await this.prisma.product.findFirst({ where: { id } });
-    if (!isProductExists) {
-      throw new BadRequestException("Product not found");
-    }
-    let updatedProduct = await this.prisma.product.update({
-      where: { id },
-      data: { ...updateProductDto },
+  async update(id: string, dto: UpdateProductDto) {
+    const {
+      nameRu,
+      nameUz,
+      nameEn,
+      image,
+      isActive,
+      levels,
+      toolIDs,
+    } = dto;
+  
+    const product = await this.prisma.product.update({where:{id},
+      data: {
+        nameRu,
+        nameUz,
+        nameEn,
+        image,
+        isActive,
+      },
     });
-    return  updatedProduct;
+  
+  if(levels&&levels.length>0){
+    await Promise.all(
+      levels.map((level) =>
+        this.prisma.productLevel.updateMany({where:{productID:id},
+          data: {
+            levelID: level.levelID,
+            workingHours: level.workingHours,
+            hourlyPrice: level.hourlyPrice,
+            dailyPrice: level.dailyPrice,
+          },
+        })
+      )
+    );}
+  
+    if(toolIDs&&toolIDs.length>0){
+    await Promise.all(
+      toolIDs.map((toolID) =>
+        this.prisma.productTool.updateMany({where:{productID:id},
+          data: {
+            toolID,
+          },
+        })
+      )
+    );
+    }
+    return product;
   }
 
   @ApiOperation({ summary: 'Delete a product by ID' })

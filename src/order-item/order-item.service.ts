@@ -20,7 +20,7 @@ export class OrderItemService {
 
       if (!checkLevel) {
         throw new BadRequestException(
-          `This levelID is not linked to ProductID: ${item.productID}`
+          `This levelID is not linked to this Product`
         );
       }
 
@@ -33,11 +33,35 @@ export class OrderItemService {
 
       if (!checkTool) {
         throw new BadRequestException(
-          `This toolID is not linked to ProductID: ${item.productID}`
+          `This toolID is not linked to this Product`
         );
       }
+    
+
+    const tool = await this.prisma.tool.findUnique({
+      where: { id: item.toolID },
+    });
+
+    if (!tool) {
+      throw new BadRequestException(`Tool with ID ${item.toolID} not found`);
     }
 
+    if (item.countOfTool&&tool.quantity < item.countOfTool) {
+      throw new BadRequestException(
+        `Not enough tools available for this toolID. Required: ${item.countOfTool}, Available: ${tool.quantity}`
+      );
+    }
+    await this.prisma.tool.update({
+      where: { id: item.toolID },
+      data: {
+        quantity: {
+          decrement: item.countOfTool,
+        },
+      },
+    });
+  }
+
+  
     const createdItems = await this.prisma.orderItem.createMany({
       data: items.map((item) => ({
         orderID,
@@ -50,7 +74,7 @@ export class OrderItemService {
         workingHours: item.workingHours,
       })),
     });
-
+  
     return createdItems;
   }
 

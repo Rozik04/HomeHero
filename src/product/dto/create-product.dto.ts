@@ -1,5 +1,27 @@
-import { IsArray, IsBoolean, IsNotEmpty, IsString, IsUUID, IsOptional, IsInt } from 'class-validator';
+import { IsArray, IsBoolean, IsNotEmpty, IsString, IsUUID, IsOptional, IsInt, ValidateNested } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+
+
+export class LevelWithDetailsDto {
+  @IsUUID()
+  levelID: string;
+
+  @IsOptional()
+  @IsInt()
+  workingHours?: number;
+
+  @IsOptional()
+  @IsInt()
+  hourlyPrice?: number;
+
+  @IsOptional()
+  @IsInt()
+  dailyPrice?: number;
+}
+
+
+
 
 export class CreateProductDto {
   @ApiProperty({ description: 'The russian name of the product', example: 'Электрик' })
@@ -27,48 +49,25 @@ export class CreateProductDto {
   @IsNotEmpty()
   isActive: boolean;
 
-  @ApiProperty({
-    description: 'Array of level UUIDs associated with the product',
-    example: ['level-uuid-1', 'level-uuid-2'],
-    type: [String],
-  })
+  
+  @IsOptional()
   @IsArray()
-  @IsUUID('all', { each: true })
-  levelIDs: string[];
+  @ValidateNested({ each: true })
+  @ApiProperty({description: 'Array of levels with their details (Optional)', example: [
+    { levelID: 'level-uuid-1', workingHours: 5, hourlyPrice: 25000, dailyPrice: 100000 }],})
+  @Type(() => LevelWithDetailsDto)
+  levels?: LevelWithDetailsDto[];
+  
 
   @ApiProperty({
-    description: 'Array of tool UUIDs associated with the product',
+    description: 'Array of tool UUIDs associated with the product (Optional)',
     example: ['tool-uuid-1', 'tool-uuid-2'],
-    type: [String],
+    type: [String]
   })
+  @IsOptional()
   @IsArray()
   @IsUUID('all', { each: true })
-  toolIDs: string[];
+  toolIDs?: string[];
+  }
+  
 
-  @ApiProperty({
-    description: 'Working hours for the product (Optional)',
-    example: 5,
-    required: false,
-  })
-  @IsOptional()
-  @IsInt()
-  workingHours?: number;
-
-  @ApiProperty({
-    description: 'Hourly price for the product (Optional)',
-    example: 25000,
-    required: false,
-  })
-  @IsOptional()
-  @IsInt()
-  hourlyPrice?: number;
-
-  @ApiProperty({
-    description: 'Daily price for the product (Optional)',
-    example: 100000,
-    required: false,
-  })
-  @IsOptional()
-  @IsInt()
-  dailyPrice?: number;
-}

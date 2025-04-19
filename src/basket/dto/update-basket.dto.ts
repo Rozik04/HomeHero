@@ -1,17 +1,23 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   IsString,
-  IsNotEmpty,
   IsOptional,
   IsInt,
   Min,
-  IsEnum
+  IsEnum,
 } from 'class-validator';
 import { TimeUnit } from 'src/utils/enums';
 
 export class UpdateBasketDto {
+  @ApiProperty({
+    description: 'Basket (savat) elementining ID raqami',
+    example: 'b1c2d3e4-f5g6-h7i8-j9k0-l1m2n3o4p5q6'
+  })
+  @IsString()
+  id: string; // update qilish uchun kerakli ID
+
   @ApiPropertyOptional({
-    description: 'Mahsulotning ID raqami (ixtiyoriy)',
+    description: 'Mahsulotning ID raqami',
     example: '1a2b3c4d-5e6f-7g8h-9i0j-k1l2m3n4o5p6'
   })
   @IsString()
@@ -19,7 +25,7 @@ export class UpdateBasketDto {
   productID?: string;
 
   @ApiPropertyOptional({
-    description: 'Asbobning (tool) ID raqami (ixtiyoriy)',
+    description: 'Asbobning (tool) ID raqami',
     example: '12345678-90ab-cdef-1234-567890abcdef'
   })
   @IsString()
@@ -27,26 +33,24 @@ export class UpdateBasketDto {
   toolID?: string;
 
   @ApiPropertyOptional({
-    description: 'Daraja (level) ID raqami (ixtiyoriy)',
+    description: 'Daraja (level) ID raqami',
     example: 'abcdef12-3456-7890-abcd-ef1234567890'
   })
   @IsString()
   @IsOptional()
   levelID?: string;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     description: 'Vaqt birligi (day, hour)',
-    example: "day",
-    minimum: 1
+    example: 'day'
   })
   @IsEnum(TimeUnit)
-  @Min(1)
+  @IsOptional()
   timeUnit?: TimeUnit;
 
   @ApiPropertyOptional({
-    description: 'Soni (ixtiyoriy), necha dona buyurtma qilinmoqda',
-    example: 5,
-    minimum: 0
+    description: 'Asboblar soni',
+    example: 5
   })
   @IsInt()
   @Min(0)
@@ -54,19 +58,8 @@ export class UpdateBasketDto {
   countOfTool?: number;
 
   @ApiPropertyOptional({
-    description: 'Soni (ixtiyoriy), necha dona buyurtma qilinmoqda',
-    example: 5,
-    minimum: 0
-  })
-  @IsInt()
-  @Min(0)
-  @IsOptional()
-  countOfProduct?: number;
-
-  @ApiProperty({
-    description: 'Nechi kun kerak? (1,2)',
-    example: 1,
-    minimum: 1
+    description: 'Nechi kun kerak?',
+    example: 2
   })
   @IsInt()
   @Min(0)
@@ -74,13 +67,46 @@ export class UpdateBasketDto {
   measure?: number;
 
   @ApiPropertyOptional({
-    description: 'Ishlash soatlari soni (ixtiyoriy)',
-    example: 8,
-    minimum: 0
+    description: 'Mahsulotlar soni',
+    example: 5
   })
   @IsInt()
   @Min(0)
   @IsOptional()
-  workingHours: number;
+  countOfProduct?: number;
 
+  @ApiPropertyOptional({
+    description: 'Kunlik narx',
+    example: 50000
+  })
+  @IsInt()
+  @Min(0)
+  @IsOptional()
+  dailyPrice?: number;
+
+  @ApiPropertyOptional({
+    description: 'Soatlik narx',
+    example: 50000
+  })
+  @IsInt()
+  @Min(0)
+  @IsOptional()
+  hourlyPrice?: number;
+
+  @ApiPropertyOptional({
+    description: 'Ishlash soatlari soni',
+    example: 8
+  })
+  @IsInt()
+  @Min(0)
+  @IsOptional()
+  workingHours?: number;
+}
+
+export class UpdateBasketArrayDto {
+  @ApiProperty({
+    type: [UpdateBasketDto],
+    description: 'Array of basket items to be updated'
+  })
+  baskets: UpdateBasketDto[];
 }

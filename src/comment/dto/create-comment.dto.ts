@@ -3,12 +3,12 @@ import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateCommentRatingDto {
-  @ApiProperty({ example: 'uuid-1', description: 'Master ID' })
+  @ApiProperty({ example: 'uuid-1', description: 'Master ID'})
   @IsString()
   @IsNotEmpty()
   masterID: string;
 
-  @ApiProperty({ example: 5, description: 'Rating star (1-5)' })
+  @ApiProperty({ example: 5, description: 'Rating star (1-5)', minimum:1,maximum:5 })
   @IsInt()
   star: number;
 }

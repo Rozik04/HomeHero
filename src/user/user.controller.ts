@@ -8,8 +8,10 @@ import { JwtAuthGuard } from 'src/utils/token.guard';
 import { JwtRoleGuard } from 'src/utils/role.guard';
 import { Roles } from 'src/utils/role.decorator';
 import { UserRole } from 'src/utils/enums';
-import { CreateOtpDto, loginDto, newPasswordDto, otpToResetPassword, verifyOtpDto } from 'src/utils/createOtp.dto';
+import { CreateAdminDto, CreateOtpDto, loginDto, newPasswordDto, otpToResetPassword, RefreshTokenDto, verifyOtpDto } from 'src/utils/createOtp.dto';
 import { ApiBody, ApiConsumes, ApiOperation, ApiParam, ApiQuery, ApiResponse } from '@nestjs/swagger';
+import  {Request as Requ,}  from 'express';
+import { access } from 'fs';
 
 @Controller('user')
 export class UserController {
@@ -19,19 +21,7 @@ export class UserController {
 @UseInterceptors(FileInterceptor("image", multerCon))
 @ApiOperation({ summary: 'Upload an image to the server' })
 @ApiConsumes('multipart/form-data') 
-@ApiBody({
-  description: 'Image file to upload',
-  schema: {
-    type: 'object',
-    properties: {
-      image: {
-        type: 'string',
-        format: 'binary',
-        example: 'example.jpg',
-      },
-    },
-  },
-})
+@ApiBody({description: 'Image file to upload', schema: { type: 'object', properties: { image: { type: 'string', format: 'binary', example: 'example.jpg', }, }, },})
 @ApiResponse({ status: 200, description: 'Image uploaded successfully', type: Object })
 @ApiResponse({ status: 400, description: 'No image uploaded' })
 uploadIm(@UploadedFile()image:Express.Multer.File){
@@ -61,10 +51,18 @@ register(@Body() createUserDto: CreateUserDto) {
 
 
 @Post('login')
-login(@Body() data:loginDto){
-    return this.userService.login(data)
+  login(@Request() req: Requ, @Body() loginDto: loginDto) {
+    return this.userService.login(req, loginDto);
   }
 
+  
+// @UseGuards(JwtAuthGuard, JwtRoleGuard)
+// @Roles([UserRole.admin])
+@Post('createAdmin')
+  createAdmin(@Body() adminDto: CreateAdminDto){
+    return this.userService.createAdmin(adminDto)
+  }
+  
   
 // @UseGuards(JwtAuthGuard, JwtRoleGuard)
 // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
@@ -81,7 +79,23 @@ findAll(@Query() query: any) {
   return this.userService.findAll(query);
 }
 
+
+// @UseGuards(JwtAuthGuard, JwtRoleGuard)
+// @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+@Get("allSessions")
+findAllSessions() {
+  return this.userService.findAllSessions();
+}
   
+
+@UseGuards(JwtAuthGuard, JwtRoleGuard)
+@Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+@Get('myProfile')
+myData(@Req() req: Requ) {
+    return this.userService.myData(req);
+  }
+
+
 // @UseGuards(JwtAuthGuard, JwtRoleGuard)
 // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
 @Get(':id')
@@ -92,32 +106,28 @@ findOne(@Param('id') id: string) {
 
 @UseGuards(JwtAuthGuard, JwtRoleGuard)
 @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+@Post('logout/:id')
+logout(@Param('id') sessionId:string) {
+    return this.userService.logout(sessionId);
+  }
+
+
+// @UseGuards(JwtAuthGuard, JwtRoleGuard)
+// @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
 @Patch(':id')
 update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(id, updateUserDto);
   }
 
 
-@UseGuards(JwtAuthGuard, JwtRoleGuard)
-@Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+// @UseGuards(JwtAuthGuard, JwtRoleGuard)
+// @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
 @Patch('update-image/:id')
 @UseInterceptors(FileInterceptor('image',multerCon))
 @ApiOperation({ summary: 'Upload a new image to the server' })
 @ApiParam({ name: 'id', type: String })
 @ApiConsumes('multipart/form-data') 
-@ApiBody({
-  description: 'Image file to upload',
-  schema: {
-    type: 'object',
-    properties: {
-      image: {
-        type: 'string',
-        format: 'binary',
-        example: 'example.jpg',
-      },
-    },
-  },
-})
+@ApiBody({description: 'Image file to upload', schema: { type: 'object', properties: { image: { type: 'string', format: 'binary', example: 'example.jpg', }, },},})
 @ApiResponse({ status: 200, description: 'Image updated successfully', type: Object })
 @ApiResponse({ status: 400, description: 'No image updated' })
 updateImage(@Param('id') id:string, @UploadedFile() image: Express.Multer.File){
@@ -136,8 +146,8 @@ remove(@Param('id') id: string) {
   }
 
 
-@UseGuards(JwtAuthGuard, JwtRoleGuard)
-@Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+// @UseGuards(JwtAuthGuard, JwtRoleGuard)
+// @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
 @Post("send-otp-reset")
 sendOtpToReset(@Request() req){
     let userId = req.user.id;
@@ -145,8 +155,14 @@ sendOtpToReset(@Request() req){
   }
 
 
-@UseGuards(JwtAuthGuard, JwtRoleGuard)
-@Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+@Post('refreshToken')
+refreshToken(@Body() refreshToken:RefreshTokenDto){
+  return this.userService.generateNewAccessToken(refreshToken)
+}
+
+
+// @UseGuards(JwtAuthGuard, JwtRoleGuard)
+// @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
 @Post("verify-otp-reset")
 verifyOtpToReset(@Body() data:otpToResetPassword, @Request() req){
     let userId = req.user.id
@@ -154,8 +170,8 @@ verifyOtpToReset(@Body() data:otpToResetPassword, @Request() req){
   }
 
 
-@UseGuards(JwtAuthGuard, JwtRoleGuard)
-@Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+// @UseGuards(JwtAuthGuard, JwtRoleGuard)
+// @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
 @Post('reset-password')
 resetPassword(@Request() req, @Body() data:newPasswordDto){
     let userId = req.user.id;

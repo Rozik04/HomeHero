@@ -103,8 +103,9 @@ export class ToolService {
     if (!isToolExists) {
       throw new BadRequestException('Tool not found');
     }
-    if(updateToolDto.dailyPrice||updateToolDto.hourlyPrice){
-      await this.prisma.basket.deleteMany({where:{toolID:isToolExists.id}})
+    let basket = await this.prisma.basket.findMany({where:{toolID:id}});
+    if(isToolExists.dailyPrice||isToolExists.hourlyPrice&&basket){
+      await this.prisma.basket.deleteMany({where:{toolID:id}});
     }
     let updated = await this.prisma.tool.update({ where: { id }, data: { ...updateToolDto } });
     return  updated ;

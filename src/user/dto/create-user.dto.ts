@@ -56,10 +56,10 @@ export class CreateUserDto {
   @ApiPropertyOptional({ example: 'AB1234567', description: 'User\'s passport series (optional)' })
   @IsOptional()
   @IsString()
-  passportSeries: string;
+  passportSeries?: string;
 
   @ApiPropertyOptional({ example: '123456789012', description: 'User\'s INN (optional)' })
   @IsOptional()
   @IsString()
-  inn: string;
+  inn?: string;
 }

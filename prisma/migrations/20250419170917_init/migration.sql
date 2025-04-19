@@ -77,6 +77,8 @@ CREATE TABLE "Basket" (
     "countOfProduct" INTEGER,
     "workingHours" INTEGER NOT NULL,
     "measure" INTEGER,
+    "hourlyPrice" INTEGER,
+    "dailyPrice" INTEGER,
     "totalPrice" INTEGER,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -314,6 +316,20 @@ CREATE TABLE "Tool" (
 );
 
 -- CreateTable
+CREATE TABLE "Session" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "ipAddress" TEXT NOT NULL,
+    "userAgent" TEXT NOT NULL,
+    "device" TEXT NOT NULL,
+    "os" TEXT NOT NULL,
+    "browser" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Session_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "ProductLevel" (
     "id" TEXT NOT NULL,
     "productID" TEXT NOT NULL,
@@ -411,6 +427,9 @@ ALTER TABLE "Tool" ADD CONSTRAINT "Tool_capacityID_fkey" FOREIGN KEY ("capacityI
 
 -- AddForeignKey
 ALTER TABLE "Tool" ADD CONSTRAINT "Tool_sizeID_fkey" FOREIGN KEY ("sizeID") REFERENCES "Size"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "ProductLevel" ADD CONSTRAINT "ProductLevel_productID_fkey" FOREIGN KEY ("productID") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

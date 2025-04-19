@@ -43,7 +43,7 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
       @ApiProperty({ example: 'admin', description: 'User\'s role' })
       @IsOptional()
       @IsEnum(UserRole)
-      role: UserRole;
+      role?: UserRole;
     
       @ApiProperty({ example: 'Tashkent', description: 'User\'s region ID' })
       @IsOptional()

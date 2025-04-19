@@ -1,17 +1,8 @@
-import {
-  BadRequestException,
-  Injectable,
-} from '@nestjs/common';
-import { CreateBasketDto } from './dto/create-basket.dto';
-import { UpdateBasketDto } from './dto/update-basket.dto';
+import {BadRequestException, Injectable,} from '@nestjs/common';
+import { CreateBasketArrayDto, CreateBasketDto } from './dto/create-basket.dto';
+import { UpdateBasketArrayDto, UpdateBasketDto } from './dto/update-basket.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiParam,
-  ApiBody,
-} from '@nestjs/swagger';
+import {ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBody} from '@nestjs/swagger';
 
 @ApiTags('baskets')
 @Injectable()
@@ -19,48 +10,48 @@ export class BasketService {
   constructor(private readonly prisma: PrismaService) {}
 
   @ApiOperation({ summary: 'Create a new basket item' })
-  @ApiBody({ type: CreateBasketDto })
-  @ApiResponse({
-    status: 201,
-    description: 'The basket item has been successfully created.',
-  })
-  @ApiResponse({
-    status: 400,
-    description: 'Level or Tool not linked to the selected product.',
-  })
-  async create(createBasketDto: CreateBasketDto, userId: string) {
-    let checkLevel = await this.prisma.product.findFirst({
-      where: {
-        id: createBasketDto.productID,
-        levels: { some: { levelID: createBasketDto.levelID } },
-      },
-    });
-    if (!checkLevel) {
-      throw new BadRequestException(
-        'This level is not linked to this product.',
-      );
+  @ApiBody({ type: CreateBasketArrayDto })
+  @ApiResponse({status: 201, description: 'The basket item has been successfully created.', })
+  @ApiResponse({status: 400, description: 'Level or Tool not linked to the selected product.',})
+  async create(CreateBasketArrayDto: CreateBasketArrayDto, userId: string) {
+    let itemsToSave: any[] = [];
+  
+    for (const dto of CreateBasketArrayDto.baskets) {
+      const checkLevel = await this.prisma.product.findFirst({
+        where: {
+          id: dto.productID,
+          levels: { some: { levelID: dto.levelID } },
+        },
+      });
+      if (!checkLevel) {
+        throw new BadRequestException(
+          `This level is not linked to product`,
+        );
+      }
+  
+      const checkTool = await this.prisma.product.findFirst({
+        where: {
+          id: dto.productID,
+          tools: { some: { toolID: dto.toolID } },
+        },
+      });
+      if (!checkTool) {
+        throw new BadRequestException(
+          `This tool is not linked to product`,
+        );
+      }
+  
+      if (dto.timeUnit == 'hour' && dto.measure) {
+        throw new BadRequestException(
+          'When working hourly, the measure should not be selected.',
+        );
+      }
+      itemsToSave.push({ ...dto, userID: userId });
     }
-
-    let checkTool = await this.prisma.product.findFirst({
-      where: {
-        id: createBasketDto.productID,
-        tools: { some: { toolID: createBasketDto.toolID } },
-      },
+    const basketItems = await this.prisma.basket.createMany({
+      data: itemsToSave,
     });
-    if (!checkTool) {
-      throw new BadRequestException(
-        'This tool is not linked to this product.',
-      );
-    }
-
-    if(createBasketDto.timeUnit=='hour'&&createBasketDto.measure){
-      throw new BadRequestException("When working hourly, the measure is not selected.")
-    }
-
-    let data = await this.prisma.basket.create({
-      data: { ...createBasketDto, userID: userId },
-    });
-    return  data ;
+    return  basketItems.count
   }
 
   @ApiOperation({ summary: 'Get all basket items' })
@@ -74,10 +65,7 @@ export class BasketService {
 
   @ApiOperation({ summary: 'Get a basket item by ID' })
   @ApiParam({ name: 'id', type: String, description: 'Basket ID' })
-  @ApiResponse({
-    status: 200,
-    description: 'The basket item with the given ID.',
-  })
+  @ApiResponse({status: 200, description: 'The basket item with the given ID.',})
   @ApiResponse({ status: 400, description: 'Basket not found.' })
   async findOne(id: string) {
     let isBasketExists = await this.prisma.basket.findFirst({ where: { id } });
@@ -87,35 +75,85 @@ export class BasketService {
     return isBasketExists ;
   }
 
-  @ApiOperation({ summary: 'Update a basket item by ID' })
-  @ApiParam({ name: 'id', type: String, description: 'Basket ID' })
-  @ApiBody({ type: UpdateBasketDto })
-  @ApiResponse({
-    status: 200,
-    description: 'The basket item has been successfully updated.',
-  })
-  @ApiResponse({ status: 400, description: 'Basket not found.' })
-  async update(id: string, updateBasketDto: UpdateBasketDto) {
-    let isBasketExists = await this.prisma.basket.findFirst({ where: { id } });
-    if (!isBasketExists) {
-      throw new BadRequestException('Basket not found');
+  @ApiOperation({ summary: 'Update basket items' })
+  @ApiBody({ type: UpdateBasketArrayDto })
+  @ApiResponse({ status: 200, description: 'Basket items successfully updated.' })
+  @ApiResponse({ status: 400, description: 'Level or Tool not linked to the selected product.' })
+  async update(UpdateBasketArrayDto: UpdateBasketArrayDto, userId: string) {
+    const updatedItems: any[] = [];
+  
+    for (const dto of UpdateBasketArrayDto.baskets) {
+      const existingItem = await this.prisma.basket.findUnique({
+        where: { id: dto.id },
+      });
+  
+      if (!existingItem) {
+        throw new BadRequestException(`Basket item with ID ${dto.id} not found.`);
+      }
+  
+      if (dto.productID && dto.levelID) {
+        const checkLevel = await this.prisma.product.findFirst({
+          where: {
+            id: dto.productID,
+            levels: { some: { levelID: dto.levelID } },
+          },
+        });
+        if (!checkLevel) {
+          throw new BadRequestException(
+            `This level is not linked to product with ID ${dto.productID}`,
+          );
+        }
+      }
+  
+      if (dto.productID && dto.toolID) {
+        const checkTool = await this.prisma.product.findFirst({
+          where: {
+            id: dto.productID,
+            tools: { some: { toolID: dto.toolID } },
+          },
+        });
+        if (!checkTool) {
+          throw new BadRequestException(
+            `This tool is not linked to product with ID ${dto.productID}`,
+          );
+        }
+      }
+  
+      if (dto.timeUnit === 'hour' && dto.measure) {
+        throw new BadRequestException(
+          'When working hourly, the measure should not be selected.',
+        );
+      }
+  
+      const updated = await this.prisma.basket.update({
+        where: { id: dto.id },
+        data: {
+          productID: dto.productID ?? existingItem.productID,
+          toolID: dto.toolID ?? existingItem.toolID,
+          levelID: dto.levelID ?? existingItem.levelID,
+          timeUnit: dto.timeUnit ?? existingItem.timeUnit,
+          countOfTool: dto.countOfTool ?? existingItem.countOfTool,
+          measure: dto.measure ?? existingItem.measure,
+          countOfProduct: dto.countOfProduct ?? existingItem.countOfProduct,
+          dailyPrice: dto.dailyPrice ?? existingItem.dailyPrice,
+          hourlyPrice: dto.hourlyPrice ?? existingItem.hourlyPrice,
+          workingHours: dto.workingHours ?? existingItem.workingHours,
+          userID: userId,
+        },
+      });
+  
+      updatedItems.push(updated);
     }
-    if(updateBasketDto.timeUnit=='hour'&&updateBasketDto.measure){
-      throw new BadRequestException("When working hourly, the measure is not selected.")
-    }
-    let updatedBasket = await this.prisma.basket.update({
-      where: { id },
-      data: { ...updateBasketDto },
-    });
-    return  updatedBasket ;
+  
+    return updatedItems;
   }
+  
+  
+  
 
   @ApiOperation({ summary: 'Delete a basket item by ID' })
   @ApiParam({ name: 'id', type: String, description: 'Basket ID' })
-  @ApiResponse({
-    status: 200,
-    description: 'The basket item has been successfully deleted.',
-  })
+  @ApiResponse({ status: 200, description: 'The basket item has been successfully deleted.',})
   @ApiResponse({ status: 400, description: 'Basket not found.' })
   async remove(id: string) {
     let isBasketExists = await this.prisma.basket.findFirst({ where: { id } });

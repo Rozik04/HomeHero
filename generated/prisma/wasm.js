@@ -168,6 +168,8 @@ exports.Prisma.BasketScalarFieldEnum = {
   countOfProduct: 'countOfProduct',
   workingHours: 'workingHours',
   measure: 'measure',
+  hourlyPrice: 'hourlyPrice',
+  dailyPrice: 'dailyPrice',
   totalPrice: 'totalPrice',
   createdAt: 'createdAt'
 };
@@ -351,6 +353,17 @@ exports.Prisma.ToolScalarFieldEnum = {
   isActive: 'isActive'
 };
 
+exports.Prisma.SessionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  device: 'device',
+  os: 'os',
+  browser: 'browser',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.ProductLevelScalarFieldEnum = {
   id: 'id',
   productID: 'productID',
@@ -439,6 +452,7 @@ exports.Prisma.ModelName = {
   Product: 'Product',
   Level: 'Level',
   Tool: 'Tool',
+  Session: 'Session',
   ProductLevel: 'ProductLevel',
   ProductTool: 'ProductTool'
 };

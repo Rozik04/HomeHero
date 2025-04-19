@@ -1,20 +1,20 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateProductDto } from './create-product.dto';
+import { IsArray, IsBoolean, IsNotEmpty, IsString, IsUUID, IsOptional, IsInt, ValidateNested } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional, IsString, IsBoolean, IsNumber, IsArray, IsUUID } from 'class-validator';
+import { Type } from 'class-transformer';
+import { LevelWithDetailsDto } from './create-product.dto'; // Agar kerak bo'lsa, import qiling
 
-export class UpdateProductDto extends PartialType(CreateProductDto) {
-  @ApiProperty({ description: 'Name of the product in Russian', example: 'Электродрель', required: false })
+export class UpdateProductDto {
+  @ApiProperty({ description: 'The russian name of the product', example: 'Электрик', required: false })
   @IsOptional()
   @IsString()
   nameRu?: string;
 
-  @ApiProperty({ description: 'Name of the product in Uzbek', example: 'Elektrodrill', required: false })
+  @ApiProperty({ description: 'The uzbek name of the product', example: 'Elektrik', required: false })
   @IsOptional()
   @IsString()
   nameUz?: string;
 
-  @ApiProperty({ description: 'Name of the product in English', example: 'Electric drill', required: false })
+  @ApiProperty({ description: 'The english name of the product', example: 'Electric', required: false })
   @IsOptional()
   @IsString()
   nameEn?: string;
@@ -24,27 +24,28 @@ export class UpdateProductDto extends PartialType(CreateProductDto) {
   @IsString()
   image?: string;
 
-  @ApiProperty({ description: 'Indicates whether the product is active or not', example: true, required: false })
+  @ApiProperty({ description: 'Is the product active?', example: true, required: false })
   @IsOptional()
   @IsBoolean()
   isActive?: boolean;
 
-  @ApiProperty({
-    description: 'List of level IDs associated with the product (UUID format)',
-    example: ['fd8b21d0-b3e4-4c2a-8dc1-61f4f3fc3a92'],
-    type: [String],
+  @ApiProperty({description: 'Array of levels with their details (Optional)', example: [
+  { levelID: 'level-uuid-1', workingHours: 5, hourlyPrice: 25000, dailyPrice: 100000 }
+    ],
     required: false,
+    type: [LevelWithDetailsDto]
   })
   @IsOptional()
   @IsArray()
-  @IsUUID('all', { each: true })
-  levelIDs?: string[];
+  @ValidateNested({ each: true })
+  @Type(() => LevelWithDetailsDto)
+  levels?: LevelWithDetailsDto[];
 
   @ApiProperty({
-    description: 'List of tool IDs associated with the product (UUID format)',
-    example: ['26a0a4e9-66be-4e52-a85d-f2b5d1df5d59'],
-    type: [String],
+    description: 'Array of tool UUIDs associated with the product (Optional)',
+    example: ['tool-uuid-1', 'tool-uuid-2'],
     required: false,
+    type: [String]
   })
   @IsOptional()
   @IsArray()

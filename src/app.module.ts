@@ -16,7 +16,6 @@ import { FaqModule } from './faq/faq.module';
 import { GeneralInfoModule } from './general-info/general-info.module';
 import { PartnerModule } from './partner/partner.module';
 import { ShowCaseModule } from './show-case/show-case.module';
-import { SessionModule } from './session/session.module';
 import { ContactModule } from './contact/contact.module';
 import { OrderModule } from './order/order.module';
 import { OrderItemModule } from './order-item/order-item.module';
@@ -25,7 +24,7 @@ import { CommentModule } from './comment/comment.module';
 import { OrderMasterModule } from './order-master/order-master.module';
 
 @Module({
-  imports: [PrismaModule, RegionModule, UserModule, BrandModule, SizeModule, CapacityModule, ToolModule, LevelModule, MasterJobsModule, ProductModule, MasterModule, FaqModule, GeneralInfoModule, PartnerModule, ShowCaseModule, SessionModule, ContactModule, OrderModule, OrderItemModule, BasketModule, CommentModule, OrderMasterModule,],
+  imports: [PrismaModule, RegionModule, UserModule, BrandModule, SizeModule, CapacityModule, ToolModule, LevelModule, MasterJobsModule, ProductModule, MasterModule, FaqModule, GeneralInfoModule, PartnerModule, ShowCaseModule, ContactModule, OrderModule, OrderItemModule, BasketModule, CommentModule, OrderMasterModule,],
   controllers: [AppController],
   providers: [AppService],
 })

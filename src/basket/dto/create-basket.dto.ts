@@ -75,6 +75,35 @@ export class CreateBasketDto {
   @IsOptional()
   countOfProduct?: number;
 
+
+
+  @ApiPropertyOptional({
+    description: 'Kunlik ish narxi',
+    example: 50000,
+    minimum: 100
+  })
+  @IsInt()
+  @Min(0)
+  @IsOptional()
+  dailyPrice?: number;
+
+
+
+
+  @ApiPropertyOptional({
+    description: 'Soatlik ish narxi',
+    example: 50000,
+    minimum: 100
+  })
+  @IsInt()
+  @Min(0)
+  @IsOptional()
+  hourlyPrice?: number;
+
+
+
+
+
   @ApiProperty({
     description: 'Ishlash soatlari soni',
     example: 8,
@@ -84,4 +113,13 @@ export class CreateBasketDto {
   @Min(0)
   workingHours: number;
 
+}
+
+
+export class CreateBasketArrayDto {
+  @ApiProperty({
+    type: [CreateBasketDto],
+    description: 'Array of basket items'
+  })
+  baskets: CreateBasketDto[];
 }

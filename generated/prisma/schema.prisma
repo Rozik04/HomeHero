@@ -72,6 +72,7 @@ model User {
   baskets  Basket[]
   comments Comment[]
   orders   Order[]
+  sessions Session[]
 }
 
 model Region {
@@ -115,6 +116,8 @@ model Basket {
   countOfProduct Int?
   workingHours   Int
   measure        Int?
+  hourlyPrice    Int?
+  dailyPrice     Int?
   totalPrice     Int?
   createdAt      DateTime  @default(now())
 
@@ -348,6 +351,19 @@ model Tool {
   masterJobs MasterJobs[]
   baskets    Basket[]
   products   ProductTool[]
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  userId    String
+  ipAddress String
+  userAgent String
+  device    String
+  os        String
+  browser   String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
 }
 
 model ProductLevel {
