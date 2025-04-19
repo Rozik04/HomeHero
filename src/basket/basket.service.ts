@@ -54,6 +54,7 @@ export class BasketService {
     return  basketItems.count
   }
 
+  
   @ApiOperation({ summary: 'Get all basket items' })
   @ApiResponse({ status: 200, description: 'List of all basket items.' })
   @ApiResponse({ status: 400, description: 'No baskets found.' })
@@ -62,6 +63,7 @@ export class BasketService {
 
     return  alldata ;
   }
+
 
   @ApiOperation({ summary: 'Get a basket item by ID' })
   @ApiParam({ name: 'id', type: String, description: 'Basket ID' })
@@ -74,6 +76,7 @@ export class BasketService {
     }
     return isBasketExists ;
   }
+
 
   @ApiOperation({ summary: 'Update basket items' })
   @ApiBody({ type: UpdateBasketArrayDto })
@@ -149,8 +152,6 @@ export class BasketService {
   }
   
   
-  
-
   @ApiOperation({ summary: 'Delete a basket item by ID' })
   @ApiParam({ name: 'id', type: String, description: 'Basket ID' })
   @ApiResponse({ status: 200, description: 'The basket item has been successfully deleted.',})

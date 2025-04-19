@@ -61,6 +61,7 @@ export class PartnerService {
     };
   }
 
+
   @ApiOperation({ summary: 'Get a partner by ID' })
   @ApiParam({ name: 'id', type: String, description: 'Partner ID' })
   @ApiResponse({ status: 200, description: 'The partner with the given ID.' })
@@ -72,6 +73,7 @@ export class PartnerService {
     }
     return isPartnerExists ;
   }
+
 
   @ApiOperation({ summary: 'Update a partner by ID' })
   @ApiParam({ name: 'id', type: String, description: 'Partner ID' })
@@ -90,6 +92,7 @@ export class PartnerService {
     return  updatedPartner;
   }
 
+
   @ApiOperation({ summary: 'Delete a partner by ID' })
   @ApiParam({ name: 'id', type: String, description: 'Partner ID' })
   @ApiResponse({ status: 200, description: 'The partner has been successfully deleted.' })
@@ -107,6 +110,7 @@ export class PartnerService {
     return deletedPartner;
   }
 
+  
   @ApiOperation({ summary: 'Update image of a partner' })
   @ApiParam({ name: 'id', type: String, description: 'Partner ID' })
   @ApiResponse({ status: 200, description: 'Partner image has been successfully updated.' })

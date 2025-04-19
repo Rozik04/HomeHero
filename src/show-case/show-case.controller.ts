@@ -36,12 +36,14 @@ export class ShowCaseController {
     return { image: image.filename };
   }
 
+  
   // @UseGuards(JwtAuthGuard, JwtRoleGuard)
   // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
   @Post()
   create(@Body() createShowCaseDto: CreateShowCaseDto) {
     return this.showCaseService.create(createShowCaseDto);
   }
+
 
   // @UseGuards(JwtAuthGuard, JwtRoleGuard)
   // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
@@ -50,12 +52,14 @@ export class ShowCaseController {
     return this.showCaseService.findAll();
   }
 
+
   // @UseGuards(JwtAuthGuard, JwtRoleGuard)
   // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.showCaseService.findOne(id);
   }
+
 
   // @UseGuards(JwtAuthGuard, JwtRoleGuard)
   // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
@@ -64,12 +68,14 @@ export class ShowCaseController {
     return this.showCaseService.update(id, updateShowCaseDto);
   }
 
+
   // @UseGuards(JwtAuthGuard, JwtRoleGuard)
   // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.showCaseService.remove(id);
   }
+
 
   // @UseGuards(JwtAuthGuard, JwtRoleGuard)
   // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])

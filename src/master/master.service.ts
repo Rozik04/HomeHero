@@ -21,6 +21,7 @@ export class MasterService {
     return  created ;
   }
 
+
   @ApiOperation({ summary: 'Get all masters' })
   @ApiResponse({ status: 200, description: 'List of all masters.' })
   @ApiResponse({ status: 400, description: 'No masters found.' })
@@ -65,6 +66,7 @@ export class MasterService {
     };
   }
 
+
   @ApiOperation({ summary: 'Get a master by ID' })
   @ApiParam({ name: 'id', type: String, description: 'Master ID' })
   @ApiResponse({ status: 200, description: 'Master found.' })
@@ -76,6 +78,7 @@ export class MasterService {
     }
     return { found: isMasterExists };
   }
+
 
   @ApiOperation({ summary: 'Update a master by ID' })
   @ApiParam({ name: 'id', type: String, description: 'Master ID' })
@@ -90,6 +93,7 @@ export class MasterService {
     let updated = await this.prisma.master.update({ where: { id }, data: { ...updateMasterDto } });
     return updated ;
   }
+
 
   @ApiOperation({ summary: 'Delete a master by ID' })
   @ApiParam({ name: 'id', type: String, description: 'Master ID' })
@@ -110,6 +114,7 @@ export class MasterService {
     return  deletedMaster;
   }
 
+
   @ApiOperation({ summary: 'Update master profile image' })
   @ApiParam({ name: 'id', type: String, description: 'Master ID' })
   @ApiResponse({ status: 200, description: 'Profile image updated successfully.' })
@@ -125,6 +130,7 @@ export class MasterService {
     return { "Updated image": image.filename };
   }
 
+  
   @ApiOperation({ summary: 'Update master passport image' })
   @ApiParam({ name: 'id', type: String, description: 'Master ID' })
   @ApiResponse({ status: 200, description: 'Passport image updated successfully.' })

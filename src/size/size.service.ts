@@ -19,6 +19,7 @@ export class SizeService {
     return  data ;
   }
 
+
   async findAll(query: any) {
     const {
       search,
@@ -75,6 +76,7 @@ export class SizeService {
     };
   }
 
+
   @ApiOperation({ summary: 'Get a size by ID' })
   @ApiParam({ name: 'id', type: String, description: 'Size ID' })
   @ApiResponse({ status: 200, description: 'The size with the given ID.' })
@@ -86,6 +88,7 @@ export class SizeService {
     }
     return isSizeExists ;
   }
+
 
   @ApiOperation({ summary: 'Update a size by ID' })
   @ApiParam({ name: 'id', type: String, description: 'Size ID' })
@@ -104,6 +107,7 @@ export class SizeService {
     return  updatedSize;
   }
 
+  
   @ApiOperation({ summary: 'Delete a size by ID' })
   @ApiParam({ name: 'id', type: String, description: 'Size ID' })
   @ApiResponse({ status: 200, description: 'The size has been successfully deleted.' })

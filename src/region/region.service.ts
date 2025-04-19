@@ -19,7 +19,6 @@ export class RegionService {
     return  data ;
   }
 
-
   async findAll(query: any) {
     const {
       search,

@@ -34,7 +34,6 @@ export class OrderController {
     return this.orderService.findAll(query);
   }
   
-
   // @UseGuards(JwtAuthGuard, JwtRoleGuard)
   // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
   @Get(':id')

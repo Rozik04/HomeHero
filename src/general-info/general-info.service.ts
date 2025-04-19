@@ -1,14 +1,5 @@
-import {
-  BadRequestException,
-  Injectable,
-} from '@nestjs/common';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiParam,
-  ApiBody,
-} from '@nestjs/swagger';
+import { BadRequestException,Injectable,} from '@nestjs/common';
+import {ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBody,} from '@nestjs/swagger';
 import { CreateGeneralInfoDto } from './dto/create-general-info.dto';
 import { UpdateGeneralInfoDto } from './dto/update-general-info.dto';
 import { PrismaService } from 'src/prisma/prisma.service';

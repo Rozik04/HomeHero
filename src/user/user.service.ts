@@ -26,6 +26,7 @@ let storeOtp: {[key:string]:string}={};
 export class UserService {
   constructor(private readonly prisma: PrismaService, private readonly jwt: JwtService){}
 
+  
   private transporter = nodemailer.createTransport({
     service:'gmail',
     auth:{

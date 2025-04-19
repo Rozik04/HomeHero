@@ -20,19 +20,7 @@ export class PartnerController {
   @UseInterceptors(FileInterceptor("image", multerPar))
   @ApiOperation({ summary: 'Upload an image to the server' })
   @ApiConsumes('multipart/form-data') 
-  @ApiBody({
-    description: 'Image file to upload',
-    schema: {
-      type: 'object',
-      properties: {
-        image: {
-          type: 'string',
-          format: 'binary',
-          example: 'example.jpg',
-        },
-      },
-    },
-  })
+  @ApiBody({ description: 'Image file to upload', schema: { type: 'object', properties: { image: { type: 'string', format: 'binary', example: 'example.jpg', }, }, }, })
   @ApiResponse({ status: 200, description: 'Passport image uploaded successfully', type: Object })
   @ApiResponse({ status: 400, description: 'No passport image uploaded' })
   uploadImage(@UploadedFile() image:Express.Multer.File){
@@ -92,21 +80,9 @@ export class PartnerController {
   @ApiOperation({ summary: 'Upload a new image to the server' })
   @ApiParam({ name: 'id', type: String })
   @ApiConsumes('multipart/form-data') 
-  @ApiBody({
-         description: 'Image file to upload',
-         schema: {
-           type: 'object',
-           properties: {
-             image: {
-               type: 'string',
-               format: 'binary',
-               example: 'example.jpg',
-             },
-           },
-         },
-       })
-       @ApiResponse({ status: 200, description: 'Image updated successfully', type: Object })
-       @ApiResponse({ status: 400, description: 'No image updated' })
+  @ApiBody({ description: 'Image file to upload', schema: { type: 'object', properties: { image: { type: 'string', format: 'binary', example: 'example.jpg',}, }, },})
+  @ApiResponse({ status: 200, description: 'Image updated successfully', type: Object })
+  @ApiResponse({ status: 400, description: 'No image updated' })
   updateImage(@Param('id') id:string, @UploadedFile() image: Express.Multer.File){
     if(!image){
       return {error:"File not uploaded!"}

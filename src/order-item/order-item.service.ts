@@ -82,7 +82,6 @@ export class OrderItemService {
     return await this.prisma.orderItem.findMany();
   }
 
-
   async findOne(id: string) {
     const orderItem = await this.prisma.orderItem.findUnique({
       where: { id },
@@ -94,7 +93,6 @@ export class OrderItemService {
 
     return orderItem;
   }
-
 
   async update(id: string, updateOrderItemDto: UpdateOrderItemDto) {
     const existingOrderItem = await this.prisma.orderItem.findUnique({

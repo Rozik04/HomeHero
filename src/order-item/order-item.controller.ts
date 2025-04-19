@@ -33,11 +33,11 @@ export class OrderItemController {
   @ApiParam({ name: 'id', description: 'Order ID' })
   @ApiBody({ type: [CreateOrderItemDto] })
   @ApiResponse({ status: 201, description: 'Order items created successfully' })
-  async createOrderItems(
+  createOrderItems(
     @Param('id') orderID: string,
     @Body() items: CreateOrderItemDto[],
   ) {
-    return await this.orderItemService.createOrderItems(orderID, items);
+    this.orderItemService.createOrderItems(orderID, items);
   }
 
   @Get()

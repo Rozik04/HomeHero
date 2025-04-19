@@ -1,17 +1,8 @@
-import {
-  BadRequestException,
-  Injectable,
-} from '@nestjs/common';
+import {BadRequestException,Injectable} from '@nestjs/common';
 import { CreateContactDto } from './dto/create-contact.dto';
 import { UpdateContactDto } from './dto/update-contact.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import {
-  ApiBody,
-  ApiOperation,
-  ApiParam,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import {ApiBody,ApiOperation,ApiParam,ApiResponse,ApiTags,} from '@nestjs/swagger';
 
 @ApiTags('contacts')
 @Injectable()
@@ -27,6 +18,7 @@ export class ContactService {
     return data ;
   }
 
+  
   @ApiOperation({ summary: 'Get all contacts' })
   @ApiResponse({ status: 200, description: 'List of all contacts.' })
   @ApiResponse({ status: 400, description: 'No contacts found.' })
@@ -34,6 +26,7 @@ export class ContactService {
     let alldata = await this.prisma.contact.findMany();
     return  alldata ;
   }
+
 
   @ApiOperation({ summary: 'Get a contact by ID' })
   @ApiParam({ name: 'id', type: String, description: 'Contact ID' })
@@ -46,6 +39,7 @@ export class ContactService {
     }
     return  isContactExists ;
   }
+
 
   @ApiOperation({ summary: 'Update a contact by ID' })
   @ApiParam({ name: 'id', type: String, description: 'Contact ID' })
@@ -63,6 +57,7 @@ export class ContactService {
     });
     return  updatedContact ;
   }
+
 
   @ApiOperation({ summary: 'Delete a contact by ID' })
   @ApiParam({ name: 'id', type: String, description: 'Contact ID' })

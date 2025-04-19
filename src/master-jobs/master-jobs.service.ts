@@ -1,14 +1,5 @@
-import {
-  BadRequestException,
-  Injectable,
-} from '@nestjs/common';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiParam,
-  ApiBody,
-} from '@nestjs/swagger';
+import { BadRequestException, Injectable,} from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBody,} from '@nestjs/swagger';
 import { CreateMasterJobDto } from './dto/create-master-job.dto';
 import { UpdateMasterJobDto } from './dto/update-master-job.dto';
 import { PrismaService } from 'src/prisma/prisma.service';

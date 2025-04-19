@@ -19,23 +19,11 @@ export class ProductController {
   // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
   @Post('upload-image')
   @UseInterceptors(FileInterceptor("image", multerPr))
-    @ApiOperation({ summary: 'Upload an image to the server' })
-    @ApiConsumes('multipart/form-data') 
-    @ApiBody({
-      description: 'Image file to upload',
-      schema: {
-        type: 'object',
-        properties: {
-          image: {
-            type: 'string',
-            format: 'binary',
-            example: 'example.jpg',
-          },
-        },
-      },
-    })
-    @ApiResponse({ status: 200, description: 'Image uploaded successfully', type: Object })
-    @ApiResponse({ status: 400, description: 'No image uploaded' })
+  @ApiOperation({ summary: 'Upload an image to the server' })
+  @ApiConsumes('multipart/form-data') 
+  @ApiBody({ description: 'Image file to upload',schema: { type: 'object', properties: { image: { type: 'string', format: 'binary', example: 'example.jpg',},}, },})
+  @ApiResponse({ status: 200, description: 'Image uploaded successfully', type: Object })
+  @ApiResponse({ status: 400, description: 'No image uploaded' })
   uploadImage(@UploadedFile() image:Express.Multer.File){
     if(!image){
       throw new BadRequestException("File not uploaded");
@@ -43,12 +31,14 @@ export class ProductController {
     return {image:image.filename}
   }
 
+
   // @UseGuards(JwtAuthGuard, JwtRoleGuard)
   // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
   @Post()
   create(@Body() createProductDto: CreateProductDto) {
     return this.productService.create(createProductDto);
   }
+
 
   // @UseGuards(JwtAuthGuard, JwtRoleGuard)
   // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
@@ -64,12 +54,14 @@ export class ProductController {
     return this.productService.findAll(query);
   }
 
+
   // @UseGuards(JwtAuthGuard, JwtRoleGuard)
   // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.productService.findOne(id);
   }
+
 
   // @UseGuards(JwtAuthGuard, JwtRoleGuard)
   // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
@@ -78,6 +70,7 @@ export class ProductController {
     return this.productService.update(id, updateProductDto);
   }
 
+
   // @UseGuards(JwtAuthGuard, JwtRoleGuard)
   // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
   @Delete(':id')
@@ -85,28 +78,17 @@ export class ProductController {
     return this.productService.remove(id);
   }
 
+
   // @UseGuards(JwtAuthGuard, JwtRoleGuard)
   // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
   @Patch('update-image/:id')
   @UseInterceptors(FileInterceptor('image',multerPr))
-     @ApiOperation({ summary: 'Upload a new image to the server' })
-     @ApiParam({ name: 'id', type: String })
-     @ApiConsumes('multipart/form-data') 
-     @ApiBody({
-       description: 'Image file to upload',
-       schema: {
-         type: 'object',
-         properties: {
-           image: {
-             type: 'string',
-             format: 'binary',
-             example: 'example.jpg',
-           },
-         },
-       },
-     })
-     @ApiResponse({ status: 200, description: 'Image updated successfully', type: Object })
-     @ApiResponse({ status: 400, description: 'No image updated' })
+  @ApiOperation({ summary: 'Upload a new image to the server' })
+  @ApiParam({ name: 'id', type: String })
+  @ApiConsumes('multipart/form-data') 
+  @ApiBody({description: 'Image file to upload',schema: { type: 'object',properties: { image: { type: 'string', format: 'binary', example: 'example.jpg',}, }, },})
+  @ApiResponse({ status: 200, description: 'Image updated successfully', type: Object })
+  @ApiResponse({ status: 400, description: 'No image updated' })
   updateImage(@Param('id') id:string, @UploadedFile() image: Express.Multer.File){
     if(!image){
       return {error:"File not uploaded!"}

@@ -19,6 +19,7 @@ export class CapacityService {
     return  data ;
   }
 
+  
   async findAll(query: any) {
     const {
       search = '',
@@ -62,6 +63,7 @@ export class CapacityService {
     };
   }
 
+
   @ApiOperation({ summary: 'Get a capacity by ID' })
   @ApiParam({ name: 'id', type: String, description: 'Capacity ID' })
   @ApiResponse({ status: 200, description: 'The capacity with the given ID.' })
@@ -73,6 +75,7 @@ export class CapacityService {
     }
     return  isCapacityExists ;
   }
+
 
   @ApiOperation({ summary: 'Update a capacity by ID' })
   @ApiParam({ name: 'id', type: String, description: 'Capacity ID' })
@@ -90,6 +93,7 @@ export class CapacityService {
     });
     return  updatedCapacity ;
   }
+
 
   @ApiOperation({ summary: 'Delete a capacity by ID' })
   @ApiParam({ name: 'id', type: String, description: 'Capacity ID' })

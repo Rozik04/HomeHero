@@ -14,9 +14,6 @@ export class CommentService {
   @ApiResponse({ status: 400, description: 'Bad request.' })
   async create(createCommentDto: CreateCommentDto, userId: string) {
     const { message, orderID, ratings } = createCommentDto;
-
-    
-  
     const comment = await this.prisma.comment.create({
       data: {
         message,

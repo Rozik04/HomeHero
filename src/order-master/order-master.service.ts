@@ -11,9 +11,7 @@ export class OrderMasterService {
 
   @ApiOperation({ summary: 'Buyurtmaga mos ustalarni biriktirish' })
   @ApiBody({ type: CreateOrderMasterDto })
-  @ApiResponse({status: 201, description: 'Ustalar muvaffaqiyatli biriktirildi',
-    schema: {example:{createdOrderMasters:[{
-    id: 'uuid', orderID: 'uuid', masterID: 'uuid',},],},},})
+  @ApiResponse({status: 201, description: 'Ustalar muvaffaqiyatli biriktirildi',schema: {example:{createdOrderMasters:[{id: 'uuid', orderID: 'uuid', masterID: 'uuid',},],},},})
   @ApiResponse({ status: 400, description: 'Order not found' })
     async create(createOrderMasterDto: CreateOrderMasterDto) {
   const { orderId } = createOrderMasterDto;
