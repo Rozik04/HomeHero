@@ -15,8 +15,8 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin])
   @Post('upload-image')
   @UseInterceptors(FileInterceptor("image", multerPr))
   @ApiOperation({ summary: 'Upload an image to the server' })
@@ -32,16 +32,16 @@ export class ProductController {
   }
 
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin])
   @Post()
   create(@Body() createProductDto: CreateProductDto) {
     return this.productService.create(createProductDto);
   }
 
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin, UserRole.superadmin])
   @Get()
   @ApiOperation({ summary: 'Get all products with filtering, sorting, pagination' })
   @ApiQuery({ name: 'search', required: false, type: String, example: '' })
@@ -55,32 +55,32 @@ export class ProductController {
   }
 
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin])
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.productService.findOne(id);
   }
 
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin, UserRole.superadmin])
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
     return this.productService.update(id, updateProductDto);
   }
 
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin])
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.productService.remove(id);
   }
 
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin, UserRole.superadmin])
   @Patch('update-image/:id')
   @UseInterceptors(FileInterceptor('image',multerPr))
   @ApiOperation({ summary: 'Upload a new image to the server' })

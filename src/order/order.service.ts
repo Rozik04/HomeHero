@@ -4,6 +4,7 @@ import { CreateOrderWithItemsDto } from './dto/create-order.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma } from 'generated/prisma';
 import { BotService } from 'src/tgbot/tgbot.service'; 
+import { UpdateOrderDto } from './dto/update-order.dto';
 
 @ApiTags('orders')
 @Injectable()
@@ -175,12 +176,13 @@ export class OrderService {
     return isOrderExists;
   }
 
+
   @ApiOperation({ summary: 'Update an order by ID' })
   @ApiParam({ name: 'orderID', type: String, description: 'Order ID' })
-  @ApiBody({ type: CreateOrderWithItemsDto }) 
+  @ApiBody({ type: UpdateOrderDto }) 
   @ApiResponse({ status: 200, description: 'The order has been successfully updated.' })
   @ApiResponse({ status: 404, description: 'Order not found.' })
-  async update(orderId: string, dto: CreateOrderWithItemsDto) {
+  async update(orderId: string, dto: UpdateOrderDto) {
     const {
       locationLat,
       locationLong,
@@ -193,26 +195,36 @@ export class OrderService {
       orderItems,
     } = dto;
   
-    await this.prisma.orderItem.deleteMany({
-      where: { orderID: orderId },
-    });
-
+    const updateOrderData: any = {};
+    if (locationLat !== undefined) updateOrderData.locationLat = locationLat;
+    if (locationLong !== undefined) updateOrderData.locationLong = locationLong;
+    if (address !== undefined) updateOrderData.address = address;
+    if (deliveryDate !== undefined) updateOrderData.deliveryDate = new Date(deliveryDate);
+    if (paymentType !== undefined) updateOrderData.paymentType = paymentType;
+    if (withDelivery !== undefined) updateOrderData.withDelivery = withDelivery;
+    if (status !== undefined) updateOrderData.status = status;
+    if (commentToDelivery !== undefined) updateOrderData.commentToDelivery = commentToDelivery;
+  
     await this.prisma.order.update({
       where: { id: orderId },
-      data: {
-        locationLat,
-        locationLong,
-        address,
-        deliveryDate: new Date(deliveryDate),
-        paymentType,
-        withDelivery,
-        status,
-        commentToDelivery,
-      },
+      data: updateOrderData,
     });
+  
+    const existingItems = await this.prisma.orderItem.findMany({
+      where: { orderID: orderId },
+    });
+  
+    const incomingItemIds = orderItems.filter(item => item.id).map(item => item.id);
+  
+    for (const oldItem of existingItems) {
+      if (!incomingItemIds.includes(oldItem.id)) {
+        await this.prisma.orderItem.delete({ where: { id: oldItem.id } });
+      }
+    }
   
     for (const item of orderItems) {
       const {
+        id,
         productID,
         toolID,
         levelID,
@@ -222,6 +234,31 @@ export class OrderService {
         workingHours,
         price,
       } = item;
+  
+      const itemData: any = {};
+      if (productID !== undefined) itemData.productID = productID;
+      if (toolID !== undefined) itemData.toolID = toolID;
+      if (levelID !== undefined) itemData.levelID = levelID;
+      if (timeUnit !== undefined) itemData.timeUnit = timeUnit;
+      if (countOfProduct !== undefined) itemData.countOfProduct = countOfProduct;
+      if (countOfTool !== undefined) itemData.countOfTool = countOfTool;
+      if (workingHours !== undefined) itemData.workingHours = workingHours;
+      if (price !== undefined) itemData.price = price;
+  
+      if (id) {
+        await this.prisma.orderItem.update({
+          where: { id },
+          data: itemData,
+        });
+      } else {
+        await this.prisma.orderItem.create({
+          data: {
+            orderID: orderId,
+            ...itemData,
+            totalPrice: null,
+          },
+        });
+      }
   
       if (toolID && countOfTool) {
         await this.prisma.tool.update({
@@ -233,30 +270,14 @@ export class OrderService {
           },
         });
       }
-  
-      await this.prisma.orderItem.create({
-        data: {
-          orderID: orderId,
-          productID,
-          toolID,
-          levelID,
-          timeUnit,
-          countOfProduct,
-          countOfTool,
-          workingHours,
-          totalPrice: null,
-          price,
-        },
-      });
     }
   
     return this.prisma.order.findUnique({
       where: { id: orderId },
-      include: {
-        items: true,
-      },
+      include: { items: true },
     });
   }
+   
   
 
   @ApiOperation({ summary: 'Delete an order by ID' })

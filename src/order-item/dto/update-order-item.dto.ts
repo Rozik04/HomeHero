@@ -16,6 +16,11 @@ import { TimeUnit } from 'src/utils/enums';
   export class UpdateOrderItemDto {
     @IsString()
     @IsOptional()
+    id?: string;
+
+
+    @IsString()
+    @IsOptional()
     productID?: string;
   
     @IsString()

@@ -13,15 +13,15 @@ export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
   @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @Roles([UserRole.admin, UserRole.individualuser, UserRole.legaluser])
   @Post()
   create(@Request() req, @Body() createOrderDto: CreateOrderWithItemsDto) {
     let userId = req.user.id;
     return this.orderService.create(createOrderDto,userId);
   }
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.superadmin])
   @Get()
   @ApiOperation({ summary: 'Get all orders with search, sort, and pagination' })
   @ApiResponse({ status: 200, description: 'List of orders with filters.' })
@@ -34,22 +34,22 @@ export class OrderController {
     return this.orderService.findAll(query);
   }
   
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin, UserRole.individualuser, UserRole.legaluser])
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.orderService.findOne(id);
   }
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin, UserRole.superadmin])
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateOrderDto: CreateOrderWithItemsDto) {
     return this.orderService.update(id, updateOrderDto);
   }
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin])
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.orderService.remove(id);

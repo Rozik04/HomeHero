@@ -14,8 +14,8 @@ import { ApiBody, ApiConsumes, ApiOperation, ApiParam, ApiQuery, ApiResponse } f
 export class PartnerController {
   constructor(private readonly partnerService: PartnerService) {}
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin])
   @Post('upload-image')
   @UseInterceptors(FileInterceptor("image", multerPar))
   @ApiOperation({ summary: 'Upload an image to the server' })
@@ -30,15 +30,15 @@ export class PartnerController {
     return {image:image.filename}
   }
   
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin])
   @Post()
   create(@Body() createPartnerDto: CreatePartnerDto) {
     return this.partnerService.create(createPartnerDto);
   }
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin, UserRole.superadmin])
   @Get()
   @ApiOperation({ summary: 'Get all partners with search, sort, and pagination' })
   @ApiQuery({ name: 'search', required: false, description: 'Search by name (Ru, Uz, En)' })
@@ -52,29 +52,29 @@ export class PartnerController {
     return this.partnerService.findAll(query);
   }
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin])
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.partnerService.findOne(id);
   }
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin, UserRole.superadmin])
   @Patch(':id')
   update(@Param('id') id: string, @Body() updatePartnerDto: UpdatePartnerDto) {
     return this.partnerService.update(id, updatePartnerDto);
   }
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin])
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.partnerService.remove(id);
   }
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin, UserRole.superadmin])
   @Patch('update-image/:id')
   @UseInterceptors(FileInterceptor('image',multerPar))
   @ApiOperation({ summary: 'Upload a new image to the server' })

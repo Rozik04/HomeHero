@@ -12,15 +12,15 @@ import { ApiOperation, ApiQuery, ApiResponse } from '@nestjs/swagger';
 export class SizeController {
   constructor(private readonly sizeService: SizeService) {}
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin])
   @Post()
   create(@Body() createSizeDto: CreateSizeDto) {
     return this.sizeService.create(createSizeDto);
   }
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin, UserRole.superadmin])
   @Get()
   @ApiOperation({ summary: 'Get all sizes' })
   @ApiQuery({ name: 'search', required: false, description: 'Search by nameUz, nameRu, or nameEn' })
@@ -34,22 +34,22 @@ export class SizeController {
     return this.sizeService.findAll(query);
   }
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin])
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.sizeService.findOne(id);
   }
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin, UserRole.superadmin])
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateSizeDto: UpdateSizeDto) {
     return this.sizeService.update(id, updateSizeDto);
   }
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin])
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.sizeService.remove(id);

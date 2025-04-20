@@ -87,15 +87,4 @@ export class OrderMasterService {
     return allData ;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} orderMaster`;
-  }
-
-  update(id: number, updateOrderMasterDto: UpdateOrderMasterDto) {
-    return `This action updates a #${id} orderMaster`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} orderMaster`;
-  }
 }

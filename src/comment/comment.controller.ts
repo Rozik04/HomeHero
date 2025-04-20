@@ -12,36 +12,40 @@ export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
   @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @Roles([UserRole.admin, UserRole.individualuser, UserRole.legaluser])
   @Post()
   create(@Request() req, @Body() createCommentDto: CreateCommentDto) {
     let userId = req.user.id;
     return this.commentService.create(createCommentDto,userId);
   }
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin, UserRole.superadmin])
   @Get()
   findAll() {
     return this.commentService.findAll();
   }
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin,  UserRole.individualuser, UserRole.legaluser])
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.commentService.findOne(id);
+  findOne(@Param('id') id: string, @Request() req) {
+    let roles = req.user.role;
+    let userId = req.user.id;
+    return this.commentService.findOne(id, userId, roles);
   }
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin,  UserRole.superadmin])
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCommentDto: UpdateCommentDto) {
-    return this.commentService.update(id, updateCommentDto);
+  update(@Request() req, @Param('id') id: string, @Body() updateCommentDto: UpdateCommentDto) {
+    let role = req.user.role;
+    let userId = req.user.id;
+    return this.commentService.update(id, updateCommentDto, userId, role);
   }
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin])
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.commentService.remove(id);

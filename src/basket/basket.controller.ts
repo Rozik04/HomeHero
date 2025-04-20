@@ -27,7 +27,7 @@ export class BasketController {
   }
 
   @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  @Roles([UserRole.admin,  UserRole.superadmin, UserRole.individualuser, UserRole.legaluser])
+  @Roles([UserRole.admin])
   @Get(':id')
   findOne(@Request() req, @Param('id') id: string) {
     let userId = req.user.id;
@@ -36,7 +36,7 @@ export class BasketController {
   }
 
   @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  @Roles([UserRole.admin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @Roles([UserRole.admin, UserRole.superadmin])
   @Patch()
   update(@Request() req, @Body() UpdateBasketArrayDto: UpdateBasketArrayDto) {
     let userId = req.user.id;
@@ -45,7 +45,7 @@ export class BasketController {
   }
   
   @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  @Roles([UserRole.admin, UserRole.individualuser, UserRole.legaluser])
+  @Roles([UserRole.admin])
   @Delete(':id')
   remove(@Request() req, @Param('id') id: string) {
     let userId = req.user.id;

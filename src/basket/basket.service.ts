@@ -60,7 +60,6 @@ export class BasketService {
   @ApiResponse({ status: 400, description: 'No baskets found.' })
   async findAll() {
     let alldata = await this.prisma.basket.findMany();
-
     return  alldata ;
   }
 

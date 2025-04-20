@@ -14,8 +14,8 @@ import { ApiBody, ApiConsumes, ApiOperation, ApiParam, ApiQuery, ApiResponse } f
 export class MasterController {
   constructor(private readonly masterService: MasterService) {}
   
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin])
   @Post('upload-image')
   @UseInterceptors(FileInterceptor("image", multerMs))
   @ApiOperation({ summary: 'Upload an image to the server' })
@@ -31,8 +31,8 @@ export class MasterController {
   }
 
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin])
   @Post('upload-PassportImage')
   @UseInterceptors(FileInterceptor("image", multerPs))
   @ApiOperation({ summary: 'Upload an image to the server' })
@@ -48,16 +48,16 @@ export class MasterController {
   }
 
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin])
   @Post()
   create(@Body() createMasterDto: CreateMasterDto) {
     return this.masterService.create(createMasterDto);
   }
 
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.superadmin])
   @Get()
   @ApiOperation({ summary: 'Get all masters' })
   @ApiResponse({ status: 200, description: 'List of all masters.' })
@@ -72,32 +72,32 @@ export class MasterController {
   }
 
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin])
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.masterService.findOne(id);
   }
 
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin, UserRole.superadmin])
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateMasterDto: UpdateMasterDto) {
     return this.masterService.update(id, updateMasterDto);
   }
 
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin])
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.masterService.remove(id);
   }
 
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin,UserRole.superadmin])
   @Patch('update-image/:id')
   @UseInterceptors(FileInterceptor('image',multerMs))
   @ApiOperation({ summary: 'Upload a new image to the server' })
@@ -114,8 +114,8 @@ export class MasterController {
     }
 
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin, UserRole.superadmin])
   @Patch('update-PassportImage/:id')
   @UseInterceptors(FileInterceptor('image',multerPs))
   @ApiOperation({ summary: 'Upload a new passport image to the server' })

@@ -80,10 +80,17 @@ export class CommentService {
   @ApiParam({ name: 'id', type: String, description: 'Comment ID' })
   @ApiResponse({ status: 200, description: 'The comment with the given ID.' })
   @ApiResponse({ status: 400, description: 'Comment not found.' })
-  async findOne(id: string) {
+  async findOne(id: string, role:string, userId:string) {
     let isCommentExists = await this.prisma.comment.findFirst({ where: { id } });
     if (!isCommentExists) {
       throw new BadRequestException("Comment not found");
+    }
+    const allowedRoles = ['admin', 'superadmin'];
+  
+    if (isCommentExists.userID === userId || allowedRoles.includes(role)) {
+      return isCommentExists;
+    } else {
+      throw new BadRequestException('Not allowed!');
     }
     return  isCommentExists ;
   }
@@ -94,7 +101,18 @@ export class CommentService {
   @ApiBody({ type: UpdateCommentDto })
   @ApiResponse({ status: 200, description: 'The comment has been successfully updated.' })
   @ApiResponse({ status: 400, description: 'Comment not found.' })
-  async update(id: string, updateDto: UpdateCommentDto) {
+  async update(id: string, updateDto: UpdateCommentDto, userId:string, role:string) {
+    let isComment = await this.prisma.comment.findFirst({where:{id}});
+    if(!isComment){
+      throw new BadRequestException("Comment not found");
+    }
+    const allowedRoles = ['admin', 'superadmin'];
+  
+    if (isComment.userID === userId || allowedRoles.includes(role)) {
+      isComment ;
+    } else {
+      throw new BadRequestException('Not allowed!');
+    }
     const { message, ratings } = updateDto;
   
     if (ratings && ratings.length > 0) {

@@ -13,14 +13,14 @@ export class BrandController {
   constructor(private readonly brandService: BrandService) {}
 
   @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  @Roles([UserRole.admin,  UserRole.superadmin])
+  @Roles([UserRole.admin])
   @Post()
   create(@Body() createBrandDto: CreateBrandDto) {
     return this.brandService.create(createBrandDto);
   }
 
   @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  @Roles([UserRole.admin])
+  @Roles([UserRole.admin, UserRole.superadmin])
   @Get()
   @ApiOperation({ summary: 'Get all brands' })
   @ApiResponse({ status: 200, description: 'List of all brands.' })
@@ -34,22 +34,22 @@ export class BrandController {
     return this.brandService.findAll(query);
   }
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin])
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.brandService.findOne(id);
   }
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin, UserRole.superadmin])
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateBrandDto: UpdateBrandDto) {
     return this.brandService.update(id, updateBrandDto);
   }
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin])
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.brandService.remove(id);
