@@ -186,6 +186,7 @@ exports.Prisma.OrderItemScalarFieldEnum = {
   workingHours: 'workingHours',
   measure: 'measure',
   totalPrice: 'totalPrice',
+  price: 'price',
   createdAt: 'createdAt'
 };
 

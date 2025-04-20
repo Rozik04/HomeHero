@@ -98,6 +98,7 @@ CREATE TABLE "OrderItem" (
     "workingHours" INTEGER NOT NULL,
     "measure" INTEGER,
     "totalPrice" INTEGER,
+    "price" INTEGER,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "OrderItem_pkey" PRIMARY KEY ("id")

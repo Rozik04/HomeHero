@@ -50,6 +50,11 @@ import { TimeUnit } from 'src/utils/enums';
     @Min(0)
     @IsOptional()
     workingHours?: number;
+
+    @ApiProperty({ example: 800, description: 'Price' })
+    @IsInt()
+    @Min(0)
+    price?: number;
   
   }
   

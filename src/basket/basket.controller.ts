@@ -12,39 +12,44 @@ export class BasketController {
   constructor(private readonly basketService: BasketService) {}
 
   @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @Roles([UserRole.admin, UserRole.individualuser, UserRole.legaluser])
   @Post()
   create(@Body() CreateBasketArrayDto: CreateBasketArrayDto, @Request() req) {
     let userId = req.user.id;
     return this.basketService.create(CreateBasketArrayDto, userId);
   }
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin, UserRole.superadmin])
   @Get()
   findAll() {
     return this.basketService.findAll();
   }
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin,  UserRole.superadmin, UserRole.individualuser, UserRole.legaluser])
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.basketService.findOne(id);
+  findOne(@Request() req, @Param('id') id: string) {
+    let userId = req.user.id;
+    let role = req.user.role;
+    return this.basketService.findOne(id,userId, role);
   }
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
   @Patch()
   update(@Request() req, @Body() UpdateBasketArrayDto: UpdateBasketArrayDto) {
     let userId = req.user.id;
-    return this.basketService.update(UpdateBasketArrayDto, userId); 
+    let role = req.user.role;
+    return this.basketService.update(UpdateBasketArrayDto, userId, role); 
   }
   
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin, UserRole.individualuser, UserRole.legaluser])
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.basketService.remove(id);
+  remove(@Request() req, @Param('id') id: string) {
+    let userId = req.user.id;
+    let role = req.user.role;
+    return this.basketService.remove(id, userId, role);
   }
 }

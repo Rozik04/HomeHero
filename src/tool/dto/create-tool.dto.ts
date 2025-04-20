@@ -44,9 +44,6 @@ export class CreateToolDto {
   @IsInt()
   quantity: number;
 
-  @IsOptional()
-  @IsString()
-  code?: string;
 
   @ApiProperty({ description: 'The ID of the brand', example: 'brand-uuid-123' })
   @IsString()

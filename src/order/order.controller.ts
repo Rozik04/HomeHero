@@ -16,8 +16,8 @@ export class OrderController {
   @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
   @Post()
   create(@Request() req, @Body() createOrderDto: CreateOrderWithItemsDto) {
-    let UserId = req.user.id;
-    return this.orderService.create(createOrderDto,UserId);
+    let userId = req.user.id;
+    return this.orderService.create(createOrderDto,userId);
   }
 
   // @UseGuards(JwtAuthGuard, JwtRoleGuard)

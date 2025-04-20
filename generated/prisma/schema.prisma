@@ -139,6 +139,7 @@ model OrderItem {
   workingHours   Int
   measure        Int?
   totalPrice     Int?
+  price          Int?
   createdAt      DateTime  @default(now())
 
   order   Order    @relation(fields: [orderID], references: [id])

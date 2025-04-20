@@ -77,7 +77,7 @@ export class OrderMasterService {
     createdOrderMasters,
   };
     }
-
+ 
 
   @ApiOperation({ summary: 'Get all pending accepted orders' })
   @ApiResponse({ status: 200, description: 'List of all accepted orders.' })

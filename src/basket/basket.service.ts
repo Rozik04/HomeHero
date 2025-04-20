@@ -69,20 +69,31 @@ export class BasketService {
   @ApiParam({ name: 'id', type: String, description: 'Basket ID' })
   @ApiResponse({status: 200, description: 'The basket item with the given ID.',})
   @ApiResponse({ status: 400, description: 'Basket not found.' })
-  async findOne(id: string) {
-    let isBasketExists = await this.prisma.basket.findFirst({ where: { id } });
-    if (!isBasketExists) {
+  async findOne(id: string, userId:string, role:string) {
+    const basket = await this.prisma.basket.findFirst({ where: { id } });
+
+    if (!basket) {
       throw new BadRequestException('Basket not found');
     }
-    return isBasketExists ;
+      const allowedRoles = ['admin', 'superadmin'];
+  
+    if (basket.userID === userId || allowedRoles.includes(role)) {
+      return basket;
+    } else {
+      throw new BadRequestException('Not allowed!');
+    }
   }
-
 
   @ApiOperation({ summary: 'Update basket items' })
   @ApiBody({ type: UpdateBasketArrayDto })
   @ApiResponse({ status: 200, description: 'Basket items successfully updated.' })
   @ApiResponse({ status: 400, description: 'Level or Tool not linked to the selected product.' })
-  async update(UpdateBasketArrayDto: UpdateBasketArrayDto, userId: string) {
+  async update(UpdateBasketArrayDto: UpdateBasketArrayDto, userId: string, role:string) {
+     for(const dto of UpdateBasketArrayDto.baskets){
+      const allowedRoles = ['admin', 'superadmin'];
+      if (dto.userID !== userId || !allowedRoles.includes(role)) {
+        throw new BadRequestException('Not allowed!');
+      }}
     const updatedItems: any[] = [];
   
     for (const dto of UpdateBasketArrayDto.baskets) {
@@ -156,10 +167,14 @@ export class BasketService {
   @ApiParam({ name: 'id', type: String, description: 'Basket ID' })
   @ApiResponse({ status: 200, description: 'The basket item has been successfully deleted.',})
   @ApiResponse({ status: 400, description: 'Basket not found.' })
-  async remove(id: string) {
+  async remove(id: string, userId:string, role:string) {
     let isBasketExists = await this.prisma.basket.findFirst({ where: { id } });
     if (!isBasketExists) {
       throw new BadRequestException('Basket not found');
+    }
+    const allowedRoles = ['admin'];
+    if (isBasketExists.userID !== userId || !allowedRoles.includes(role)) {
+      throw new BadRequestException('Not allowed!');
     }
     let deletedBasket = await this.prisma.basket.delete({ where: { id } });
     return  deletedBasket ;

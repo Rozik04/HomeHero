@@ -47,6 +47,9 @@ export class MasterService {
     const [data, total] = await Promise.all([
       this.prisma.master.findMany({
         where,
+        include: {
+          masterJobs: true, 
+        },
         orderBy: {
           [sortBy]: order,
         },

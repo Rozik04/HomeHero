@@ -8513,6 +8513,7 @@ export namespace Prisma {
     workingHours: number | null
     measure: number | null
     totalPrice: number | null
+    price: number | null
   }
 
   export type OrderItemSumAggregateOutputType = {
@@ -8521,6 +8522,7 @@ export namespace Prisma {
     workingHours: number | null
     measure: number | null
     totalPrice: number | null
+    price: number | null
   }
 
   export type OrderItemMinAggregateOutputType = {
@@ -8535,6 +8537,7 @@ export namespace Prisma {
     workingHours: number | null
     measure: number | null
     totalPrice: number | null
+    price: number | null
     createdAt: Date | null
   }
 
@@ -8550,6 +8553,7 @@ export namespace Prisma {
     workingHours: number | null
     measure: number | null
     totalPrice: number | null
+    price: number | null
     createdAt: Date | null
   }
 
@@ -8565,6 +8569,7 @@ export namespace Prisma {
     workingHours: number
     measure: number
     totalPrice: number
+    price: number
     createdAt: number
     _all: number
   }
@@ -8576,6 +8581,7 @@ export namespace Prisma {
     workingHours?: true
     measure?: true
     totalPrice?: true
+    price?: true
   }
 
   export type OrderItemSumAggregateInputType = {
@@ -8584,6 +8590,7 @@ export namespace Prisma {
     workingHours?: true
     measure?: true
     totalPrice?: true
+    price?: true
   }
 
   export type OrderItemMinAggregateInputType = {
@@ -8598,6 +8605,7 @@ export namespace Prisma {
     workingHours?: true
     measure?: true
     totalPrice?: true
+    price?: true
     createdAt?: true
   }
 
@@ -8613,6 +8621,7 @@ export namespace Prisma {
     workingHours?: true
     measure?: true
     totalPrice?: true
+    price?: true
     createdAt?: true
   }
 
@@ -8628,6 +8637,7 @@ export namespace Prisma {
     workingHours?: true
     measure?: true
     totalPrice?: true
+    price?: true
     createdAt?: true
     _all?: true
   }
@@ -8730,6 +8740,7 @@ export namespace Prisma {
     workingHours: number
     measure: number | null
     totalPrice: number | null
+    price: number | null
     createdAt: Date
     _count: OrderItemCountAggregateOutputType | null
     _avg: OrderItemAvgAggregateOutputType | null
@@ -8764,6 +8775,7 @@ export namespace Prisma {
     workingHours?: boolean
     measure?: boolean
     totalPrice?: boolean
+    price?: boolean
     createdAt?: boolean
     order?: boolean | OrderDefaultArgs<ExtArgs>
     product?: boolean | OrderItem$productArgs<ExtArgs>
@@ -8783,6 +8795,7 @@ export namespace Prisma {
     workingHours?: boolean
     measure?: boolean
     totalPrice?: boolean
+    price?: boolean
     createdAt?: boolean
     order?: boolean | OrderDefaultArgs<ExtArgs>
     product?: boolean | OrderItem$productArgs<ExtArgs>
@@ -8802,6 +8815,7 @@ export namespace Prisma {
     workingHours?: boolean
     measure?: boolean
     totalPrice?: boolean
+    price?: boolean
     createdAt?: boolean
     order?: boolean | OrderDefaultArgs<ExtArgs>
     product?: boolean | OrderItem$productArgs<ExtArgs>
@@ -8821,10 +8835,11 @@ export namespace Prisma {
     workingHours?: boolean
     measure?: boolean
     totalPrice?: boolean
+    price?: boolean
     createdAt?: boolean
   }
 
-  export type OrderItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orderID" | "productID" | "toolID" | "levelID" | "timeUnit" | "countOfTool" | "countOfProduct" | "workingHours" | "measure" | "totalPrice" | "createdAt", ExtArgs["result"]["orderItem"]>
+  export type OrderItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orderID" | "productID" | "toolID" | "levelID" | "timeUnit" | "countOfTool" | "countOfProduct" | "workingHours" | "measure" | "totalPrice" | "price" | "createdAt", ExtArgs["result"]["orderItem"]>
   export type OrderItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     order?: boolean | OrderDefaultArgs<ExtArgs>
     product?: boolean | OrderItem$productArgs<ExtArgs>
@@ -8864,6 +8879,7 @@ export namespace Prisma {
       workingHours: number
       measure: number | null
       totalPrice: number | null
+      price: number | null
       createdAt: Date
     }, ExtArgs["result"]["orderItem"]>
     composites: {}
@@ -9303,6 +9319,7 @@ export namespace Prisma {
     readonly workingHours: FieldRef<"OrderItem", 'Int'>
     readonly measure: FieldRef<"OrderItem", 'Int'>
     readonly totalPrice: FieldRef<"OrderItem", 'Int'>
+    readonly price: FieldRef<"OrderItem", 'Int'>
     readonly createdAt: FieldRef<"OrderItem", 'DateTime'>
   }
     
@@ -30933,6 +30950,7 @@ export namespace Prisma {
     workingHours: 'workingHours',
     measure: 'measure',
     totalPrice: 'totalPrice',
+    price: 'price',
     createdAt: 'createdAt'
   };
 
@@ -31771,6 +31789,7 @@ export namespace Prisma {
     workingHours?: IntFilter<"OrderItem"> | number
     measure?: IntNullableFilter<"OrderItem"> | number | null
     totalPrice?: IntNullableFilter<"OrderItem"> | number | null
+    price?: IntNullableFilter<"OrderItem"> | number | null
     createdAt?: DateTimeFilter<"OrderItem"> | Date | string
     order?: XOR<OrderScalarRelationFilter, OrderWhereInput>
     product?: XOR<ProductNullableScalarRelationFilter, ProductWhereInput> | null
@@ -31790,6 +31809,7 @@ export namespace Prisma {
     workingHours?: SortOrder
     measure?: SortOrderInput | SortOrder
     totalPrice?: SortOrderInput | SortOrder
+    price?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     order?: OrderOrderByWithRelationInput
     product?: ProductOrderByWithRelationInput
@@ -31812,6 +31832,7 @@ export namespace Prisma {
     workingHours?: IntFilter<"OrderItem"> | number
     measure?: IntNullableFilter<"OrderItem"> | number | null
     totalPrice?: IntNullableFilter<"OrderItem"> | number | null
+    price?: IntNullableFilter<"OrderItem"> | number | null
     createdAt?: DateTimeFilter<"OrderItem"> | Date | string
     order?: XOR<OrderScalarRelationFilter, OrderWhereInput>
     product?: XOR<ProductNullableScalarRelationFilter, ProductWhereInput> | null
@@ -31831,6 +31852,7 @@ export namespace Prisma {
     workingHours?: SortOrder
     measure?: SortOrderInput | SortOrder
     totalPrice?: SortOrderInput | SortOrder
+    price?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: OrderItemCountOrderByAggregateInput
     _avg?: OrderItemAvgOrderByAggregateInput
@@ -31854,6 +31876,7 @@ export namespace Prisma {
     workingHours?: IntWithAggregatesFilter<"OrderItem"> | number
     measure?: IntNullableWithAggregatesFilter<"OrderItem"> | number | null
     totalPrice?: IntNullableWithAggregatesFilter<"OrderItem"> | number | null
+    price?: IntNullableWithAggregatesFilter<"OrderItem"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"OrderItem"> | Date | string
   }
 
@@ -33588,6 +33611,7 @@ export namespace Prisma {
     workingHours: number
     measure?: number | null
     totalPrice?: number | null
+    price?: number | null
     createdAt?: Date | string
     order: OrderCreateNestedOneWithoutItemsInput
     product?: ProductCreateNestedOneWithoutOrderItemsInput
@@ -33607,6 +33631,7 @@ export namespace Prisma {
     workingHours: number
     measure?: number | null
     totalPrice?: number | null
+    price?: number | null
     createdAt?: Date | string
   }
 
@@ -33618,6 +33643,7 @@ export namespace Prisma {
     workingHours?: IntFieldUpdateOperationsInput | number
     measure?: NullableIntFieldUpdateOperationsInput | number | null
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    price?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     order?: OrderUpdateOneRequiredWithoutItemsNestedInput
     product?: ProductUpdateOneWithoutOrderItemsNestedInput
@@ -33637,6 +33663,7 @@ export namespace Prisma {
     workingHours?: IntFieldUpdateOperationsInput | number
     measure?: NullableIntFieldUpdateOperationsInput | number | null
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    price?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -33652,6 +33679,7 @@ export namespace Prisma {
     workingHours: number
     measure?: number | null
     totalPrice?: number | null
+    price?: number | null
     createdAt?: Date | string
   }
 
@@ -33663,6 +33691,7 @@ export namespace Prisma {
     workingHours?: IntFieldUpdateOperationsInput | number
     measure?: NullableIntFieldUpdateOperationsInput | number | null
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    price?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -33678,6 +33707,7 @@ export namespace Prisma {
     workingHours?: IntFieldUpdateOperationsInput | number
     measure?: NullableIntFieldUpdateOperationsInput | number | null
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    price?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -35621,6 +35651,7 @@ export namespace Prisma {
     workingHours?: SortOrder
     measure?: SortOrder
     totalPrice?: SortOrder
+    price?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -35630,6 +35661,7 @@ export namespace Prisma {
     workingHours?: SortOrder
     measure?: SortOrder
     totalPrice?: SortOrder
+    price?: SortOrder
   }
 
   export type OrderItemMaxOrderByAggregateInput = {
@@ -35644,6 +35676,7 @@ export namespace Prisma {
     workingHours?: SortOrder
     measure?: SortOrder
     totalPrice?: SortOrder
+    price?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -35659,6 +35692,7 @@ export namespace Prisma {
     workingHours?: SortOrder
     measure?: SortOrder
     totalPrice?: SortOrder
+    price?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -35668,6 +35702,7 @@ export namespace Prisma {
     workingHours?: SortOrder
     measure?: SortOrder
     totalPrice?: SortOrder
+    price?: SortOrder
   }
 
   export type ToolListRelationFilter = {
@@ -38820,6 +38855,7 @@ export namespace Prisma {
     workingHours: number
     measure?: number | null
     totalPrice?: number | null
+    price?: number | null
     createdAt?: Date | string
     product?: ProductCreateNestedOneWithoutOrderItemsInput
     tool?: ToolCreateNestedOneWithoutOrderItemsInput
@@ -38837,6 +38873,7 @@ export namespace Prisma {
     workingHours: number
     measure?: number | null
     totalPrice?: number | null
+    price?: number | null
     createdAt?: Date | string
   }
 
@@ -38981,6 +39018,7 @@ export namespace Prisma {
     workingHours?: IntFilter<"OrderItem"> | number
     measure?: IntNullableFilter<"OrderItem"> | number | null
     totalPrice?: IntNullableFilter<"OrderItem"> | number | null
+    price?: IntNullableFilter<"OrderItem"> | number | null
     createdAt?: DateTimeFilter<"OrderItem"> | Date | string
   }
 
@@ -40767,6 +40805,7 @@ export namespace Prisma {
     workingHours: number
     measure?: number | null
     totalPrice?: number | null
+    price?: number | null
     createdAt?: Date | string
     order: OrderCreateNestedOneWithoutItemsInput
     tool?: ToolCreateNestedOneWithoutOrderItemsInput
@@ -40784,6 +40823,7 @@ export namespace Prisma {
     workingHours: number
     measure?: number | null
     totalPrice?: number | null
+    price?: number | null
     createdAt?: Date | string
   }
 
@@ -40984,6 +41024,7 @@ export namespace Prisma {
     workingHours: number
     measure?: number | null
     totalPrice?: number | null
+    price?: number | null
     createdAt?: Date | string
     order: OrderCreateNestedOneWithoutItemsInput
     product?: ProductCreateNestedOneWithoutOrderItemsInput
@@ -41001,6 +41042,7 @@ export namespace Prisma {
     workingHours: number
     measure?: number | null
     totalPrice?: number | null
+    price?: number | null
     createdAt?: Date | string
   }
 
@@ -41243,6 +41285,7 @@ export namespace Prisma {
     workingHours: number
     measure?: number | null
     totalPrice?: number | null
+    price?: number | null
     createdAt?: Date | string
     order: OrderCreateNestedOneWithoutItemsInput
     product?: ProductCreateNestedOneWithoutOrderItemsInput
@@ -41260,6 +41303,7 @@ export namespace Prisma {
     workingHours: number
     measure?: number | null
     totalPrice?: number | null
+    price?: number | null
     createdAt?: Date | string
   }
 
@@ -42182,6 +42226,7 @@ export namespace Prisma {
     workingHours: number
     measure?: number | null
     totalPrice?: number | null
+    price?: number | null
     createdAt?: Date | string
   }
 
@@ -42214,6 +42259,7 @@ export namespace Prisma {
     workingHours?: IntFieldUpdateOperationsInput | number
     measure?: NullableIntFieldUpdateOperationsInput | number | null
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    price?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     product?: ProductUpdateOneWithoutOrderItemsNestedInput
     tool?: ToolUpdateOneWithoutOrderItemsNestedInput
@@ -42231,6 +42277,7 @@ export namespace Prisma {
     workingHours?: IntFieldUpdateOperationsInput | number
     measure?: NullableIntFieldUpdateOperationsInput | number | null
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    price?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -42245,6 +42292,7 @@ export namespace Prisma {
     workingHours?: IntFieldUpdateOperationsInput | number
     measure?: NullableIntFieldUpdateOperationsInput | number | null
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    price?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -42627,6 +42675,7 @@ export namespace Prisma {
     workingHours: number
     measure?: number | null
     totalPrice?: number | null
+    price?: number | null
     createdAt?: Date | string
   }
 
@@ -42710,6 +42759,7 @@ export namespace Prisma {
     workingHours?: IntFieldUpdateOperationsInput | number
     measure?: NullableIntFieldUpdateOperationsInput | number | null
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    price?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     order?: OrderUpdateOneRequiredWithoutItemsNestedInput
     tool?: ToolUpdateOneWithoutOrderItemsNestedInput
@@ -42727,6 +42777,7 @@ export namespace Prisma {
     workingHours?: IntFieldUpdateOperationsInput | number
     measure?: NullableIntFieldUpdateOperationsInput | number | null
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    price?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -42741,6 +42792,7 @@ export namespace Prisma {
     workingHours?: IntFieldUpdateOperationsInput | number
     measure?: NullableIntFieldUpdateOperationsInput | number | null
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    price?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -42827,6 +42879,7 @@ export namespace Prisma {
     workingHours: number
     measure?: number | null
     totalPrice?: number | null
+    price?: number | null
     createdAt?: Date | string
   }
 
@@ -42873,6 +42926,7 @@ export namespace Prisma {
     workingHours?: IntFieldUpdateOperationsInput | number
     measure?: NullableIntFieldUpdateOperationsInput | number | null
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    price?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     order?: OrderUpdateOneRequiredWithoutItemsNestedInput
     product?: ProductUpdateOneWithoutOrderItemsNestedInput
@@ -42890,6 +42944,7 @@ export namespace Prisma {
     workingHours?: IntFieldUpdateOperationsInput | number
     measure?: NullableIntFieldUpdateOperationsInput | number | null
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    price?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -42904,6 +42959,7 @@ export namespace Prisma {
     workingHours?: IntFieldUpdateOperationsInput | number
     measure?: NullableIntFieldUpdateOperationsInput | number | null
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    price?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -43023,6 +43079,7 @@ export namespace Prisma {
     workingHours: number
     measure?: number | null
     totalPrice?: number | null
+    price?: number | null
     createdAt?: Date | string
   }
 
@@ -43066,6 +43123,7 @@ export namespace Prisma {
     workingHours?: IntFieldUpdateOperationsInput | number
     measure?: NullableIntFieldUpdateOperationsInput | number | null
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    price?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     order?: OrderUpdateOneRequiredWithoutItemsNestedInput
     product?: ProductUpdateOneWithoutOrderItemsNestedInput
@@ -43083,6 +43141,7 @@ export namespace Prisma {
     workingHours?: IntFieldUpdateOperationsInput | number
     measure?: NullableIntFieldUpdateOperationsInput | number | null
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    price?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -43097,6 +43156,7 @@ export namespace Prisma {
     workingHours?: IntFieldUpdateOperationsInput | number
     measure?: NullableIntFieldUpdateOperationsInput | number | null
     totalPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    price?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

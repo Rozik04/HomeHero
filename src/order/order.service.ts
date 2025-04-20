@@ -3,11 +3,12 @@ import {ApiTags,ApiOperation,ApiResponse,ApiParam,ApiBody,} from '@nestjs/swagge
 import { CreateOrderWithItemsDto } from './dto/create-order.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma } from 'generated/prisma';
+import { BotService } from 'src/tgbot/tgbot.service'; 
 
 @ApiTags('orders')
 @Injectable()
 export class OrderService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService,  private readonly botService: BotService) {}
 
   @ApiOperation({ summary: 'Create a new order' })
   @ApiBody({ type: CreateOrderWithItemsDto })
@@ -70,11 +71,31 @@ export class OrderService {
           countOfProduct: item.countOfProduct,
           countOfTool: item.countOfTool,
           workingHours: item.workingHours,
+          price: item.price,
           totalPrice:  null,
         },
       });
       await this.prisma.basket.deleteMany({where:{userID:userId}})
     }
+
+    const message = `✅New order received!\n
+    🆔 Order ID: ${createdOrder.id}
+    🏠 Address: ${createdOrder.address}
+    💳 Payment Type: ${createdOrder.paymentType}
+    📊 With Delivery: ${createdOrder.withDelivery}
+    📅 Delivery Date: ${createdOrder.deliveryDate}
+    📦 Comment to Delivery: ${createdOrder.commentToDelivery}
+    🌍 Location (Lat): ${createdOrder.locationLat}
+    🌍 Location (Long): ${createdOrder.locationLong}
+    👤 User ID: ${createdOrder.userID||userId}
+    ⏱️ Created At: ${createdOrder.createdAt} \n
+    
+    🚚 Order successfully created and ready for processing! 📦✨
+    `;
+    
+    
+    
+    await this.botService.sendMessage(message);
 
     return this.prisma.order.findUnique({
       where: { id: createdOrder.id },
@@ -199,6 +220,7 @@ export class OrderService {
         countOfProduct,
         countOfTool,
         workingHours,
+        price,
       } = item;
   
       if (toolID && countOfTool) {
@@ -223,6 +245,7 @@ export class OrderService {
           countOfTool,
           workingHours,
           totalPrice: null,
+          price,
         },
       });
     }

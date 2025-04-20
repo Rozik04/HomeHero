@@ -10,10 +10,6 @@ import { ApiProperty } from '@nestjs/swagger';
 import { TimeUnit } from 'src/utils/enums';
 
 export class CreateOrderItemDto {
-  @ApiProperty({ example: 'order-uuid', description: 'Order ID' })
-  @IsNotEmpty()
-  orderID?: string;
-
   @ApiProperty({ example: 'product-uuid', description: 'Product ID' })
   @IsString()
   @IsNotEmpty()
@@ -53,4 +49,9 @@ export class CreateOrderItemDto {
   @IsInt()
   @Min(0)
   workingHours: number;
+
+  @ApiProperty({ example: 800, description: 'Price' })
+  @IsInt()
+  @Min(0)
+  price: number;
 }

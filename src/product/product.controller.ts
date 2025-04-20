@@ -44,7 +44,7 @@ export class ProductController {
   // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
   @Get()
   @ApiOperation({ summary: 'Get all products with filtering, sorting, pagination' })
-  @ApiQuery({ name: 'search', required: false, type: String, example: 'kompyuter' })
+  @ApiQuery({ name: 'search', required: false, type: String, example: '' })
   @ApiQuery({ name: 'sortBy', required: false, enum: ['nameRu', 'nameUz', 'nameEn'], example: 'nameUz' })
   @ApiQuery({ name: 'order', required: false, enum: ['asc', 'desc'], example: 'desc' })
   @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })

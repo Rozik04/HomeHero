@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrismaModule } from './prisma/prisma.module';
@@ -22,10 +22,15 @@ import { OrderItemModule } from './order-item/order-item.module';
 import { BasketModule } from './basket/basket.module';
 import { CommentModule } from './comment/comment.module';
 import { OrderMasterModule } from './order-master/order-master.module';
+import { TgbotModule } from './tgbot/tgbot.module';        
+import { ConfigModule } from '@nestjs/config';
+import { TelegrafModule } from 'nestjs-telegraf';
+import { BotService } from './tgbot/tgbot.service';
 
+@Global()
 @Module({
-  imports: [PrismaModule, RegionModule, UserModule, BrandModule, SizeModule, CapacityModule, ToolModule, LevelModule, MasterJobsModule, ProductModule, MasterModule, FaqModule, GeneralInfoModule, PartnerModule, ShowCaseModule, ContactModule, OrderModule, OrderItemModule, BasketModule, CommentModule, OrderMasterModule,],
+  imports: [PrismaModule, RegionModule, UserModule, BrandModule, SizeModule, CapacityModule, ToolModule, LevelModule, MasterJobsModule, ProductModule, MasterModule, FaqModule, GeneralInfoModule, PartnerModule, ShowCaseModule, ContactModule, OrderModule, OrderItemModule, BasketModule, CommentModule, OrderMasterModule, TgbotModule ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, BotService],
 })
 export class AppModule {}

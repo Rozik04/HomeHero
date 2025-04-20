@@ -12,15 +12,15 @@ import { ApiOperation, ApiQuery, ApiResponse } from '@nestjs/swagger';
 export class BrandController {
   constructor(private readonly brandService: BrandService) {}
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin,  UserRole.superadmin])
   @Post()
   create(@Body() createBrandDto: CreateBrandDto) {
     return this.brandService.create(createBrandDto);
   }
 
-  // @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  // @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+  @UseGuards(JwtAuthGuard, JwtRoleGuard)
+  @Roles([UserRole.admin])
   @Get()
   @ApiOperation({ summary: 'Get all brands' })
   @ApiResponse({ status: 200, description: 'List of all brands.' })

@@ -14,6 +14,18 @@ export class MasterJobsService {
   @ApiResponse({ status: 201, description: 'Master job successfully created.' })
   @ApiResponse({ status: 400, description: 'Master job was not created.' })
   async create(createMasterJobDto: CreateMasterJobDto) {
+    let checkProduct = await this.prisma.product.findFirst({
+      where: {
+        id: createMasterJobDto.productID,
+      },
+    });
+    if (!checkProduct) {
+      throw new BadRequestException('This product is not found.');
+    }
+
+
+
+
     let checkLevel = await this.prisma.product.findFirst({
       where: {
         id: createMasterJobDto.productID,

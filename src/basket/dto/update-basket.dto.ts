@@ -14,7 +14,16 @@ export class UpdateBasketDto {
     example: 'b1c2d3e4-f5g6-h7i8-j9k0-l1m2n3o4p5q6'
   })
   @IsString()
-  id: string; // update qilish uchun kerakli ID
+  id: string; 
+
+  @ApiProperty({
+    description: 'Basket (savat) elementining userID raqami',
+    example: 'b1c2d3e4-f5g6-h7i8-j9k0-l1m2n3o4p5q6'
+  })
+  @IsString()
+  userID: string; 
+
+
 
   @ApiPropertyOptional({
     description: 'Mahsulotning ID raqami',
