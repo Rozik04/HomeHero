@@ -91,9 +91,8 @@ findAllSessions() {
 @UseGuards(JwtAuthGuard, JwtRoleGuard)
 @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
 @Get('myProfile')
-myData(@Request() req) {
-  let userId = req.user.id;
-    return this.userService.myData(userId);
+myData(@Request() req: Requ) {
+    return this.userService.myData(req);
   }
 
 

@@ -152,7 +152,7 @@ export class UserService {
 
     let accessToken = this.jwt.sign({sub: isUserExists.id, role: isUserExists.role},{secret: this.ACCESS_SECRET,expiresIn: '1h' });
     let refreshToken = this.jwt.sign({sub: isUserExists.id, role: isUserExists.role},{ expiresIn: '7d', secret: this.REFRESH_SECRET, });
-    return { user: isUserExists, accessToken, refreshToken };
+    return { accessToken, refreshToken };
   }
 
 
@@ -301,14 +301,14 @@ export class UserService {
   @ApiOperation({ summary: 'My profile' })
   @ApiResponse({ status: 200, description: 'You have logged into your profile' })
   @ApiResponse({ status: 404, description: "You can'nt logged in your profle" })
-  async myData(userId:string){
-    // let userId = req['user'].id;
-    let isSessionOfUser = await this.prisma.session.findFirst({where:{userId}});
+  async myData(req: Requ){
+    let userId = req['user'].id;
+    let isSessionOfUser = await this.prisma.session.findFirst({where:{userId:userId, ipAddress:req.ip}});
     if(!isSessionOfUser){
       throw new BadRequestException("You must log in before accessing your profile!")
     } 
     let userProfile = await this.prisma.user.findFirst({where:{id:userId}});
-    return userProfile;
+    return {userProfile, session:isSessionOfUser};
   }
 
 
