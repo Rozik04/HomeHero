@@ -355,6 +355,60 @@ CREATE TABLE "ProductTool" (
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Region_nameRu_key" ON "Region"("nameRu");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Region_nameUz_key" ON "Region"("nameUz");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Region_nameEn_key" ON "Region"("nameEn");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Brand_nameRu_key" ON "Brand"("nameRu");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Brand_nameUz_key" ON "Brand"("nameUz");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Brand_nameEn_key" ON "Brand"("nameEn");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Capacity_nameRu_key" ON "Capacity"("nameRu");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Capacity_nameUz_key" ON "Capacity"("nameUz");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Capacity_nameEn_key" ON "Capacity"("nameEn");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Size_nameRu_key" ON "Size"("nameRu");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Size_nameUz_key" ON "Size"("nameUz");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Size_nameEn_key" ON "Size"("nameEn");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Level_nameRu_key" ON "Level"("nameRu");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Level_nameUz_key" ON "Level"("nameUz");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Level_nameEn_key" ON "Level"("nameEn");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Tool_nameRu_key" ON "Tool"("nameRu");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Tool_nameUz_key" ON "Tool"("nameUz");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Tool_nameEn_key" ON "Tool"("nameEn");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Tool_code_key" ON "Tool"("code");
 
 -- CreateIndex

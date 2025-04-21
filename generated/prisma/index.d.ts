@@ -31530,14 +31530,14 @@ export namespace Prisma {
 
   export type RegionWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    nameRu?: string
+    nameUz?: string
+    nameEn?: string
     AND?: RegionWhereInput | RegionWhereInput[]
     OR?: RegionWhereInput[]
     NOT?: RegionWhereInput | RegionWhereInput[]
-    nameRu?: StringFilter<"Region"> | string
-    nameUz?: StringFilter<"Region"> | string
-    nameEn?: StringFilter<"Region"> | string
     users?: UserListRelationFilter
-  }, "id">
+  }, "id" | "nameRu" | "nameUz" | "nameEn">
 
   export type RegionOrderByWithAggregationInput = {
     id?: SortOrder
@@ -31901,14 +31901,14 @@ export namespace Prisma {
 
   export type BrandWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    nameRu?: string
+    nameUz?: string
+    nameEn?: string
     AND?: BrandWhereInput | BrandWhereInput[]
     OR?: BrandWhereInput[]
     NOT?: BrandWhereInput | BrandWhereInput[]
-    nameRu?: StringFilter<"Brand"> | string
-    nameUz?: StringFilter<"Brand"> | string
-    nameEn?: StringFilter<"Brand"> | string
     tools?: ToolListRelationFilter
-  }, "id">
+  }, "id" | "nameRu" | "nameUz" | "nameEn">
 
   export type BrandOrderByWithAggregationInput = {
     id?: SortOrder
@@ -31951,14 +31951,14 @@ export namespace Prisma {
 
   export type CapacityWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    nameRu?: string
+    nameUz?: string
+    nameEn?: string
     AND?: CapacityWhereInput | CapacityWhereInput[]
     OR?: CapacityWhereInput[]
     NOT?: CapacityWhereInput | CapacityWhereInput[]
-    nameRu?: StringFilter<"Capacity"> | string
-    nameUz?: StringFilter<"Capacity"> | string
-    nameEn?: StringFilter<"Capacity"> | string
     tools?: ToolListRelationFilter
-  }, "id">
+  }, "id" | "nameRu" | "nameUz" | "nameEn">
 
   export type CapacityOrderByWithAggregationInput = {
     id?: SortOrder
@@ -32001,14 +32001,14 @@ export namespace Prisma {
 
   export type SizeWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    nameRu?: string
+    nameUz?: string
+    nameEn?: string
     AND?: SizeWhereInput | SizeWhereInput[]
     OR?: SizeWhereInput[]
     NOT?: SizeWhereInput | SizeWhereInput[]
-    nameRu?: StringFilter<"Size"> | string
-    nameUz?: StringFilter<"Size"> | string
-    nameEn?: StringFilter<"Size"> | string
     tools?: ToolListRelationFilter
-  }, "id">
+  }, "id" | "nameRu" | "nameUz" | "nameEn">
 
   export type SizeOrderByWithAggregationInput = {
     id?: SortOrder
@@ -32831,17 +32831,17 @@ export namespace Prisma {
 
   export type LevelWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    nameRu?: string
+    nameUz?: string
+    nameEn?: string
     AND?: LevelWhereInput | LevelWhereInput[]
     OR?: LevelWhereInput[]
     NOT?: LevelWhereInput | LevelWhereInput[]
-    nameRu?: StringFilter<"Level"> | string
-    nameUz?: StringFilter<"Level"> | string
-    nameEn?: StringFilter<"Level"> | string
     orderItems?: OrderItemListRelationFilter
     masterJobs?: MasterJobsListRelationFilter
     products?: ProductLevelListRelationFilter
     baskets?: BasketListRelationFilter
-  }, "id">
+  }, "id" | "nameRu" | "nameUz" | "nameEn">
 
   export type LevelOrderByWithAggregationInput = {
     id?: SortOrder
@@ -32920,13 +32920,13 @@ export namespace Prisma {
 
   export type ToolWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    nameRu?: string
+    nameUz?: string
+    nameEn?: string
     code?: string
     AND?: ToolWhereInput | ToolWhereInput[]
     OR?: ToolWhereInput[]
     NOT?: ToolWhereInput | ToolWhereInput[]
-    nameRu?: StringFilter<"Tool"> | string
-    nameUz?: StringFilter<"Tool"> | string
-    nameEn?: StringFilter<"Tool"> | string
     descriptionRu?: StringFilter<"Tool"> | string
     descriptionUz?: StringFilter<"Tool"> | string
     descriptionEn?: StringFilter<"Tool"> | string
@@ -32945,7 +32945,7 @@ export namespace Prisma {
     masterJobs?: MasterJobsListRelationFilter
     baskets?: BasketListRelationFilter
     products?: ProductToolListRelationFilter
-  }, "id" | "code">
+  }, "id" | "nameRu" | "nameUz" | "nameEn" | "code">
 
   export type ToolOrderByWithAggregationInput = {
     id?: SortOrder

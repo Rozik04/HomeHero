@@ -77,9 +77,9 @@ model User {
 
 model Region {
   id     String @id @default(uuid())
-  nameRu String
-  nameUz String
-  nameEn String
+  nameRu String @unique
+  nameUz String @unique
+  nameEn String @unique
 
   users User[]
 }
@@ -150,27 +150,27 @@ model OrderItem {
 
 model Brand {
   id     String @id @default(uuid())
-  nameRu String
-  nameUz String
-  nameEn String
+  nameRu String @unique
+  nameUz String @unique
+  nameEn String @unique
 
   tools Tool[]
 }
 
 model Capacity {
   id     String @id @default(uuid())
-  nameRu String
-  nameUz String
-  nameEn String
+  nameRu String @unique
+  nameUz String @unique
+  nameEn String @unique
 
   tools Tool[]
 }
 
 model Size {
   id     String @id @default(uuid())
-  nameRu String
-  nameUz String
-  nameEn String
+  nameRu String @unique
+  nameUz String @unique
+  nameEn String @unique
 
   tools Tool[]
 }
@@ -316,9 +316,9 @@ model Product {
 
 model Level {
   id     String @id @default(uuid())
-  nameRu String
-  nameUz String
-  nameEn String
+  nameRu String @unique
+  nameUz String @unique
+  nameEn String @unique
 
   orderItems OrderItem[]
   masterJobs MasterJobs[]
@@ -328,9 +328,9 @@ model Level {
 
 model Tool {
   id            String @id @default(uuid())
-  nameRu        String
-  nameUz        String
-  nameEn        String
+  nameRu        String @unique
+  nameUz        String @unique
+  nameEn        String @unique
   descriptionRu String
   descriptionUz String
   descriptionEn String
