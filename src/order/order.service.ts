@@ -41,8 +41,6 @@ export class OrderService {
         userID: userId
       },
     });
-
- 
     
     for (const item of orderItems) {
       if (item.toolID && item.countOfTool) {
@@ -79,20 +77,25 @@ export class OrderService {
       await this.prisma.basket.deleteMany({where:{userID:userId}})
     }
 
-    const message = `✅New order received!\n
-    🆔 Order ID: ${createdOrder.id}
-    🏠 Address: ${createdOrder.address}
-    💳 Payment Type: ${createdOrder.paymentType}
-    📊 With Delivery: ${createdOrder.withDelivery}
-    📅 Delivery Date: ${createdOrder.deliveryDate}
-    📦 Comment to Delivery: ${createdOrder.commentToDelivery}
-    🌍 Location (Lat): ${createdOrder.locationLat}
-    🌍 Location (Long): ${createdOrder.locationLong}
-    👤 User ID: ${createdOrder.userID||userId}
-    ⏱️ Created At: ${createdOrder.createdAt} \n
+    const message = `
+    ✅ New Order Received!
     
-    🚚 Order successfully created and ready for processing! 📦✨
+    ━━━━━━━━━━━━━━━━━━━━━━
+    🆔 ID                : ${createdOrder.id}
+    🏠 Address           : ${createdOrder.address}
+    💳 Payment Type      : ${createdOrder.paymentType}
+    📊 With Delivery     : ${createdOrder.withDelivery}
+    📅 Delivery Date     : ${createdOrder.deliveryDate}
+    💬 Comment           : ${createdOrder.commentToDelivery}
+    🌍 Location (Lat)    : ${createdOrder.locationLat}
+    🌍 Location (Long)   : ${createdOrder.locationLong}
+    👤 User ID           : ${createdOrder.userID || userId}
+    ⏱️ Created At        : ${createdOrder.createdAt}
+    ━━━━━━━━━━━━━━━━━━━━━━
+    
+    🚚 Order has been successfully created and is ready for processing! 📦✨
     `;
+    
     
     
     

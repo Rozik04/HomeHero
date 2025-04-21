@@ -20,6 +20,7 @@ import { JwtAuthGuard } from 'src/utils/token.guard';
 import { JwtRoleGuard } from 'src/utils/role.guard';
 import { Roles } from 'src/utils/role.decorator';
 import { UserRole } from 'src/utils/enums';
+import { ApiBody, ApiConsumes, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 @Controller('showcase')
 export class ShowCaseController {
@@ -29,6 +30,11 @@ export class ShowCaseController {
   @Roles([UserRole.admin])
   @Post('upload-image')
   @UseInterceptors(FileInterceptor('image', multerShow))
+  @ApiOperation({ summary: 'Upload an image to the server' })
+  @ApiConsumes('multipart/form-data') 
+  @ApiBody({ description: 'Image file to upload', schema: { type: 'object', properties: { image: { type: 'string', format: 'binary', example: 'example.jpg', }, }, }, })
+  @ApiResponse({ status: 200, description: 'Passport image uploaded successfully', type: Object })
+  @ApiResponse({ status: 400, description: 'No passport image uploaded' })
   uploadImage(@UploadedFile() image: Express.Multer.File) {
     if (!image) {
       throw new BadRequestException('File not uploaded');

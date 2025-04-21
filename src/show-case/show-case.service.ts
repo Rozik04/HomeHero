@@ -23,7 +23,7 @@ export class ShowCaseService {
   @ApiResponse({ status: 400, description: 'Bad request.' })
   async create(createShowCaseDto: CreateShowCaseDto) {
     const created = await this.prisma.showCase.create({
-      data: { ...createShowCaseDto },
+      data: { ...createShowCaseDto},
     });
     return  created ;
   }

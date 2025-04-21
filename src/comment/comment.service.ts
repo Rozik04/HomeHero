@@ -113,6 +113,12 @@ export class CommentService {
     } else {
       throw new BadRequestException('Not allowed!');
     }
+
+    let isOrder = await this.prisma.order.findFirst({where:{id:updateDto.orderID}});
+    if(isOrder?.id!=userId){
+      throw new BadRequestException("You can comment only to your own orders!")
+    }
+
     const { message, ratings } = updateDto;
   
     if (ratings && ratings.length > 0) {

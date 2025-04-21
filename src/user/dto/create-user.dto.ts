@@ -23,7 +23,7 @@ export class CreateUserDto {
   @IsEmail()
   email: string;
 
-  @ApiProperty({ example: 'password1234', description: 'User\'s password' })
+  @ApiProperty({ example: 'password1234', description: 'User\'s password', minimum: 8 })
   @IsNotEmpty()
   @IsString()
   password: string;
@@ -38,7 +38,7 @@ export class CreateUserDto {
   @IsString()
   image: string;
 
-  @ApiProperty({ example: 'admin', description: 'User\'s role' })
+  @ApiProperty({ example: 'legaluser', description: 'User\'s role' })
   @IsNotEmpty()
   @IsEnum(UserRole)
   role: UserRole;

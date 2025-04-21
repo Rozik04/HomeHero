@@ -103,9 +103,9 @@ export class UserService {
         throw new BadRequestException("Only legal users can enter the documents!")
       } 
     }
-    // if([UserRole.admin, UserRole.superadmin, UserRole.vieweradmin].includes(createUserDto.role)){
-    //   throw new BadRequestException("Registration as an admin is prohibited!")
-    // } 
+    if([UserRole.admin, UserRole.superadmin, UserRole.vieweradmin].includes(createUserDto.role)){
+      throw new BadRequestException("Registration as an admin is prohibited!")
+    } 
 
     let newUser = await this.prisma.user.update({where:{email:createUserDto.email},data:{...createUserDto, password:hash}});
     return newUser
@@ -150,7 +150,7 @@ export class UserService {
     }
     await this.prisma.session.create({ data: sessionData });
 
-    let accessToken = this.jwt.sign({sub: isUserExists.id, role: isUserExists.role},{secret: this.ACCESS_SECRET,expiresIn: '15m' });
+    let accessToken = this.jwt.sign({sub: isUserExists.id, role: isUserExists.role},{secret: this.ACCESS_SECRET,expiresIn: '1h' });
     let refreshToken = this.jwt.sign({sub: isUserExists.id, role: isUserExists.role},{ expiresIn: '7d', secret: this.REFRESH_SECRET, });
     return { user: isUserExists, accessToken, refreshToken };
   }
@@ -301,15 +301,17 @@ export class UserService {
   @ApiOperation({ summary: 'My profile' })
   @ApiResponse({ status: 200, description: 'You have logged into your profile' })
   @ApiResponse({ status: 404, description: "You can'nt logged in your profle" })
-  async myData(req:Requ){
-    let userId = req['user'].id;
-    let isSessionOfUser = await this.prisma.session.findFirst({where:{userId,ipAddress:req.ip}});
+  async myData(userId:string){
+    // let userId = req['user'].id;
+    let isSessionOfUser = await this.prisma.session.findFirst({where:{userId}});
     if(!isSessionOfUser){
       throw new BadRequestException("You must log in before accessing your profile!")
     } 
     let userProfile = await this.prisma.user.findFirst({where:{id:userId}});
     return userProfile;
   }
+
+
 
 
   @ApiOperation({ summary: 'Get user by ID' })
@@ -349,9 +351,9 @@ export class UserService {
       throw new BadRequestException("User not found");
     }
 
-    // if(updateUserDto.role){
-    //   throw new BadRequestException("Update users role not allowed!");
-    // }
+    if(updateUserDto.role){
+      throw new BadRequestException("Update users role not allowed!");
+    }
     
     let hashedPass;
     if(isUserExists.password){

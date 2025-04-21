@@ -62,7 +62,7 @@ export class MasterController {
   @ApiOperation({ summary: 'Get all masters' })
   @ApiResponse({ status: 200, description: 'List of all masters.' })
   @ApiResponse({ status: 400, description: 'No masters found.' })
-  @ApiQuery({ name: 'search', required: false, type: String, example: 'Ali' })
+  @ApiQuery({ name: 'search', required: false, type: String, example: '' })
   @ApiQuery({ name: 'sortBy', required: false, enum: ['name', 'createdAt'], example: 'name' })
   @ApiQuery({ name: 'order', required: false, enum: ['asc', 'desc'], example: 'asc' })
   @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })

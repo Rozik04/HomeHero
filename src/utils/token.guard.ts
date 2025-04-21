@@ -15,7 +15,10 @@ export class JwtAuthGuard implements CanActivate{
         }
         try {
             let data = this.jwt.verify(token);
-            request.user = data
+            request.user = {
+                id: data.sub,
+                role: data.role,
+              };
             return true
         } catch (error) {
             throw new UnauthorizedException("Wrong token")

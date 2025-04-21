@@ -13,7 +13,10 @@ export class BasketService {
   @ApiBody({ type: CreateBasketArrayDto })
   @ApiResponse({status: 201, description: 'The basket item has been successfully created.', })
   @ApiResponse({status: 400, description: 'Level or Tool not linked to the selected product.',})
-  async create(CreateBasketArrayDto: CreateBasketArrayDto, userId: string) {
+  async create(CreateBasketArrayDto: CreateBasketArrayDto, req) {
+    let userId = req['user'].id;
+    console.log(userId);
+    
     let itemsToSave: any[] = [];
   
     for (const dto of CreateBasketArrayDto.baskets) {
@@ -51,7 +54,7 @@ export class BasketService {
     const basketItems = await this.prisma.basket.createMany({
       data: itemsToSave,
     });
-    return  basketItems.count
+    return {Message: `${basketItems.count} item has been added to the basket.`}
   }
 
   
@@ -172,10 +175,10 @@ export class BasketService {
       throw new BadRequestException('Basket not found');
     }
     const allowedRoles = ['admin'];
-    if (isBasketExists.userID !== userId || !allowedRoles.includes(role)) {
-      throw new BadRequestException('Not allowed!');
+    if (isBasketExists.userID == userId || allowedRoles.includes(role)) {
+      let deletedBasket = await this.prisma.basket.delete({ where: { id } });
+      return  deletedBasket ;
     }
-    let deletedBasket = await this.prisma.basket.delete({ where: { id } });
-    return  deletedBasket ;
+    throw new BadRequestException('Not allowed!');
   }
 }

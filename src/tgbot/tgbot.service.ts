@@ -1,5 +1,5 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
-import { InjectBot } from 'nestjs-telegraf';
+import { Ctx, InjectBot } from 'nestjs-telegraf';
 import { Telegraf } from 'telegraf';
 
 @Injectable()
@@ -10,8 +10,9 @@ export class BotService implements OnModuleInit {
     try {
       await this.bot.telegram.deleteWebhook({ drop_pending_updates: true });
       this.bot.on('text', (ctx) => {
-        ctx.reply(`Welcome to Home Hero Bot!`);
-      });    
+        const chatId = ctx.chat.id;
+        ctx.reply(`The Home Hero Bot`);
+      }); 
       console.log('✅ Bot muvaffaqiyatli ishga tushdi!');
 
     } catch (err) {

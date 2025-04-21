@@ -64,12 +64,7 @@ export class UpdateShowCaseDto {
   @IsOptional()
   isActive?: boolean;
 
-  @ApiPropertyOptional({ description: 'Boshlanish sanasi (ixtiyoriy)', example: '2025-01-01' })
-  @IsDateString()
-  @IsOptional()
-  startDate?: Date;
-
-  @ApiPropertyOptional({ description: 'Tugash sanasi', example: '2025-12-31' })
+  @ApiPropertyOptional({ description: 'Tugash sanasi', example: "2025-12-31T23:59:59.999Z" })
   @IsDateString()
   @IsOptional()
   endDate?: Date;

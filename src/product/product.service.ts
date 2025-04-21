@@ -146,8 +146,8 @@ export class ProductService {
         hourlyPrice: item.hourlyPrice,
       })),
       tools: product.tools.map((item) => ({
-        productId:item.productID,
         id: item.tool.id,
+        productId:item.productID,
         nameRu: item.tool.nameRu,
         nameUz: item.tool.nameUz,
         nameEn: item.tool.nameEn,

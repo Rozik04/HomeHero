@@ -65,13 +65,9 @@ export class CreateShowCaseDto {
   @IsNotEmpty()
   isActive: boolean;
 
-  @ApiProperty({ description: 'Boshlanish sanasi (ixtiyoriy)', example: '2025-01-01', required: false })
-  @IsDateString()
-  @IsOptional()
-  startDate?: Date = new Date(); 
-
-  @ApiProperty({ description: 'Tugash sanasi', example: '2025-12-31' })
+  @ApiProperty({ description: 'Tugash sanasi', example: "2025-12-31T23:59:59.999Z" })
   @IsDateString()
   @IsNotEmpty()
-  endDate: Date;
+
+  endDate: Date
 }

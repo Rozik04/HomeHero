@@ -91,8 +91,9 @@ findAllSessions() {
 @UseGuards(JwtAuthGuard, JwtRoleGuard)
 @Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
 @Get('myProfile')
-myData(@Req() req: Requ) {
-    return this.userService.myData(req);
+myData(@Request() req) {
+  let userId = req.user.id;
+    return this.userService.myData(userId);
   }
 
 
@@ -155,8 +156,7 @@ sendOtpToReset(@Request() req){
   }
 
 
-@UseGuards(JwtAuthGuard, JwtRoleGuard)
-@Roles([UserRole.admin, UserRole.vieweradmin, UserRole.individualuser, UserRole.superadmin, UserRole.legaluser])
+
 @Post('refreshToken')
 refreshToken(@Body() refreshToken:RefreshTokenDto){
   return this.userService.generateNewAccessToken(refreshToken)

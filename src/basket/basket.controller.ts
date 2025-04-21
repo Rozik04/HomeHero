@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request, Req } from '@nestjs/common';
 import { BasketService } from './basket.service';
 import { CreateBasketArrayDto, CreateBasketDto } from './dto/create-basket.dto';
 import { UpdateBasketArrayDto, UpdateBasketDto } from './dto/update-basket.dto';
@@ -6,6 +6,7 @@ import { JwtAuthGuard } from 'src/utils/token.guard';
 import { JwtRoleGuard } from 'src/utils/role.guard';
 import { Roles } from 'src/utils/role.decorator';
 import { UserRole } from 'src/utils/enums';
+import { Request as Reeeq } from 'express';
 
 @Controller('basket')
 export class BasketController {
@@ -14,9 +15,8 @@ export class BasketController {
   @UseGuards(JwtAuthGuard, JwtRoleGuard)
   @Roles([UserRole.admin, UserRole.individualuser, UserRole.legaluser])
   @Post()
-  create(@Body() CreateBasketArrayDto: CreateBasketArrayDto, @Request() req) {
-    let userId = req.user.id;
-    return this.basketService.create(CreateBasketArrayDto, userId);
+  create(@Body() CreateBasketArrayDto: CreateBasketArrayDto, @Req() req: Reeeq) {
+    return this.basketService.create(CreateBasketArrayDto, req);
   }
 
   @UseGuards(JwtAuthGuard, JwtRoleGuard)

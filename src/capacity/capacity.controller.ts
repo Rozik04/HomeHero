@@ -23,7 +23,7 @@ export class CapacityController {
   @Roles([UserRole.admin, UserRole.superadmin])
   @Get()
   @ApiOperation({ summary: 'Get all capacities' })
-  @ApiQuery({ name: 'search', required: false, example: 'Toshkent' })
+  @ApiQuery({ name: 'search', required: false, example: '' })
   @ApiQuery({ name: 'sortBy', required: false, enum: ['nameUz', 'nameRu', 'nameEn'], example: 'nameUz' })
   @ApiQuery({ name: 'order', required: false, enum: ['asc', 'desc'], example: 'asc' })
   @ApiQuery({ name: 'page', required: false, example: 1 })
